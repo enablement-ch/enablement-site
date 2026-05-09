@@ -1163,45 +1163,50 @@ p { margin: 0; max-width: 64ch; }
 }
 .marquee-cell {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 64px;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 1.125rem;
   color: var(--color-body);
-  opacity: 0.7;
+  opacity: 0.75;
   text-decoration: none;
   white-space: nowrap;
-  position: relative;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard),
               color var(--motion-duration-fast) var(--motion-ease-standard);
 }
-.marquee-cell.has-link:hover {
+.marquee-cell.has-link {
   opacity: 1;
-  color: var(--color-heading);
+}
+.marquee-cell.has-link:hover {
+  color: var(--color-accent);
 }
 .marquee-cell.has-link:hover .cs-pill {
-  opacity: 1;
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
 }
 .marquee-cell .logo-mark {
   letter-spacing: -0.01em;
 }
 .cs-pill {
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 3px 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard),
+              background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
@@ -1209,13 +1214,6 @@ p { margin: 0; max-width: 64ch; }
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
-  .cs-pill {
-    opacity: 1;
-    bottom: auto;
-    position: static;
-    transform: none;
-    margin-left: var(--space-3);
-  }
 }
 
 /* ============ VIDEO TESTIMONIALS ============ */
