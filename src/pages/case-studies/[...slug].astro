@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HubSpotMeetings from "../../components/HubSpotMeetings.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -10,6 +9,7 @@ export async function getStaticPaths() {
 
 const { cs } = Astro.props;
 const { Content } = await render(cs);
+const hasVideo = !!cs.data.videoTestimonial;
 
 const facts: Array<{ label: string; value: string }> = [
   cs.data.industry && { label: "Industry", value: cs.data.industry },
@@ -20,82 +20,169 @@ const facts: Array<{ label: string; value: string }> = [
     value: cs.data.engagementLength,
   },
 ].filter(Boolean) as Array<{ label: string; value: string }>;
+
+const initials = cs.data.person?.name
+  ? cs.data.person.name
+      .split(" ")
+      .map((s) => s[0])
+      .slice(0, 2)
+      .join("")
+  : "";
 ---
 
 <BaseLayout
-  title={`${cs.data.company} — ${cs.data.headline} · Enablement.ch`}
+  title={`How ${cs.data.company} got ${cs.data.result} — Enablement.ch`}
   description={cs.data.outcome}
 >
-  <header class="hero">
+  <!-- 01 Hero — split layout when video, centered fallback otherwise -->
+  <header class="hero case-hero" data-variant={hasVideo ? "video" : "text"}>
     <div class="container">
-      <div class="hero-inner">
-        <span class="eyebrow"
-          ><span class="num">↳</span><span class="sep">/</span>
-          <a href="/case-studies" style="color:inherit">Case studies</a></span
-        >
-        <h1 class="display" style="font-size:clamp(2.5rem,5vw,4rem)">
-          {cs.data.headline}
-        </h1>
-        <p class="lead hero-lead">
-          <strong style="color:var(--color-heading)">{cs.data.company}</strong> ·
-          {cs.data.outcome}
-        </p>
+      <div class={hasVideo ? "case-hero-grid" : "hero-inner"}>
+        <div class="case-hero-text">
+          <span class="eyebrow">
+            <span class="num">↳</span><span class="sep">/</span>
+            <a href="/case-studies" style="color:inherit">Clients</a>
+          </span>
+          <h1 class="display case-hero-title">
+            How {cs.data.company} got
+            <span class="italic-accent">{cs.data.result}</span>
+          </h1>
+          <p class="lead hero-lead">{cs.data.outcome}</p>
+          {
+            cs.data.person && (
+              <div class="case-card-person" style="margin-top: var(--space-4)">
+                <span class="case-card-avatar">
+                  {cs.data.person.photo ? (
+                    <img src={cs.data.person.photo} alt={cs.data.person.name} />
+                  ) : (
+                    initials
+                  )}
+                </span>
+                <span class="case-card-person-info">
+                  <span class="case-card-person-name">
+                    {cs.data.person.name}
+                  </span>
+                  <span class="case-card-person-title">
+                    {cs.data.person.title} · {cs.data.company}
+                  </span>
+                </span>
+              </div>
+            )
+          }
+        </div>
+
+        {
+          hasVideo && (
+            <div class="case-hero-video">
+              <button
+                class="video-thumb large"
+                aria-label={`Play testimonial from ${cs.data.person?.name ?? cs.data.company}`}
+                data-src={cs.data.videoTestimonial}
+              >
+                <span class="video-thumb-fill" />
+                <span class="video-play">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   </header>
 
-  <div class="container" style="padding-top:var(--space-6)">
-    <div class="stats">
-      {
-        cs.data.metrics.map((m) => (
-          <div class="stat">
-            <div class="stat-num" set:html={m.value} />
-            <div class="stat-label">{m.label}</div>
-          </div>
-        ))
-      }
-    </div>
-  </div>
-
-  <section class="section">
+  <!-- 02 Result callout boxes -->
+  <section class="section result-section">
     <div class="container">
-      <div
-        style="display:grid; grid-template-columns:1fr; gap:var(--space-8); max-width:none"
-      >
-        <article
-          style="max-width:var(--container-prose); margin:0 auto; font-size:var(--font-size-lead); line-height:1.7"
-          class="prose"
-        >
-          <Content />
-        </article>
-
+      <div class="result-grid">
         {
-          facts.length > 0 && (
-            <aside style="max-width:var(--container-prose); margin:0 auto; width:100%">
-              <div class="divider-grid cols-4">
-                {facts.map((f) => (
-                  <div class="dg-cell stack-3">
-                    <span class="eyebrow">
-                      <span class="num">↳</span>
-                      <span class="sep">/</span>
-                      <span>{f.label}</span>
-                    </span>
-                    <h5>{f.value}</h5>
-                  </div>
-                ))}
-              </div>
-            </aside>
-          )
+          cs.data.metrics.map((m) => (
+            <div class="result-box">
+              <div class="result-num" set:html={m.value} />
+              <div class="result-label">{m.label}</div>
+            </div>
+          ))
         }
       </div>
     </div>
   </section>
 
-  <HubSpotMeetings />
+  <!-- 03 Narrative -->
+  <section class="section">
+    <div class="container">
+      <article class="prose case-narrative">
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  <!-- 04 Metadata aside -->
+  {
+    facts.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="divider-grid cols-4">
+            {facts.map((f) => (
+              <div class="dg-cell stack-3">
+                <span class="eyebrow">
+                  <span class="num">↳</span>
+                  <span class="sep">/</span>
+                  <span>{f.label}</span>
+                </span>
+                <h5>{f.value}</h5>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    cs.data.quote && !hasVideo && (
+      <section class="section">
+        <div class="container">
+          <blockquote class="case-quote">
+            <p>"{cs.data.quote}"</p>
+            {cs.data.person && (
+              <footer>
+                — {cs.data.person.name}, {cs.data.person.title} ·{" "}
+                {cs.data.company}
+              </footer>
+            )}
+          </blockquote>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- 05 Final CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2>Want one of these for your team?</h2>
+        <p class="lead">
+          We map your current pipeline, identify the highest-leverage system to
+          build first, and tell you whether we're a fit.
+        </p>
+        <div class="hero-actions" style="justify-content:center">
+          <a href="/book" class="btn btn-accent btn-md">Schedule meeting</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .prose :global(h2) {
+  .case-narrative {
+    max-width: var(--container-prose);
+    margin: 0 auto;
+    font-size: var(--font-size-lead);
+    line-height: 1.7;
+  }
+  .case-narrative :global(h2) {
     font-family: var(--font-sans);
     font-size: var(--font-size-h3);
     font-weight: 600;
@@ -104,24 +191,32 @@ const facts: Array<{ label: string; value: string }> = [
     line-height: 1.2;
     margin: var(--space-8) 0 var(--space-4);
   }
-  .prose :global(p) {
+  .case-narrative :global(p) {
     color: var(--color-body);
     max-width: none;
     margin-bottom: var(--space-5);
   }
-  .prose :global(p > strong) {
-    color: var(--color-heading);
-  }
-  .prose :global(em) {
+  .case-narrative :global(em) {
     font-style: italic;
     color: var(--color-accent);
   }
-  .prose :global(ul) {
-    color: var(--color-body);
-    padding-left: var(--space-5);
-    margin-bottom: var(--space-5);
+
+  .case-quote {
+    max-width: var(--container-prose);
+    margin: 0 auto;
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-6);
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-size: var(--font-size-h4);
+    line-height: 1.4;
+    color: var(--color-heading);
   }
-  .prose :global(li) {
-    margin-bottom: var(--space-2);
+  .case-quote footer {
+    margin-top: var(--space-4);
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-muted);
   }
 </style>

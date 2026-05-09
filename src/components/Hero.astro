@@ -5,14 +5,16 @@ interface Props {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  videoLabel?: string;
 }
 
 const {
   eyebrow = "Fractional GTM engineering · DACH",
-  primaryHref = "/#book",
-  primaryLabel = "Book a call",
+  primaryHref = "/book",
+  primaryLabel = "Schedule meeting",
   secondaryHref = "/case-studies",
-  secondaryLabel = "See the work",
+  secondaryLabel = "See client work",
+  videoLabel = "Watch · 3 min · What we do",
 } = Astro.props;
 ---
 
@@ -35,6 +37,20 @@ const {
         <a href={secondaryHref} class="btn btn-tertiary"
           >{secondaryLabel} <span class="arrow">→</span></a
         >
+      </div>
+    </div>
+  </div>
+
+  <!-- VSL frame under the headline -->
+  <div class="hero-visual">
+    <div class="hero-visual-frame" aria-label="Intro video">
+      <div class="hero-visual-play">
+        <button class="play-btn" aria-label="Play intro video">
+          <svg viewBox="0 0 24 24" fill="currentColor"
+            ><path d="M8 5v14l11-7z"></path></svg
+          >
+        </button>
+        <div class="label">{videoLabel}</div>
       </div>
     </div>
   </div>

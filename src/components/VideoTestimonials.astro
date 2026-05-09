@@ -1,0 +1,103 @@
+---
+interface Testimonial {
+  /** Filename in public/testimonials/ or full URL. Optional — placeholder shown when missing. */
+  videoSrc?: string;
+  name: string;
+  title: string;
+  company: string;
+  quote: string;
+  /** Optional thumbnail filename in public/testimonials/ */
+  thumbnail?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  testimonials?: Testimonial[];
+}
+
+const {
+  eyebrow = "What our clients say",
+  headline = "In their words.",
+  testimonials = [
+    {
+      name: "Djef Rifamole",
+      title: "Co-Founder",
+      company: "Eyva",
+      quote:
+        "We don't have a people problem. We have a system problem. They built the system.",
+    },
+    {
+      name: "Jake Brander",
+      title: "Owner / CEO",
+      company: "BranderGroup",
+      quote: "I just don't want to do it myself anymore. They run it now.",
+    },
+    {
+      name: "Michael Blackstone",
+      title: "Founder / CEO",
+      company: "SutureHealth",
+      quote:
+        "I needed a plan to plug into without coming up with the plan. That's exactly what they delivered.",
+    },
+    {
+      name: "Carolyn Branco",
+      title: "Fractional CMO",
+      company: "Ohalo",
+      quote:
+        "I want us all to look like heroes. They made the GTM team look like heroes.",
+    },
+    {
+      name: "Sebastian Lauk",
+      title: "VP Sales",
+      company: "Emporix",
+      quote:
+        "Used to take 50 clicks to get one lead into HubSpot. Now it's automatic.",
+    },
+    {
+      name: "Andrew More",
+      title: "VP Sales / BD",
+      company: "LipDub",
+      quote: "We needed an always-on motion. They turned it on in 5 weeks.",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="section video-testimonials-section">
+  <div class="container stack-6">
+    <span class="eyebrow"
+      ><span class="num">02</span><span class="sep">/</span> {eyebrow}</span
+    >
+    <h2>{headline}</h2>
+    <div class="video-grid">
+      {
+        testimonials.map((t) => (
+          <div class="video-card">
+            <button
+              class="video-thumb"
+              aria-label={`Play testimonial from ${t.name}`}
+              data-src={t.videoSrc || ""}
+            >
+              <span class="video-thumb-fill" />
+              <span class="video-play">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </button>
+            <div class="video-meta">
+              <p class="video-quote">{`"${t.quote}"`}</p>
+              <div class="video-attribution">
+                <span class="video-name">{t.name}</span>
+                <span class="video-title">
+                  {t.title} · {t.company}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

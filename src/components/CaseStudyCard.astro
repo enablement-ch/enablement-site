@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  cs: CollectionEntry<"caseStudies">;
+}
+
+const { cs } = Astro.props;
+const initials = cs.data.person?.name
+  ? cs.data.person.name
+      .split(" ")
+      .map((s) => s[0])
+      .slice(0, 2)
+      .join("")
+  : "";
+const hasVideo = !!cs.data.videoTestimonial;
+---
+
+<a href={`/case-studies/${cs.id}`} class="case-card">
+  <div class="case-card-top">
+    <div class="case-card-logo">
+      {
+        cs.data.logo ? (
+          <img src={cs.data.logo} alt={cs.data.company} />
+        ) : (
+          <span class="case-card-mark">{cs.data.company}</span>
+        )
+      }
+    </div>
+    {
+      hasVideo && (
+        <span class="case-card-video-badge" aria-label="Video testimonial">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          Video
+        </span>
+      )
+    }
+  </div>
+
+  <h3 class="case-card-title">
+    How {cs.data.company} got <span class="italic-accent">{cs.data.result}</span>
+  </h3>
+
+  <div class="case-card-stats">
+    {
+      cs.data.metrics.slice(0, 3).map((m) => (
+        <div class="case-card-stat">
+          <div class="case-card-stat-num" set:html={m.value} />
+          <div class="case-card-stat-label">{m.label}</div>
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    cs.data.person && (
+      <div class="case-card-person">
+        <span class="case-card-avatar">
+          {cs.data.person.photo ? (
+            <img src={cs.data.person.photo} alt={cs.data.person.name} />
+          ) : (
+            initials
+          )}
+        </span>
+        <span class="case-card-person-info">
+          <span class="case-card-person-name">{cs.data.person.name}</span>
+          <span class="case-card-person-title">
+            {cs.data.person.title} · {cs.data.company}
+          </span>
+        </span>
+      </div>
+    )
+  }
+</a>

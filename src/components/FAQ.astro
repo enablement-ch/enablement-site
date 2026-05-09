@@ -1,0 +1,80 @@
+---
+interface QA {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  questions?: QA[];
+}
+
+const {
+  eyebrow = "FAQ",
+  headline = "Common questions.",
+  questions = [
+    {
+      q: "What does this cost?",
+      a: "Engagements typically run EUR 5-10K/month for 3-6 months, depending on scope. We'll quote a fixed price after the GTM Session — no hourly billing, no surprise add-ons.",
+    },
+    {
+      q: "How fast can we be live?",
+      a: "Brief to production is 4-6 weeks. Week 1: discovery and audit. Weeks 2-4: build, calibrate, test. Week 5+: live and instrumented.",
+    },
+    {
+      q: "What does week-to-week with you actually look like?",
+      a: "Weekly cadence call (~30 min) with you and the system. Monthly metrics deep-dive. Slack channel for everything in between. We move at the pace of operators, not consultants.",
+    },
+    {
+      q: "We tried an agency before and it failed. What's different?",
+      a: "We build infrastructure, not campaigns. Agencies hand you reports; we hand you running systems. If you came from an SDR shop or a content factory, the model and the deliverables are completely different.",
+    },
+    {
+      q: "We don't have our ICP defined — is that a dealbreaker?",
+      a: "Yes. If you can't articulate who you sell to, building outbound is premature. We'll tell you on the GTM Session whether the work needs to start with ICP definition first or whether you're ready to build.",
+    },
+    {
+      q: "We're considering hiring an in-house GTM lead instead. Should we?",
+      a: "Sometimes the answer is yes. We've turned down engagements where hiring was clearly the right move. The honest take: a fractional GTM team gets you 80% of the value at 30% of the cost in 50% of the time. After 6 months, you'll know whether you need a full-time hire.",
+    },
+    {
+      q: "What's your cancellation / contract structure?",
+      a: "Engagements are 3 or 6 months. Cancel any time after the first month with 30-day notice. We'd rather you leave than stay miserable.",
+    },
+    {
+      q: "Do you sign DPAs / handle GDPR / DSGVO?",
+      a: "Yes. We're DACH-based and operate under DSGVO/GDPR by default. We sign DPAs as part of every contract.",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="section faq-section">
+  <div class="container stack-6">
+    <span class="eyebrow"
+      ><span class="num">05</span><span class="sep">/</span> {eyebrow}</span
+    >
+    <h2>{headline}</h2>
+    <div class="faq-list">
+      {
+        questions.map((qa, idx) => (
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span class="faq-q">
+                <span class="faq-num">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                {qa.q}
+              </span>
+              <span class="faq-toggle" aria-hidden="true" />
+            </summary>
+            <div class="faq-body">
+              <p>{qa.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

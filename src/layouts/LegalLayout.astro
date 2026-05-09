@@ -1,0 +1,73 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  lastUpdated: string; // ISO date or human-readable
+}
+
+const { title, lastUpdated } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Enablement.ch`}>
+  <header class="hero legal-hero">
+    <div class="container">
+      <div class="hero-inner" style="text-align:left; align-items:flex-start;">
+        <span class="eyebrow"
+          ><span class="num">↳</span><span class="sep">/</span> Legal</span
+        >
+        <h1 class="display" style="font-size:clamp(2.5rem,5vw,3.5rem)">
+          {title}
+        </h1>
+        <p class="mono">Last updated: {lastUpdated}</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <article class="prose legal-body">
+        <slot />
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-body {
+    max-width: var(--container-prose);
+    margin: 0 auto;
+    font-size: var(--font-size-lead);
+    line-height: 1.7;
+  }
+  .prose :global(h2) {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    color: var(--color-heading);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: var(--space-8) 0 var(--space-4);
+  }
+  .prose :global(h3) {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-h5);
+    font-weight: 600;
+    color: var(--color-heading);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+  .prose :global(p) {
+    color: var(--color-body);
+    max-width: none;
+    margin-bottom: var(--space-5);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    color: var(--color-body);
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-5);
+  }
+  .prose :global(li) {
+    margin-bottom: var(--space-2);
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
 import { getCollection } from "astro:content";
 
 const studies = (await getCollection("caseStudies")).sort(
@@ -8,21 +9,21 @@ const studies = (await getCollection("caseStudies")).sort(
 ---
 
 <BaseLayout
-  title="Case studies — Enablement.ch"
+  title="Clients — Enablement.ch"
   description="Real systems we've shipped for B2B teams in DACH. Pipeline lifts, deliverability fixes, and outbound engines built from scratch."
 >
   <header class="hero">
     <div class="container">
       <div class="hero-inner">
         <span class="eyebrow"
-          ><span class="num">↳</span><span class="sep">/</span> Case studies</span
+          ><span class="num">↳</span><span class="sep">/</span> Clients</span
         >
         <h1 class="display">
           Systems we've <span class="italic-accent">shipped.</span>
         </h1>
         <p class="lead hero-lead">
-          Each case is a real B2B team in DACH. We list the state we found, what
-          we built, and what changed. No glossy fluff.
+          Each case is a real B2B team in DACH. We list the state we found,
+          what we built, and what changed. No glossy fluff.
         </p>
       </div>
     </div>
@@ -30,51 +31,8 @@ const studies = (await getCollection("caseStudies")).sort(
 
   <section class="section">
     <div class="container">
-      <div class="divider-grid cols-2">
-        {
-          studies.map((cs) => (
-            <a
-              href={`/case-studies/${cs.id}`}
-              class="dg-cell stack-4"
-              style="text-decoration:none; color:inherit; display:block; padding:var(--space-7) var(--space-6)"
-            >
-              <span class="eyebrow">
-                <span class="num">{cs.data.company}</span>
-                {cs.data.industry && (
-                  <>
-                    <span class="sep">/</span>
-                    <span>{cs.data.industry}</span>
-                  </>
-                )}
-              </span>
-              <h3 style="margin-top:16px">{cs.data.headline}</h3>
-              <p style="margin-top:16px; color:var(--color-body)">
-                {cs.data.outcome}
-              </p>
-              <div
-                class="gap-4"
-                style="margin-top:24px; padding-top:24px; border-top:1px solid var(--color-border); align-items:flex-start"
-              >
-                {cs.data.metrics.map((m) => (
-                  <div>
-                    <div
-                      class="stat-num"
-                      style="font-size:1.5rem; line-height:1; margin:0"
-                    >
-                      {m.value}
-                    </div>
-                    <div
-                      class="stat-label"
-                      style="font-size:10px; margin-top:4px"
-                    >
-                      {m.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </a>
-          ))
-        }
+      <div class="case-grid">
+        {studies.map((cs) => <CaseStudyCard cs={cs} />)}
       </div>
     </div>
   </section>

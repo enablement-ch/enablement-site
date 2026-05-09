@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
+
+// Replace with the real HubSpot meeting URL once available.
+const meetingUrl = "https://meetings.hubspot.com/lanny-heiz";
+---
+
+<BaseLayout
+  title="Schedule Your GTM Session — Enablement.ch"
+  description="30 minutes. We map your current pipeline, identify the highest-leverage system to build first, and tell you whether we're a fit."
+>
+  <section class="section book-section">
+    <div class="container">
+      <div class="book-inner">
+        <h1 class="display book-title">Schedule Your GTM Session</h1>
+
+        <div
+          class="meetings-iframe-container"
+          data-src={`${meetingUrl}?embed=true`}
+        >
+        </div>
+      </div>
+    </div>
+
+    <div class="book-trust">
+      <p class="partners-caption">
+        Trusted by over 100 GTM teams across DACH
+      </p>
+      <div class="container" style="padding:0">
+        <MarqueeLogoWall />
+      </div>
+    </div>
+  </section>
+
+  <script
+    type="text/javascript"
+    src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
+    is:inline></script>
+</BaseLayout>

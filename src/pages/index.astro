@@ -1,80 +1,108 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import LogoWall from "../components/LogoWall.astro";
-import StatStrip from "../components/StatStrip.astro";
+import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
+import VideoTestimonials from "../components/VideoTestimonials.astro";
+import PainBlock from "../components/PainBlock.astro";
+import FAQ from "../components/FAQ.astro";
 import Workflow from "../components/Workflow.astro";
-import ServicesGrid from "../components/ServicesGrid.astro";
-import HubSpotMeetings from "../components/HubSpotMeetings.astro";
-import { getCollection } from "astro:content";
-
-const featured = (await getCollection("caseStudies", (e) => e.data.featured))
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
-  .slice(0, 3);
 ---
 
 <BaseLayout>
+  <!-- 01 Hero with VSL -->
   <Hero />
-  <LogoWall />
-  <StatStrip />
-  <Workflow />
-  <ServicesGrid />
 
-  <section class="section">
+  <!-- 02 Marquee logos -->
+  <MarqueeLogoWall />
+
+  <!-- 03 Video testimonials -->
+  <VideoTestimonials />
+
+  <!-- 04 Pain × 3 -->
+  <section class="section pain-section">
     <div class="container stack-6">
       <span class="eyebrow"
-        ><span class="num">05</span><span class="sep">/</span> Recent work</span
+        ><span class="num">04</span><span class="sep">/</span> What we build</span
       >
-      <h2>Systems we've <span class="italic-accent">shipped.</span></h2>
-      <div class="divider-grid cols-3" style="margin-top:24px">
-        {
-          featured.map((cs) => (
-            <a
-              href={`/case-studies/${cs.id}`}
-              class="dg-cell stack-4"
-              style="text-decoration:none; color:inherit; display:block"
-            >
-              <span class="eyebrow">
-                <span class="num">{cs.data.company}</span>
-              </span>
-              <h4 style="margin-top:12px">{cs.data.headline}</h4>
-              <p
-                style="font-size:var(--font-size-caption); color:var(--color-body); margin-top:12px"
-              >
-                {cs.data.outcome}
-              </p>
-              <div
-                class="gap-4"
-                style="margin-top:16px; padding-top:16px; border-top:1px solid var(--color-border); align-items:flex-start"
-              >
-                {cs.data.metrics.slice(0, 2).map((m) => (
-                  <div>
-                    <div
-                      class="stat-num"
-                      style="font-size:1.5rem; line-height:1; margin:0"
-                    >
-                      {m.value}
-                    </div>
-                    <div
-                      class="stat-label"
-                      style="font-size:10px; margin-top:4px"
-                    >
-                      {m.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </a>
-          ))
-        }
-      </div>
-      <div class="hero-actions" style="margin-top:32px; justify-content:center">
-        <a href="/case-studies" class="btn btn-secondary btn-md"
-          >See all case studies <span class="arrow">→</span></a
+      <h2>Three pains. <span class="italic-accent">Three systems.</span></h2>
+      <p>
+        We don't sell strategy or playbooks. We build infrastructure for the
+        three pains B2B teams hit hardest. Each block ends with a real client
+        we built it for.
+      </p>
+    </div>
+
+    <div class="pain-stack">
+      <div class="container">
+        <PainBlock
+          index="A"
+          eyebrow="NO OUTBOUND"
+          headline="You don't have outbound. Or what you have is broken."
+          pain="Founder-led sales hit a ceiling. Inbound covers what it covers and not a meeting more. You licensed Apollo, sent two campaigns, watched open rates land at 6% and gave up. Now your revenue plan needs a step-change in pipeline you don't know how to build."
+          solution="We build the outbound engine from scratch — sending infrastructure, sequence architecture, ICP-scored lists, reply qualifier wired to your CRM. Brief to production in 4-6 weeks. Day one of week five, leads start booking."
+          ctaLabel="See this built for Eyva"
+          ctaHref="/case-studies/eyva"
         >
+          <Workflow />
+        </PainBlock>
+      </div>
+    </div>
+
+    <div class="pain-stack">
+      <div class="container">
+        <PainBlock
+          index="B"
+          eyebrow="BROKEN TOOLS"
+          headline="You have Clay, Apollo, HubSpot. Open rates are 14%."
+          pain="Tools licensed, dashboards untouched, and 50 clicks to get one lead into HubSpot. The spend is real. The output isn't. Your team is doing manual work that the stack should be doing automatically."
+          solution="We rebuild the RevOps stack so the tools you already pay for actually work together. Clay tables that enrich themselves. Apollo sequences that route by intent. HubSpot pipelines that stay clean without anyone touching them."
+          ctaLabel="See this built for Scrypt"
+          ctaHref="/case-studies/scrypt"
+          reverse={true}
+        >
+          <div class="pain-visual-placeholder">
+            <span class="placeholder-label">[Annotated dashboard fragment]</span>
+          </div>
+        </PainBlock>
+      </div>
+    </div>
+
+    <div class="pain-stack">
+      <div class="container">
+        <PainBlock
+          index="C"
+          eyebrow="AI SLOP"
+          headline="Your content sounds like everyone else's content."
+          pain="You tried ChatGPT, you tried Jasper, you tried whatever LinkedIn told you to try. The posts that come out sound like every other founder posting at 9am. Your prospects scroll past."
+          solution="We build a Content Engine trained on every interview, sales call, and post you've ever written. It produces content in your voice — not generic agency tone. 8-12 posts per month, calibrated, on brand."
+          ctaLabel="See this built for Pillar"
+          ctaHref="/case-studies"
+        >
+          <div class="pain-visual-placeholder">
+            <span class="placeholder-label">[Voice calibration visual]</span>
+          </div>
+        </PainBlock>
       </div>
     </div>
   </section>
 
-  <HubSpotMeetings />
+  <!-- 05 FAQ -->
+  <FAQ />
+
+  <!-- 06 Final CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2>30 minutes. <span class="italic-accent">No deck.</span></h2>
+        <p class="lead">
+          We map your current pipeline, identify the highest-leverage system to
+          build first, and tell you whether we're a fit. If we're not, we'll
+          point you to who is.
+        </p>
+        <div class="hero-actions" style="justify-content:center">
+          <a href="/book" class="btn btn-accent btn-md">Schedule meeting</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

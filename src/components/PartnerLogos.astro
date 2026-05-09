@@ -1,0 +1,33 @@
+---
+interface Partner {
+  name: string;
+  status?: string; // e.g., "Studio Partner"
+}
+
+interface Props {
+  partners?: Partner[];
+}
+
+const {
+  partners = [
+    { name: "Clay", status: "Studio Partner" },
+    { name: "Smartlead" },
+    { name: "HeyReach" },
+    { name: "Lemlist" },
+  ],
+} = Astro.props;
+---
+
+<div class="partners-band">
+  <p class="partners-caption">Official partner</p>
+  <div class="partners-row">
+    {
+      partners.map((p) => (
+        <span class="partner-mark" title={p.status || p.name}>
+          {p.name}
+          {p.status && <span class="partner-status">{p.status}</span>}
+        </span>
+      ))
+    }
+  </div>
+</div>

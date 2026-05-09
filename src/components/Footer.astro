@@ -1,26 +1,29 @@
 ---
+import FoundersBlock from "./FoundersBlock.astro";
+import PartnerLogos from "./PartnerLogos.astro";
+
 const groups = [
   {
-    title: "System",
+    title: "Site",
     links: [
-      { href: "/#outbound", label: "Outbound Engine" },
-      { href: "/#content", label: "Content Engine" },
-      { href: "/#revops", label: "RevOps Stack" },
+      { href: "/case-studies", label: "Clients" },
+      { href: "/book", label: "Schedule meeting" },
     ],
   },
   {
-    title: "Work",
+    title: "Legal",
     links: [
-      { href: "/case-studies", label: "Case studies" },
-      { href: "/#how-it-works", label: "How it works" },
-      { href: "/#about", label: "Team" },
+      { href: "/gtc", label: "GTC" },
+      { href: "/privacy", label: "Privacy" },
     ],
   },
   {
     title: "Contact",
     links: [
-      { href: "/#book", label: "Book a call" },
-      { href: "https://www.linkedin.com/company/enablementch", label: "LinkedIn" },
+      {
+        href: "https://www.linkedin.com/company/enablementch",
+        label: "LinkedIn",
+      },
       { href: "mailto:hello@enablement.ch", label: "hello@enablement.ch" },
     ],
   },
@@ -48,10 +51,16 @@ const groups = [
           </div>
         ))
       }
+      <div class="footer-group">
+        <FoundersBlock />
+      </div>
     </div>
+
+    <PartnerLogos />
+
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} Enablement.ch</span>
-      <span>v0.4 · Site</span>
+      <span>Built in DACH.</span>
     </div>
   </div>
 </footer>

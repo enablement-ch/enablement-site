@@ -1,0 +1,53 @@
+---
+interface LogoCell {
+  name: string;
+  caseStudy?: string;
+}
+
+interface Props {
+  logos?: LogoCell[];
+}
+
+const {
+  logos = [
+    { name: "scrypt", caseStudy: "/case-studies/scrypt" },
+    { name: "HUBSPOT" },
+    { name: "Skribble", caseStudy: "/case-studies/skribble" },
+    { name: "linkup" },
+    { name: "Pillar", caseStudy: "/case-studies/pillar" },
+    { name: "forto." },
+    { name: "Beekeeper" },
+    { name: "Smallpdf", caseStudy: "/case-studies/smallpdf" },
+    { name: "Numarics" },
+    { name: "Tinybird" },
+    { name: "Bonusly", caseStudy: "/case-studies/bonusly" },
+    { name: "Aerleum" },
+  ],
+} = Astro.props;
+
+// Duplicate the array so the marquee can loop seamlessly
+const trackLogos = [...logos, ...logos];
+---
+
+<section class="marquee" aria-label="Clients">
+  <div class="marquee-track">
+    {
+      trackLogos.map((logo, idx) =>
+        logo.caseStudy ? (
+          <a
+            class="marquee-cell has-link"
+            href={logo.caseStudy}
+            aria-hidden={idx >= logos.length}
+          >
+            <span class="logo-mark">{logo.name}</span>
+            <span class="cs-pill">Case Study</span>
+          </a>
+        ) : (
+          <span class="marquee-cell" aria-hidden={idx >= logos.length}>
+            <span class="logo-mark">{logo.name}</span>
+          </span>
+        ),
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,59 @@
+---
+interface Founder {
+  name: string;
+  role: string;
+  linkedin: string;
+  initials?: string;
+  photo?: string; // path in public/team/
+}
+
+interface Props {
+  founders?: Founder[];
+}
+
+const {
+  founders = [
+    {
+      name: "Lanny Heiz",
+      role: "Co-Founder",
+      linkedin: "https://www.linkedin.com/in/lanny-heiz/",
+      initials: "LH",
+    },
+    {
+      name: "Gilbert Kralinger",
+      role: "Co-Founder",
+      linkedin: "https://www.linkedin.com/in/gilbert-kralinger/",
+      initials: "GK",
+    },
+  ],
+} = Astro.props;
+---
+
+<div class="founders">
+  <h6>Founders</h6>
+  {
+    founders.map((f) => (
+      <a href={f.linkedin} class="founder-row" target="_blank" rel="noopener">
+        <span class="founder-avatar">
+          {f.photo ? <img src={f.photo} alt={f.name} /> : f.initials}
+        </span>
+        <span class="founder-info">
+          <span class="founder-name">{f.name}</span>
+          <span class="founder-role">{f.role}</span>
+        </span>
+        <svg
+          class="founder-link"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </a>
+    ))
+  }
+</div>
