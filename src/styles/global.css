@@ -1156,72 +1156,120 @@ p { margin: 0; max-width: 64ch; }
 /* ============================================================ */
 
 /* ============ MARQUEE LOGO WALL ============ */
-.marquee {
+.marquee-section {
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  overflow: hidden;
-  position: relative;
   background: var(--color-canvas);
+}
+.marquee-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-7);
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+@media (min-width: 1024px) {
+  .marquee-row { padding-inline: var(--space-7); }
+}
+@media (max-width: 768px) {
+  .marquee-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-5) var(--space-6);
+  }
+}
+.marquee-label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+  max-width: 14ch;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: var(--space-5);
 }
 .marquee-track {
   display: flex;
-  gap: var(--space-9);
+  gap: var(--space-8);
   animation: marquee-scroll 60s linear infinite;
   width: max-content;
   align-items: center;
-  padding-block: var(--space-6);
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
 .marquee-cell {
+  position: relative;
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  min-height: 64px;
+  height: 52px;
+  min-width: 80px;
+  flex-shrink: 0;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 1.125rem;
   color: var(--color-body);
-  opacity: 0.75;
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard),
-              color var(--motion-duration-fast) var(--motion-ease-standard);
 }
-.marquee-cell.has-link {
-  opacity: 1;
+/* Vertical separator after each cell */
+.marquee-cell::after {
+  content: "";
+  position: absolute;
+  right: calc(-1 * var(--space-8) / 2);
+  top: 18%;
+  bottom: 18%;
+  width: 1px;
+  background: var(--color-border);
 }
-.marquee-cell.has-link:hover {
-  color: var(--color-accent);
-}
-.marquee-cell.has-link:hover .cs-pill {
-  border-color: var(--color-accent);
-  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
-}
-.marquee-cell .logo-mark {
-  letter-spacing: -0.01em;
-}
+/* Logo image — consistent silhouette in light AND dark mode */
 .marquee-cell .logo-img {
-  max-height: 40px;
-  max-width: 160px;
+  height: 28px;
   width: auto;
-  height: auto;
+  max-width: 140px;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.7;
+  filter: grayscale(100%) brightness(0);
+  opacity: 0.55;
   transition: filter var(--motion-duration-fast) var(--motion-ease-standard),
               opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
-.marquee-cell.has-link .logo-img { opacity: 0.9; }
-.marquee:hover .logo-img,
-.marquee-cell.has-link:hover .logo-img {
-  filter: grayscale(0%);
+[data-theme="dark"] .marquee-cell .logo-img {
+  filter: grayscale(100%) brightness(0) invert(1);
+  opacity: 0.65;
+}
+.marquee-cell .logo-mark {
+  letter-spacing: -0.01em;
+  color: var(--color-muted);
+  opacity: 0.85;
+}
+/* Hover the whole marquee → all logos color up */
+.marquee:hover .logo-img {
+  filter: grayscale(0%) brightness(1);
   opacity: 1;
 }
+[data-theme="dark"] .marquee:hover .logo-img {
+  filter: grayscale(0%) brightness(1);
+  opacity: 1;
+}
+.marquee:hover .logo-mark {
+  color: var(--color-heading);
+  opacity: 1;
+}
+
+/* Case Study pill — absolute, sits in the marquee bottom padding without breaking row alignment */
 .cs-pill {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   padding: 2px 8px;
@@ -1237,6 +1285,11 @@ p { margin: 0; max-width: 64ch; }
   white-space: nowrap;
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard),
               background var(--motion-duration-fast) var(--motion-ease-standard);
+  pointer-events: none;
+}
+.marquee-cell.has-link:hover .cs-pill {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
 }
 @keyframes marquee-scroll {
   from { transform: translateX(0); }

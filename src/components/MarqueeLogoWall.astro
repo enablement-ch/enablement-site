@@ -3,15 +3,18 @@ interface LogoCell {
   name: string;
   /** Path to logo file in public/logos/. If omitted, renders the name as text. */
   logo?: string;
-  /** Slug-only path to a case study. The Case Study pill appears beneath linked cells. */
+  /** Path to a case study. The Case Study pill appears beneath linked cells. */
   caseStudy?: string;
 }
 
 interface Props {
+  /** Left-aligned label (ClickUp pattern). */
+  label?: string;
   logos?: LogoCell[];
 }
 
 const {
+  label = "Trusted by over 100 GTM teams",
   logos = [
     { name: "Scrypt", logo: "/logos/scrypt.webp", caseStudy: "/case-studies/scrypt" },
     { name: "HubSpot", logo: "/logos/hubspot.png" },
@@ -36,39 +39,35 @@ const {
 const trackLogos = [...logos, ...logos];
 ---
 
-<section class="marquee" aria-label="Clients">
-  <div class="marquee-track">
-    {
-      trackLogos.map((logo, idx) => {
-        const inner = (
-          <>
-            {logo.logo ? (
-              <img
-                class="logo-img"
-                src={logo.logo}
-                alt={logo.name}
-                loading="lazy"
-              />
+<section class="marquee-section" aria-label="Clients">
+  <div class="marquee-row">
+    <div class="marquee-label">{label}</div>
+    <div class="marquee">
+      <div class="marquee-track">
+        {
+          trackLogos.map((logo, idx) => {
+            const inner = logo.logo ? (
+              <img class="logo-img" src={logo.logo} alt={logo.name} loading="lazy" />
             ) : (
               <span class="logo-mark">{logo.name}</span>
-            )}
-            {logo.caseStudy && <span class="cs-pill">Case Study</span>}
-          </>
-        );
-        return logo.caseStudy ? (
-          <a
-            class="marquee-cell has-link"
-            href={logo.caseStudy}
-            aria-hidden={idx >= logos.length}
-          >
-            {inner}
-          </a>
-        ) : (
-          <span class="marquee-cell" aria-hidden={idx >= logos.length}>
-            {inner}
-          </span>
-        );
-      })
-    }
+            );
+            return logo.caseStudy ? (
+              <a
+                class="marquee-cell has-link"
+                href={logo.caseStudy}
+                aria-hidden={idx >= logos.length}
+              >
+                {inner}
+                <span class="cs-pill">Case Study</span>
+              </a>
+            ) : (
+              <span class="marquee-cell" aria-hidden={idx >= logos.length}>
+                {inner}
+              </span>
+            );
+          })
+        }
+      </div>
+    </div>
   </div>
 </section>
