@@ -1212,7 +1212,8 @@ p { margin: 0; max-width: 64ch; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 96px;
+  padding-bottom: 28px; /* room for Case Study pill — logo flex-centers above it */
   min-width: 100px;
   flex-shrink: 0;
   text-decoration: none;
@@ -1238,17 +1239,20 @@ p { margin: 0; max-width: 64ch; }
   max-width: 140px;
   object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.7;
+  opacity: 0.9;
+  /* multiply blend: dark parts of the logo stay dark, light/white parts
+     blend into the canvas. Works for transparent-bg AND white-bg logos
+     so e.g. Lipdub's icon renders cleanly. */
+  mix-blend-mode: multiply;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard),
               filter var(--motion-duration-fast) var(--motion-ease-standard);
 }
 [data-theme="dark"] .marquee-cell .logo-img {
-  /* Drop invert — was breaking logos like Lipdub. Add opacity boost
-     and mix-blend-mode lighten so dark-on-transparent logos blend
-     visibly against the dark canvas where possible. */
+  /* screen blend: opposite of multiply. Light parts stay visible, dark
+     parts blend into the dark canvas. */
   filter: grayscale(100%);
-  opacity: 0.85;
-  mix-blend-mode: lighten;
+  opacity: 0.9;
+  mix-blend-mode: screen;
 }
 .marquee-cell .logo-mark {
   letter-spacing: -0.01em;
@@ -1260,11 +1264,6 @@ p { margin: 0; max-width: 64ch; }
   filter: grayscale(0%);
   opacity: 1;
 }
-[data-theme="dark"] .marquee-cell:hover .logo-img {
-  filter: grayscale(0%);
-  opacity: 1;
-  mix-blend-mode: lighten;
-}
 .marquee-cell:hover .logo-mark {
   color: var(--color-heading);
   opacity: 1;
@@ -1273,19 +1272,19 @@ p { margin: 0; max-width: 64ch; }
 /* Case Study pill — INSIDE the cell at the bottom, no overflow clipping */
 .cs-pill {
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  padding: 4px 12px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent);
   white-space: nowrap;
