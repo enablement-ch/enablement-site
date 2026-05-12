@@ -345,6 +345,18 @@ p { margin: 0; max-width: 64ch; }
 .hero-lead { max-width: 56ch; }
 .hero-actions { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; justify-content: center; margin-top: var(--space-2); }
 
+/* Rotating word in the hero H1 */
+.rotating-word {
+  display: inline-block;
+  transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1);
+  will-change: opacity;
+}
+.rotating-word.fading { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .rotating-word { transition: none; }
+  .rotating-word.fading { opacity: 1; }
+}
+
 /* Video / visual placeholder under the hero */
 .hero-visual {
   position: relative;

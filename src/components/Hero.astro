@@ -6,15 +6,23 @@ interface Props {
   secondaryHref?: string;
   secondaryLabel?: string;
   videoLabel?: string;
+  /** Rotating phrases after "Turn your tools into". First entry is the static fallback. */
+  rotatingWords?: string[];
 }
 
 const {
-  eyebrow = "Fractional GTM engineering · DACH",
+  eyebrow = "GTM Engineering for B2B tech companies above $1m ARR",
   primaryHref = "/book",
   primaryLabel = "Schedule meeting",
   secondaryHref = "/case-studies",
   secondaryLabel = "See client work",
-  videoLabel = "Watch · 3 min · What we do",
+  videoLabel = "Watch · 3 min",
+  rotatingWords = [
+    "a GTM System",
+    "an Allbound Engine",
+    "a Pipeline",
+    "Revenue Growth",
+  ],
 } = Astro.props;
 ---
 
@@ -25,12 +33,15 @@ const {
         ><span class="num">↳</span><span class="sep">/</span> {eyebrow}</span
       >
       <h1 class="display">
-        Scale your pipeline,<br />
-        <span class="italic-accent">not your headcount.</span>
+        Turn your tools into<br />
+        <span
+          class="italic-accent rotating-word"
+          data-words={JSON.stringify(rotatingWords)}>{rotatingWords[0]}</span
+        >.
       </h1>
       <p class="lead hero-lead">
-        We build the outbound systems B2B teams haven't been able to build for
-        themselves. Brief to production in 4–6 weeks. You own it, or we run it.
+        Your fractional GTM engineering team. We turn your tools into outbound,
+        inbound, and RevOps systems that work as one.
       </p>
       <div class="hero-actions">
         <a href={primaryHref} class="btn btn-accent btn-md">{primaryLabel}</a>
@@ -55,3 +66,31 @@ const {
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (function () {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    document.querySelectorAll(".rotating-word").forEach((el) => {
+      let words = [];
+      try {
+        words = JSON.parse(el.dataset.words || "[]");
+      } catch (e) {
+        return;
+      }
+      if (!words || words.length <= 1) return;
+      let i = 0;
+      setInterval(() => {
+        el.classList.add("fading");
+        setTimeout(() => {
+          i = (i + 1) % words.length;
+          el.textContent = words[i];
+          el.classList.remove("fading");
+        }, 300);
+      }, 3500);
+    });
+  })();
+</script>
