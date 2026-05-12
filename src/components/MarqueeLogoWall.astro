@@ -1,7 +1,12 @@
 ---
 interface LogoCell {
   name: string;
+  /** Path to logo file shown in LIGHT mode. */
   logo?: string;
+  /** Optional path to logo file shown in DARK mode. If provided, both files
+   * are rendered (one hidden by CSS based on data-theme) and the filter/blend
+   * treatment is skipped for the theme-matched file. */
+  logoDark?: string;
   caseStudy?: string;
 }
 
@@ -42,10 +47,33 @@ const trackLogos = [...logos, ...logos];
       <div class="marquee-track">
         {
           trackLogos.map((logo, idx) => {
-            const inner = logo.logo ? (
-              <img class="logo-img" src={logo.logo} alt={logo.name} loading="lazy" />
-            ) : (
-              <span class="logo-mark">{logo.name}</span>
+            const hasBoth = logo.logo && logo.logoDark;
+            const inner = (
+              <>
+                {logo.logo && (
+                  <img
+                    class:list={[
+                      "logo-img",
+                      hasBoth && "logo-img-light",
+                      hasBoth && "native",
+                    ]}
+                    src={logo.logo}
+                    alt={logo.name}
+                    loading="lazy"
+                  />
+                )}
+                {logo.logoDark && (
+                  <img
+                    class:list={["logo-img", "logo-img-dark", "native"]}
+                    src={logo.logoDark}
+                    alt={logo.name}
+                    loading="lazy"
+                  />
+                )}
+                {!logo.logo && !logo.logoDark && (
+                  <span class="logo-mark">{logo.name}</span>
+                )}
+              </>
             );
             return logo.caseStudy ? (
               <a

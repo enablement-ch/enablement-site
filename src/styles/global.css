@@ -1213,7 +1213,6 @@ p { margin: 0; max-width: 64ch; }
   align-items: center;
   justify-content: center;
   height: 96px;
-  padding-bottom: 28px; /* room for Case Study pill — logo flex-centers above it */
   min-width: 100px;
   flex-shrink: 0;
   text-decoration: none;
@@ -1241,18 +1240,26 @@ p { margin: 0; max-width: 64ch; }
   filter: grayscale(100%);
   opacity: 0.9;
   /* multiply blend: dark parts of the logo stay dark, light/white parts
-     blend into the canvas. Works for transparent-bg AND white-bg logos
-     so e.g. Lipdub's icon renders cleanly. */
+     blend into the canvas. */
   mix-blend-mode: multiply;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard),
               filter var(--motion-duration-fast) var(--motion-ease-standard);
 }
 [data-theme="dark"] .marquee-cell .logo-img {
-  /* screen blend: opposite of multiply. Light parts stay visible, dark
-     parts blend into the dark canvas. */
   filter: grayscale(100%);
   opacity: 0.9;
   mix-blend-mode: screen;
+}
+/* Dual logo set support: toggle light/dark logo by theme */
+.logo-img-light { display: inline-block; }
+.logo-img-dark { display: none; }
+[data-theme="dark"] .logo-img-light { display: none; }
+[data-theme="dark"] .logo-img-dark { display: inline-block; }
+/* When a logo has a theme-specific file, skip the filter/blend treatment */
+.logo-img.native {
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: 1;
 }
 .marquee-cell .logo-mark {
   letter-spacing: -0.01em;
@@ -1269,22 +1276,21 @@ p { margin: 0; max-width: 64ch; }
   opacity: 1;
 }
 
-/* Case Study pill — INSIDE the cell at the bottom, no overflow clipping */
+/* Case Study pill — small corner badge so the logo stays centered */
 .cs-pill {
   position: absolute;
   bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 8px;
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
+  padding: 2px 7px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent);
   white-space: nowrap;
