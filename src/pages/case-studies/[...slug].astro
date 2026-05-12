@@ -40,7 +40,7 @@ const initials = cs.data.person?.name
       <div class={hasVideo ? "case-hero-grid" : "hero-inner"}>
         <div class="case-hero-text">
           <span class="eyebrow">
-            <span class="num">↳</span><span class="sep">/</span>
+            
             <a href="/case-studies" style="color:inherit">Clients</a>
           </span>
           <h1 class="display case-hero-title">
@@ -126,11 +126,7 @@ const initials = cs.data.person?.name
           <div class="divider-grid cols-4">
             {facts.map((f) => (
               <div class="dg-cell stack-3">
-                <span class="eyebrow">
-                  <span class="num">↳</span>
-                  <span class="sep">/</span>
-                  <span>{f.label}</span>
-                </span>
+                <span class="eyebrow">{f.label}</span>
                 <h5>{f.value}</h5>
               </div>
             ))}
