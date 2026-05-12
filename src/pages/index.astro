@@ -6,6 +6,8 @@ import VideoTestimonials from "../components/VideoTestimonials.astro";
 import PainBlock from "../components/PainBlock.astro";
 import FAQ from "../components/FAQ.astro";
 import Workflow from "../components/Workflow.astro";
+import LinkedInMock from "../components/visuals/LinkedInMock.astro";
+import BeforeAfterEmail from "../components/visuals/BeforeAfterEmail.astro";
 ---
 
 <BaseLayout>
@@ -18,30 +20,31 @@ import Workflow from "../components/Workflow.astro";
   <!-- 03 Video testimonials -->
   <VideoTestimonials />
 
-  <!-- 04 Pain × 3 -->
+  <!-- 04 Value props × 3 -->
   <section class="section pain-section">
     <div class="container stack-6">
-      <span class="eyebrow"
-        >What we build</span
-      >
-      <h2>Three pains. <span class="italic-accent">Three systems.</span></h2>
+      <span class="eyebrow">What we build</span>
+      <h2>Three systems. <span class="italic-accent">One operating layer.</span></h2>
       <p>
-        We don't sell strategy or playbooks. We build infrastructure for the
-        three pains B2B teams hit hardest. Each block ends with a real client
-        we built it for.
+        We don't sell strategy or playbooks. We install three systems that turn
+        your tools into outbound, inbound, and a RevOps spine that wires them
+        together.
       </p>
     </div>
 
     <div class="pain-stack">
       <div class="container">
         <PainBlock
-          index="A"
-          eyebrow="NO OUTBOUND"
-          headline="You don't have outbound. Or what you have is broken."
-          pain="Founder-led sales hit a ceiling. Inbound covers what it covers and not a meeting more. You licensed Apollo, sent two campaigns, watched open rates land at 6% and gave up. Now your revenue plan needs a step-change in pipeline you don't know how to build."
-          solution="We build the outbound engine from scratch — sending infrastructure, sequence architecture, ICP-scored lists, reply qualifier wired to your CRM. Brief to production in 4-6 weeks. Day one of week five, leads start booking."
-          ctaLabel="See this built for Eyva"
-          ctaHref="/case-studies/eyva"
+          eyebrow="STACK"
+          headline="Connect every GTM tool into one automated stack."
+          lead="Your stack runs as one engine, not 12 disconnected tabs."
+          bullets={[
+            "Real-time enrichment and routing across HubSpot, Clay, Apollo, Outreach",
+            "Claude Code agents that prep AEs for discovery, draft follow-ups, run newsletters",
+            "The internal systems we built to run our own GTM, installed in yours",
+          ]}
+          ctaLabel="See how we glue the stack"
+          ctaHref="/case-studies"
         >
           <Workflow />
         </PainBlock>
@@ -51,18 +54,19 @@ import Workflow from "../components/Workflow.astro";
     <div class="pain-stack">
       <div class="container">
         <PainBlock
-          index="B"
-          eyebrow="BROKEN TOOLS"
-          headline="You have Clay, Apollo, HubSpot. Open rates are 14%."
-          pain="Tools licensed, dashboards untouched, and 50 clicks to get one lead into HubSpot. The spend is real. The output isn't. Your team is doing manual work that the stack should be doing automatically."
-          solution="We rebuild the RevOps stack so the tools you already pay for actually work together. Clay tables that enrich themselves. Apollo sequences that route by intent. HubSpot pipelines that stay clean without anyone touching them."
-          ctaLabel="See this built for Scrypt"
-          ctaHref="/case-studies/scrypt"
+          eyebrow="INBOUND"
+          headline="Turn your founder's LinkedIn into a pipeline channel."
+          lead="Three posts a week becomes signal you can sell on."
+          bullets={[
+            "Ghost-written thought leader content shipped 3x per week",
+            "Engagement tracking that scores every commenter and viewer",
+            "ICP-fit engagers auto-routed into personalized outbound",
+          ]}
+          ctaLabel="See our inbound engine"
+          ctaHref="/case-studies"
           reverse={true}
         >
-          <div class="pain-visual-placeholder">
-            <span class="placeholder-label">[Annotated dashboard fragment]</span>
-          </div>
+          <LinkedInMock />
         </PainBlock>
       </div>
     </div>
@@ -70,17 +74,18 @@ import Workflow from "../components/Workflow.astro";
     <div class="pain-stack">
       <div class="container">
         <PainBlock
-          index="C"
-          eyebrow="AI SLOP"
-          headline="Your content sounds like everyone else's content."
-          pain="You tried ChatGPT, you tried Jasper, you tried whatever LinkedIn told you to try. The posts that come out sound like every other founder posting at 9am. Your prospects scroll past."
-          solution="We build a Content Engine trained on every interview, sales call, and post you've ever written. It produces content in your voice — not generic agency tone. 8-12 posts per month, calibrated, on brand."
-          ctaLabel="See this built for Pillar"
+          eyebrow="OUTBOUND"
+          headline="Send outreach only when buyers are in-market."
+          lead="Outbound that books, because it triggers on real intent."
+          bullets={[
+            "Triggers on real intent: hiring, funding, tech adoption, content engagement",
+            "AI personalization with operator review - 1:1 quality at 1:100 volume",
+            "Wired into your CRM: signals route to Slack, alerts to AEs, replies tracked back",
+          ]}
+          ctaLabel="See our outbound engine"
           ctaHref="/case-studies"
         >
-          <div class="pain-visual-placeholder">
-            <span class="placeholder-label">[Voice calibration visual]</span>
-          </div>
+          <BeforeAfterEmail />
         </PainBlock>
       </div>
     </div>

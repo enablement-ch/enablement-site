@@ -1,0 +1,222 @@
+---
+// Before/After email diptych for the Outbound value-prop block.
+// Shows the AI-driven personalization in action.
+// v1 placeholder: hand off to design for polish later.
+---
+
+<div class="ba-mock">
+  <span class="ba-pill before">Before</span>
+  <article class="ba-card before-card">
+    <div class="ba-line">Hi <span class="ba-var">First name</span>,</div>
+    <div class="ba-line">
+      Saw that you <span class="ba-var">intent signal</span>. Specifically, you
+      <span class="ba-var">AI Summary</span>.
+    </div>
+    <div class="ba-line">
+      <span class="ba-var">Datapoint</span> usually
+      <span class="ba-var">AI inferred problem</span>.
+    </div>
+    <div class="ba-line ba-faded">
+      We solve this by <span class="ba-var">AI personalised value prop</span>.
+    </div>
+  </article>
+
+  <div class="ba-divider" aria-hidden="true">
+    <svg viewBox="0 0 24 80" preserveAspectRatio="none">
+      <line x1="12" y1="0" x2="12" y2="64" stroke="var(--color-accent)" stroke-width="1.5" stroke-dasharray="3 4" />
+      <polygon points="7,64 12,72 17,64" fill="var(--color-accent)" />
+    </svg>
+  </div>
+
+  <article class="ba-card after-card">
+    <header class="ba-after-head">
+      <div class="ba-avatar" aria-hidden="true">LH</div>
+      <div class="ba-from">
+        <div class="ba-name">Lanny Heiz</div>
+        <div class="ba-email">lanny@enablement.ch</div>
+      </div>
+      <div class="ba-time">9:14 AM</div>
+    </header>
+    <div class="ba-body">
+      <p>Hi Hugh,</p>
+      <p>
+        Saw that you're <mark>hiring a marketing specialist</mark>. In the ad
+        you mentioned improving <mark>conversion rates for your online store</mark>
+        is key.
+      </p>
+      <p>
+        Semrush estimates your traffic at <mark>~81,000 visitors/month</mark>,
+        and on Shopify roughly 10% of shoppers abandon their carts.
+      </p>
+      <p>
+        Usually, the AOV of a store like yours is around $75. That's about
+        <mark>$15,000 in revenue missed every month</mark>.
+      </p>
+      <p>
+        We solve this by helping online stores identify their shoppers and
+        retarget them without spending more on ads.
+      </p>
+      <p>Can I send you the last 100 customers you missed - free?</p>
+    </div>
+    <div class="ba-annotations">
+      <span class="ba-anno">Find any datapoint</span>
+      <span class="ba-anno">Summarise with AI</span>
+      <span class="ba-anno">Write AI personalisations</span>
+    </div>
+  </article>
+  <span class="ba-pill after">After</span>
+</div>
+
+<style>
+  .ba-mock {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-5);
+  }
+  .ba-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-xs);
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .ba-pill.before {
+    position: absolute;
+    top: 0;
+    left: var(--space-4);
+    z-index: 3;
+  }
+  .ba-pill.after {
+    position: absolute;
+    bottom: var(--space-2);
+    right: var(--space-4);
+    z-index: 3;
+  }
+  .ba-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .before-card {
+    margin-top: var(--space-4);
+    margin-left: 0;
+    width: 86%;
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .ba-line + .ba-line { margin-top: 6px; }
+  .ba-faded { opacity: 0.55; }
+  .ba-var {
+    display: inline-block;
+    padding: 1px 8px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-raised);
+    color: var(--color-body);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.02em;
+    margin: 1px 2px;
+    vertical-align: baseline;
+  }
+  .ba-divider {
+    display: flex;
+    justify-content: center;
+    margin: var(--space-3) 0;
+    height: 36px;
+  }
+  .ba-divider svg {
+    height: 100%;
+    width: 24px;
+  }
+  .after-card {
+    margin-left: auto;
+    width: 92%;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+    position: relative;
+  }
+  .ba-after-head {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: var(--space-3);
+    align-items: center;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-3);
+  }
+  .ba-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .ba-name {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  .ba-email {
+    font-family: var(--font-mono);
+    color: var(--color-muted);
+    font-size: 11px;
+  }
+  .ba-time {
+    font-family: var(--font-mono);
+    color: var(--color-muted);
+    font-size: 11px;
+  }
+  .ba-body p {
+    color: var(--color-body);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0 0 var(--space-3);
+  }
+  .ba-body p:last-of-type { margin-bottom: 0; }
+  .ba-body mark {
+    background: rgba(225, 30, 72, 0.08);
+    color: var(--color-heading);
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .ba-annotations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--color-border);
+  }
+  .ba-anno {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: var(--radius-xs);
+    background: #1d4ed8;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+</style>

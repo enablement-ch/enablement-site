@@ -1,21 +1,19 @@
 ---
 interface Props {
-  index: string; // "A", "B", "C"
-  eyebrow: string; // "NO OUTBOUND"
-  headline: string; // "You don't have outbound. Or what you have is broken."
-  pain: string; // Pain articulation paragraph
-  solution: string; // Solution paragraph
-  ctaLabel?: string; // Default: "See this built for [company]"
+  eyebrow: string;
+  headline: string; // The capability statement (Pierri H3)
+  lead: string; // One-line lead-in below the H3
+  bullets: string[]; // 2-3 feature bullets
+  ctaLabel?: string;
   ctaHref?: string;
   reverse?: boolean; // Flip text/visual sides
 }
 
 const {
-  index,
   eyebrow,
   headline,
-  pain,
-  solution,
+  lead,
+  bullets,
   ctaLabel = "See this in action",
   ctaHref = "/case-studies",
   reverse = false,
@@ -24,13 +22,12 @@ const {
 
 <div class:list={["pain-block", reverse && "reverse"]}>
   <div class="pain-text">
-    <span class="eyebrow"
-      >
-      {eyebrow}</span
-    >
+    <span class="eyebrow">{eyebrow}</span>
     <h3>{headline}</h3>
-    <p class="pain-body">{pain}</p>
-    <p class="pain-body">{solution}</p>
+    <p class="pain-lead">{lead}</p>
+    <ul class="pain-bullets">
+      {bullets.map((b) => <li>{b}</li>)}
+    </ul>
     <a href={ctaHref} class="btn btn-tertiary">
       {ctaLabel} <span class="arrow">→</span>
     </a>
