@@ -40,7 +40,7 @@
   --font-size-h3: 2.4375rem;
   --font-size-h2: 3.0625rem;
   --font-size-h1: 3.8125rem;
-  --font-size-display: clamp(3.5rem, 8vw, 6rem);
+  --font-size-display: clamp(2.5rem, 5.5vw, 4.25rem);
 
   /* Spacing (8pt linear) */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
@@ -314,13 +314,13 @@ p { margin: 0; max-width: 64ch; }
 
 /* ============ HERO ============ */
 .hero {
-  padding-block: var(--space-10) var(--space-9);
+  padding-block: var(--space-8) var(--space-7);
   border-bottom: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
 }
 @media (min-width: 1024px) {
-  .hero { padding-block: var(--space-11) var(--space-10); }
+  .hero { padding-block: var(--space-9) var(--space-8); }
 }
 .hero-inner {
   position: relative;
@@ -329,7 +329,7 @@ p { margin: 0; max-width: 64ch; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--space-6);
+  gap: var(--space-5);
   max-width: 880px;
   margin: 0 auto;
 }
@@ -362,7 +362,7 @@ p { margin: 0; max-width: 64ch; }
   position: relative;
   z-index: 1;
   max-width: var(--container-wide);
-  margin: var(--space-9) auto 0;
+  margin: var(--space-6) auto 0;
   padding-inline: var(--space-5);
 }
 @media (min-width: 1024px) {
