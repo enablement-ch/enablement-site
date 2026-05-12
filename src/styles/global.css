@@ -344,6 +344,7 @@ p { margin: 0; max-width: 64ch; }
 }
 .hero-lead { max-width: 56ch; }
 .hero-actions { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; justify-content: center; margin-top: var(--space-2); }
+.hero-actions-below { margin-top: var(--space-6); }
 
 /* Rotating word in the hero H1 */
 .rotating-word {
