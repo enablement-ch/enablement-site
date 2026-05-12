@@ -1164,17 +1164,19 @@ p { margin: 0; max-width: 64ch; }
 .marquee-row {
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: stretch;
+  align-items: center;
   max-width: var(--container-content);
   margin: 0 auto;
+  padding-block: var(--space-5) var(--space-6);
 }
 @media (max-width: 768px) {
-  .marquee-row { grid-template-columns: 1fr; }
+  .marquee-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
 }
 .marquee-label {
-  display: flex;
-  align-items: center;
-  padding: var(--space-5) var(--space-7) var(--space-5) var(--space-5);
+  padding-inline: var(--space-5) var(--space-7);
   font-family: var(--font-mono);
   font-size: var(--font-size-eyebrow);
   text-transform: uppercase;
@@ -1183,44 +1185,29 @@ p { margin: 0; max-width: 64ch; }
   max-width: 16ch;
   line-height: 1.5;
   font-weight: 500;
-  border-right: 1px solid var(--color-border);
 }
 @media (min-width: 1024px) {
   .marquee-label { padding-left: var(--space-7); }
 }
 @media (max-width: 768px) {
-  .marquee-label {
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
-    padding-block: var(--space-4);
-    max-width: none;
-  }
+  .marquee-label { max-width: none; }
 }
 
-.marquee-lanes {
-  display: flex;
-  flex-direction: column;
-  /* Edge fade — both sides of every lane fade to transparent */
-  mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
-}
 .marquee {
   position: relative;
   overflow: hidden;
-}
-.marquee + .marquee {
-  border-top: 1px solid var(--color-border);
+  /* Edge fade — both sides fade to transparent */
+  mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
 }
 .marquee-track {
   display: flex;
+  gap: var(--space-8);
   width: max-content;
+  align-items: center;
   animation: marquee-scroll 60s linear infinite;
-  align-items: stretch;
 }
-.marquee.reverse .marquee-track {
-  animation-direction: reverse;
-}
-.marquee-section:hover .marquee-track {
+.marquee:hover .marquee-track {
   animation-play-state: paused;
 }
 
@@ -1229,10 +1216,9 @@ p { margin: 0; max-width: 64ch; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 96px;
+  height: 52px;
+  min-width: 80px;
   flex-shrink: 0;
-  border-right: 1px solid var(--color-border);
   text-decoration: none;
   font-family: var(--font-sans);
   font-weight: 600;
@@ -1240,43 +1226,53 @@ p { margin: 0; max-width: 64ch; }
   color: var(--color-body);
   white-space: nowrap;
 }
+/* Vertical hairline divider in the GAP between cells, with 18%/18% inset */
+.marquee-cell::after {
+  content: "";
+  position: absolute;
+  right: calc(-1 * var(--space-8) / 2);
+  top: 18%;
+  bottom: 18%;
+  width: 1px;
+  background: var(--color-border);
+}
 .marquee-cell .logo-img {
   height: 28px;
   width: auto;
-  max-width: 130px;
+  max-width: 140px;
   object-fit: contain;
-  filter: grayscale(100%) brightness(0);
-  opacity: 0.45;
+  filter: grayscale(100%);
+  opacity: 0.7;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard),
               filter var(--motion-duration-fast) var(--motion-ease-standard);
 }
 [data-theme="dark"] .marquee-cell .logo-img {
-  filter: grayscale(100%) brightness(0) invert(1);
-  opacity: 0.55;
+  filter: grayscale(100%) invert(1);
+  opacity: 0.75;
 }
 .marquee-cell .logo-mark {
   letter-spacing: -0.01em;
   color: var(--color-muted);
-  opacity: 0.75;
+  opacity: 0.85;
 }
-/* Hover anywhere in the section → all logos in BOTH lanes color up */
-.marquee-section:hover .logo-img {
-  filter: grayscale(0%) brightness(1);
+/* Hover a single cell → only that logo colors up */
+.marquee-cell:hover .logo-img {
+  filter: grayscale(0%);
   opacity: 1;
 }
-[data-theme="dark"] .marquee-section:hover .logo-img {
-  filter: grayscale(0%) brightness(1);
+[data-theme="dark"] .marquee-cell:hover .logo-img {
+  filter: grayscale(0%) invert(0);
   opacity: 1;
 }
-.marquee-section:hover .logo-mark {
+.marquee-cell:hover .logo-mark {
   color: var(--color-heading);
   opacity: 1;
 }
 
-/* Case Study pill — INSIDE the cell at bottom-center, no row-height shift */
+/* Case Study pill — below the cell, in the marquee's bottom padding */
 .cs-pill {
   position: absolute;
-  bottom: 10px;
+  bottom: -22px;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;

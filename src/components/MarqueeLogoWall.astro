@@ -32,112 +32,37 @@ const {
   ],
 } = Astro.props;
 
-// Split into two lanes (linked/case-study logos to lane 1, rest to lane 2)
-const linked = logos.filter((l) => l.caseStudy);
-const others = logos.filter((l) => !l.caseStudy);
-const lane1 = [...linked, ...others.slice(0, Math.ceil(others.length / 2) - linked.length)];
-const lane2 = others.slice(lane1.length - linked.length);
-
-// Fallback in case the split is uneven
-const finalLane1 = lane1.length ? lane1 : logos.slice(0, Math.ceil(logos.length / 2));
-const finalLane2 = lane2.length ? lane2 : logos.slice(Math.ceil(logos.length / 2));
-
-const track1 = [...finalLane1, ...finalLane1];
-const track2 = [...finalLane2, ...finalLane2];
-
-function renderInner(logo: LogoCell) {
-  return logo.logo
-    ? `<img class="logo-img" src="${logo.logo}" alt="${logo.name}" loading="lazy" />`
-    : `<span class="logo-mark">${logo.name}</span>`;
-}
+const trackLogos = [...logos, ...logos];
 ---
 
 <section class="marquee-section" aria-label="Clients">
   <div class="marquee-row">
     <div class="marquee-label">{label}</div>
-    <div class="marquee-lanes">
-      <!-- Lane 1 — scrolls left -->
-      <div class="marquee">
-        <div class="marquee-track">
-          {
-            track1.map((logo, idx) => (
-              logo.caseStudy ? (
-                <a
-                  class="marquee-cell has-link"
-                  href={logo.caseStudy}
-                  aria-hidden={idx >= finalLane1.length}
-                >
-                  {logo.logo ? (
-                    <img
-                      class="logo-img"
-                      src={logo.logo}
-                      alt={logo.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="logo-mark">{logo.name}</span>
-                  )}
-                  <span class="cs-pill">Case Study</span>
-                </a>
-              ) : (
-                <span class="marquee-cell" aria-hidden={idx >= finalLane1.length}>
-                  {logo.logo ? (
-                    <img
-                      class="logo-img"
-                      src={logo.logo}
-                      alt={logo.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="logo-mark">{logo.name}</span>
-                  )}
-                </span>
-              )
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Lane 2 — scrolls right (reverse) -->
-      <div class="marquee reverse">
-        <div class="marquee-track">
-          {
-            track2.map((logo, idx) => (
-              logo.caseStudy ? (
-                <a
-                  class="marquee-cell has-link"
-                  href={logo.caseStudy}
-                  aria-hidden={idx >= finalLane2.length}
-                >
-                  {logo.logo ? (
-                    <img
-                      class="logo-img"
-                      src={logo.logo}
-                      alt={logo.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="logo-mark">{logo.name}</span>
-                  )}
-                  <span class="cs-pill">Case Study</span>
-                </a>
-              ) : (
-                <span class="marquee-cell" aria-hidden={idx >= finalLane2.length}>
-                  {logo.logo ? (
-                    <img
-                      class="logo-img"
-                      src={logo.logo}
-                      alt={logo.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="logo-mark">{logo.name}</span>
-                  )}
-                </span>
-              )
-            ))
-          }
-        </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        {
+          trackLogos.map((logo, idx) => {
+            const inner = logo.logo ? (
+              <img class="logo-img" src={logo.logo} alt={logo.name} loading="lazy" />
+            ) : (
+              <span class="logo-mark">{logo.name}</span>
+            );
+            return logo.caseStudy ? (
+              <a
+                class="marquee-cell has-link"
+                href={logo.caseStudy}
+                aria-hidden={idx >= logos.length}
+              >
+                {inner}
+                <span class="cs-pill">Case Study</span>
+              </a>
+            ) : (
+              <span class="marquee-cell" aria-hidden={idx >= logos.length}>
+                {inner}
+              </span>
+            );
+          })
+        }
       </div>
     </div>
   </div>
