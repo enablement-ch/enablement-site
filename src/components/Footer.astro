@@ -1,11 +1,10 @@
 ---
 import FoundersBlock from "./FoundersBlock.astro";
-import PartnerLogos from "./PartnerLogos.astro";
 ---
 
 <footer class="footer">
   <div class="container">
-    <!-- Top row: brand on left, primary links on right -->
+    <!-- Top row: brand on left, links on right -->
     <div class="footer-top">
       <a href="/" class="nav-logo" aria-label="Enablement.ch">
         <img src="/logo-black.svg" alt="" class="logo-img logo-img-light" />
@@ -17,11 +16,22 @@ import PartnerLogos from "./PartnerLogos.astro";
       </nav>
     </div>
 
-    <!-- Founders, compact side-by-side -->
-    <FoundersBlock />
-
-    <!-- Partners band -->
-    <PartnerLogos />
+    <!-- Founders on left, Clay partner badge on right (same row) -->
+    <div class="footer-middle">
+      <FoundersBlock />
+      <a
+        href="https://www.clay.com/"
+        target="_blank"
+        rel="noopener"
+        class="clay-badge"
+        aria-label="Clay Enterprise Partner"
+      >
+        <img
+          src="/clay-enterprise-partner.png"
+          alt="Clay Enterprise Partner"
+        />
+      </a>
+    </div>
 
     <!-- Thin legal strip at the very bottom -->
     <div class="footer-bottom">

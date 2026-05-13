@@ -51,6 +51,26 @@ function parseVimeo(url?: string) {
   const m = url.match(/vimeo\.com\/(\d+)(?:\/([a-zA-Z0-9]+))?/);
   return { id: m?.[1], hash: m?.[2] };
 }
+
+// Fetch Vimeo thumbnails at build time so each facade renders a preview image
+// instead of an empty card.
+async function getThumb(url?: string): Promise<string> {
+  if (!url) return "";
+  try {
+    const res = await fetch(
+      `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`
+    );
+    if (!res.ok) return "";
+    const data = await res.json();
+    return ((data.thumbnail_url as string) || "").replace(/_\d+x\d+/, "_1280");
+  } catch (e) {
+    return "";
+  }
+}
+
+const thumbs = await Promise.all(
+  testimonials.map((t) => getThumb(t.vimeoUrl))
+);
 ---
 
 <section class="section video-testimonials-section">
@@ -59,8 +79,9 @@ function parseVimeo(url?: string) {
     <h2>{headline}</h2>
     <div class="video-grid">
       {
-        testimonials.map((t) => {
+        testimonials.map((t, i) => {
           const v = parseVimeo(t.vimeoUrl);
+          const thumb = thumbs[i];
           return (
             <div class="video-card">
               <button
@@ -69,7 +90,12 @@ function parseVimeo(url?: string) {
                 data-vimeo-id={v.id}
                 data-vimeo-hash={v.hash}
               >
-                <span class="video-thumb-fill" />
+                <span
+                  class="video-thumb-fill"
+                  style={thumb
+                    ? `background-image: url(${thumb}); background-size: cover; background-position: center;`
+                    : undefined}
+                />
                 <span class="video-play">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8 5v14l11-7z" />

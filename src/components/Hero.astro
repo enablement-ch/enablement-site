@@ -32,6 +32,23 @@ const {
 const vimeoMatch = vimeoUrl?.match(/vimeo\.com\/(\d+)(?:\/([a-zA-Z0-9]+))?/);
 const vimeoId = vimeoMatch?.[1];
 const vimeoHash = vimeoMatch?.[2];
+
+// Fetch the Vimeo thumbnail at build time so the facade renders a preview image
+// instead of an empty card.
+let vimeoThumb = "";
+if (vimeoUrl) {
+  try {
+    const res = await fetch(
+      `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(vimeoUrl)}`
+    );
+    if (res.ok) {
+      const data = await res.json();
+      vimeoThumb = (data.thumbnail_url || "").replace(/_\d+x\d+/, "_1280");
+    }
+  } catch (e) {
+    // graceful fallback - facade renders without thumbnail
+  }
+}
 ---
 
 <header class="hero">
@@ -57,10 +74,13 @@ const vimeoHash = vimeoMatch?.[2];
   <!-- VSL frame under the headline -->
   <div class="hero-visual">
     <div
-      class="hero-visual-frame vimeo-facade"
+      class:list={["hero-visual-frame", "vimeo-facade", vimeoThumb && "has-thumb"]}
       aria-label="Intro video"
       data-vimeo-id={vimeoId}
       data-vimeo-hash={vimeoHash}
+      style={vimeoThumb
+        ? `background-image: url(${vimeoThumb}); background-size: cover; background-position: center;`
+        : undefined}
     >
       <div class="hero-visual-play">
         <button class="play-btn" aria-label="Play intro video">

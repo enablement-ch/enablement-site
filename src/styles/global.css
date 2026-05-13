@@ -354,10 +354,11 @@ p { margin: 0; max-width: 64ch; }
 .hero-actions { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; justify-content: center; margin-top: var(--space-2); }
 .hero-actions-below { margin-top: var(--space-6); }
 
-/* Vimeo facade: swapped iframe fills its parent frame cleanly */
+/* Vimeo facade: swapped iframe fills its parent frame cleanly.
+   Use aspect-ratio (not height:100%) so the iframe keeps 16:9 even when its
+   parent card has variable height from different testimonial text lengths. */
 .vimeo-iframe {
   width: 100%;
-  height: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
   display: block;
@@ -370,6 +371,70 @@ p { margin: 0; max-width: 64ch; }
   border-radius: var(--radius-lg);
 }
 .vimeo-facade { cursor: pointer; }
+
+/* ============ VIDEO MODAL (lightbox) ============ */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+}
+.video-modal[hidden] { display: none; }
+.video-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+.video-modal-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+}
+.video-modal-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  background: #000;
+}
+.video-modal-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.video-modal-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.video-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.video-modal-close svg {
+  width: 24px;
+  height: 24px;
+}
 
 /* Rotating word in the hero H1 */
 .rotating-word {
@@ -413,6 +478,11 @@ p { margin: 0; max-width: 64ch; }
   background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1px);
   background-size: 20px 20px;
   opacity: 0.3;
+}
+/* Hide the dot pattern entirely once the thumbnail is loaded - the play button
+   provides its own contrast against the video preview. */
+.hero-visual-frame.has-thumb::before {
+  display: none;
 }
 .hero-visual-play {
   position: relative;
@@ -700,6 +770,19 @@ p { margin: 0; max-width: 64ch; }
   gap: var(--space-5);
   margin-bottom: var(--space-7);
 }
+.footer-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-5);
+}
+@media (max-width: 640px) {
+  .footer-middle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+}
 .footer-links {
   display: flex;
   gap: var(--space-6);
@@ -711,6 +794,17 @@ p { margin: 0; max-width: 64ch; }
   transition: color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 .footer-links a:hover { color: var(--color-accent); }
+.clay-badge {
+  display: inline-block;
+  line-height: 0;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.clay-badge img {
+  width: 72px;
+  height: 72px;
+  display: block;
+}
+.clay-badge:hover { transform: scale(1.05); }
 @media (max-width: 640px) {
   .footer-top {
     flex-direction: column;
@@ -1602,7 +1696,6 @@ p { margin: 0; max-width: 64ch; }
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--space-7);
-  margin-bottom: var(--space-7);
 }
 @media (max-width: 640px) {
   .founders { gap: var(--space-4); }

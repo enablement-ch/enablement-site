@@ -49,6 +49,32 @@ const {
     <Nav />
     <slot />
     <Footer />
+
+    <!-- Video lightbox: any .vimeo-facade click opens the video here, at a
+         larger size than the in-page thumbnail. -->
+    <div class="video-modal" hidden aria-hidden="true">
+      <div class="video-modal-backdrop" data-modal-close></div>
+      <div class="video-modal-content">
+        <button
+          class="video-modal-close"
+          aria-label="Close video"
+          data-modal-close
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="video-modal-frame"></div>
+      </div>
+    </div>
+
     <script is:inline>
       try {
         const saved = localStorage.getItem("theme");
@@ -64,31 +90,49 @@ const {
         } catch (e) {}
       };
 
-      // Vimeo facade: click → swap thumbnail with embed
-      document.querySelectorAll(".vimeo-facade").forEach((el) => {
-        el.addEventListener(
-          "click",
-          function () {
+      // Vimeo facade: click → open video in centered lightbox
+      (function () {
+        const modal = document.querySelector(".video-modal");
+        const frame = modal && modal.querySelector(".video-modal-frame");
+        if (!modal || !frame) return;
+
+        function open(id, hash) {
+          const src =
+            "https://player.vimeo.com/video/" +
+            id +
+            (hash ? "?h=" + hash + "&" : "?") +
+            "autoplay=1&dnt=1";
+          frame.innerHTML =
+            '<iframe src="' +
+            src +
+            '" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen frameborder="0" class="vimeo-iframe"></iframe>';
+          modal.hidden = false;
+          modal.setAttribute("aria-hidden", "false");
+          document.documentElement.style.overflow = "hidden";
+        }
+        function close() {
+          frame.innerHTML = "";
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+          document.documentElement.style.overflow = "";
+        }
+
+        document.querySelectorAll(".vimeo-facade").forEach((el) => {
+          el.addEventListener("click", function (e) {
+            e.preventDefault();
             const id = el.dataset.vimeoId;
             const hash = el.dataset.vimeoHash;
             if (!id) return;
-            const src =
-              "https://player.vimeo.com/video/" +
-              id +
-              (hash ? "?h=" + hash + "&" : "?") +
-              "autoplay=1&dnt=1";
-            const iframe = document.createElement("iframe");
-            iframe.src = src;
-            iframe.allow =
-              "autoplay; fullscreen; picture-in-picture; clipboard-write";
-            iframe.allowFullscreen = true;
-            iframe.frameBorder = "0";
-            iframe.className = "vimeo-iframe";
-            el.replaceWith(iframe);
-          },
-          { once: true }
-        );
-      });
+            open(id, hash);
+          });
+        });
+        document.querySelectorAll("[data-modal-close]").forEach((el) => {
+          el.addEventListener("click", close);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !modal.hidden) close();
+        });
+      })();
     </script>
   </body>
 </html>
