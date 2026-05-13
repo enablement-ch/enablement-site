@@ -1,0 +1,490 @@
+---
+// Master Workflow visual (Option D): the Allbound GTM Playbook end-to-end.
+// Stages on the left rail, cards flowing top-to-bottom on the right.
+// Buyer sees the full motion - intent to educate problem-unaware viewers.
+
+const stages = [
+  "Create Demand",
+  "Identify Signals",
+  "Qualify Leads",
+  "Capture Demand",
+  "Create Pipeline",
+  "Win Deals",
+];
+
+// Tool chip placeholders - designer swaps these for real brand SVGs.
+const chip = (color: string) => ({ c: color });
+const chips = {
+  tam: [chip("#FF7A59"), chip("#1A1AFF"), chip("#0066FF"), chip("#4A154B")],
+  linkedin: [chip("#0A66C2"), chip("#D97757"), chip("#10A37F"), chip("#F4D03F")],
+  seo: [chip("#F4D03F"), chip("#FF6F61")],
+  paid: [chip("#4285F4"), chip("#0A66C2"), chip("#1877F2")],
+  monitor: [chip("#1A1AFF"), chip("#F4D03F"), chip("#10A37F"), chip("#FF7A59"), chip("#D97757")],
+  magnet: [chip("#FF7A59"), chip("#10A37F"), chip("#4A154B")],
+  enrich: [chip("#F4D03F"), chip("#D97757")],
+  write: [chip("#D97757"), chip("#10A37F")],
+  auto: [chip("#0066FF"), chip("#1A1AFF")],
+  bdr: [chip("#FF7A59"), chip("#4A154B")],
+  disco: [chip("#0066FF"), chip("#4285F4")],
+  won: [chip("#10A37F"), chip("#FF7A59")],
+};
+---
+
+<div class="mw-wrap">
+  <div class="mw-title">
+    <span>Allbound GTM Playbook 2026</span>
+  </div>
+
+  <div class="mw-body">
+    <div class="mw-rail">
+      {
+        stages.map((s, i) => (
+          <div class="mw-rail-item" data-i={i}>
+            <span class="mw-rail-dot" />
+            <span class="mw-rail-label">
+              <span class="mw-rail-verb">{s.split(" ")[0]}</span>{" "}
+              {s.split(" ").slice(1).join(" ")}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mw-flow">
+      <!-- Row 1: Create Demand (4 cards) -->
+      <div class="mw-row mw-row-4">
+        <div class="mw-card">
+          <span class="mw-card-title">TAM</span>
+          <div class="mw-chips">
+            {chips.tam.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+        <div class="mw-card">
+          <span class="mw-card-title">LinkedIn Content</span>
+          <div class="mw-chips">
+            {chips.linkedin.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+        <div class="mw-card">
+          <span class="mw-card-title">SEO & AI SEO</span>
+          <div class="mw-chips">
+            {chips.seo.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+        <div class="mw-card">
+          <span class="mw-card-title">Paid Ads</span>
+          <div class="mw-chips">
+            {chips.paid.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <!-- Connectors merge into 2 pills -->
+      <div class="mw-connector mw-merge-2">
+        <svg viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="50" y1="0" x2="50" y2="20" />
+          <line x1="150" y1="0" x2="150" y2="20" />
+          <line x1="50" y1="20" x2="150" y2="20" />
+          <line x1="100" y1="20" x2="100" y2="40" />
+          <line x1="250" y1="0" x2="250" y2="20" />
+          <line x1="350" y1="0" x2="350" y2="20" />
+          <line x1="250" y1="20" x2="350" y2="20" />
+          <line x1="300" y1="20" x2="300" y2="40" />
+          <circle cx="100" cy="40" r="3" class="mw-dot" />
+          <circle cx="300" cy="40" r="3" class="mw-dot" />
+        </svg>
+      </div>
+
+      <!-- Aggregated outputs -->
+      <div class="mw-row mw-row-pills">
+        <div class="mw-pill">Social Interactions</div>
+        <div class="mw-pill">Website Visitors</div>
+      </div>
+
+      <!-- Connect pills down to next row -->
+      <div class="mw-connector mw-merge-1">
+        <svg viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="100" y1="0" x2="100" y2="30" />
+          <line x1="300" y1="0" x2="300" y2="30" />
+          <line x1="100" y1="30" x2="300" y2="30" />
+          <line x1="200" y1="30" x2="200" y2="55" />
+          <circle cx="200" cy="55" r="3" class="mw-dot" />
+        </svg>
+      </div>
+
+      <!-- Row 2: Identify Signals (2 cards) -->
+      <div class="mw-row mw-row-2">
+        <div class="mw-card">
+          <span class="mw-card-title">Monitor Signals</span>
+          <div class="mw-chips">
+            {chips.monitor.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+        <div class="mw-card">
+          <span class="mw-card-title">Leadmagnet Downloads</span>
+          <div class="mw-chips">
+            {chips.magnet.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <!-- Merge into one -->
+      <div class="mw-connector mw-merge-1">
+        <svg viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="100" y1="0" x2="100" y2="30" />
+          <line x1="300" y1="0" x2="300" y2="30" />
+          <line x1="100" y1="30" x2="300" y2="30" />
+          <line x1="200" y1="30" x2="200" y2="55" />
+          <circle cx="200" cy="55" r="3" class="mw-dot" />
+        </svg>
+      </div>
+
+      <!-- Row 3: Qualify Leads (single centered) -->
+      <div class="mw-row mw-row-1">
+        <div class="mw-card mw-card-wide">
+          <span class="mw-card-title">Enrich & score for ICP Fit</span>
+          <div class="mw-chips">
+            {chips.enrich.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <div class="mw-connector mw-line">
+        <span class="mw-line-label">Fits ICP</span>
+      </div>
+
+      <!-- Row 4: Capture Demand (single centered) -->
+      <div class="mw-row mw-row-1">
+        <div class="mw-card mw-card-wide">
+          <span class="mw-card-title">Write Relevance-based message</span>
+          <div class="mw-chips">
+            {chips.write.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch into 2 -->
+      <div class="mw-connector mw-branch">
+        <svg viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="200" y1="0" x2="200" y2="28" />
+          <line x1="100" y1="28" x2="300" y2="28" />
+          <line x1="100" y1="28" x2="100" y2="60" />
+          <line x1="300" y1="28" x2="300" y2="60" />
+          <circle cx="100" cy="60" r="3" class="mw-dot" />
+          <circle cx="300" cy="60" r="3" class="mw-dot" />
+        </svg>
+        <span class="mw-branch-label mw-branch-l">Not tier 1 leads</span>
+        <span class="mw-branch-label mw-branch-r">Tier 1 leads</span>
+      </div>
+
+      <!-- Row 5: Two branched cards -->
+      <div class="mw-row mw-row-2">
+        <div class="mw-card">
+          <span class="mw-card-title">Automated sequences <span class="mw-card-sub">(email + LinkedIn)</span></span>
+          <div class="mw-chips">
+            {chips.auto.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+        <div class="mw-card mw-card-human">
+          <span class="mw-card-title">BDR reviews + calls leads</span>
+          <div class="mw-chips">
+            {chips.bdr.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <!-- Merge back -->
+      <div class="mw-connector mw-merge-1">
+        <svg viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="100" y1="0" x2="100" y2="30" />
+          <line x1="300" y1="0" x2="300" y2="30" />
+          <line x1="100" y1="30" x2="300" y2="30" />
+          <line x1="200" y1="30" x2="200" y2="55" />
+          <circle cx="200" cy="55" r="3" class="mw-dot" />
+        </svg>
+      </div>
+
+      <!-- Row 6: Create Pipeline -->
+      <div class="mw-row mw-row-1">
+        <div class="mw-card mw-card-human">
+          <span class="mw-card-title">Discovery & Qualification</span>
+          <div class="mw-chips">
+            {chips.disco.map((x) => <span class="mw-chip" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+
+      <div class="mw-connector mw-line"></div>
+
+      <!-- Row 7: Won (terminal) -->
+      <div class="mw-row mw-row-1">
+        <div class="mw-card mw-card-won">
+          <span class="mw-card-title">Closed Won</span>
+          <div class="mw-chips">
+            {chips.won.map((x) => <span class="mw-chip mw-chip-light" style={`--c:${x.c}`} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mw-legend">
+    <span class="mw-legend-item"><span class="mw-legend-sw mw-sw-human"></span>Human</span>
+    <span class="mw-legend-item"><span class="mw-legend-sw mw-sw-ai"></span>AI</span>
+  </div>
+</div>
+
+<style>
+  .mw-wrap {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-5) var(--space-4);
+    position: relative;
+  }
+  .mw-title {
+    background: linear-gradient(180deg, var(--color-accent), var(--color-accent-hover));
+    color: var(--color-accent-on);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-5);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-bottom: var(--space-4);
+    box-shadow: 0 4px 12px rgba(225, 30, 72, 0.18);
+  }
+  .mw-body {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+  .mw-rail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding-left: var(--space-3);
+    padding-right: var(--space-2);
+  }
+  .mw-rail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .mw-rail-verb {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .mw-rail-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    flex: 0 0 4px;
+  }
+  .mw-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .mw-row {
+    display: grid;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .mw-row-4 { grid-template-columns: repeat(4, 1fr); }
+  .mw-row-2 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .mw-row-1 { grid-template-columns: 1fr; justify-items: center; }
+  .mw-row-1 > .mw-card { max-width: 70%; }
+  .mw-row-pills {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    margin-top: 4px;
+  }
+  .mw-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: 6px 8px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .mw-card-wide {
+    width: 100%;
+    max-width: 280px;
+  }
+  .mw-card-human {
+    border-color: #2563EB;
+  }
+  .mw-card-won {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-on);
+    box-shadow: 0 4px 14px rgba(225, 30, 72, 0.22);
+    max-width: 220px;
+  }
+  .mw-card-title {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-heading);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .mw-card-won .mw-card-title { color: var(--color-accent-on); }
+  .mw-card-sub {
+    display: block;
+    color: var(--color-muted);
+    font-weight: 400;
+    font-size: 9px;
+    margin-top: 2px;
+  }
+  .mw-chips {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 2px;
+  }
+  .mw-chip {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--c);
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .mw-chip-light {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .mw-pill {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-xs);
+    padding: 3px 10px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-body);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+  .mw-connector {
+    position: relative;
+    height: 34px;
+    width: 100%;
+  }
+  .mw-connector svg {
+    width: 100%;
+    height: 100%;
+  }
+  .mw-connector svg line {
+    stroke: var(--color-accent);
+    stroke-width: 1.2;
+    fill: none;
+  }
+  .mw-dot {
+    fill: var(--color-accent);
+  }
+  .mw-merge-1 svg, .mw-merge-2 svg, .mw-branch svg { height: 36px; }
+  .mw-line {
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .mw-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1.2px;
+    background: var(--color-accent);
+    transform: translateX(-50%);
+  }
+  .mw-line-label {
+    background: var(--color-surface-raised);
+    padding: 0 8px;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    z-index: 1;
+    line-height: 1.4;
+  }
+  .mw-branch {
+    height: 56px;
+  }
+  .mw-branch-label {
+    position: absolute;
+    top: 40px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    background: var(--color-surface-raised);
+    padding: 1px 4px;
+    transform: translateY(-2px);
+  }
+  .mw-branch-l { left: 18%; }
+  .mw-branch-r { right: 18%; }
+
+  .mw-legend {
+    position: absolute;
+    bottom: var(--space-4);
+    right: var(--space-4);
+    display: flex;
+    gap: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    padding: 4px 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  .mw-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-body);
+    letter-spacing: 0.04em;
+  }
+  .mw-legend-sw {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .mw-sw-human { background: #2563EB; }
+  .mw-sw-ai { background: var(--color-accent); }
+
+  @media (max-width: 720px) {
+    .mw-body {
+      grid-template-columns: 80px 1fr;
+    }
+    .mw-rail-item { font-size: 8px; }
+    .mw-card-title { font-size: 9px; }
+    .mw-row-4 { grid-template-columns: repeat(2, 1fr); }
+    .mw-row-4 > * { grid-column: span 1; }
+  }
+</style>

@@ -1,0 +1,311 @@
+---
+// Operating Pipeline visual for Block 1 (RevOps / Stack).
+// 5-step horizontal flow + Slack-style output card.
+// v1 in-code visualization to evaluate the direction.
+---
+
+<div class="op-pipeline">
+  <div class="op-row">
+    <div class="op-step">
+      <span class="op-label">Trigger</span>
+      <div class="op-card">
+        <svg class="op-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s-8-7.58-8-13a8 8 0 0 1 16 0c0 5.42-8 13-8 13z" />
+          <circle cx="12" cy="9" r="3" />
+        </svg>
+      </div>
+      <span class="op-tool"><span class="op-tool-dot" style="--c:#1A1AFF"></span>Apollo</span>
+    </div>
+
+    <span class="op-conn" aria-hidden="true">
+      <svg viewBox="0 0 40 12" preserveAspectRatio="none">
+        <line x1="0" y1="6" x2="32" y2="6" />
+        <polygon points="32,2 40,6 32,10" />
+      </svg>
+    </span>
+
+    <div class="op-step">
+      <span class="op-label">Enrich</span>
+      <div class="op-card">
+        <svg class="op-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6" />
+        </svg>
+      </div>
+      <span class="op-tool"><span class="op-tool-dot" style="--c:#F4D03F"></span>Clay</span>
+    </div>
+
+    <span class="op-conn" aria-hidden="true">
+      <svg viewBox="0 0 40 12" preserveAspectRatio="none">
+        <line x1="0" y1="6" x2="32" y2="6" />
+        <polygon points="32,2 40,6 32,10" />
+      </svg>
+    </span>
+
+    <div class="op-step">
+      <span class="op-label">Score</span>
+      <div class="op-card op-card-ai">
+        <svg class="op-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-3 6.93A4 4 0 0 0 8 21a4 4 0 0 0 4-1 4 4 0 0 0 4 1 4 4 0 0 0 3-7.07A4 4 0 0 0 16 7V6a4 4 0 0 0-4-4z" />
+          <path d="M9 12h6M12 9v6" />
+        </svg>
+      </div>
+      <span class="op-tool"><span class="op-tool-dot" style="--c:#D97757"></span>AI Agent</span>
+    </div>
+
+    <span class="op-conn" aria-hidden="true">
+      <svg viewBox="0 0 40 12" preserveAspectRatio="none">
+        <line x1="0" y1="6" x2="32" y2="6" />
+        <polygon points="32,2 40,6 32,10" />
+      </svg>
+    </span>
+
+    <div class="op-step">
+      <span class="op-label">Route</span>
+      <div class="op-card">
+        <svg class="op-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="6" cy="3" r="2" />
+          <circle cx="6" cy="21" r="2" />
+          <circle cx="18" cy="12" r="2" />
+          <path d="M6 5v6a6 6 0 0 0 6 6h4M6 13v6" />
+        </svg>
+      </div>
+      <span class="op-tool"><span class="op-tool-dot" style="--c:#FF7A59"></span>HubSpot</span>
+    </div>
+
+    <span class="op-conn" aria-hidden="true">
+      <svg viewBox="0 0 40 12" preserveAspectRatio="none">
+        <line x1="0" y1="6" x2="32" y2="6" />
+        <polygon points="32,2 40,6 32,10" />
+      </svg>
+    </span>
+
+    <div class="op-step">
+      <span class="op-label">Notify</span>
+      <div class="op-card op-card-last">
+        <svg class="op-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+        </svg>
+      </div>
+      <span class="op-tool"><span class="op-tool-dot" style="--c:#4A154B"></span>Slack</span>
+    </div>
+  </div>
+
+  <div class="op-drop" aria-hidden="true">
+    <svg viewBox="0 0 24 48" preserveAspectRatio="none">
+      <line x1="12" y1="0" x2="12" y2="38" stroke-dasharray="3 4" />
+      <polygon points="7,38 12,46 17,38" />
+    </svg>
+  </div>
+
+  <article class="op-alert">
+    <header class="op-alert-head">
+      <span class="op-bolt" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
+        </svg>
+      </span>
+      <span class="op-alert-title">New intent signal · Acme Corp</span>
+    </header>
+    <div class="op-alert-body">
+      <p>Sarah Chen now hiring Head of GTM.</p>
+      <a class="op-alert-link" href="#">Brief ready in HubSpot →</a>
+    </div>
+    <footer class="op-alert-foot">Routed to: AE Sarah</footer>
+  </article>
+</div>
+
+<style>
+  .op-pipeline {
+    position: relative;
+    width: 100%;
+    padding: var(--space-6) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .op-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+  .op-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    width: 78px;
+  }
+  .op-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .op-card {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: grid;
+    place-items: center;
+    color: var(--color-accent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+  }
+  .op-card:hover { transform: translateY(-2px); }
+  .op-card-ai {
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+    border-color: var(--color-accent);
+  }
+  .op-card-last {
+    /* Highlight the terminal step subtly */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 3px rgba(225, 30, 72, 0.08);
+  }
+  .op-icon {
+    width: 26px;
+    height: 26px;
+  }
+  .op-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-body);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .op-tool-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--c, var(--color-accent));
+    display: inline-block;
+  }
+  .op-conn {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 64px;
+    margin-top: 22px; /* align with card vertical center under label */
+    display: grid;
+    place-items: center;
+  }
+  .op-conn svg {
+    width: 100%;
+    height: 12px;
+  }
+  .op-conn svg line {
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .op-conn svg polygon {
+    fill: var(--color-accent);
+  }
+
+  .op-drop {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    margin-right: 60px;
+    height: 48px;
+  }
+  .op-drop svg {
+    width: 24px;
+    height: 100%;
+  }
+  .op-drop svg line {
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .op-drop svg polygon {
+    fill: var(--color-accent);
+  }
+
+  .op-alert {
+    align-self: flex-end;
+    max-width: 280px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    margin-top: 4px;
+  }
+  .op-alert-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-heading);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .op-bolt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-xs);
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+    flex: 0 0 22px;
+  }
+  .op-bolt svg {
+    width: 12px;
+    height: 12px;
+  }
+  .op-alert-title {
+    flex: 1;
+  }
+  .op-alert-body p {
+    color: var(--color-body);
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0 0 4px;
+  }
+  .op-alert-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .op-alert-link:hover { text-decoration: underline; }
+  .op-alert-foot {
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 720px) {
+    .op-row {
+      overflow-x: auto;
+      justify-content: flex-start;
+      padding-bottom: var(--space-3);
+      scroll-snap-type: x mandatory;
+    }
+    .op-step { scroll-snap-align: start; }
+    .op-drop { margin-right: 20px; }
+    .op-alert { align-self: center; }
+  }
+</style>

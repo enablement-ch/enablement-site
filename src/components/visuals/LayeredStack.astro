@@ -1,0 +1,261 @@
+---
+// Layered Stack visual (Option C): tools → AI layer → output card, stacked vertically.
+---
+
+<div class="ls-wrap">
+  <article class="ls-output">
+    <header class="ls-output-head">
+      <span class="ls-bolt" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" /></svg>
+      </span>
+      <span>AE Brief · Acme Corp</span>
+    </header>
+    <div class="ls-output-body">
+      <p>Hiring Head of GTM. ICP score 92.</p>
+      <p>Last engaged your founder's post 4 days ago.</p>
+      <a class="ls-output-link" href="#">Discovery prep ready in HubSpot →</a>
+    </div>
+  </article>
+
+  <div class="ls-conn">
+    <svg viewBox="0 0 24 36" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="12" y1="2" x2="12" y2="26" stroke-dasharray="3 4" />
+      <polygon points="7,2 12,-4 17,2" />
+    </svg>
+    <span class="ls-conn-label">assembled by</span>
+  </div>
+
+  <div class="ls-layer ls-layer-ai">
+    <div class="ls-layer-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-3 6.93A4 4 0 0 0 8 21a4 4 0 0 0 4-1 4 4 0 0 0 4 1 4 4 0 0 0 3-7.07A4 4 0 0 0 16 7V6a4 4 0 0 0-4-4z" />
+        <path d="M9 12h6M12 9v6" />
+      </svg>
+    </div>
+    <div class="ls-layer-text">
+      <span class="ls-layer-title">AI Agent layer</span>
+      <span class="ls-layer-sub">Claude Code · enrich · route · draft · prep · summarize</span>
+    </div>
+  </div>
+
+  <div class="ls-conn">
+    <svg viewBox="0 0 24 36" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="12" y1="2" x2="12" y2="26" stroke-dasharray="3 4" />
+      <polygon points="7,2 12,-4 17,2" />
+    </svg>
+    <span class="ls-conn-label">powered by</span>
+  </div>
+
+  <div class="ls-base">
+    <div class="ls-tool">
+      <div class="ls-tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="6" cy="3" r="2" /><circle cx="6" cy="21" r="2" /><circle cx="18" cy="12" r="2" /><path d="M6 5v6a6 6 0 0 0 6 6h4M6 13v6" />
+        </svg>
+      </div>
+      <span class="ls-tool-name"><span class="ls-tool-dot" style="--c:#FF7A59"></span>HubSpot</span>
+    </div>
+    <div class="ls-tool">
+      <div class="ls-tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5" /><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6" />
+        </svg>
+      </div>
+      <span class="ls-tool-name"><span class="ls-tool-dot" style="--c:#F4D03F"></span>Clay</span>
+    </div>
+    <div class="ls-tool">
+      <div class="ls-tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s-8-7.58-8-13a8 8 0 0 1 16 0c0 5.42-8 13-8 13z" /><circle cx="12" cy="9" r="3" />
+        </svg>
+      </div>
+      <span class="ls-tool-name"><span class="ls-tool-dot" style="--c:#1A1AFF"></span>Apollo</span>
+    </div>
+    <div class="ls-tool">
+      <div class="ls-tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
+        </svg>
+      </div>
+      <span class="ls-tool-name"><span class="ls-tool-dot" style="--c:#0066FF"></span>Outreach</span>
+    </div>
+    <div class="ls-tool">
+      <div class="ls-tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+        </svg>
+      </div>
+      <span class="ls-tool-name"><span class="ls-tool-dot" style="--c:#4A154B"></span>Slack</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ls-wrap {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .ls-output {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+  .ls-output-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-heading);
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .ls-bolt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-xs);
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+  }
+  .ls-bolt svg { width: 12px; height: 12px; }
+  .ls-output-body p {
+    color: var(--color-body);
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0 0 4px;
+  }
+  .ls-output-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    margin-top: 4px;
+    display: inline-block;
+  }
+  .ls-conn {
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    position: relative;
+  }
+  .ls-conn svg {
+    width: 24px;
+    height: 28px;
+  }
+  .ls-conn svg line {
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .ls-conn svg polygon {
+    fill: var(--color-accent);
+  }
+  .ls-conn-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .ls-layer {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .ls-layer-ai {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-on);
+    box-shadow: 0 0 0 4px rgba(225, 30, 72, 0.12);
+  }
+  .ls-layer-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-xs);
+    background: rgba(255, 255, 255, 0.15);
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+  }
+  .ls-layer-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-accent-on);
+  }
+  .ls-layer-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ls-layer-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+  .ls-layer-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    opacity: 0.88;
+  }
+  .ls-base {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    padding: var(--space-3);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  .ls-tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .ls-tool-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-xs);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: grid;
+    place-items: center;
+    color: var(--color-accent);
+  }
+  .ls-tool-icon svg { width: 18px; height: 18px; }
+  .ls-tool-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-body);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .ls-tool-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--c, var(--color-accent));
+    display: inline-block;
+  }
+</style>

@@ -1,0 +1,203 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OperatingPipeline from "../components/visuals/OperatingPipeline.astro";
+import HubConstellation from "../components/visuals/HubConstellation.astro";
+import LayeredStack from "../components/visuals/LayeredStack.astro";
+import MasterWorkflow from "../components/visuals/MasterWorkflow.astro";
+import AllboundOrg from "../components/visuals/AllboundOrg.astro";
+
+const options = [
+  {
+    key: "A",
+    title: "Hub Constellation",
+    metaphor: "Tools plug into the brain.",
+    caption:
+      "AI agent at the center; tools radiate around it; status pulses below. Reads as 'everything connects.' Generic risk: hub metaphors are everywhere in B2B SaaS.",
+    component: "Hub",
+  },
+  {
+    key: "B",
+    title: "Operating Pipeline",
+    metaphor: "Watch the data move.",
+    caption:
+      "Linear 5-step flow ending in a real Slack-style output card. Reads as a 15-second demo of the system in action. Most concrete, most Pierri-aligned.",
+    component: "Pipeline",
+  },
+  {
+    key: "C",
+    title: "Layered Stack",
+    metaphor: "The word 'stack' becomes literal.",
+    caption:
+      "Vertical architecture: raw tools at the base, AI layer in the middle, AE brief as the surface. Reads as 'we build the operating layer on top of your existing tools.'",
+    component: "Stack",
+  },
+];
+---
+
+<BaseLayout title="Block 1 — three visualization options">
+  <section class="section">
+    <div class="container stack-6">
+      <span class="eyebrow">Block 1 preview</span>
+      <h1>Three options for the Stack visual.</h1>
+      <p class="lead">
+        Same headline, three different visual metaphors. Scroll, compare, pick one.
+        H3 on all three: <em>"Connect every GTM tool into one automated stack."</em>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="b1-options">
+        <article class="b1-option">
+          <header class="b1-option-head">
+            <span class="b1-key">A</span>
+            <div>
+              <span class="eyebrow">Option A · Hub Constellation</span>
+              <h3>Tools plug into the brain.</h3>
+            </div>
+          </header>
+          <div class="b1-visual-frame">
+            <HubConstellation />
+          </div>
+          <p class="b1-caption">
+            AI agent at the center; tools radiate around it; status pulses below.
+            Reads as <em>"everything connects."</em> Generic risk: hub metaphors
+            are everywhere in B2B SaaS.
+          </p>
+        </article>
+
+        <article class="b1-option">
+          <header class="b1-option-head">
+            <span class="b1-key">B</span>
+            <div>
+              <span class="eyebrow">Option B · Operating Pipeline</span>
+              <h3>Watch the data move.</h3>
+            </div>
+          </header>
+          <div class="b1-visual-frame">
+            <OperatingPipeline />
+          </div>
+          <p class="b1-caption">
+            Linear 5-step flow ending in a real Slack-style output card. Reads
+            as a 15-second demo of the system in action. Most concrete, most
+            Pierri-aligned.
+          </p>
+        </article>
+
+        <article class="b1-option">
+          <header class="b1-option-head">
+            <span class="b1-key">C</span>
+            <div>
+              <span class="eyebrow">Option C · Layered Stack</span>
+              <h3>The word "stack" becomes literal.</h3>
+            </div>
+          </header>
+          <div class="b1-visual-frame">
+            <LayeredStack />
+          </div>
+          <p class="b1-caption">
+            Vertical architecture - raw tools at the base, AI layer in the middle,
+            AE brief as the surface. Reads as <em>"we build the operating layer
+            on top of your existing tools."</em>
+          </p>
+        </article>
+
+        <article class="b1-option">
+          <header class="b1-option-head">
+            <span class="b1-key">D</span>
+            <div>
+              <span class="eyebrow">Option D · Master Workflow</span>
+              <h3>The whole allbound motion, in one view.</h3>
+            </div>
+          </header>
+          <div class="b1-visual-frame">
+            <MasterWorkflow />
+          </div>
+          <p class="b1-caption">
+            Your Allbound GTM Playbook rendered in the design system - all six
+            stages, branched workflow, tool chips under every step. Educates
+            problem-unaware buyers but reads as a <em>process</em>, not a
+            <em>system</em>. Also: too tall for Block 1's side slot.
+          </p>
+        </article>
+
+        <article class="b1-option">
+          <header class="b1-option-head">
+            <span class="b1-key">E</span>
+            <div>
+              <span class="eyebrow">Option E · Allbound Org (Recommended)</span>
+              <h3>The system as an org structure.</h3>
+            </div>
+          </header>
+          <div class="b1-visual-frame">
+            <AllboundOrg />
+          </div>
+          <p class="b1-caption">
+            Tools clustered around the operating layer + a live output ticker
+            cycling through what comes out: <em>scored leads, enriched contacts,
+            cleaned databases, intent signals, positive replies routed.</em>
+            Each output highlights the tool that produced it. Shows the system
+            <strong>doing things</strong>, not just sitting there.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .b1-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-9);
+  }
+  .b1-option {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-7);
+  }
+  .b1-option:first-child { border-top: none; padding-top: 0; }
+  .b1-option-head {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    margin-bottom: var(--space-6);
+  }
+  .b1-key {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-accent);
+    line-height: 1;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    display: grid;
+    place-items: center;
+  }
+  .b1-option-head h3 {
+    margin-top: 2px;
+    letter-spacing: -0.02em;
+  }
+  .b1-visual-frame {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-5);
+    overflow: hidden;
+  }
+  .b1-caption {
+    color: var(--color-body);
+    max-width: var(--container-prose, 72ch);
+  }
+  .b1-caption em {
+    color: var(--color-accent);
+    font-style: italic;
+  }
+</style>

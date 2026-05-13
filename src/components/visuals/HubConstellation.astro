@@ -1,0 +1,188 @@
+---
+// Hub Constellation visual (Option A): AI agent at center, tools radiating.
+---
+
+<div class="hc-wrap">
+  <div class="hc-grid">
+    <div class="hc-cell hc-tool hc-n">
+      <div class="hc-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="6" cy="3" r="2" />
+          <circle cx="6" cy="21" r="2" />
+          <circle cx="18" cy="12" r="2" />
+          <path d="M6 5v6a6 6 0 0 0 6 6h4M6 13v6" />
+        </svg>
+      </div>
+      <span class="hc-tag"><span class="hc-dot" style="--c:#FF7A59"></span>HubSpot</span>
+    </div>
+
+    <div class="hc-cell hc-tool hc-e">
+      <div class="hc-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6" />
+        </svg>
+      </div>
+      <span class="hc-tag"><span class="hc-dot" style="--c:#F4D03F"></span>Clay</span>
+    </div>
+
+    <div class="hc-cell hc-tool hc-s">
+      <div class="hc-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s-8-7.58-8-13a8 8 0 0 1 16 0c0 5.42-8 13-8 13z" />
+          <circle cx="12" cy="9" r="3" />
+        </svg>
+      </div>
+      <span class="hc-tag"><span class="hc-dot" style="--c:#1A1AFF"></span>Apollo</span>
+    </div>
+
+    <div class="hc-cell hc-tool hc-w">
+      <div class="hc-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+        </svg>
+      </div>
+      <span class="hc-tag"><span class="hc-dot" style="--c:#4A154B"></span>Slack</span>
+    </div>
+
+    <div class="hc-cell hc-center">
+      <div class="hc-card hc-card-ai">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-3 6.93A4 4 0 0 0 8 21a4 4 0 0 0 4-1 4 4 0 0 0 4 1 4 4 0 0 0 3-7.07A4 4 0 0 0 16 7V6a4 4 0 0 0-4-4z" />
+          <path d="M9 12h6M12 9v6" />
+        </svg>
+      </div>
+      <span class="hc-tag hc-tag-ai"><span class="hc-dot" style="--c:#D97757"></span>AI Agent</span>
+    </div>
+
+    <svg class="hc-lines" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="150" y1="60" x2="150" y2="135" />
+      <line x1="240" y1="150" x2="165" y2="150" />
+      <line x1="150" y1="240" x2="150" y2="165" />
+      <line x1="60" y1="150" x2="135" y2="150" />
+    </svg>
+  </div>
+
+  <div class="hc-status">
+    <span class="hc-status-row"><span class="hc-pulse"></span>Enriching 247 contacts</span>
+    <span class="hc-status-row"><span class="hc-pulse"></span>Routing signal → AE Slack</span>
+    <span class="hc-status-row"><span class="hc-pulse"></span>Drafting follow-up #3</span>
+  </div>
+</div>
+
+<style>
+  .hc-wrap {
+    width: 100%;
+    padding: var(--space-6) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .hc-grid {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+  .hc-cell {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .hc-n { top: 0; left: 50%; transform: translateX(-50%); }
+  .hc-e { top: 50%; right: 0; transform: translateY(-50%); }
+  .hc-s { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .hc-w { top: 50%; left: 0; transform: translateY(-50%); }
+  .hc-center {
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .hc-card {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: grid;
+    place-items: center;
+    color: var(--color-accent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .hc-card svg { width: 24px; height: 24px; }
+  .hc-card-ai {
+    background: var(--color-accent);
+    color: var(--color-accent-on);
+    border-color: var(--color-accent);
+    width: 76px;
+    height: 76px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 4px rgba(225, 30, 72, 0.12);
+  }
+  .hc-card-ai svg { width: 32px; height: 32px; }
+  .hc-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-body);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .hc-tag-ai {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .hc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--c, var(--color-accent));
+    display: inline-block;
+  }
+  .hc-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .hc-lines line {
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+  .hc-status {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-body);
+  }
+  .hc-status-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hc-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(225, 30, 72, 0.15);
+    display: inline-block;
+  }
+</style>
