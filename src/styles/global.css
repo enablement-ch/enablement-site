@@ -1678,18 +1678,60 @@ p { margin: 0; max-width: 64ch; }
   margin-top: 2px;
 }
 
-/* ============ FINAL CTA ============ */
-.cta-section { padding-block: var(--space-10); }
+/* ============ FINAL CTA ============
+   Full-bleed dark band - the page's visual punctuation.
+   Sits between the FAQ (light) and the footer (light), creating a strong
+   "decision moment" before the user leaves the page. */
+.cta-section {
+  padding-block: clamp(var(--space-10), 10vw, var(--space-11));
+  background:
+    radial-gradient(
+      circle at 50% 60%,
+      rgba(225, 30, 72, 0.16) 0%,
+      rgba(225, 30, 72, 0.06) 30%,
+      transparent 60%
+    ),
+    #0F1217;
+  border-bottom: 0;
+  color: #FFFFFF;
+}
+/* Subtle vertical frame lines on dark - keep the bracket motif but soften */
+.cta-section::before {
+  border-left-color: rgba(255, 255, 255, 0.08);
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
 .cta-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: var(--space-5);
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
-.cta-inner h2 { font-size: clamp(2rem, 4vw, 3rem); }
+.cta-inner h2 {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+.cta-inner h2 .italic-accent {
+  /* keep the crimson italic accent - high contrast on dark */
+  color: var(--color-accent);
+}
+.cta-inner .lead {
+  color: rgba(255, 255, 255, 0.66);
+  max-width: 620px;
+  font-size: var(--font-size-lead);
+}
+.cta-inner .hero-actions {
+  margin-top: var(--space-3);
+}
+.cta-inner .btn-accent {
+  /* slightly larger button for the final CTA emphasis */
+  padding: 14px 28px;
+  font-size: 1.0625rem;
+}
 
 /* ============ CASE STUDY CARDS (index page) ============ */
 .case-grid {
