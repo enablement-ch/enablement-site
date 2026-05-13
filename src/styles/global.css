@@ -683,43 +683,61 @@ p { margin: 0; max-width: 64ch; }
 .footer {
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
-  padding-block: var(--space-9);
+  padding-block: var(--space-8);
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--space-7);
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
 }
-@media (max-width: 768px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+.footer-links {
+  display: flex;
+  gap: var(--space-6);
 }
-.footer-tagline { color: var(--color-body); margin-top: var(--space-3); max-width: 32ch; font-size: var(--font-size-caption); }
-.footer-group h6 {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 500;
-  margin-bottom: var(--space-4);
-  color: var(--color-muted);
-}
-.footer-group a {
-  display: block;
+.footer-links a {
   color: var(--color-heading);
   text-decoration: none;
   font-size: var(--font-size-caption);
-  padding-block: var(--space-1);
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
 }
-.footer-group a:hover { color: var(--color-accent); }
+.footer-links a:hover { color: var(--color-accent); }
+@media (max-width: 640px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
 .footer-bottom {
-  margin-top: var(--space-8);
-  padding-top: var(--space-5);
+  margin-top: var(--space-7);
+  padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--font-size-eyebrow);
   color: var(--color-muted);
+}
+.footer-legal {
+  display: flex;
+  gap: var(--space-5);
+}
+.footer-legal a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.footer-legal a:hover { color: var(--color-heading); }
+@media (max-width: 640px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
 }
 
 /* ============ MISC ============ */
@@ -1579,15 +1597,15 @@ p { margin: 0; max-width: 64ch; }
 .faq-body p { margin: 0; }
 
 /* ============ FOUNDERS BLOCK ============ */
-.founders { display: flex; flex-direction: column; gap: var(--space-3); }
-.founders h6 {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 500;
-  margin-bottom: var(--space-3);
-  color: var(--color-muted);
+.founders {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  margin-bottom: var(--space-7);
+}
+@media (max-width: 640px) {
+  .founders { gap: var(--space-4); }
 }
 .founder-row {
   display: flex;
@@ -1731,6 +1749,30 @@ p { margin: 0; max-width: 64ch; }
   /* slightly larger button for the final CTA emphasis */
   padding: 14px 28px;
   font-size: 1.0625rem;
+}
+
+/* Dark-mode inversion: the CTA stays the visual punctuation, but now it's a
+   light off-white band against the dark page surrounding it. Crimson glow + accent stay. */
+[data-theme="dark"] .cta-section {
+  background:
+    radial-gradient(
+      circle at 50% 60%,
+      rgba(225, 30, 72, 0.10) 0%,
+      rgba(225, 30, 72, 0.04) 30%,
+      transparent 60%
+    ),
+    #F2F4F8;
+  color: #0F1217;
+}
+[data-theme="dark"] .cta-section::before {
+  border-left-color: rgba(15, 18, 23, 0.08);
+  border-right-color: rgba(15, 18, 23, 0.08);
+}
+[data-theme="dark"] .cta-inner h2 {
+  color: #0F1217;
+}
+[data-theme="dark"] .cta-inner .lead {
+  color: rgba(15, 18, 23, 0.66);
 }
 
 /* ============ CASE STUDY CARDS (index page) ============ */

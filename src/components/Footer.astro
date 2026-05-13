@@ -1,66 +1,34 @@
 ---
 import FoundersBlock from "./FoundersBlock.astro";
 import PartnerLogos from "./PartnerLogos.astro";
-
-const groups = [
-  {
-    title: "Site",
-    links: [
-      { href: "/case-studies", label: "Clients" },
-      { href: "/book", label: "Schedule meeting" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { href: "/gtc", label: "GTC" },
-      { href: "/privacy", label: "Privacy" },
-    ],
-  },
-  {
-    title: "Contact",
-    links: [
-      {
-        href: "https://www.linkedin.com/company/enablementch",
-        label: "LinkedIn",
-      },
-      { href: "mailto:hello@enablement.ch", label: "hello@enablement.ch" },
-    ],
-  },
-];
 ---
 
 <footer class="footer">
   <div class="container">
-    <div class="footer-grid">
-      <div>
-        <a href="/" class="nav-logo"
-          >Enablement<span class="dot">.</span>ch</a
-        >
-        <p class="footer-tagline">
-          Fractional GTM engineering for B2B teams in DACH.
-        </p>
-      </div>
-      {
-        groups.map((g) => (
-          <div class="footer-group">
-            <h6>{g.title}</h6>
-            {g.links.map((l) => (
-              <a href={l.href}>{l.label}</a>
-            ))}
-          </div>
-        ))
-      }
-      <div class="footer-group">
-        <FoundersBlock />
-      </div>
+    <!-- Top row: brand on left, primary links on right -->
+    <div class="footer-top">
+      <a href="/" class="nav-logo"
+        >Enablement<span class="dot">.</span>ch</a
+      >
+      <nav class="footer-links">
+        <a href="/case-studies">Clients</a>
+        <a href="/book">Book a meeting</a>
+      </nav>
     </div>
 
+    <!-- Founders, compact side-by-side -->
+    <FoundersBlock />
+
+    <!-- Partners band -->
     <PartnerLogos />
 
+    <!-- Thin legal strip at the very bottom -->
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} Enablement.ch</span>
-      <span>Built in DACH.</span>
+      <nav class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/gtc">GTC</a>
+      </nav>
     </div>
   </div>
 </footer>
