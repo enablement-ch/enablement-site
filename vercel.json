@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/optimizely",
+      "destination": "https://roadmap.enablement.ch/optimizely"
+    },
+    {
+      "source": "/optimizely/:path*",
+      "destination": "https://roadmap.enablement.ch/optimizely/:path*"
+    },
+    {
+      "source": "/mortgage-automator",
+      "destination": "https://roadmap.enablement.ch/mortgage-automator"
+    },
+    {
+      "source": "/mortgage-automator/:path*",
+      "destination": "https://roadmap.enablement.ch/mortgage-automator/:path*"
+    }
+  ]
+}
