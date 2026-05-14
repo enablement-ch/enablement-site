@@ -1,18 +1,18 @@
 ---
 interface Props {
-  eyebrow: string;
-  headline: string; // The capability statement (Pierri H3)
-  lead: string; // One-line lead-in below the H3
-  bullets: string[]; // 2-3 feature bullets
+  eyebrow?: string;
+  headline: string;
+  lead?: string;
+  bullets: string[];
   ctaLabel?: string;
   ctaHref?: string;
-  reverse?: boolean; // Flip text/visual sides
+  reverse?: boolean;
 }
 
 const {
-  eyebrow,
+  eyebrow = "",
   headline,
-  lead,
+  lead = "",
   bullets,
   ctaLabel = "",
   ctaHref = "",
@@ -22,9 +22,9 @@ const {
 
 <div class:list={["pain-block", reverse && "reverse"]}>
   <div class="pain-text">
-    <span class="eyebrow">{eyebrow}</span>
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h3>{headline}</h3>
-    <p class="pain-lead">{lead}</p>
+    {lead && <p class="pain-lead">{lead}</p>}
     <ul class="pain-bullets">
       {bullets.map((b) => <li>{b}</li>)}
     </ul>

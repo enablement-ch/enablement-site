@@ -1567,7 +1567,8 @@ p { margin: 0; max-width: 64ch; }
   .pain-block.reverse > .pain-text { order: 2; }
   .pain-block.reverse > .pain-visual { order: 1; }
 }
-.pain-text > * + * { margin-top: var(--space-4); }
+.pain-text { display: flex; flex-direction: column; gap: var(--space-4); }
+.pain-text > .pain-bullets { margin-top: var(--space-2); }
 .pain-text h3 { letter-spacing: -0.02em; line-height: 1.15; }
 .pain-body {
   color: var(--color-body);
