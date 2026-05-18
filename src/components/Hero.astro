@@ -5,7 +5,6 @@ interface Props {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
-  videoLabel?: string;
   /** Rotating phrases after "Turn your tools into". First entry is the static fallback. */
   rotatingWords?: string[];
   /** Vimeo URL (any format) for the hero VSL. Loaded on click. */
@@ -18,7 +17,6 @@ const {
   primaryLabel = "Schedule meeting",
   secondaryHref = "/case-studies",
   secondaryLabel = "See client work",
-  videoLabel = "Watch · 3 min",
   rotatingWords = [
     "a GTM System",
     "an Allbound Engine",
@@ -88,7 +86,6 @@ if (vimeoUrl) {
             ><path d="M8 5v14l11-7z"></path></svg
           >
         </button>
-        <div class="label">{videoLabel}</div>
       </div>
     </div>
   </div>

@@ -506,13 +506,6 @@ p { margin: 0; max-width: 64ch; }
 }
 .hero-visual-play .play-btn:hover { transform: scale(1.05); }
 .hero-visual-play .play-btn svg { width: 24px; height: 24px; margin-left: 4px; }
-.hero-visual-play .label {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--color-muted);
-}
 
 /* ============ STAT STRIP ============ */
 .stats {
