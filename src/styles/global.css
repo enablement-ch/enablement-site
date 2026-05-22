@@ -1365,7 +1365,7 @@ p { margin: 0; max-width: 64ch; }
 .marquee-cell .logo-img {
   height: 28px;
   width: auto;
-  max-width: 140px;
+  max-width: 180px;
   object-fit: contain;
   filter: grayscale(100%);
   opacity: 0.9;
@@ -1385,11 +1385,13 @@ p { margin: 0; max-width: 64ch; }
 .logo-img-dark { display: none; }
 [data-theme="dark"] .logo-img-light { display: none; }
 [data-theme="dark"] .logo-img-dark { display: inline-block; }
-/* When a logo has a theme-specific file, skip the filter/blend treatment */
+/* When a logo has a theme-specific file, skip the multiply/screen blend mode
+   (those would mute or overbrighten the native colors incorrectly). The
+   default grayscale + 0.9 opacity treatment still applies in both themes so
+   the at-rest look stays muted; the existing :hover rule lifts them to full
+   color. */
 .logo-img.native {
-  filter: none;
   mix-blend-mode: normal;
-  opacity: 1;
 }
 .marquee-cell .logo-mark {
   letter-spacing: -0.01em;

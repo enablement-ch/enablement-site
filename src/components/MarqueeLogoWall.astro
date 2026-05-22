@@ -8,6 +8,9 @@ interface LogoCell {
    * treatment is skipped for the theme-matched file. */
   logoDark?: string;
   caseStudy?: string;
+  /** Override default 28px render height. Use to dial down visually heavy
+   * wordmarks that read as over-dominant next to lighter-stroke peers. */
+  height?: number;
 }
 
 interface Props {
@@ -18,22 +21,28 @@ interface Props {
 const {
   label = "Trusted by over 100 GTM teams",
   logos = [
-    { name: "Scrypt", logo: "/logos/scrypt.webp" }, // caseStudy: "/case-studies/scrypt" — restore on case-studies relaunch
-    { name: "HubSpot", logo: "/logos/hubspot.png" },
-    { name: "Skribble", logo: "/logos/skribble.webp" },
-    { name: "Strategyzer", logo: "/logos/strategyzer.jpg" },
-    { name: "Ohalo", logo: "/logos/ohalo.webp" }, // caseStudy: "/case-studies/ohalo" — restore on case-studies relaunch
-    { name: "Bound", logo: "/logos/bound.avif" },
-    { name: "Hy.co", logo: "/logos/hyco.png" },
-    { name: "Lipdub", logo: "/logos/lipdub.avif" },
-    { name: "Adthena", logo: "/logos/adthena.png" },
-    { name: "Emlen", logo: "/logos/emlen.svg" },
-    { name: "Leostream", logo: "/logos/leostream.webp" },
-    { name: "Orca", logo: "/logos/orca.png" },
-    { name: "Mybites", logo: "/logos/mybites.svg" },
-    { name: "Sysdyne", logo: "/logos/sysdyne.png" },
-    { name: "Trawa", logo: "/logos/trawa.png" },
-    { name: "Blueprint", logo: "/logos/blueprint.png" },
+    { name: "Scrypt", logo: "/logos/scrypt-orange.png", logoDark: "/logos/scrypt-orange.png" }, // caseStudy: "/case-studies/scrypt" — restore on case-studies relaunch. Single brand-orange file used in both themes.
+    { name: "HubSpot", logo: "/logos/hubspot-orange.png", logoDark: "/logos/hubspot-white.png" },
+    { name: "Skribble", logo: "/logos/skribble-black.png", logoDark: "/logos/skribble-white.png", height: 24 },
+    { name: "Strategyzer", logo: "/logos/strategyzer-black.png", logoDark: "/logos/strategyzer-white.png", height: 22 },
+    { name: "Ohalo", logo: "/logos/ohalo-blue.webp", logoDark: "/logos/ohalo-white.png" }, // caseStudy: "/case-studies/ohalo" — restore on case-studies relaunch
+    { name: "Bound", logo: "/logos/bound-black.avif", logoDark: "/logos/bound-white.avif" },
+    { name: "Hy.co", logo: "/logos/hyco-black.png", logoDark: "/logos/hyco-white.png" },
+    { name: "Lipdub", logo: "/logos/lipdub-black.png", logoDark: "/logos/lipdub-white.avif" },
+    { name: "Adthena", logo: "/logos/adthena-black.png", logoDark: "/logos/adthena-white.png" },
+    { name: "Emlen", logo: "/logos/emlen-black.png", logoDark: "/logos/emlen-white.png" },
+    { name: "Leostream", logo: "/logos/leostream-black.png", logoDark: "/logos/leostream-white.png" },
+    { name: "Orca", logo: "/logos/orca-black.png", logoDark: "/logos/orca-white.png", height: 22 },
+    { name: "Mybites", logo: "/logos/mybites.svg", logoDark: "/logos/mybites-white.png" },
+    { name: "Sysdyne", logo: "/logos/sysdyne-black.png", logoDark: "/logos/sysdyne-white.png" },
+    { name: "Trawa", logo: "/logos/trawa-black.png", logoDark: "/logos/trawa-white.png", height: 24 },
+    { name: "Blueprint", logo: "/logos/blueprint-black.png", logoDark: "/logos/blueprint-white.png" },
+    { name: "Skillfit", logo: "/logos/skillfit-darkblue.png", logoDark: "/logos/skillfit-white.png", height: 24 },
+    { name: "Condenzero", logo: "/logos/condenzero-black.png", logoDark: "/logos/condenzero-white.png" },
+    { name: "Ekipa", logo: "/logos/ekipa-black.png", logoDark: "/logos/ekipa-white.png" },
+    { name: "Slabstack", logo: "/logos/slabstack-black.png", logoDark: "/logos/slabstack-white.png" },
+    { name: "Dualentry", logo: "/logos/dualentry-black.png", logoDark: "/logos/dualentry-white.png" },
+    { name: "Workleap", logo: "/logos/workleap-black.png", logoDark: "/logos/workleap-white.png" },
   ],
 } = Astro.props;
 
@@ -48,6 +57,7 @@ const trackLogos = [...logos, ...logos];
         {
           trackLogos.map((logo, idx) => {
             const hasBoth = logo.logo && logo.logoDark;
+            const heightStyle = logo.height ? `height:${logo.height}px` : undefined;
             const inner = (
               <>
                 {logo.logo && (
@@ -60,6 +70,7 @@ const trackLogos = [...logos, ...logos];
                     src={logo.logo}
                     alt={logo.name}
                     loading="lazy"
+                    style={heightStyle}
                   />
                 )}
                 {logo.logoDark && (
@@ -68,6 +79,7 @@ const trackLogos = [...logos, ...logos];
                     src={logo.logoDark}
                     alt={logo.name}
                     loading="lazy"
+                    style={heightStyle}
                   />
                 )}
                 {!logo.logo && !logo.logoDark && (
