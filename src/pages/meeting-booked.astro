@@ -124,7 +124,13 @@ const checklist = [
      page, the visitor has already converted, so vertical real estate goes
      to action items instead of breathing room. */
   .confirm-hero {
-    padding-block: var(--space-7) 0;
+    /* Top padding compressed from the homepage's space-9 (96px) to space-7
+       (48px) to keep the checklist near the fold. Bottom padding matches
+       the .checklist-section's space-8 (64px) padding-top so the .hero
+       border-bottom hairline sits centered between two equal whitespaces
+       (64px / hairline / 64px) - the visual rhythm Lanny called out as
+       feeling right. */
+    padding-block: var(--space-7) var(--space-8);
   }
   .confirm-title {
     font-family: var(--font-sans);
