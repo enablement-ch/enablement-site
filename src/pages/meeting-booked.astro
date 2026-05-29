@@ -1,0 +1,266 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
+import VideoTestimonials from "../components/VideoTestimonials.astro";
+
+const LOOM_SHARE_URL = "https://www.loom.com/share/157da70a96294f18854329b6d478e637";
+const LOOM_VIDEO_ID = "157da70a96294f18854329b6d478e637";
+
+// Fetch the Loom thumbnail at build time so the facade renders with a preview
+// image instead of an empty frame.
+let loomThumb = "";
+try {
+  const res = await fetch(
+    `https://www.loom.com/v1/oembed?url=${encodeURIComponent(LOOM_SHARE_URL)}&format=json`
+  );
+  if (res.ok) {
+    const data = await res.json();
+    loomThumb = (data.thumbnail_url as string) || "";
+  }
+} catch (e) {
+  // graceful fallback - facade renders without thumbnail
+}
+
+const checklist = [
+  {
+    title: "Confirm the calendar invite",
+    body: "Confirm the calendar invite we've sent to your email NOW. Otherwise we have to cancel it and give the slot to someone else.",
+  },
+  {
+    title: "Pull your numbers together",
+    body: "To understand your situation and how we can help, we need the data about your current GTM efforts (leads created, contacted, meetings booked, deals closed, revenue). Bring them to the call.",
+  },
+  {
+    title: "Come ready to leave with a plan",
+    body: "In the meeting we look at your situation, goals and roadblocks to get there. By the end you'll have a diagnosis and the highest-leverage next move, whether you work with us or not.",
+  },
+];
+---
+
+<BaseLayout
+  title="Meeting booked - Enablement.ch"
+  description="Your GTM session is on the calendar. Watch the prep video and bring the right context so we can spend the call on your problem."
+  noindex={true}
+>
+  <!-- 01 Hero with VSL (vertical-stack like homepage, but tighter so the
+       checklist gets pulled above the fold) -->
+  <header class="hero confirm-hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="eyebrow">Meeting booked</span>
+        <h1 class="confirm-title">
+          Watch this video to get the most value from
+          <span class="italic-accent">your call.</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Loom VSL frame under the headline -->
+    <div class="hero-visual">
+      <div
+        class:list={["hero-visual-frame", "loom-facade", loomThumb && "has-thumb"]}
+        role="button"
+        tabindex="0"
+        aria-label="Play prep video"
+        data-loom-id={LOOM_VIDEO_ID}
+        style={loomThumb
+          ? `background-image: url(${loomThumb}); background-size: cover; background-position: center;`
+          : undefined}
+      >
+        <div class="hero-visual-play">
+          <button class="play-btn" aria-label="Play prep video">
+            <svg viewBox="0 0 24 24" fill="currentColor"
+              ><path d="M8 5v14l11-7z"></path></svg
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 02 Pre-meeting checklist (hairline grid, mirrors .video-grid pattern) -->
+  <section class="section checklist-section">
+    <div class="container stack-6">
+      <div class="checklist-header">
+        <span class="eyebrow">Checklist before our meeting</span>
+        <h2>
+          Three things to do <span class="italic-accent">right now.</span>
+        </h2>
+        <p class="lead">
+          Each one takes a couple of minutes. Doing them is the difference
+          between a generic discovery call and a working session that ships
+          real plans.
+        </p>
+      </div>
+
+      <ol class="checklist-grid">
+        {
+          checklist.map((item, i) => (
+            <li class="checklist-item">
+              <span class="checklist-num">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="checklist-title">{item.title}</h3>
+              <p class="checklist-body">{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 03 Marquee customer logos -->
+  <MarqueeLogoWall />
+
+  <!-- 04 Customer results testimonials -->
+  <VideoTestimonials
+    eyebrow="Results"
+    headline="What our clients walked away with."
+  />
+</BaseLayout>
+
+<style>
+  /* Compressed-hero overrides: pull the Loom + checklist above the fold.
+     The default .hero / .hero-visual / .display sizing on the homepage is
+     tuned for a marketing landing surface; on a post-action confirmation
+     page, the visitor has already converted, so vertical real estate goes
+     to action items instead of breathing room. */
+  .confirm-hero {
+    padding-block: var(--space-7) 0;
+  }
+  .confirm-title {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-h1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-heading);
+    margin: 0;
+    max-width: 24ch;
+  }
+  /* Tighten the gap between the headline and the Loom frame from the
+     homepage's space-7 (48px) to space-5 (24px). */
+  .confirm-hero .hero-visual {
+    margin-top: var(--space-5);
+  }
+
+  /* Loom facade: cursor + swap-target. Visual frame inherits .hero-visual-frame
+     from global.css so it matches the homepage Vimeo facade exactly. */
+  .loom-facade {
+    cursor: pointer;
+  }
+  .loom-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--color-canvas);
+  }
+
+  /* Checklist: three hairline-bordered boxes, spaced apart. Transparent fill
+     so the section background shows through (editorial, not card-y). */
+  .checklist-section {
+    padding-block: var(--space-8);
+  }
+  .checklist-header {
+    max-width: var(--container-prose);
+  }
+  .checklist-header h2 {
+    margin-top: var(--space-3);
+  }
+  .checklist-header .lead {
+    margin-top: var(--space-4);
+  }
+
+  .checklist-grid {
+    list-style: none;
+    padding: 0;
+    /* Explicit large gap from the lead paragraph above (overrides .stack-6
+       sibling-margin which gets nullified by our margin reset). */
+    margin: var(--space-7) 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .checklist-item {
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--motion-duration-fast)
+      var(--motion-ease-standard);
+  }
+  .checklist-item:hover {
+    border-color: var(--color-accent);
+  }
+  @media (max-width: 720px) {
+    .checklist-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .checklist-num {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+  }
+  .checklist-title {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    color: var(--color-heading);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0;
+  }
+  .checklist-body {
+    color: var(--color-body);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>
+
+<script is:inline>
+  // Loom facade: click or Enter/Space → swap facade for the real iframe in place.
+  // Self-contained on this page; no Loom-specific code added to BaseLayout.
+  (function () {
+    function activate(el) {
+      const id = el.dataset.loomId;
+      if (!id || el.classList.contains("loom-loaded")) return;
+      const iframe = document.createElement("iframe");
+      iframe.src =
+        "https://www.loom.com/embed/" + id + "?autoplay=1";
+      iframe.setAttribute(
+        "allow",
+        "autoplay; fullscreen; picture-in-picture; clipboard-write"
+      );
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.setAttribute("frameborder", "0");
+      iframe.className = "loom-iframe";
+      iframe.title = "Prep video";
+      el.innerHTML = "";
+      el.style.background = "transparent";
+      el.appendChild(iframe);
+      el.classList.add("loom-loaded");
+      el.classList.remove("loom-facade");
+      el.style.cursor = "default";
+    }
+
+    document.querySelectorAll(".loom-facade").forEach((el) => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        activate(el);
+      });
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate(el);
+        }
+      });
+    });
+  })();
+</script>

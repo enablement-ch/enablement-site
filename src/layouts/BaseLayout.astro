@@ -6,11 +6,16 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title?: string;
   description?: string;
+  /** When true, emit <meta name="robots" content="noindex,nofollow">. Use for
+   * transactional pages (post-booking confirmations, thank-you pages) that
+   * shouldn't appear in search results or fragment SEO authority. */
+  noindex?: boolean;
 }
 
 const {
   title = "Enablement.ch — GTM systems for B2B teams in DACH",
   description = "We build the outbound systems B2B teams haven't been able to build for themselves. Brief to production in 4-6 weeks. You own it, or we run it.",
+  noindex = false,
 } = Astro.props;
 ---
 
@@ -20,6 +25,7 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
     <title>{title}</title>
 
     <!-- Favicons -->
