@@ -20,31 +20,42 @@ const dms = [
 ];
 
 const authorityBullets = [
-  "We extract your knowledge, stories, and hard-won insights",
-  "Turn them into content that earns real engagement",
-  "Aimed squarely at the buyers you want in the room",
+  "We shape the founder's unique POV, expertise, and stories into content that makes buyers stop scrolling and pay attention.",
+  "We position the founder around the problems your buyers already care about.",
+  'We make buyers think, "these people understand my problem - and probably know how to solve it."',
 ];
 
-const inboundBullets = [
-  "We identify the people engaging with your content",
-  "Qualify them to see who actually fits",
-  "Turn the right ones into conversations, then meetings",
+const signalsBullets = [
+  "Track the signals your content creates: likes, comments, profile views, clicks, saves, DMs, and replies.",
+  "Filter for the people and companies that actually fit your ICP.",
+  "Start warm conversations that turn into meetings.",
+];
+
+const pipelineBullets = [
+  "Because of the trust you've earned, deals start warmer, move faster, and close easier.",
+  "Buyers already know the founder's thinking before the first call.",
+  "Sales conversations start with trust instead of a cold pitch.",
+  "More qualified conversations turn into meetings, opportunities, and revenue.",
 ];
 ---
 
 <BaseLayout
   title="LinkedIn Results · Enablement.ch"
-  description="How we turn your expertise into authority, authority into inbound, and inbound into pipeline."
+  description="Real results from founder-led LinkedIn content systems: reach, buying signals, DMs, meetings, and pipeline."
   noindex={true}
 >
   <!-- HERO -->
   <header class="hero">
     <div class="container stack-6" style="padding-block: var(--space-10)">
       <span class="eyebrow"><span class="num">Proof</span><span class="sep">/</span>How it works</span>
-      <h1>Authority, turned into <span class="italic-accent">pipeline.</span></h1>
+      <h1>Results from <span class="italic-accent">founder-led content systems</span> we've built</h1>
       <p class="lead">
-        First you become the authority. Then that authority turns into inbound
-        conversations. Then conversations become pipeline. Scroll to see it happen.
+        We turn founder expertise into content that builds trust on LinkedIn -
+        then turn that trust and attention into qualified sales conversations.
+      </p>
+      <p class="hero-caption">
+        Below are real screenshots from the LinkedIn content systems we've built:
+        reach, engagement, buying signals, DMs, meetings, and pipeline outcomes.
       </p>
     </div>
   </header>
@@ -52,18 +63,18 @@ const inboundBullets = [
   <!-- 01 AUTHORITY -->
   <section class="section scrolly" id="authority">
     <div class="container">
-      <span class="eyebrow"><span class="num">01</span><span class="sep">/</span>Authority</span>
+      <span class="eyebrow"><span class="num">01</span><span class="sep">/</span>Build Authority</span>
       <div class="scrolly-concept-mobile">
-        <h3>First, you become the <span class="italic-accent">authority.</span></h3>
-        <p class="lead">We turn what you already know into the reason buyers come to you.</p>
+        <h3>Content that earns attention and <span class="italic-accent">trust.</span></h3>
+        <p class="lead">Most LinkedIn content feels generic or obviously written by AI. We turn the founder's knowledge, stories, and hard-won insights into content buyers actually care about.</p>
         <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
           <div class="scrolly-sticky">
             <div class="scrolly-no mono"></div>
-            <h3>First, you become the <span class="italic-accent">authority.</span></h3>
-            <p class="lead">We turn what you already know into the reason buyers come to you.</p>
+            <h3>Content that earns attention and <span class="italic-accent">trust.</span></h3>
+            <p class="lead">Most LinkedIn content feels generic or obviously written by AI. We turn the founder's knowledge, stories, and hard-won insights into content buyers actually care about.</p>
             <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
           </div>
         </aside>
@@ -81,19 +92,19 @@ const inboundBullets = [
   <!-- 02 INBOUND -->
   <section class="section scrolly" id="inbound">
     <div class="container">
-      <span class="eyebrow"><span class="num">02</span><span class="sep">/</span>Inbound</span>
+      <span class="eyebrow"><span class="num">02</span><span class="sep">/</span>Buying Signals</span>
       <div class="scrolly-concept-mobile">
-        <h3>Authority becomes <span class="italic-accent">conversations.</span></h3>
-        <p class="lead">We turn the people engaging with you into qualified meetings.</p>
-        <ul class="pain-bullets">{inboundBullets.map((b) => <li>{b}</li>)}</ul>
+        <h3>Turn attention into <span class="italic-accent">conversations.</span></h3>
+        <p class="lead">Likes, comments, and profile views don't pay the bills. But they are the signals we track to see who is interested, who fits your ICP, and where there is a reason to start a warm conversation.</p>
+        <ul class="pain-bullets">{signalsBullets.map((b) => <li>{b}</li>)}</ul>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
           <div class="scrolly-sticky">
             <div class="scrolly-no mono"></div>
-            <h3>Authority becomes <span class="italic-accent">conversations.</span></h3>
-            <p class="lead">We turn the people engaging with you into qualified meetings.</p>
-            <ul class="pain-bullets">{inboundBullets.map((b) => <li>{b}</li>)}</ul>
+            <h3>Turn attention into <span class="italic-accent">conversations.</span></h3>
+            <p class="lead">Likes, comments, and profile views don't pay the bills. But they are the signals we track to see who is interested, who fits your ICP, and where there is a reason to start a warm conversation.</p>
+            <ul class="pain-bullets">{signalsBullets.map((b) => <li>{b}</li>)}</ul>
           </div>
         </aside>
         <div class="scrolly-steps">
@@ -110,8 +121,9 @@ const inboundBullets = [
   <!-- 03 PIPELINE — proof videos (reused homepage component) -->
   <VideoTestimonials
     eyebrow="03 / Pipeline"
-    headline="Conversations become pipeline."
-    lead="By the time you're face to face, the trust is already there - so deals move faster and close easier."
+    headline="Turning trust into pipeline."
+    lead="The point is not to post content. The point is to build trust before the sales call, create more qualified conversations, and turn those conversations into pipeline."
+    bullets={pipelineBullets}
   />
 
   <!-- FINAL CTA -->
@@ -132,6 +144,12 @@ const inboundBullets = [
 </BaseLayout>
 
 <style>
+  /* ---- hero ---- */
+  .hero-caption {
+    color: var(--color-muted);
+    max-width: 60ch;
+  }
+
   /* ---- image lightbox ---- */
   .img-lightbox {
     position: fixed; inset: 0; z-index: 60; display: none;
