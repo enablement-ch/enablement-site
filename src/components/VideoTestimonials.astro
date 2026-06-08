@@ -13,12 +13,14 @@ interface Testimonial {
 interface Props {
   eyebrow?: string;
   headline?: string;
+  lead?: string;
   testimonials?: Testimonial[];
 }
 
 const {
   eyebrow = "What our clients say",
   headline = "In their words.",
+  lead = "",
   testimonials = [
     {
       name: "Lukas Grabenwöger",
@@ -77,6 +79,7 @@ const thumbs = await Promise.all(
   <div class="container stack-6">
     <span class="eyebrow">{eyebrow}</span>
     <h2>{headline}</h2>
+    {lead && <p class="lead">{lead}</p>}
     <div class="video-grid">
       {
         testimonials.map((t, i) => {

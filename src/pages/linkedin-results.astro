@@ -1,0 +1,245 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VideoTestimonials from "../components/VideoTestimonials.astro";
+
+const impressions = [
+  "/proof/img/impressions/impressions-2.5m.png",
+  "/proof/img/impressions/impressions-2.49m.png",
+  "/proof/img/impressions/engagement-37k.png",
+  "/proof/img/impressions/followers-20k.png",
+  "/proof/img/impressions/small-account-spike.png",
+  "/proof/img/impressions/top-posts.png",
+];
+
+const dms = [
+  "/proof/img/dms/dm-carolyn.png",
+  "/proof/img/dms/dm-jennifer.png",
+  "/proof/img/dms/dm-arman.png",
+  "/proof/img/dms/dm-jake.png",
+  "/proof/img/dms/dm-enrico.png",
+];
+
+const authorityBullets = [
+  "We extract your knowledge, stories, and hard-won insights",
+  "Turn them into content that earns real engagement",
+  "Aimed squarely at the buyers you want in the room",
+];
+
+const inboundBullets = [
+  "We identify the people engaging with your content",
+  "Qualify them to see who actually fits",
+  "Turn the right ones into conversations, then meetings",
+];
+---
+
+<BaseLayout
+  title="LinkedIn Results · Enablement.ch"
+  description="How we turn your expertise into authority, authority into inbound, and inbound into pipeline."
+  noindex={true}
+>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container stack-6" style="padding-block: var(--space-10)">
+      <span class="eyebrow"><span class="num">Proof</span><span class="sep">/</span>How it works</span>
+      <h1>Authority, turned into <span class="italic-accent">pipeline.</span></h1>
+      <p class="lead">
+        First you become the authority. Then that authority turns into inbound
+        conversations. Then conversations become pipeline. Scroll to see it happen.
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 AUTHORITY -->
+  <section class="section scrolly" id="authority">
+    <div class="container">
+      <span class="eyebrow"><span class="num">01</span><span class="sep">/</span>Authority</span>
+      <div class="scrolly-concept-mobile">
+        <h3>First, you become the <span class="italic-accent">authority.</span></h3>
+        <p class="lead">We turn what you already know into the reason buyers come to you.</p>
+        <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
+      </div>
+      <div class="scrolly-grid">
+        <aside class="scrolly-aside">
+          <div class="scrolly-sticky">
+            <div class="scrolly-no mono"></div>
+            <h3>First, you become the <span class="italic-accent">authority.</span></h3>
+            <p class="lead">We turn what you already know into the reason buyers come to you.</p>
+            <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
+          </div>
+        </aside>
+        <div class="scrolly-steps">
+          {impressions.map((src) => (
+            <div class="scrolly-step">
+              <figure class="scrolly-card"><img loading="lazy" src={src} alt="Reach metric" /></figure>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 INBOUND -->
+  <section class="section scrolly" id="inbound">
+    <div class="container">
+      <span class="eyebrow"><span class="num">02</span><span class="sep">/</span>Inbound</span>
+      <div class="scrolly-concept-mobile">
+        <h3>Authority becomes <span class="italic-accent">conversations.</span></h3>
+        <p class="lead">We turn the people engaging with you into qualified meetings.</p>
+        <ul class="pain-bullets">{inboundBullets.map((b) => <li>{b}</li>)}</ul>
+      </div>
+      <div class="scrolly-grid">
+        <aside class="scrolly-aside">
+          <div class="scrolly-sticky">
+            <div class="scrolly-no mono"></div>
+            <h3>Authority becomes <span class="italic-accent">conversations.</span></h3>
+            <p class="lead">We turn the people engaging with you into qualified meetings.</p>
+            <ul class="pain-bullets">{inboundBullets.map((b) => <li>{b}</li>)}</ul>
+          </div>
+        </aside>
+        <div class="scrolly-steps">
+          {dms.map((src) => (
+            <div class="scrolly-step">
+              <figure class="scrolly-card"><img loading="lazy" src={src} alt="Inbound message" /></figure>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PIPELINE — proof videos (reused homepage component) -->
+  <VideoTestimonials
+    eyebrow="03 / Pipeline"
+    headline="Conversations become pipeline."
+    lead="By the time you're face to face, the trust is already there - so deals move faster and close easier."
+  />
+
+  <!-- FINAL CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2>Want this for <span class="italic-accent">your company?</span></h2>
+        <p class="lead">
+          Book a 30-min GTM session. We'll audit your pipeline, find the
+          highest-leverage action, and tell you whether we're a fit.
+        </p>
+        <div class="hero-actions" style="justify-content:center">
+          <a href="/book" class="btn btn-accent btn-md">Book a GTM session</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- image lightbox ---- */
+  .img-lightbox {
+    position: fixed; inset: 0; z-index: 60; display: none;
+    align-items: center; justify-content: center; padding: var(--space-6);
+    background: rgba(15, 18, 23, 0.92); cursor: zoom-out;
+  }
+  .img-lightbox.open { display: flex; }
+  .img-lightbox img { max-width: 92vw; max-height: 90vh; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
+
+  /* ---- scrollytelling ---- */
+  section.scrolly { padding-block: var(--space-8); }
+  @media (min-width: 1024px) {
+    section.scrolly { padding-block: var(--space-10); }
+  }
+
+  .scrolly .eyebrow { margin-bottom: var(--space-7); display: inline-flex; }
+
+  .scrolly-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .scrolly-aside { display: none; }
+  .scrolly-concept-mobile { margin-bottom: var(--space-6); }
+  .scrolly-concept-mobile h3 { font-size: var(--font-size-h4); }
+  .scrolly-concept-mobile p { margin-top: var(--space-3); }
+
+  @media (min-width: 1024px) {
+    .scrolly-grid { grid-template-columns: 0.82fr 1.18fr; gap: var(--space-9); }
+    .scrolly-aside { display: block; }
+    .scrolly-concept-mobile { display: none; }
+  }
+
+  .scrolly-sticky {
+    position: sticky; top: 12vh;
+    display: flex; flex-direction: column;
+  }
+  .scrolly-no { margin-bottom: var(--space-5); color: var(--color-accent); }
+  .scrolly-sticky h3 { font-size: var(--font-size-h2); letter-spacing: -0.025em; }
+  .scrolly-sticky p { margin-top: var(--space-4); max-width: 32ch; }
+  .scrolly-sticky .pain-bullets,
+  .scrolly-concept-mobile .pain-bullets { margin-top: var(--space-6); }
+
+  .scrolly-step { padding: var(--space-3) 0; }
+  @media (min-width: 1024px) {
+    /* Plain evenly-spaced stack. The headline is pinned near the top (not
+       centered), so screenshots just scroll past it - no lead-in/out padding,
+       no per-step min-height, no dead space between sections. Equal gap keeps
+       the spacing identical regardless of how tall each screenshot is. */
+    .scrolly-steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-9);
+    }
+    .scrolly-step { min-height: 0; padding: 0; }
+  }
+
+  .scrolly-card {
+    margin: 0; width: 100%; overflow: hidden; cursor: zoom-in;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+    transition: opacity var(--motion-duration-base) var(--motion-ease-standard),
+                transform var(--motion-duration-base) var(--motion-ease-standard),
+                box-shadow var(--motion-duration-base) var(--motion-ease-standard);
+  }
+  .scrolly-card img { display: block; width: 100%; height: auto; }
+
+  @media (min-width: 1024px) {
+    .scrolly-step .scrolly-card { opacity: 0.4; transform: scale(0.98); }
+    .scrolly-step.is-active .scrolly-card { opacity: 1; transform: scale(1); box-shadow: var(--shadow-lg); }
+  }
+</style>
+
+<div class="img-lightbox" id="imgLightbox"><img src="" alt="" /></div>
+
+<script is:inline>
+  (function () {
+    // Active-step highlight + counter
+    document.querySelectorAll(".scrolly").forEach(function (section) {
+      var steps = Array.prototype.slice.call(section.querySelectorAll(".scrolly-step"));
+      var noEl = section.querySelector(".scrolly-no");
+      var total = String(steps.length).padStart(2, "0");
+      if (noEl) noEl.textContent = "01 / " + total;
+      if (steps[0]) steps[0].classList.add("is-active");
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var idx = steps.indexOf(e.target);
+            steps.forEach(function (s, i) { s.classList.toggle("is-active", i === idx); });
+            if (noEl) noEl.textContent = String(idx + 1).padStart(2, "0") + " / " + total;
+          }
+        });
+      }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+      steps.forEach(function (s) { io.observe(s); });
+    });
+
+    // Image lightbox
+    var lb = document.getElementById("imgLightbox");
+    var lbImg = lb && lb.querySelector("img");
+    document.querySelectorAll(".scrolly-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        var img = card.querySelector("img");
+        if (!img || !lb) return;
+        lbImg.src = img.src;
+        lb.classList.add("open");
+      });
+    });
+    if (lb) lb.addEventListener("click", function () { lb.classList.remove("open"); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && lb) lb.classList.remove("open");
+    });
+  })();
+</script>
