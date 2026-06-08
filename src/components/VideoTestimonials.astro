@@ -14,7 +14,6 @@ interface Props {
   eyebrow?: string;
   headline?: string;
   lead?: string;
-  bullets?: string[];
   testimonials?: Testimonial[];
 }
 
@@ -22,7 +21,6 @@ const {
   eyebrow = "What our clients say",
   headline = "In their words.",
   lead = "",
-  bullets = [],
   testimonials = [
     {
       name: "Lukas Grabenwöger",
@@ -82,9 +80,6 @@ const thumbs = await Promise.all(
     <span class="eyebrow">{eyebrow}</span>
     <h2>{headline}</h2>
     {lead && <p class="lead">{lead}</p>}
-    {bullets.length > 0 && (
-      <ul class="pain-bullets">{bullets.map((b) => <li>{b}</li>)}</ul>
-    )}
     <div class="video-grid">
       {
         testimonials.map((t, i) => {
