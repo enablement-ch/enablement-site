@@ -69,7 +69,8 @@ const trackLogos = [...logos, ...logos];
                     ]}
                     src={logo.logo}
                     alt={logo.name}
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                     style={heightStyle}
                   />
                 )}
@@ -78,7 +79,8 @@ const trackLogos = [...logos, ...logos];
                     class:list={["logo-img", "logo-img-dark", "native"]}
                     src={logo.logoDark}
                     alt={logo.name}
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                     style={heightStyle}
                   />
                 )}

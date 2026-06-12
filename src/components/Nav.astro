@@ -1,6 +1,14 @@
 ---
 // Disabled for soft launch — restore { href: "/case-studies", label: "Clients" } when case studies relaunch.
 const links: { href: string; label: string }[] = [];
+
+interface Props {
+  /** Override the nav CTA per page (e.g. anchor to an on-page apply form). */
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const { ctaHref = "/book", ctaLabel = "Schedule meeting" } = Astro.props;
 ---
 
 <nav class="nav">
@@ -41,7 +49,7 @@ const links: { href: string; label: string }[] = [];
           ></path></svg
         >
       </button>
-      <a href="/book" class="btn btn-accent btn-sm">Schedule meeting</a>
+      <a href={ctaHref} class="btn btn-accent btn-sm">{ctaLabel}</a>
     </div>
   </div>
 </nav>

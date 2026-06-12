@@ -1,0 +1,593 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
+import VideoTestimonials from "../components/VideoTestimonials.astro";
+
+// HubSpot meeting link used inside the playbook's own embed - same funnel,
+// same calendar.
+const MEETING_URL =
+  "https://revenue.enablement.ch/meetings/l-heiz/first-meeting";
+
+// Asset to drop in: a real client interview call screenshot (consented).
+// Until the file exists, the figure hides itself via onerror.
+const interviewShot = "/playbook-thank-you/img/interview-call.png";
+
+const steps = [
+  {
+    num: "01",
+    label: "We talk first",
+    title: "You already have the insights.",
+    titleAccent: "We turn them into demand.",
+    body: "We sit down with you, extract the ideas your market needs to hear, and turn them into content angles built around real buyer problems.",
+    bullets: [
+      "Founder POV, stories, and opinions",
+      "Buyer problems and market observations",
+      "Content angles that create demand",
+    ],
+    caption: "30 minutes. You talk, we listen.",
+    images: [interviewShot],
+  },
+  {
+    num: "02",
+    label: "Build authority",
+    title: "We create the content",
+    titleAccent: "for you.",
+    body: "From your interview and what's sitting in your sales calls, we write the posts. The part of the playbook that usually dies first now ships every week.",
+    bullets: [
+      "Human-written, in your voice",
+      "Built on real expertise, not AI averages",
+      "Reviewed by you before anything goes live",
+    ],
+    caption: "Reach is the input, not the goal.",
+    images: [
+      "/linkedin-results/img/impressions/impressions-2.5m.png",
+      "/linkedin-results/img/impressions/impressions-2.49m.png",
+      "/linkedin-results/img/impressions/engagement-37k.png",
+      "/linkedin-results/img/impressions/followers-20k.png",
+      "/linkedin-results/img/impressions/small-account-spike.png",
+      "/linkedin-results/img/impressions/top-posts.png",
+    ],
+  },
+  {
+    num: "03",
+    label: "Buying signals",
+    title: "The right people see it.",
+    titleAccent: "We start the conversations.",
+    body: "Every like, comment, and profile view gets identified, enriched, and scored against your ICP. The right ones get a short, human follow-up tied to what they engaged with.",
+    bullets: [
+      "Track every signal your content creates",
+      "Qualify engagers against your ICP",
+      "Warm conversations that turn into meetings",
+    ],
+    caption: "What signal-based follow-up looks like in the inbox.",
+    images: [
+      "/linkedin-results/img/dms/dm-carolyn-b.png",
+      "/linkedin-results/img/dms/dm-jennifer-b.png",
+      "/linkedin-results/img/dms/dm-arman-b.png",
+      "/linkedin-results/img/dms/dm-jake-b.png",
+      "/linkedin-results/img/dms/dm-enrico-b.png",
+    ],
+  },
+];
+
+---
+
+<BaseLayout
+  title="Your playbook is on its way · Enablement.ch"
+  description="The playbook is in your inbox. Want us to run it for you - free for 30 days? Apply for a pilot slot."
+  noindex={true}
+  navCtaHref="#apply"
+  navCtaLabel="Apply for pilot"
+>
+  <!-- 01 HERO -->
+  <header class="hero ty-hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="eyebrow ty-eyebrow"
+          ><span class="ty-check">✓</span> That worked - the playbook is on its
+          way to your inbox</span
+        >
+        <h1 class="ty-title">
+          Want us to run LinkedIn for you?<br />
+          <span class="italic-accent">Free 30 day pilot</span>
+        </h1>
+        <p class="lead ty-lead">
+          Maybe you're not sure if LinkedIn just gets you attention - or
+          measurable results. That's why we run a pilot for you. So you can see
+          it yourself. 30 days, no fee.
+        </p>
+
+        <!-- Three-beat bridge strip -->
+        <div class="bridge-strip" aria-hidden="true">
+          <div class="bridge-cell">
+            <span class="bridge-name">Playbook</span>
+            <span class="bridge-desc">Your blueprint to implement</span>
+          </div>
+          <span class="bridge-arrow">→</span>
+          <div class="bridge-cell">
+            <span class="bridge-name">Pilot</span>
+            <span class="bridge-desc">30-day free pilot</span>
+          </div>
+          <span class="bridge-arrow">→</span>
+          <div class="bridge-cell">
+            <span class="bridge-name">Pipeline</span>
+            <span class="bridge-desc">Qualified meetings</span>
+          </div>
+        </div>
+
+        <div class="hero-actions ty-cta-stack">
+          <a href="#apply" class="btn btn-accent btn-md"
+            >Apply for 30-day free pilot</a
+          >
+          <p class="ty-microcopy">
+            To ensure quality, we can only launch 1 pilot a week.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 02 LOGO MARQUEE -->
+  <MarqueeLogoWall />
+
+  <!-- 03 HOW THE PILOT WORKS (scrollytelling) -->
+  <section class="section pilot-intro">
+    <div class="container">
+      <span class="eyebrow">How the pilot works</span>
+      <h2>
+        Knowing the playbook was never the bottleneck.
+        <span class="italic-accent">Running it is.</span>
+      </h2>
+      <p class="lead">
+        How many playbooks, webinars, and templates have you downloaded already
+        - and how many qualified meetings did LinkedIn create for you?
+      </p>
+      <p class="lead">
+        Playbooks don't run themselves. Someone needs to implement them. Here's
+        how we do it for you - 30 days for free, so you can see it works before
+        you commit.
+      </p>
+    </div>
+  </section>
+
+  {
+    steps.map((step) => (
+      <section class="section scrolly">
+        <div class="container">
+          <span class="eyebrow">
+            <span class="num">{step.num}</span>
+            <span class="sep">/</span>
+            {step.label}
+          </span>
+          <div class="scrolly-concept-mobile">
+            <h3>
+              {step.title}
+              <span class="italic-accent">{step.titleAccent}</span>
+            </h3>
+            <p class="lead">{step.body}</p>
+            <ul class="pain-bullets">{step.bullets.map((b) => <li>{b}</li>)}</ul>
+          </div>
+          <div class="scrolly-grid">
+            <aside class="scrolly-aside">
+              <div class="scrolly-sticky">
+                <h3>
+                  {step.title}
+                  <span class="italic-accent">{step.titleAccent}</span>
+                </h3>
+                <p class="lead">{step.body}</p>
+                <ul class="pain-bullets">
+                  {step.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              </div>
+            </aside>
+            <div class="scrolly-steps">
+              {step.images.map((src) => (
+                <div class="scrolly-step">
+                  <figure class="scrolly-card" data-ph={step.caption}>
+                    <img
+                      loading="lazy"
+                      src={src}
+                      alt={step.caption}
+                      onerror="this.style.display='none';this.parentElement.classList.add('ph')"
+                    />
+                  </figure>
+                </div>
+              ))}
+              <p class="scrolly-caption">{step.caption}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <div class="container pilot-cta">
+    <a href="#apply" class="btn btn-accent btn-md">Apply for 30-day free pilot</a>
+  </div>
+
+  <!-- 05 TESTIMONIAL VIDEOS -->
+  <VideoTestimonials
+    eyebrow="We ran it for them"
+    headline="Hear what happened."
+  />
+
+  <!-- 06 APPLY -->
+  <section class="section apply-section" id="apply">
+    <div class="container">
+      <div class="apply-inner">
+        <span class="eyebrow">Apply</span>
+        <h2>
+          Apply for the next
+          <span class="italic-accent">pilot slot.</span>
+        </h2>
+        <p class="lead">
+          To ensure quality, we can only launch 1 pilot a week.
+        </p>
+        <p>Pick a time for the first call.</p>
+      </div>
+
+      <div id="applyCalendar">
+        <div
+          class="meetings-iframe-container"
+          data-src={`${MEETING_URL}?embed=true`}
+        >
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- hero ---- */
+  .ty-hero {
+    padding-block: var(--space-8) var(--space-8);
+  }
+  .ty-eyebrow {
+    color: var(--color-muted);
+  }
+  .ty-check {
+    color: var(--color-accent);
+    margin-right: var(--space-2);
+  }
+  .ty-title {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-h1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-heading);
+    margin: 0;
+    max-width: 26ch;
+  }
+  /* LinkedIn-ad traffic is mobile-heavy; the global --font-size-h1 (61px)
+     wraps one word per line on a 375px viewport. */
+  @media (max-width: 720px) {
+    .ty-title {
+      font-size: clamp(2rem, 9vw, 2.75rem);
+    }
+  }
+  .ty-lead {
+    max-width: 64ch;
+  }
+  .ty-microcopy {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-muted);
+    margin: 0;
+  }
+  /* Button + microcopy as one tight stack */
+  .ty-cta-stack {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  /* ---- three-beat bridge strip ---- */
+  .bridge-strip {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: stretch;
+    gap: var(--space-4);
+    margin-block: var(--space-6) var(--space-5);
+    width: 100%;
+    max-width: 960px;
+    margin-inline: auto;
+  }
+  /* Keep each pill's text on a single line (stacked layout wraps freely) */
+  @media (min-width: 761px) {
+    .bridge-name,
+    .bridge-desc {
+      white-space: nowrap;
+    }
+  }
+  .bridge-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    text-align: left;
+    min-width: 0;
+  }
+  .bridge-name {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-heading);
+  }
+  .bridge-desc {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-muted);
+  }
+  .bridge-arrow {
+    align-self: center;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+  }
+  /* Go vertical before the three equal columns get too cramped */
+  @media (max-width: 760px) {
+    .bridge-strip {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .bridge-cell {
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+    .bridge-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* ---- pilot intro ---- */
+  /* The intro and step 01 read as one block: kill the intro's bottom padding
+     and hairline so the section padding isn't doubled between them. */
+  .pilot-intro {
+    padding-block: var(--space-9) var(--space-2);
+    border-bottom: 0;
+  }
+  .pilot-intro h2 {
+    margin-top: var(--space-3);
+    max-width: 26ch;
+  }
+  .pilot-intro .lead {
+    margin-top: var(--space-4);
+    max-width: var(--container-prose);
+  }
+  .pilot-cta {
+    display: flex;
+    justify-content: center;
+    padding-block: var(--space-6) var(--space-9);
+  }
+
+  /* ---- scrollytelling (pattern from linkedin-results) ---- */
+  section.scrolly {
+    padding-block: var(--space-8);
+  }
+  .scrolly .eyebrow {
+    margin-bottom: var(--space-7);
+    display: inline-flex;
+  }
+  .scrolly-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .scrolly-aside {
+    display: none;
+  }
+  .scrolly-concept-mobile {
+    margin-bottom: var(--space-6);
+  }
+  .scrolly-concept-mobile h3 {
+    font-size: var(--font-size-h4);
+  }
+  .scrolly-concept-mobile p {
+    margin-top: var(--space-3);
+  }
+  @media (min-width: 1024px) {
+    section.scrolly {
+      padding-block: var(--space-9);
+    }
+    .scrolly-grid {
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: var(--space-9);
+    }
+    .scrolly-aside {
+      display: block;
+    }
+    .scrolly-concept-mobile {
+      display: none;
+    }
+  }
+  .scrolly-sticky {
+    position: sticky;
+    top: 12vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .scrolly-sticky h3 {
+    font-size: var(--font-size-h2);
+    letter-spacing: -0.025em;
+  }
+  .scrolly-sticky p {
+    margin-top: var(--space-4);
+    max-width: 36ch;
+  }
+  .scrolly-sticky .pain-bullets,
+  .scrolly-concept-mobile .pain-bullets {
+    margin-top: var(--space-6);
+  }
+  .scrolly-step {
+    padding: var(--space-3) 0;
+  }
+  @media (min-width: 1024px) {
+    .scrolly-steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-9);
+    }
+    .scrolly-step {
+      min-height: 0;
+      padding: 0;
+    }
+  }
+  .scrolly-card {
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+    transition:
+      opacity var(--motion-duration-base) var(--motion-ease-standard),
+      transform var(--motion-duration-base) var(--motion-ease-standard),
+      box-shadow var(--motion-duration-base) var(--motion-ease-standard);
+  }
+  .scrolly-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* Placeholder frame while the real screenshot asset is missing */
+  .scrolly-card.ph {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+  .scrolly-card.ph::after {
+    content: attr(data-ph);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-muted);
+  }
+  @media (min-width: 1024px) {
+    .scrolly-step .scrolly-card {
+      opacity: 0.4;
+      transform: scale(0.98);
+    }
+    .scrolly-step.is-active .scrolly-card {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+  .scrolly-caption {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-muted);
+    margin-top: var(--space-4);
+  }
+
+  /* ---- image lightbox ---- */
+  .img-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    background: rgba(15, 18, 23, 0.92);
+    cursor: zoom-out;
+  }
+  .img-lightbox.open {
+    display: flex;
+  }
+  .img-lightbox img {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ---- apply ---- */
+  .apply-section {
+    padding-block: var(--space-9);
+    border-top: 1px solid var(--color-border);
+  }
+  .apply-inner {
+    max-width: var(--container-prose);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .apply-inner h2 {
+    margin-top: var(--space-2);
+  }
+  #applyCalendar {
+    margin-top: var(--space-5);
+  }
+  #applyCalendar .meetings-iframe-container {
+    min-height: 720px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+</style>
+
+<div class="img-lightbox" id="imgLightbox"><img src="" alt="" /></div>
+
+<script is:inline>
+  (function () {
+    // Scrollytelling active-step highlight (same behavior as /linkedin-results)
+    document.querySelectorAll(".scrolly").forEach(function (section) {
+      var steps = Array.prototype.slice.call(
+        section.querySelectorAll(".scrolly-step")
+      );
+      if (steps[0]) steps[0].classList.add("is-active");
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              var idx = steps.indexOf(e.target);
+              steps.forEach(function (s, i) {
+                s.classList.toggle("is-active", i === idx);
+              });
+            }
+          });
+        },
+        { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      );
+      steps.forEach(function (s) {
+        io.observe(s);
+      });
+    });
+
+    // Image lightbox
+    var lb = document.getElementById("imgLightbox");
+    var lbImg = lb && lb.querySelector("img");
+    document.querySelectorAll(".scrolly-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        var img = card.querySelector("img");
+        if (!img || !lb) return;
+        lbImg.src = img.src;
+        lb.classList.add("open");
+      });
+    });
+    if (lb)
+      lb.addEventListener("click", function () {
+        lb.classList.remove("open");
+      });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && lb) lb.classList.remove("open");
+    });
+
+  })();
+</script>
+
+<!-- HubSpot meetings embed (the meeting link carries its own form) -->
+<script
+  type="text/javascript"
+  src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
+  is:inline></script>
