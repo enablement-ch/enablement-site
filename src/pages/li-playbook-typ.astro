@@ -97,19 +97,17 @@ const steps = [
           it yourself. 30 days, no fee.
         </p>
 
-        <!-- Three-beat bridge strip. Animated story: playbook is done (check
-             stamps in), the pilot is the missing piece (dashed slot fills in),
-             pipeline unlocks once the pilot lands. -->
+        <!-- Three-beat bridge strip, built element by element on load:
+             playbook -> check -> arrow -> pilot -> arrow -> pipeline. -->
         <div class="bridge-strip" aria-hidden="true">
           <div class="bridge-cell bridge-playbook">
             <span class="bridge-name"
-              ><span class="bridge-check">✓</span> Playbook</span
+              >Playbook <span class="bridge-check">✓</span></span
             >
             <span class="bridge-desc">Your blueprint to implement</span>
           </div>
           <span class="bridge-arrow bridge-arrow-1">→</span>
           <div class="bridge-cell bridge-pilot">
-            <span class="bridge-tag">The missing piece</span>
             <span class="bridge-name">Pilot</span>
             <span class="bridge-desc">30-day free pilot</span>
           </div>
@@ -338,15 +336,43 @@ const steps = [
     color: var(--color-accent);
   }
 
-  /* ---- bridge story animation ----
-     Base styles below are the FINAL state; each keyframe animation uses
-     `both` fill to start from its initial frame. With reduced motion the
-     animations are dropped and the final state shows immediately. */
+  /* ---- bridge build animation ----
+     Elements appear one after the other: playbook -> check -> arrow ->
+     pilot -> arrow -> pipeline. Base styles are the FINAL state; each
+     animation uses `both` fill to start from its initial frame. With
+     reduced motion the animations drop and the final state shows. */
+  .bridge-playbook {
+    animation: bridge-build 0.45s var(--motion-ease-standard) 0.2s both;
+  }
   .bridge-check {
     color: var(--color-accent);
     font-weight: 600;
     display: inline-block;
-    animation: bridge-stamp 0.35s var(--motion-ease-standard) 0.5s both;
+    animation: bridge-stamp 0.35s var(--motion-ease-standard) 0.8s both;
+  }
+  .bridge-arrow-1 {
+    animation: bridge-fade 0.35s var(--motion-ease-standard) 1.15s both;
+  }
+  .bridge-pilot {
+    border-color: var(--color-accent);
+    animation: bridge-build 0.45s var(--motion-ease-standard) 1.5s both;
+  }
+  .bridge-arrow-2 {
+    animation: bridge-fade 0.35s var(--motion-ease-standard) 2.05s both;
+  }
+  .bridge-pipeline {
+    animation: bridge-build 0.45s var(--motion-ease-standard) 2.4s both;
+  }
+
+  @keyframes bridge-build {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
   @keyframes bridge-stamp {
     from {
@@ -358,13 +384,6 @@ const steps = [
       transform: scale(1);
     }
   }
-
-  .bridge-arrow-1 {
-    animation: bridge-fade 0.4s var(--motion-ease-standard) 1s both;
-  }
-  .bridge-arrow-2 {
-    animation: bridge-fade 0.4s var(--motion-ease-standard) 2.3s both;
-  }
   @keyframes bridge-fade {
     from {
       opacity: 0;
@@ -374,77 +393,12 @@ const steps = [
     }
   }
 
-  /* The pilot is the missing piece: starts as an empty dashed slot, then
-     the card lands and the border turns accent. */
-  .bridge-pilot {
-    border-color: var(--color-accent);
-    animation: bridge-slot 1.5s var(--motion-ease-standard) 1s both;
-  }
-  @keyframes bridge-slot {
-    0%,
-    50% {
-      border-style: dashed;
-      border-color: var(--color-border-strong);
-      background: transparent;
-    }
-    65% {
-      border-style: solid;
-      border-color: var(--color-accent);
-      background: var(--color-surface);
-      transform: translateY(-3px);
-    }
-    100% {
-      border-style: solid;
-      border-color: var(--color-accent);
-      background: var(--color-surface);
-      transform: none;
-    }
-  }
-  .bridge-pilot .bridge-tag,
-  .bridge-pilot .bridge-name,
-  .bridge-pilot .bridge-desc {
-    animation: bridge-rise 0.45s var(--motion-ease-standard) 1.9s both;
-  }
-  @keyframes bridge-rise {
-    from {
-      opacity: 0;
-      transform: translateY(-6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  .bridge-tag {
-    font-family: var(--font-mono);
-    font-size: var(--font-size-caption);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  /* Pipeline stays dimmed until the pilot lands, then unlocks. */
-  .bridge-pipeline {
-    animation: bridge-unlock 0.6s var(--motion-ease-standard) 2.5s both;
-  }
-  @keyframes bridge-unlock {
-    from {
-      opacity: 0.35;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
+    .bridge-playbook,
     .bridge-check,
     .bridge-arrow-1,
-    .bridge-arrow-2,
     .bridge-pilot,
-    .bridge-pilot .bridge-tag,
-    .bridge-pilot .bridge-name,
-    .bridge-pilot .bridge-desc,
+    .bridge-arrow-2,
     .bridge-pipeline {
       animation: none;
     }
