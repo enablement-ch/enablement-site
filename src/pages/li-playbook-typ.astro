@@ -201,9 +201,13 @@ const steps = [
     ))
   }
 
-  <div class="container pilot-cta">
-    <a href="#apply" class="btn btn-accent btn-md">Apply for 30-day free pilot</a>
-  </div>
+  <section class="section pilot-cta-section">
+    <div class="container pilot-cta">
+      <a href="#apply" class="btn btn-accent btn-md"
+        >Apply for 30-day free pilot</a
+      >
+    </div>
+  </section>
 
   <!-- 05 TESTIMONIAL VIDEOS -->
   <VideoTestimonials
@@ -359,10 +363,14 @@ const steps = [
     margin-top: var(--space-4);
     max-width: var(--container-prose);
   }
+  /* Section wrapper carries the page's vertical frame lines + bottom
+     hairline; padding tightened since it only holds a button. */
+  .pilot-cta-section {
+    padding-block: var(--space-7);
+  }
   .pilot-cta {
     display: flex;
     justify-content: center;
-    padding-block: var(--space-6) var(--space-9);
   }
 
   /* ---- scrollytelling (pattern from linkedin-results) ---- */
