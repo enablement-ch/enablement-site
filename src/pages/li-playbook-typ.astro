@@ -8,10 +8,6 @@ import VideoTestimonials from "../components/VideoTestimonials.astro";
 const MEETING_URL =
   "https://revenue.enablement.ch/meetings/l-heiz/first-meeting";
 
-// Asset to drop in: a real client interview call screenshot (consented).
-// Until the file exists, the figure hides itself via onerror.
-const interviewShot = "/playbook-thank-you/img/interview-call.png";
-
 const steps = [
   {
     num: "01",
@@ -25,7 +21,8 @@ const steps = [
       "Content angles that create demand",
     ],
     caption: "30 minutes. You talk, we listen.",
-    images: [interviewShot],
+    callMockup: true,
+    images: [],
   },
   {
     num: "02",
@@ -184,6 +181,41 @@ const steps = [
               </div>
             </aside>
             <div class="scrolly-steps">
+              {step.callMockup && (
+                <div class="scrolly-step">
+                  <figure class="scrolly-card call-frame">
+                    <div class="call-grid">
+                      <div class="call-tile is-speaking">
+                        <img
+                          loading="lazy"
+                          src="/playbook-thank-you/img/call-client.png"
+                          alt="Founder on the interview call"
+                        />
+                        <span class="call-name">Dario Hong</span>
+                      </div>
+                      <div class="call-tile">
+                        <img
+                          loading="lazy"
+                          src="/playbook-thank-you/img/call-lanny.jpg"
+                          alt="Lanny Heiz on the interview call"
+                        />
+                        <span class="call-name">Lanny Heiz</span>
+                      </div>
+                    </div>
+                    <div class="call-bar">
+                      <span class="call-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 1 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                      </span>
+                      <span class="call-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="1" y="6" rx="2"/></svg>
+                      </span>
+                      <span class="call-btn call-btn-end">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+                      </span>
+                    </div>
+                  </figure>
+                </div>
+              )}
               {step.images.map((src) => (
                 <div class="scrolly-step">
                   <figure class="scrolly-card" data-ph={step.caption}>
@@ -534,6 +566,78 @@ const steps = [
     width: 100%;
     height: auto;
   }
+  /* ---- step 01: interview call mockup ----
+     Depicts a Zoom-style call window, so it keeps its own dark neutrals and
+     the conventional green speaking ring in both site themes. */
+  .call-frame {
+    background: #17181c;
+    cursor: default;
+    padding: var(--space-3);
+  }
+  .call-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  .call-tile {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #0f1013;
+  }
+  .call-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .call-tile.is-speaking::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid #2bd96a;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .call-name {
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm, 6px);
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-caption);
+    line-height: 1.4;
+  }
+  .call-bar {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0 var(--space-2);
+  }
+  .call-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #2a2c33;
+    color: #c9ccd4;
+  }
+  .call-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .call-btn-end {
+    background: #e02e2e;
+    color: #fff;
+    width: 48px;
+    border-radius: 17px;
+  }
+
   /* Placeholder frame while the real screenshot asset is missing */
   .scrolly-card.ph {
     aspect-ratio: 16 / 9;
@@ -639,7 +743,7 @@ const steps = [
     // Image lightbox
     var lb = document.getElementById("imgLightbox");
     var lbImg = lb && lb.querySelector("img");
-    document.querySelectorAll(".scrolly-card").forEach(function (card) {
+    document.querySelectorAll(".scrolly-card:not(.call-frame)").forEach(function (card) {
       card.addEventListener("click", function () {
         var img = card.querySelector("img");
         if (!img || !lb) return;
