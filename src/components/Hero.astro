@@ -1,4 +1,6 @@
 ---
+import LeadIntakeForm from "./LeadIntakeForm.astro";
+
 interface Props {
   eyebrow?: string;
   primaryHref?: string;
@@ -93,7 +95,7 @@ if (vimeoUrl) {
   <!-- CTAs below the video -->
   <div class="container">
     <div class="hero-actions hero-actions-below">
-      <a href={primaryHref} class="btn btn-accent btn-md">{primaryLabel}</a>
+      <LeadIntakeForm submitLabel={primaryLabel} />
       {secondaryLabel && (
         <a href={secondaryHref} class="btn btn-tertiary"
           >{secondaryLabel} <span class="arrow">→</span></a

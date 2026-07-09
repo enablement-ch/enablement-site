@@ -1,0 +1,174 @@
+---
+interface Props {
+  theme?: "light" | "dark";
+  submitLabel?: string;
+}
+
+const {
+  theme = "light",
+  submitLabel = "Book a 30-minute call",
+} = Astro.props;
+---
+
+<form class:list={["lead-intake-form", `lead-intake-form-${theme}`]} data-lead-intake-form>
+  <div class="lead-intake-row">
+    <input
+      name="email"
+      type="email"
+      autocomplete="email"
+      placeholder="you@company.com"
+      aria-label="Work email"
+      required
+    />
+    <button class="btn btn-accent btn-md" type="submit">
+      {submitLabel} <span aria-hidden="true">→</span>
+    </button>
+  </div>
+  <p class="lead-intake-status" data-lead-intake-status aria-live="polite"></p>
+</form>
+
+<script is:inline>
+  (function () {
+    function getAttribution() {
+      var params = new URLSearchParams(window.location.search);
+      return {
+        utm_source: params.get("utm_source") || "",
+        utm_medium: params.get("utm_medium") || "",
+        utm_campaign: params.get("utm_campaign") || "",
+        utm_term: params.get("utm_term") || "",
+        utm_content: params.get("utm_content") || "",
+        referrer: document.referrer || "",
+        landingPage: window.location.href,
+      };
+    }
+
+    document.querySelectorAll("[data-lead-intake-form]").forEach(function (form) {
+      if (form.dataset.bound === "true") return;
+      form.dataset.bound = "true";
+
+      var status = form.querySelector("[data-lead-intake-status]");
+      var button = form.querySelector("button[type='submit']");
+      var input = form.querySelector("input[name='email']");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!input || !input.value.trim()) return;
+
+        var email = input.value.trim();
+        if (status) status.textContent = "Preparing your calendar...";
+        if (button) button.disabled = true;
+
+        fetch("/api/lead-intake", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            pageUrl: window.location.href,
+            ...getAttribution(),
+          }),
+        })
+          .then(function (response) {
+            return response.json().then(function (body) {
+              return { ok: response.ok, body: body };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok || !result.body.redirectUrl) {
+              throw new Error(result.body.error || "Could not start booking.");
+            }
+            if (status) status.textContent = "Opening calendar...";
+            window.location.href = result.body.redirectUrl;
+          })
+          .catch(function () {
+            if (status) {
+              status.textContent =
+                "Something went wrong. Please use the booking page.";
+            }
+            if (button) button.disabled = false;
+          });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .lead-intake-form {
+    width: min(100%, 560px);
+  }
+
+  .lead-intake-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .lead-intake-form-dark .lead-intake-row {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .lead-intake-row input {
+    min-width: 0;
+    min-height: 52px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-heading);
+    font: inherit;
+  }
+
+  .lead-intake-form-dark .lead-intake-row input {
+    color: #ffffff;
+  }
+
+  .lead-intake-row input::placeholder {
+    color: var(--color-muted);
+  }
+
+  .lead-intake-form-dark .lead-intake-row input::placeholder {
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .lead-intake-row input:focus {
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 32%, transparent);
+    outline-offset: 2px;
+  }
+
+  .lead-intake-row button:disabled {
+    cursor: wait;
+    opacity: 0.75;
+  }
+
+  .lead-intake-status {
+    min-height: 0;
+    margin-top: 8px;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .lead-intake-status:empty {
+    display: none;
+  }
+
+  .lead-intake-form-dark .lead-intake-status {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  @media (max-width: 700px) {
+    .lead-intake-row {
+      grid-template-columns: 1fr;
+    }
+
+    .lead-intake-row button {
+      justify-content: center;
+      width: 100%;
+      white-space: normal;
+    }
+  }
+</style>
