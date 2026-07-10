@@ -29,6 +29,66 @@ const {
 
 <script is:inline>
   (function () {
+    var freeEmailDomains = [
+      "aol.com",
+      "fastmail.com",
+      "gmail.com",
+      "gmx.com",
+      "gmx.de",
+      "googlemail.com",
+      "hey.com",
+      "hotmail.com",
+      "icloud.com",
+      "live.com",
+      "mac.com",
+      "mail.com",
+      "me.com",
+      "msn.com",
+      "outlook.com",
+      "pm.me",
+      "proton.me",
+      "protonmail.com",
+      "tutanota.com",
+      "web.de",
+      "yahoo.com",
+      "yandex.com",
+      "zoho.com",
+    ];
+    var disposableEmailDomains = [
+      "10minutemail.com",
+      "dispostable.com",
+      "fakeinbox.com",
+      "getnada.com",
+      "grr.la",
+      "guerrillamail.com",
+      "guerrillamail.net",
+      "maildrop.cc",
+      "mailinator.com",
+      "moakt.com",
+      "sharklasers.com",
+      "temp-mail.org",
+      "tempmail.com",
+      "throwawaymail.com",
+      "trashmail.com",
+      "yopmail.com",
+    ];
+
+    function getEmailDomain(email) {
+      return email.split("@").pop().toLowerCase();
+    }
+
+    function isBlockedEmailDomain(domain) {
+      return (
+        freeEmailDomains.indexOf(domain) !== -1 ||
+        disposableEmailDomains.some(function (blockedDomain) {
+          return (
+            domain === blockedDomain ||
+            domain.slice(-(blockedDomain.length + 1)) === "." + blockedDomain
+          );
+        })
+      );
+    }
+
     function getAttribution() {
       var params = new URLSearchParams(window.location.search);
       return {
@@ -55,6 +115,12 @@ const {
         if (!input || !input.value.trim()) return;
 
         var email = input.value.trim();
+        var domain = getEmailDomain(email);
+        if (isBlockedEmailDomain(domain)) {
+          if (status) status.textContent = "Please use your work email address.";
+          return;
+        }
+
         if (status) status.textContent = "Preparing your calendar...";
         if (button) button.disabled = true;
 
@@ -79,10 +145,9 @@ const {
             if (status) status.textContent = "Opening calendar...";
             window.location.href = result.body.redirectUrl;
           })
-          .catch(function () {
+          .catch(function (error) {
             if (status) {
-              status.textContent =
-                "Something went wrong. Please use the booking page.";
+              status.textContent = error.message || "Something went wrong.";
             }
             if (button) button.disabled = false;
           });
@@ -133,6 +198,27 @@ const {
 
   .lead-intake-form-dark .lead-intake-row input::placeholder {
     color: rgba(255, 255, 255, 0.52);
+  }
+
+  :global([data-theme="dark"] .cta-section)
+    .lead-intake-form-dark
+    .lead-intake-row {
+    border-color: var(--color-border);
+    background: var(--color-surface);
+  }
+
+  :global([data-theme="dark"] .cta-section)
+    .lead-intake-form-dark
+    .lead-intake-row
+    input {
+    color: var(--color-heading);
+  }
+
+  :global([data-theme="dark"] .cta-section)
+    .lead-intake-form-dark
+    .lead-intake-row
+    input::placeholder {
+    color: var(--color-muted);
   }
 
   .lead-intake-row input:focus {

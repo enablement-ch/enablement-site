@@ -8,6 +8,65 @@ function isEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+const FREE_EMAIL_DOMAINS = new Set([
+  "aol.com",
+  "fastmail.com",
+  "gmail.com",
+  "gmx.com",
+  "gmx.de",
+  "googlemail.com",
+  "hey.com",
+  "hotmail.com",
+  "icloud.com",
+  "live.com",
+  "mac.com",
+  "mail.com",
+  "me.com",
+  "msn.com",
+  "outlook.com",
+  "pm.me",
+  "proton.me",
+  "protonmail.com",
+  "tutanota.com",
+  "web.de",
+  "yahoo.com",
+  "yandex.com",
+  "zoho.com",
+]);
+
+const DISPOSABLE_EMAIL_DOMAINS = [
+  "10minutemail.com",
+  "dispostable.com",
+  "fakeinbox.com",
+  "getnada.com",
+  "grr.la",
+  "guerrillamail.com",
+  "guerrillamail.net",
+  "maildrop.cc",
+  "mailinator.com",
+  "moakt.com",
+  "sharklasers.com",
+  "temp-mail.org",
+  "tempmail.com",
+  "throwawaymail.com",
+  "trashmail.com",
+  "yopmail.com",
+];
+
+function getEmailDomain(email) {
+  return email.split("@").pop().toLowerCase();
+}
+
+function isBlockedEmailDomain(domain) {
+  return (
+    FREE_EMAIL_DOMAINS.has(domain) ||
+    DISPOSABLE_EMAIL_DOMAINS.some(
+      (blockedDomain) =>
+        domain === blockedDomain || domain.endsWith(`.${blockedDomain}`),
+    )
+  );
+}
+
 function buildMeetingUrl(email) {
   const url = new URL(MEETING_URL);
   url.searchParams.set("email", email);
@@ -135,6 +194,12 @@ export default async function handler(request, response) {
 
   if (!isEmail(email)) {
     return send(response, json(400, { error: "Valid email is required" }));
+  }
+
+  if (isBlockedEmailDomain(getEmailDomain(email))) {
+    return send(response, json(400, {
+      error: "Please use your work email address.",
+    }));
   }
 
   const payload = {
