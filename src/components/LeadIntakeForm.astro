@@ -214,6 +214,12 @@ const {
     color: var(--color-muted);
   }
 
+  :global([data-theme="dark"] .cta-section)
+    .lead-intake-form-dark
+    .lead-intake-status {
+    color: var(--color-body);
+  }
+
   .lead-intake-row input:focus {
     outline: 2px solid color-mix(in srgb, var(--color-accent) 32%, transparent);
     outline-offset: 2px;
