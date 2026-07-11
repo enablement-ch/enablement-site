@@ -1,0 +1,649 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const titleLine1 = "How CondenZero generated $2.4 million";
+const titleLine2 = "in pipeline from a single conference";
+const metrics = [
+  { value: "650", label: "People reached" },
+  { value: "22", label: "Meetings booked" },
+  { value: "$2.4M", label: "Pipeline generated" },
+  { value: "$300K", label: "Deal closed" },
+];
+const quote =
+  "We reached 650 potential customers, generated 22 positive replies, built $2.4M in pipeline and closed a $300K deal in just 8 weeks after the conference. Absolute 10 out of 10.";
+---
+
+<BaseLayout
+  title="CondenZero case study top-section variants"
+  description="Five visual directions for the CondenZero case study top section."
+>
+  <main class="variant-lab">
+    <section class="variant-lab-intro">
+      <div class="container">
+        <h1>CondenZero case study top-section variants</h1>
+        <p>
+          All five follow the same order: headline, video, proof. The difference
+          is where the company identity, KPIs, and Denys testimonial live.
+        </p>
+      </div>
+    </section>
+
+    <section class="variant-concept concept-clean">
+      <div class="container">
+        <div class="variant-label">Variant 01 / Clean video, proof stack</div>
+        <header class="variant-title">
+          <h2><span>{titleLine1}</span><span>{titleLine2}</span></h2>
+        </header>
+        <div class="variant-video">
+          <span class="variant-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </div>
+        <div class="mock-proof-band">
+          <div class="variant-kpis kpis-row mock-kpis">
+            {metrics.map((metric) => (
+              <div class="variant-kpi">
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </div>
+            ))}
+          </div>
+          <blockquote class="variant-quote denys-row mock-testimonial">
+            <div class="denys-photo mock">DS</div>
+            <div class="mock-quote-copy">
+              <p>"{quote}"</p>
+              <footer>
+                <span class="mock-byline">
+                  <strong>Denys Sutter</strong>
+                  <span>Founder, CondenZero</span>
+                </span>
+              </footer>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant-concept concept-company">
+      <div class="container">
+        <div class="variant-label">Variant 02 / Company identity in proof</div>
+        <header class="variant-title">
+          <h2><span>{titleLine1}</span><span>{titleLine2}</span></h2>
+        </header>
+        <div class="variant-video clean-video">
+          <span class="variant-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </div>
+        <div class="proof-split">
+          <div class="proof-company-side">
+            <div class="company-lockup">
+              <span class="company-logo">CZ</span>
+              <span>CondenZero</span>
+            </div>
+            <div class="variant-kpis mini-grid">
+              {metrics.map((metric) => (
+                <div class="variant-kpi">
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <blockquote class="variant-quote proof-card">
+            <div class="denys-inline">
+              <div class="denys-photo small">DS</div>
+              <footer>Denys Sutter · Founder, CondenZero</footer>
+            </div>
+            <p>"The collaboration was very pragmatic and clearly structured. Absolute 10 out of 10."</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant-concept concept-denys">
+      <div class="container">
+        <div class="variant-label">Variant 03 / Denys as the proof anchor</div>
+        <header class="variant-title">
+          <h2><span>{titleLine1}</span><span>{titleLine2}</span></h2>
+        </header>
+        <div class="variant-video">
+          <span class="variant-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </div>
+        <div class="denys-feature">
+          <div class="denys-photo large">DS</div>
+          <blockquote>
+            <p>"{quote}"</p>
+            <footer>Denys Sutter · Founder, CondenZero</footer>
+          </blockquote>
+        </div>
+        <div class="variant-kpis kpis-row subtle">
+          {metrics.map((metric) => (
+            <div class="variant-kpi">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="variant-concept concept-metric">
+      <div class="container">
+        <div class="variant-label">Variant 04 / One dominant metric</div>
+        <header class="variant-title">
+          <h2><span>{titleLine1}</span><span>{titleLine2}</span></h2>
+        </header>
+        <div class="variant-video">
+          <span class="variant-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </div>
+        <div class="metric-composition">
+          <div class="big-proof">
+            <span class="company-caption">CondenZero / single conference</span>
+            <strong>$2.4M</strong>
+            <span>Pipeline generated</span>
+          </div>
+          <div class="side-proof">
+            <div><strong>22</strong><span>Meetings booked</span></div>
+            <div><strong>$300K</strong><span>Deal closed</span></div>
+          </div>
+          <blockquote class="variant-quote">
+            <div class="denys-inline">
+              <div class="denys-photo small">DS</div>
+              <footer>Denys Sutter · Founder, CondenZero</footer>
+            </div>
+            <p>"Absolute 10 out of 10."</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant-concept concept-timeline">
+      <div class="container">
+        <div class="variant-label">Variant 05 / Conference proof path</div>
+        <header class="variant-title">
+          <h2><span>{titleLine1}</span><span>{titleLine2}</span></h2>
+        </header>
+        <div class="variant-video company-video">
+          <div class="video-company-chip">
+            <span>CondenZero</span>
+            <small>Conference campaign</small>
+          </div>
+          <span class="variant-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </div>
+        <div class="proof-path">
+          <div>
+            <span>01</span>
+            <strong>Single conference</strong>
+          </div>
+          <div>
+            <span>02</span>
+            <strong>22 meetings booked</strong>
+          </div>
+          <div>
+            <span>03</span>
+            <strong>$2.4M pipeline</strong>
+          </div>
+        </div>
+        <blockquote class="variant-quote denys-row compact">
+          <div class="denys-photo">DS</div>
+          <div>
+            <p>"The collaboration was very pragmatic and clearly structured."</p>
+            <footer>Denys Sutter · Founder, CondenZero</footer>
+          </div>
+        </blockquote>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .variant-lab-intro {
+    padding-block: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .variant-lab-intro .container {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .variant-lab-intro h1 {
+    font-size: clamp(2rem, 4vw, var(--font-size-h2));
+  }
+  .variant-lab-intro p {
+    color: var(--color-body);
+    max-width: 70ch;
+  }
+  .variant-concept {
+    padding-block: var(--space-10);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .variant-label {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    letter-spacing: 0.14em;
+    margin-bottom: var(--space-5);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .variant-title {
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .variant-title h2 {
+    font-size: clamp(2.45rem, 4.2vw, 3.9rem);
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .variant-title span {
+    display: block;
+    white-space: nowrap;
+  }
+  .variant-video {
+    position: relative;
+    width: min(100%, 880px);
+    aspect-ratio: 16 / 9;
+    margin: var(--space-7) auto 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background:
+      linear-gradient(135deg, rgba(225, 30, 72, 0.08), transparent 40%),
+      radial-gradient(var(--color-border-strong) 1px, transparent 1px),
+      var(--color-surface-raised);
+    background-size: auto, 22px 22px, auto;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .variant-play {
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+  .variant-play svg {
+    width: 21px;
+    height: 21px;
+    margin-left: 4px;
+  }
+  .variant-kpis {
+    width: min(100%, 880px);
+    margin-inline: auto;
+    display: grid;
+  }
+  .kpis-row {
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .mock-proof-band {
+    width: min(100%, 880px);
+    margin: var(--space-6) auto 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-canvas);
+  }
+  .mock-proof-band .kpis-row {
+    width: 100%;
+    margin-top: 0;
+    border-top: 0;
+  }
+  .mock-proof-band .variant-kpi {
+    min-height: 118px;
+    padding: var(--space-6) var(--space-7) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .variant-quote.mock-testimonial {
+    width: auto;
+    margin: 0;
+    padding: var(--space-5) var(--space-6);
+    border-top: 0;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: center;
+  }
+  .variant-quote.mock-testimonial p {
+    font-size: clamp(1.02rem, 1.22vw, 1.16rem);
+    letter-spacing: -0.005em;
+    line-height: 1.48;
+  }
+  .variant-quote.mock-testimonial footer {
+    display: grid;
+    gap: 5px;
+    font-size: 11px;
+    line-height: 1.35;
+    margin-top: var(--space-2);
+  }
+  .mock-byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .variant-quote.mock-testimonial footer strong {
+    color: var(--color-heading);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .variant-kpi {
+    padding: var(--space-6);
+    border-right: 1px solid var(--color-border);
+  }
+  .variant-kpi:last-child {
+    border-right: 0;
+  }
+  .variant-kpi strong {
+    display: block;
+    color: var(--color-accent);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin-bottom: var(--space-3);
+  }
+  .variant-kpi span,
+  .company-caption,
+  .proof-path span {
+    color: var(--color-muted);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    letter-spacing: 0.14em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+  .variant-quote {
+    width: min(100%, 880px);
+    margin: var(--space-7) auto 0;
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+  .variant-quote p,
+  .denys-feature p {
+    color: var(--color-heading);
+    font-size: clamp(1.25rem, 2.2vw, 1.9rem);
+    letter-spacing: -0.015em;
+    line-height: 1.34;
+    max-width: none;
+  }
+  .variant-quote footer,
+  .denys-feature footer {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-caption);
+    margin-top: var(--space-3);
+  }
+  .denys-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .denys-photo {
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-surface-raised) 82%, var(--color-border));
+    color: var(--color-heading);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .denys-photo.mock {
+    width: 112px;
+    height: 112px;
+    font-size: 16px;
+  }
+  .denys-photo.small {
+    width: 44px;
+    height: 44px;
+    font-size: 12px;
+  }
+  .denys-photo.large {
+    width: 104px;
+    height: 104px;
+    font-size: 18px;
+  }
+  .proof-split {
+    width: min(100%, 880px);
+    margin: var(--space-6) auto 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .proof-company-side {
+    display: grid;
+    gap: var(--space-5);
+    padding: var(--space-5) 0;
+  }
+  .company-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-heading);
+    font-weight: 650;
+  }
+  .company-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--color-heading);
+    color: var(--color-inverse);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .mini-grid {
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--color-border);
+  }
+  .mini-grid .variant-kpi {
+    padding: var(--space-4);
+  }
+  .mini-grid .variant-kpi strong {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  }
+  .proof-card {
+    width: auto;
+    margin: 0;
+    padding: var(--space-5);
+    border-top: 0;
+    border-left: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+  .proof-card p {
+    font-size: clamp(1.15rem, 1.7vw, var(--font-size-h5));
+    margin-top: var(--space-4);
+  }
+  .denys-inline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .denys-inline footer {
+    margin-top: 0;
+  }
+  .denys-feature {
+    width: min(100%, 880px);
+    margin: var(--space-7) auto 0;
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: var(--space-6);
+    align-items: start;
+    padding: var(--space-7);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+  .kpis-row.subtle {
+    margin-top: var(--space-5);
+    background: transparent;
+  }
+  .metric-composition {
+    width: min(100%, 880px);
+    margin: var(--space-6) auto 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .big-proof {
+    padding: var(--space-7);
+    border-right: 1px solid var(--color-border);
+  }
+  .big-proof strong {
+    color: var(--color-accent);
+    display: block;
+    font-size: clamp(4rem, 8vw, 7rem);
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+    margin-block: var(--space-4) var(--space-3);
+  }
+  .big-proof > span:last-child,
+  .side-proof span {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .side-proof {
+    display: grid;
+    border-right: 1px solid var(--color-border);
+  }
+  .side-proof div {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .side-proof div:last-child {
+    border-bottom: 0;
+  }
+  .side-proof strong {
+    color: var(--color-accent);
+    display: block;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    margin-bottom: var(--space-3);
+  }
+  .metric-composition .variant-quote {
+    grid-column: 1 / -1;
+    width: auto;
+    margin: 0;
+    padding: var(--space-5) var(--space-7);
+  }
+  .metric-composition .variant-quote p {
+    font-size: clamp(1.3rem, 2vw, var(--font-size-h4));
+  }
+  .video-company-chip {
+    position: absolute;
+    left: var(--space-5);
+    top: var(--space-5);
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  }
+  .video-company-chip span {
+    color: var(--color-heading);
+    font-weight: 650;
+  }
+  .video-company-chip small {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .proof-path {
+    width: min(100%, 880px);
+    margin: var(--space-6) auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .proof-path div {
+    padding: var(--space-6);
+    border-right: 1px solid var(--color-border);
+  }
+  .proof-path div:last-child {
+    border-right: 0;
+  }
+  .proof-path strong {
+    color: var(--color-heading);
+    display: block;
+    font-size: clamp(1.35rem, 2vw, var(--font-size-h5));
+    line-height: 1.15;
+    margin-top: var(--space-3);
+  }
+  .denys-row.compact {
+    margin-top: var(--space-5);
+  }
+  .denys-row.compact p {
+    font-size: clamp(1.2rem, 1.8vw, var(--font-size-h5));
+  }
+  @media (max-width: 860px) {
+    .variant-title span {
+      white-space: normal;
+    }
+    .kpis-row,
+    .mini-grid,
+    .proof-path {
+      grid-template-columns: 1fr;
+    }
+    .variant-kpi,
+    .proof-path div {
+      border-right: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .variant-kpi:last-child,
+    .proof-path div:last-child {
+      border-bottom: 0;
+    }
+    .proof-split,
+    .metric-composition {
+      grid-template-columns: 1fr;
+    }
+    .proof-card,
+    .big-proof,
+    .side-proof {
+      border-left: 0;
+      border-right: 0;
+    }
+    .proof-card {
+      border-top: 1px solid var(--color-border);
+    }
+    .denys-feature,
+    .denys-row {
+      grid-template-columns: 1fr;
+    }
+    .denys-photo.mock {
+      width: 88px;
+      height: 88px;
+    }
+  }
+</style>

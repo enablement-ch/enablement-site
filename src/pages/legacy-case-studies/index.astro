@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const studies = (await getCollection("caseStudies")).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+---
+
+<BaseLayout
+  title="Clients — Enablement.ch"
+  description="Real systems we've shipped for B2B teams in DACH. Pipeline lifts, deliverability fixes, and outbound engines built from scratch."
+>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="eyebrow"
+          >Clients</span
+        >
+        <h1 class="display">
+          Systems we've <span class="italic-accent">shipped.</span>
+        </h1>
+        <p class="lead hero-lead">
+          Each case is a real B2B team in DACH. We list the state we found,
+          what we built, and what changed. No glossy fluff.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="case-grid">
+        {
+          studies.map((cs) => {
+            const initials = cs.data.person?.name
+              ? cs.data.person.name
+                  .split(" ")
+                  .map((s) => s[0])
+                  .slice(0, 2)
+                  .join("")
+              : "";
+            const hasVideo = !!cs.data.videoTestimonial;
+
+            return (
+              <a href={`/legacy-case-studies/${cs.id}`} class="case-card">
+                <div class="case-card-top">
+                  <div class="case-card-logo">
+                    {cs.data.logo ? (
+                      <img src={cs.data.logo} alt={cs.data.company} />
+                    ) : (
+                      <span class="case-card-mark">{cs.data.company}</span>
+                    )}
+                  </div>
+                  {hasVideo && (
+                    <span class="case-card-video-badge" aria-label="Video testimonial">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      Video
+                    </span>
+                  )}
+                </div>
+
+                <h3 class="case-card-title">
+                  How {cs.data.company} got{" "}
+                  <span class="italic-accent">{cs.data.result}</span>
+                </h3>
+
+                <div class="case-card-stats">
+                  {cs.data.metrics.slice(0, 3).map((m) => (
+                    <div class="case-card-stat">
+                      <div class="case-card-stat-num" set:html={m.value} />
+                      <div class="case-card-stat-label">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {cs.data.person && (
+                  <div class="case-card-person">
+                    <span class="case-card-avatar">
+                      {cs.data.person.photo ? (
+                        <img src={cs.data.person.photo} alt={cs.data.person.name} />
+                      ) : (
+                        initials
+                      )}
+                    </span>
+                    <span class="case-card-person-info">
+                      <span class="case-card-person-name">{cs.data.person.name}</span>
+                      <span class="case-card-person-title">
+                        {cs.data.person.title} · {cs.data.company}
+                      </span>
+                    </span>
+                  </div>
+                )}
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
