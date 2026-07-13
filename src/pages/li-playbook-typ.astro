@@ -117,9 +117,10 @@ const steps = [
         </div>
 
         <div class="hero-actions ty-cta-stack">
-          <a href="#apply" class="btn btn-accent btn-md"
-            >Apply for 30-day free pilot</a
-          >
+          <LeadIntakeForm
+            submitLabel="Apply for 30-day free pilot"
+            meetingUrl={MEETING_URL}
+          />
           <p class="ty-microcopy">
             To ensure quality, we can only launch 1 pilot a week.
           </p>
@@ -317,6 +318,9 @@ const steps = [
   .ty-cta-stack {
     flex-direction: column;
     gap: var(--space-3);
+  }
+  .ty-cta-stack :global(.lead-intake-form) {
+    width: min(100%, 640px);
   }
 
   /* ---- three-beat bridge strip ---- */
@@ -695,13 +699,18 @@ const steps = [
     max-width: var(--container-prose);
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--space-4);
+    margin-inline: auto;
+    text-align: center;
   }
   .apply-inner h2 {
     margin-top: var(--space-2);
   }
   .apply-form-wrap {
     margin-top: var(--space-5);
+    display: flex;
+    justify-content: center;
   }
   .apply-form-wrap :global(.lead-intake-form) {
     width: min(100%, 640px);
