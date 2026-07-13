@@ -1,4 +1,6 @@
 const MEETING_URL = "https://revenue.enablement.ch/meetings/l-heiz/first-meeting";
+const ALLOWED_MEETING_HOST = "revenue.enablement.ch";
+const ALLOWED_MEETING_PATH_PREFIX = "/meetings/l-heiz/";
 
 function json(status, body) {
   return { status, body };
@@ -67,12 +69,29 @@ function isBlockedEmailDomain(domain) {
   );
 }
 
-function buildMeetingUrl(email) {
-  const url = new URL(MEETING_URL);
+function getMeetingUrl(candidate) {
+  if (!candidate) return MEETING_URL;
+
+  try {
+    const url = new URL(candidate);
+    if (
+      url.protocol === "https:" &&
+      url.hostname === ALLOWED_MEETING_HOST &&
+      url.pathname.startsWith(ALLOWED_MEETING_PATH_PREFIX)
+    ) {
+      return url.toString();
+    }
+  } catch {}
+
+  return MEETING_URL;
+}
+
+function buildMeetingUrl(email, meetingUrl) {
+  const url = new URL(getMeetingUrl(meetingUrl));
   url.searchParams.set("email", email);
   url.searchParams.set("utm_source", "website");
   url.searchParams.set("utm_medium", "lead_intake");
-  url.searchParams.set("utm_campaign", "homepage_booking_flow");
+  url.searchParams.set("utm_campaign", "website_booking_flow");
   return url.toString();
 }
 
@@ -227,7 +246,7 @@ export default async function handler(request, response) {
 
     return send(response, json(200, {
       ok: true,
-      redirectUrl: buildMeetingUrl(email),
+      redirectUrl: buildMeetingUrl(email, body.meetingUrl),
       hubspot,
       clay,
     }));

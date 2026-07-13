@@ -2,15 +2,21 @@
 interface Props {
   theme?: "light" | "dark";
   submitLabel?: string;
+  meetingUrl?: string;
 }
 
 const {
   theme = "light",
   submitLabel = "Book a 30-minute call",
+  meetingUrl,
 } = Astro.props;
 ---
 
-<form class:list={["lead-intake-form", `lead-intake-form-${theme}`]} data-lead-intake-form>
+<form
+  class:list={["lead-intake-form", `lead-intake-form-${theme}`]}
+  data-lead-intake-form
+  data-meeting-url={meetingUrl}
+>
   <div class="lead-intake-row">
     <input
       name="email"
@@ -130,6 +136,7 @@ const {
           body: JSON.stringify({
             email: email,
             pageUrl: window.location.href,
+            meetingUrl: form.dataset.meetingUrl || "",
             ...getAttribution(),
           }),
         })

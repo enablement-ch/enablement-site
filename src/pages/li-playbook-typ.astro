@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadIntakeForm from "../components/LeadIntakeForm.astro";
 import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
 import VideoTestimonials from "../components/VideoTestimonials.astro";
 
@@ -73,8 +74,8 @@ const steps = [
   title="Your playbook is on its way · Enablement.ch"
   description="The playbook is in your inbox. Want us to run it for you - free for 30 days? Apply for a pilot slot."
   noindex={true}
-  navCtaHref="#apply"
-  navCtaLabel="Apply for pilot"
+  showNav={false}
+  showFooter={false}
 >
   <!-- 01 HERO -->
   <header class="hero ty-hero">
@@ -261,15 +262,14 @@ const steps = [
         <p class="lead">
           To ensure quality, we can only launch 1 pilot a week.
         </p>
-        <p>Pick a time for the first call.</p>
+        <p>Enter your work email first. Then pick a time for the first call.</p>
       </div>
 
-      <div id="applyCalendar">
-        <div
-          class="meetings-iframe-container"
-          data-src={`${MEETING_URL}?embed=true`}
-        >
-        </div>
+      <div class="apply-form-wrap">
+        <LeadIntakeForm
+          submitLabel="Continue to calendar"
+          meetingUrl={MEETING_URL}
+        />
       </div>
     </div>
   </section>
@@ -700,15 +700,11 @@ const steps = [
   .apply-inner h2 {
     margin-top: var(--space-2);
   }
-  #applyCalendar {
+  .apply-form-wrap {
     margin-top: var(--space-5);
   }
-  #applyCalendar .meetings-iframe-container {
-    min-height: 720px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-surface);
+  .apply-form-wrap :global(.lead-intake-form) {
+    width: min(100%, 640px);
   }
 </style>
 
@@ -761,9 +757,3 @@ const steps = [
 
   })();
 </script>
-
-<!-- HubSpot meetings embed (the meeting link carries its own form) -->
-<script
-  type="text/javascript"
-  src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
-  is:inline></script>
