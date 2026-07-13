@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import { getCollection } from "astro:content";
+
+const studies = (await getCollection("caseStudies"))
+  .filter((cs) => cs.data.live)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<BaseLayout
+  title="Case Studies & Clients - Enablement.ch"
+  description="Real systems we've shipped for B2B teams in DACH. Pipeline lifts, deliverability fixes, and outbound engines built from scratch."
+>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="eyebrow">Clients</span>
+        <h1 class="display">
+          Systems we've <span class="italic-accent">shipped.</span>
+        </h1>
+        <p class="lead hero-lead">
+          Each case is a real B2B team in DACH. We list the state we found,
+          what we built, and what changed. No glossy fluff.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class={`case-grid ${studies.length === 1 ? "case-grid-single" : ""}`}>
+        {studies.map((cs) => <CaseStudyCard cs={cs} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
