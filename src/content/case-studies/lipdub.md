@@ -1,33 +1,32 @@
 ---
 company: Lipdub.ai
 logo: /logos/lipdub-black.png
-result: 150 signups, $400K in pipeline, and meetings with Asana and the Dallas Cowboys
-headline: How Lipdub.ai generated 150 signups, $400K in pipeline, and meetings with Asana and the Dallas Cowboys
+logoDark: /logos/lipdub-white.avif
+result: 599 deals created and 191 signups per month
+headline: How Lipdub.ai created 599 deals and generated 191 signups per month
 method: Repeatable outbound GTM system
 outcome: Built a repeatable GTM system to test ICPs, refine messaging, launch outbound campaigns, improve attribution, and hand the motion back to the Lipdub.ai team.
 subhead: Lipdub.ai is a media localization platform that helps teams translate video and media into different languages with AI audio translation and lip sync. They had traction, traffic, and outbound activity, but needed a more scalable way to learn which markets responded and turn that learning into qualified pipeline.
 metrics:
-  - value: "150"
-    label: Signups generated
-    context: Approximate signups generated through the GTM system.
-  - value: "$400K"
-    label: Pipeline created
-    context: Roughly generated from the outbound and conversion motion.
-  - value: "50"
-    label: Monthly signups
-    context: Current approximate monthly contribution from the system.
+  - value: "599"
+    label: Deals created
+    context: Deals created in HubSpot from the GTM motion.
+  - value: "191"
+    label: Signups per month
+    context: Average monthly signup volume across the three-month period.
   - value: "10/10"
-    label: Referral score
+    label: Customer Satisfaction
     context: Customer rating for the engagement.
 featuredQuote:
-  text: "We got the outcome we were looking for, and the process to get there was very structured, very helpful, and not too time-consuming. The Enablement team had a good grasp of what we wanted to do and executed very quickly from there."
-  attribution: Andrew
-  detail: Lipdub.ai
+  text: "We got the outcome we were looking for, and the process to get there was very structured, very helpful, and not too time-consuming. The Enablement team had a good grasp of what we wanted to do and executed very quickly from there. More importantly, we were meeting with high-quality, highly qualified leads from very reputable organizations."
+  attribution: Andrew Moore
+  detail: VP Sales, Lipdub.ai
 person:
-  name: Andrew
-  title: Lipdub.ai
+  name: Andrew Moore
+  title: VP Sales
+  photo: /team/andrew-moore.png
 quote: If you are looking to scale outbound as quickly and effectively as possible, Enablement is a great option to consider.
-videoTestimonial: https://drive.google.com/file/d/1aQYjEtlKx3T6cbO5VSfklqWYqSYvLDt8/preview
+videoTestimonial: https://player.vimeo.com/video/1209481101?h=034d55ee69&badge=0&autopause=0&player_id=0&app_id=58479
 industry: AI media localization
 teamSize: Growth-stage AI startup
 geography: North America
@@ -70,39 +69,38 @@ solutionSteps:
   - title: Improve attribution and handoff
     body: Connect campaign activity back into HubSpot so the Lipdub.ai team could see what worked and keep running the motion internally.
 results:
-  title: 150 signups, $400K in pipeline, and qualified enterprise conversations.
+  title: 599 deals created and 191 signups per month.
   intro: The result was not just more outbound activity. Lipdub.ai got a clearer way to reach the right buyers, learn from the market, and turn outbound into a scalable growth motion.
   paragraphs:
-    - The engagement generated approximately 150 signups, created roughly $400K in pipeline, and now contributes around 50 signups per month.
+    - The engagement generated 575 signups in three months, averaging 191 signups per month.
+    - According to HubSpot, the motion also created 599 deals, giving Lipdub.ai a much clearer view of which campaign activity was turning into commercial opportunities.
     - It also helped book meetings with high-quality organizations including Asana and the Dallas Cowboys, which mattered because Lipdub.ai was trying to move beyond broad demand into more qualified, reputable accounts.
     - The system was eventually handed over to the Lipdub.ai team so they could keep operating it internally rather than depending on one-off external campaign execution.
   bullets:
-    - Approximately 150 signups generated.
-    - Roughly $400K in pipeline created.
-    - Around 50 signups per month from the system.
+    - 599 deals created in HubSpot.
+    - 575 signups generated in three months.
+    - 191 signups per month on average.
     - Meetings booked with organizations including Asana and the Dallas Cowboys.
-    - 10/10 referral score from Andrew.
+    - 10/10 customer satisfaction from Andrew Moore.
     - Motion handed over so the Lipdub.ai team could run it internally.
   narrative: The biggest signal was not just meeting volume. It was that Lipdub.ai was meeting with high-quality, highly qualified leads from reputable organizations.
 outcomeSection:
   title: Lipdub.ai now has a clearer path to repeatable GTM learning.
   paragraphs:
     - Before the engagement, outbound was spread across lists, tools, campaigns, and manual coordination. After the engagement, Lipdub.ai had a more structured motion for testing markets, reaching buyers, tracking outcomes, and learning what to scale.
-    - The biggest win was not just more signups or pipeline. It was a repeatable way to find the right buyers, understand the market faster, and keep improving the motion internally.
+    - The biggest win was not just more signups or deals. It was a repeatable way to find the right buyers, understand the market faster, and keep improving the motion internally.
 summaryMetrics:
-  - value: "150"
-    label: Signups generated
-  - value: "$400K"
-    label: Pipeline created
-  - value: "50"
-    label: Monthly signups
+  - value: "599"
+    label: Deals created
+  - value: "191"
+    label: Signups per month
   - value: "10/10"
-    label: Referral score
+    label: Customer Satisfaction
 finalLesson: Horizontal products do not need more random outbound. They need a system that turns every campaign into market learning.
 cta:
   label: Book a GTM session
   href: /book
-live: false
+live: true
 publishedAt: 2026-07-13
 featured: false
 ---

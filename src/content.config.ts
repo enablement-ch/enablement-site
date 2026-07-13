@@ -104,6 +104,8 @@ const caseStudies = defineCollection({
     videoTestimonial: z.string().optional(),
     /** Company logo path in public/logos/ */
     logo: z.string().optional(),
+    /** Dark-mode company logo path in public/logos/ */
+    logoDark: z.string().optional(),
     industry: z.string().optional(),
     teamSize: z.coerce.string().optional(),
     geography: z.string().optional(),

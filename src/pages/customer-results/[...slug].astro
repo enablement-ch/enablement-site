@@ -116,7 +116,7 @@ const outcomeParagraphs =
         </div>
 
         <div class="case-proof-band">
-          <div class="case-proof-metrics">
+          <div class="case-proof-metrics" data-count={cs.data.metrics.length}>
             {
               cs.data.metrics.map((m) => (
                 <div class="case-proof-metric">
@@ -206,7 +206,7 @@ const outcomeParagraphs =
                   ))}
                 </div>
                 {cs.data.summaryMetrics && (
-                  <div class="case-summary-metrics">
+                  <div class="case-summary-metrics" data-count={cs.data.summaryMetrics.length}>
                     {cs.data.summaryMetrics.map((metric) => (
                       <div class="case-summary-metric">
                         <strong>{metric.value}</strong>

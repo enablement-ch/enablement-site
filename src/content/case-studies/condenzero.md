@@ -1,6 +1,7 @@
 ---
 company: CondenZero
 logo: /logos/condenzero-black.png
+logoDark: /logos/condenzero-white.png
 result: $2.4M in pipeline from a single conference
 headline: How CondenZero generated $2.4 million in pipeline from a single conference
 method: Conference pipeline system

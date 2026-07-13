@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { cs } = Astro.props;
+const hasThemeLogos = !!cs.data.logo && !!cs.data.logoDark;
 const initials = cs.data.person?.name
   ? cs.data.person.name
       .split(" ")
@@ -21,7 +22,24 @@ const hasVideo = !!cs.data.videoTestimonial;
     <div class="case-card-logo">
       {
         cs.data.logo ? (
-          <img src={cs.data.logo} alt={cs.data.company} />
+          <>
+            <img
+              class:list={[
+                "logo-img",
+                hasThemeLogos && "logo-img-light",
+                hasThemeLogos && "native",
+              ]}
+              src={cs.data.logo}
+              alt={cs.data.company}
+            />
+            {cs.data.logoDark && (
+              <img
+                class:list={["logo-img", "logo-img-dark", "native"]}
+                src={cs.data.logoDark}
+                alt={cs.data.company}
+              />
+            )}
+          </>
         ) : (
           <span class="case-card-mark">{cs.data.company}</span>
         )
