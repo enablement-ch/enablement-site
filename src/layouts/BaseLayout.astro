@@ -13,6 +13,7 @@ interface Props {
   /** Per-page nav CTA override (e.g. anchor to an on-page apply form). */
   navCtaHref?: string;
   navCtaLabel?: string;
+  navShowLinks?: boolean;
   showNav?: boolean;
   showFooter?: boolean;
 }
@@ -23,6 +24,7 @@ const {
   noindex = false,
   navCtaHref,
   navCtaLabel,
+  navShowLinks,
   showNav = true,
   showFooter = true,
 } = Astro.props;
@@ -120,7 +122,13 @@ const {
     <!-- End Meta Pixel Code -->
   </head>
   <body>
-    {showNav && <Nav ctaHref={navCtaHref} ctaLabel={navCtaLabel} />}
+    {showNav && (
+      <Nav
+        ctaHref={navCtaHref}
+        ctaLabel={navCtaLabel}
+        showLinks={navShowLinks}
+      />
+    )}
     <slot />
     {showFooter && <Footer />}
 

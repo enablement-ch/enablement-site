@@ -7,9 +7,14 @@ interface Props {
   /** Override the nav CTA per page (e.g. anchor to an on-page apply form). */
   ctaHref?: string;
   ctaLabel?: string;
+  showLinks?: boolean;
 }
 
-const { ctaHref = "/book", ctaLabel = "Schedule meeting" } = Astro.props;
+const {
+  ctaHref = "/book",
+  ctaLabel = "Schedule meeting",
+  showLinks = true,
+} = Astro.props;
 ---
 
 <nav class="nav">
@@ -18,9 +23,11 @@ const { ctaHref = "/book", ctaLabel = "Schedule meeting" } = Astro.props;
       <img src="/logo-black.svg" alt="" class="logo-img logo-img-light" />
       <img src="/logo-white.svg" alt="" class="logo-img logo-img-dark" />
     </a>
-    <div class="nav-menu">
-      {links.map(({ href, label }) => <a href={href}>{label}</a>)}
-    </div>
+    {showLinks && (
+      <div class="nav-menu">
+        {links.map(({ href, label }) => <a href={href}>{label}</a>)}
+      </div>
+    )}
     <div class="nav-actions">
       <button
         class="theme-toggle"
