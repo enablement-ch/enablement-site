@@ -29,7 +29,7 @@ const studies = (await getCollection("caseStudies"))
 
   <section class="section">
     <div class="container">
-      <div class={`case-grid ${studies.length === 1 ? "case-grid-single" : ""}`}>
+      <div class="case-grid">
         {studies.map((cs) => <CaseStudyCard cs={cs} />)}
       </div>
     </div>
