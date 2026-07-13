@@ -23,7 +23,7 @@ src/
 │   └── BaseLayout.astro  # HTML shell, fonts, theme toggle
 ├── pages/
 │   ├── index.astro       # Homepage
-│   └── case-studies/
+│   └── customer-results/
 │       ├── index.astro   # List
 │       └── [...slug].astro  # Detail template
 └── styles/
@@ -43,10 +43,10 @@ src/
 
 Use the CondenZero page as the canonical structure for future case studies:
 `src/content/case-studies/condenzero.md` plus the shared detail template at
-`src/pages/case-studies/[...slug].astro`.
+`src/pages/customer-results/[...slug].astro`.
 
 The file slug becomes the URL: `src/content/case-studies/acme.md` publishes to
-`/case-studies/acme/` when `live: true`.
+`/customer-results/acme/` when `live: true`.
 
 ### Required Flow
 
