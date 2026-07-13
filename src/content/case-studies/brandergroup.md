@@ -20,6 +20,7 @@ engagementLength: 6 months · We Run It
 services:
   - Outbound Engine
 publishedAt: 2025-08-15
+legacy: true
 featured: true
 ---
 

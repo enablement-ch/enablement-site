@@ -111,6 +111,8 @@ const caseStudies = defineCollection({
     services: z.array(z.string()).optional(),
     /** Public case-study route gate. Legacy drafts stay unlisted and unbuilt by default. */
     live: z.boolean().default(false),
+    /** Hidden legacy route gate for the pre-relaunch case-study archive. */
+    legacy: z.boolean().default(false),
     publishedAt: z.coerce.date(),
     featured: z.boolean().default(false),
   }),

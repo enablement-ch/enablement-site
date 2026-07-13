@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const studies = (await getCollection("caseStudies")).sort(
-  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
-);
+const studies = (await getCollection("caseStudies"))
+  .filter((cs) => cs.data.legacy)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
 <BaseLayout

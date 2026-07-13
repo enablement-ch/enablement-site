@@ -22,6 +22,7 @@ services:
   - Outbound Engine
   - Content Engine
 publishedAt: 2025-05-10
+legacy: true
 featured: false
 ---
 

@@ -24,6 +24,7 @@ services:
   - Outbound Engine
   - RevOps Stack
 publishedAt: 2025-09-01
+legacy: true
 featured: true
 ---
 
