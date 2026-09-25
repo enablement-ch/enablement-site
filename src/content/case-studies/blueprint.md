@@ -109,7 +109,7 @@ summaryMetrics:
 finalLesson: Having Claude and Codex is not the same as having an outbound system. AI accelerates the work, but experts turn it into qualified pipeline and revenue.
 cta:
   label: Book a GTM session
-  href: /book
+  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
 live: true
 publishedAt: 2026-08-11
 featured: false

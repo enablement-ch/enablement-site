@@ -1,4 +1,4 @@
-const MEETING_URL = "https://revenue.enablement.ch/meetings/l-heiz/first-meeting";
+const MEETING_URL = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
 const ALLOWED_MEETING_HOST = "revenue.enablement.ch";
 const ALLOWED_MEETING_PATH_PREFIX = "/meetings/l-heiz/";
 

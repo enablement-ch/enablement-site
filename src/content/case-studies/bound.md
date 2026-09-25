@@ -99,7 +99,7 @@ summaryMetrics:
 finalLesson: Once referrals and founder-led sales stop being enough, outbound needs to become a measurable system, not a collection of campaigns.
 cta:
   label: Book a GTM session
-  href: /book
+  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
 live: true
 publishedAt: 2026-07-13
 featured: false

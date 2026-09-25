@@ -99,7 +99,7 @@ summaryMetrics:
 finalLesson: Horizontal products do not need more random outbound. They need a system that turns every campaign into market learning.
 cta:
   label: Book a GTM session
-  href: /book
+  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
 live: true
 publishedAt: 2026-07-13
 featured: false

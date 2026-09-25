@@ -1,13 +1,12 @@
 ---
 interface Props {
-  // Replace with your real HubSpot meeting link, e.g.
-  //   "https://meetings.hubspot.com/lanny-heiz/discovery"
+  // HubSpot meeting page used by the embedded calendar.
   meetingUrl?: string;
   height?: string;
 }
 
 const {
-  meetingUrl = "https://meetings.hubspot.com/lanny-heiz",
+  meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting",
   height = "720px",
 } = Astro.props;
 ---

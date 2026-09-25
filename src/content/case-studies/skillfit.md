@@ -101,7 +101,7 @@ summaryMetrics:
 finalLesson: Early-stage SaaS teams do not just need more outbound activity. They need a system that creates meetings, teaches the market, and leaves the team more capable than before.
 cta:
   label: Book a GTM session
-  href: /book
+  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
 live: true
 publishedAt: 2026-07-13
 featured: false

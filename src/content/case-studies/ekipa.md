@@ -101,7 +101,7 @@ summaryMetrics:
 finalLesson: When outbound suddenly stops working, the answer is not more volume. The answer is a system that shows what is broken, fixes the foundation, and turns every channel - from email to founder-led content - into learning.
 cta:
   label: Book a GTM session
-  href: /book
+  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
 live: true
 publishedAt: 2026-07-13
 featured: false
