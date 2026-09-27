@@ -3,6 +3,11 @@ const links: { href: string; label: string }[] = [
   { href: "/customer-results", label: "Customer Results" },
 ];
 
+// Add future resource pages here to include them in the dropdown.
+const resources: { href: string; label: string }[] = [
+  { href: "/resources/gtm-checklist", label: "GTM Checklist" },
+];
+
 interface Props {
   /** Override the nav CTA per page (e.g. anchor to an on-page apply form). */
   ctaHref?: string;
@@ -26,6 +31,12 @@ const {
     {showLinks && (
       <div class="nav-menu">
         {links.map(({ href, label }) => <a href={href}>{label}</a>)}
+        <details class="nav-resources">
+          <summary>Resources <span aria-hidden="true">⌄</span></summary>
+          <div class="nav-resources-panel">
+            {resources.map(({ href, label }) => <a href={href}>{label}</a>)}
+          </div>
+        </details>
       </div>
     )}
     <div class="nav-actions">
@@ -61,3 +72,79 @@ const {
     </div>
   </div>
 </nav>
+
+<script>
+  const dropdown = document.querySelector<HTMLDetailsElement>(".nav-resources");
+  if (dropdown) {
+    document.addEventListener("click", (event) => {
+      if (event.target instanceof Node && !dropdown.contains(event.target)) {
+        dropdown.open = false;
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && dropdown.open) {
+        dropdown.open = false;
+        dropdown.querySelector("summary")?.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .nav-resources { position: relative; }
+  .nav-resources summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    cursor: pointer;
+    color: var(--color-muted);
+  }
+  .nav-resources summary::-webkit-details-marker { display: none; }
+  .nav-resources summary:hover,
+  .nav-resources[open] summary { color: var(--color-heading); }
+  .nav-resources summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 5px;
+  }
+  .nav-resources summary span { transition: transform 150ms; }
+  .nav-resources[open] summary span { transform: rotate(180deg); }
+  .nav-resources-panel {
+    position: absolute;
+    top: calc(100% + var(--space-4));
+    right: 0;
+    min-width: 220px;
+    padding: var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+  }
+  .nav-resources-panel a {
+    display: block;
+    padding: var(--space-3);
+    white-space: nowrap;
+  }
+  .nav-resources-panel a:hover,
+  .nav-resources-panel a:focus-visible {
+    color: var(--color-heading);
+    background: var(--color-canvas);
+  }
+  @media (max-width: 767px) {
+    .nav-inner:has(.nav-menu) {
+      height: auto;
+      min-height: 72px;
+      flex-wrap: wrap;
+      padding-top: var(--space-3);
+      padding-bottom: var(--space-3);
+      gap: var(--space-3);
+    }
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      order: 3;
+      gap: var(--space-5);
+    }
+  }
+</style>

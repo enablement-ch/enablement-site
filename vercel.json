@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/resources/allbound-audit",
+      "destination": "/resources/gtm-checklist",
+      "permanent": true
+    },
+    {
       "source": "/case-studies",
       "destination": "/customer-results",
       "permanent": true
