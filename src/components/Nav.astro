@@ -13,18 +13,8 @@ const services = [
   { href: "/linkedin-thoughtleadership", label: "LinkedIn Thought Leadership" },
 ];
 
-interface Props {
-  /** Override the nav CTA per page (e.g. anchor to an on-page apply form). */
-  ctaHref?: string;
-  ctaLabel?: string;
-  showLinks?: boolean;
-}
-
-const {
-  ctaHref = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting",
-  ctaLabel = "Schedule meeting",
-  showLinks = true,
-} = Astro.props;
+const ctaHref = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const ctaLabel = "Schedule meeting";
 ---
 
 <nav class="nav">
@@ -33,7 +23,6 @@ const {
       <img src="/logo-black.svg" alt="" class="logo-img logo-img-light" />
       <img src="/logo-white.svg" alt="" class="logo-img logo-img-dark" />
     </a>
-    {showLinks && (
       <div class="nav-menu">
         <details class="nav-services nav-dropdown">
           <summary>Services <span aria-hidden="true">⌄</span></summary>
@@ -49,7 +38,6 @@ const {
           </div>
         </details>
       </div>
-    )}
     <div class="nav-actions">
       <button
         class="theme-toggle"

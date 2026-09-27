@@ -10,11 +10,6 @@ interface Props {
    * transactional pages (post-booking confirmations, thank-you pages) that
    * shouldn't appear in search results or fragment SEO authority. */
   noindex?: boolean;
-  /** Per-page nav CTA override (e.g. anchor to an on-page apply form). */
-  navCtaHref?: string;
-  navCtaLabel?: string;
-  navShowLinks?: boolean;
-  showNav?: boolean;
   showFooter?: boolean;
 }
 
@@ -22,10 +17,6 @@ const {
   title = "Enablement.ch — GTM systems for B2B teams in DACH",
   description = "We build the outbound systems B2B teams haven't been able to build for themselves. Brief to production in 4-6 weeks. You own it, or we run it.",
   noindex = false,
-  navCtaHref,
-  navCtaLabel,
-  navShowLinks,
-  showNav = true,
   showFooter = true,
 } = Astro.props;
 ---
@@ -122,13 +113,7 @@ const {
     <!-- End Meta Pixel Code -->
   </head>
   <body>
-    {showNav && (
-      <Nav
-        ctaHref={navCtaHref}
-        ctaLabel={navCtaLabel}
-        showLinks={navShowLinks}
-      />
-    )}
+    <Nav />
     <slot />
     {showFooter && <Footer />}
 
