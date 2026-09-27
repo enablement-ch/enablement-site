@@ -2,7 +2,12 @@
   "redirects": [
     {
       "source": "/resources/allbound-audit",
-      "destination": "/resources/gtm-checklist",
+      "destination": "/resources/gtm-audit",
+      "permanent": true
+    },
+    {
+      "source": "/resources/gtm-checklist",
+      "destination": "/resources/gtm-audit",
       "permanent": true
     },
     {
