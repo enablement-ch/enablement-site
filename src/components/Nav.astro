@@ -9,6 +9,10 @@ const resources: { href: string; label: string }[] = [
   { href: "/resources/ai-sales-coach", label: "AI Sales Coach" },
 ];
 
+const services = [
+  { href: "/linkedin-thoughtleadership", label: "LinkedIn Thought Leadership" },
+];
+
 interface Props {
   /** Override the nav CTA per page (e.g. anchor to an on-page apply form). */
   ctaHref?: string;
@@ -32,7 +36,13 @@ const {
     {showLinks && (
       <div class="nav-menu">
         {links.map(({ href, label }) => <a href={href}>{label}</a>)}
-        <details class="nav-resources">
+        <details class="nav-services nav-dropdown">
+          <summary>Services <span aria-hidden="true">⌄</span></summary>
+          <div class="nav-resources-panel">
+            {services.map(({ href, label }) => <a href={href}>{label}</a>)}
+          </div>
+        </details>
+        <details class="nav-resources nav-dropdown">
           <summary>Resources <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
             {resources.map(({ href, label }) => <a href={href}>{label}</a>)}
@@ -75,8 +85,8 @@ const {
 </nav>
 
 <script>
-  const dropdown = document.querySelector<HTMLDetailsElement>(".nav-resources");
-  if (dropdown) {
+  const dropdowns = document.querySelectorAll<HTMLDetailsElement>(".nav-dropdown");
+  dropdowns.forEach((dropdown) => {
     document.addEventListener("click", (event) => {
       if (event.target instanceof Node && !dropdown.contains(event.target)) {
         dropdown.open = false;
@@ -88,12 +98,12 @@ const {
         dropdown.querySelector("summary")?.focus();
       }
     });
-  }
+  });
 </script>
 
 <style>
-  .nav-resources { position: relative; }
-  .nav-resources summary {
+  .nav-dropdown { position: relative; }
+  .nav-dropdown summary {
     display: flex;
     align-items: center;
     gap: var(--space-2);
@@ -101,15 +111,15 @@ const {
     cursor: pointer;
     color: var(--color-muted);
   }
-  .nav-resources summary::-webkit-details-marker { display: none; }
-  .nav-resources summary:hover,
-  .nav-resources[open] summary { color: var(--color-heading); }
-  .nav-resources summary:focus-visible {
+  .nav-dropdown summary::-webkit-details-marker { display: none; }
+  .nav-dropdown summary:hover,
+  .nav-dropdown[open] summary { color: var(--color-heading); }
+  .nav-dropdown summary:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 5px;
   }
-  .nav-resources summary span { transition: transform 150ms; }
-  .nav-resources[open] summary span { transform: rotate(180deg); }
+  .nav-dropdown summary span { transition: transform 150ms; }
+  .nav-dropdown[open] summary span { transform: rotate(180deg); }
   .nav-resources-panel {
     position: absolute;
     top: calc(100% + var(--space-4));
@@ -146,6 +156,15 @@ const {
       width: 100%;
       order: 3;
       gap: var(--space-5);
+      position: relative;
+    }
+    .nav-dropdown { position: static; }
+  }
+  @media (max-width: 480px) {
+    .nav-menu {
+      gap: var(--space-3);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
     }
   }
 </style>

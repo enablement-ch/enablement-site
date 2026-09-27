@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/linkedin-results",
+      "destination": "/linkedin-thoughtleadership",
+      "permanent": true
+    },
+    {
       "source": "/resources/allbound-audit",
       "destination": "/resources/gtm-audit",
       "permanent": true
