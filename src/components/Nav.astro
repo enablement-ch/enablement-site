@@ -35,13 +35,13 @@ const {
     </a>
     {showLinks && (
       <div class="nav-menu">
-        {links.map(({ href, label }) => <a href={href}>{label}</a>)}
         <details class="nav-services nav-dropdown">
           <summary>Services <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
             {services.map(({ href, label }) => <a href={href}>{label}</a>)}
           </div>
         </details>
+        {links.map(({ href, label }) => <a href={href}>{label}</a>)}
         <details class="nav-resources nav-dropdown">
           <summary>Resources <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
