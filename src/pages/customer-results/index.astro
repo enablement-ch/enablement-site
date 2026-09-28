@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import MarqueeLogoWall from "../../components/MarqueeLogoWall.astro";
 import { getCollection } from "astro:content";
 
 const studies = (await getCollection("caseStudies"))
@@ -20,12 +21,14 @@ const studies = (await getCollection("caseStudies"))
           Systems we've <span class="italic-accent">shipped.</span>
         </h1>
         <p class="lead hero-lead">
-          Each case is a real B2B team in DACH. We list the state we found,
-          what we built, and what changed. No glossy fluff.
+          Each story features a real B2B company. See where they started,
+          what we built, and what changed.
         </p>
       </div>
     </div>
   </header>
+
+  <MarqueeLogoWall />
 
   <section class="section">
     <div class="container">
