@@ -11,6 +11,7 @@ export default defineConfig({
       filter: (page) => {
         const path = new URL(page).pathname.replace(/\/$/, '') || '/';
         return ![
+          '/background-previews',
           '/block1-preview',
           '/meeting-booked',
           '/li-playbook-typ',

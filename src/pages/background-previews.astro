@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const variants = [
+  {
+    id: "blueprint-grid",
+    number: "01",
+    name: "Blueprint grid",
+    description: "A faint square grid that becomes a little brighter around the cursor. Best for a hero or system section.",
+    className: "variant-grid",
+  },
+  {
+    id: "corner-glow",
+    number: "02",
+    name: "Soft corner glow",
+    description: "Two broad, slow-moving pools of color. Adds depth without lines or visible texture.",
+    className: "variant-glow",
+  },
+  {
+    id: "quiet-hybrid",
+    number: "03",
+    name: "Quiet hybrid",
+    description: "A barely visible grid at the edges with a static radial wash. The most restrained option for repeated use.",
+    className: "variant-hybrid",
+  },
+];
+---
+
+<BaseLayout
+  title="Background texture previews | Enablement.ch"
+  description="Internal visual comparison of subtle website background treatments."
+  noindex={true}
+>
+  <main class="texture-previews">
+    <div class="container preview-intro">
+      <span class="eyebrow">Design preview</span>
+      <h1>More depth. <span class="italic-accent">Less noise.</span></h1>
+      <p class="lead">Three subtle background treatments using the same layout and content. Switch the site theme in the navigation to compare both palettes. Move your cursor over option 01 to see its interaction.</p>
+      <nav class="preview-jump" aria-label="Background preview options">
+        {variants.map((variant) => <a href={`#${variant.id}`}>{variant.number} · {variant.name}</a>)}
+      </nav>
+    </div>
+
+    {variants.map((variant) => (
+      <section class="variant-section" id={variant.id}>
+        <div class="container variant-heading">
+          <div><span class="eyebrow">Option {variant.number}</span><h2>{variant.name}</h2></div>
+          <p>{variant.description}</p>
+        </div>
+        <div class={`sample-surface ${variant.className}`}>
+          <div class="container sample-content">
+            <div class="sample-copy">
+              <span class="eyebrow">LinkedIn thought leadership</span>
+              <h3>Be the company buyers <span class="italic-accent">already trust.</span></h3>
+              <p>We turn your expertise into content that makes you known in your market. Then we identify the right people engaging with it and start relevant sales conversations.</p>
+              <span class="sample-button">Build my LinkedIn system <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="sample-diagram" aria-label="Example of content becoming sales conversations">
+              <span class="diagram-label">The connected motion</span>
+              <div class="diagram-row"><span>01</span><strong>Your expertise</strong></div>
+              <div class="diagram-row"><span>02</span><strong>Content buyers remember</strong></div>
+              <div class="diagram-row"><span>03</span><strong>Qualified conversations</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <div class="container preview-note">
+      <strong>Suggested use</strong>
+      <p>Choose one treatment as the recurring background accent. Keep screenshot galleries and dense reading sections plain so the evidence remains the focus.</p>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .texture-previews { --preview-grid: #FFFFFF0C; --preview-spot: #E11E481C; --preview-spot-soft: #E11E480B; --preview-blue: #5C78B016; }
+  :global([data-theme="light"] .texture-previews) { --preview-grid: #0F12170C; --preview-spot: #E11E4814; --preview-spot-soft: #E11E4809; --preview-blue: #6B8DD812; }
+  .preview-intro { padding-block: 64px 48px; }
+  .preview-intro .eyebrow, .variant-heading .eyebrow, .sample-copy .eyebrow { color: var(--color-accent); }
+  .preview-intro h1 { margin-top: 12px; font-size: clamp(2.7rem, 5vw, 4.5rem); }
+  .preview-intro .lead { max-width: 780px; margin-top: 16px; }
+  .preview-jump { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .preview-jump a { padding: 9px 14px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); color: var(--color-heading); font-size: .85rem; text-decoration: none; }
+  .preview-jump a:hover { border-color: var(--color-accent); }
+  .variant-section { padding-block: 38px 64px; border-top: 1px solid var(--color-border); scroll-margin-top: 70px; }
+  .variant-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
+  .variant-heading h2 { margin-top: 5px; font-size: clamp(1.7rem, 3vw, 2.5rem); }
+  .variant-heading p { max-width: 410px; color: var(--color-body); }
+  .sample-surface { position: relative; overflow: hidden; isolation: isolate; min-height: 510px; border-block: 1px solid var(--color-border); background: var(--color-surface); }
+  .sample-surface::before, .sample-surface::after { position: absolute; z-index: 0; inset: 0; pointer-events: none; content: ""; }
+  .sample-content { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 60px; min-height: 510px; padding-block: 64px; }
+  .sample-copy h3 { max-width: 620px; margin-top: 16px; font-size: clamp(2.5rem, 4.5vw, 4.1rem); line-height: 1.07; letter-spacing: -.035em; }
+  .sample-copy p { max-width: 600px; margin-top: 20px; color: var(--color-body); font-size: 1.17rem; line-height: 1.5; }
+  .sample-button { display: inline-flex; gap: 12px; align-items: center; margin-top: 26px; padding: 12px 19px; border-radius: 8px; background: var(--color-accent); color: #fff; font-weight: 700; }
+  .sample-diagram { padding: 28px; border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); border-radius: 12px; background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .diagram-label { display: block; margin-bottom: 16px; color: var(--color-accent); font: 700 .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+  .diagram-row { display: flex; align-items: center; gap: 15px; padding: 14px 0; border-top: 1px solid var(--color-border); }
+  .diagram-row span { display: grid; flex: 0 0 30px; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: var(--color-accent); color: #fff; font: 700 .65rem var(--font-mono); }
+  .diagram-row strong { color: var(--color-heading); }
+
+  .variant-grid::before { background-image: linear-gradient(to right, var(--preview-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--preview-grid) 1px, transparent 1px); background-size: 36px 36px; mask-image: linear-gradient(to right, #000 0%, #0009 42%, transparent 85%); }
+  .variant-grid::after { background: radial-gradient(280px circle at var(--pointer-x, -500px) var(--pointer-y, -500px), var(--preview-spot), transparent 75%); }
+
+  .variant-glow::before { inset: -15%; background: radial-gradient(ellipse 45% 56% at 5% 0%, var(--preview-spot), transparent 75%), radial-gradient(ellipse 45% 60% at 100% 90%, var(--preview-blue), transparent 72%); animation: drift 16s ease-in-out infinite alternate; }
+
+  .variant-hybrid::before { background-image: linear-gradient(to right, var(--preview-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--preview-grid) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(110deg, #0009 0%, transparent 57%); }
+  .variant-hybrid::after { background: radial-gradient(ellipse 56% 75% at 8% 15%, var(--preview-spot-soft), transparent 80%); }
+  .preview-note { padding-block: 20px 60px; color: var(--color-body); }
+  .preview-note strong { color: var(--color-heading); }
+  .preview-note p { margin-top: 4px; }
+  @keyframes drift { from { transform: translate3d(-1.5%, 0, 0); } to { transform: translate3d(1.5%, -2%, 0); } }
+  @media (prefers-reduced-motion: reduce) { .variant-glow::before { animation: none; } }
+  @media (max-width: 720px) {
+    .preview-intro { padding-block: 48px 36px; }
+    .variant-section { padding-block: 32px 48px; }
+    .variant-heading { display: block; }
+    .variant-heading p { margin-top: 8px; }
+    .sample-content { grid-template-columns: 1fr; min-height: 0; gap: 34px; padding-block: 54px; }
+    .sample-copy h3 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+    .sample-diagram { max-width: 560px; }
+  }
+</style>
+
+<script is:inline>
+  document.querySelectorAll(".variant-grid").forEach((surface) => {
+    surface.addEventListener("pointermove", (event) => {
+      const bounds = surface.getBoundingClientRect();
+      surface.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
+      surface.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
+    });
+    surface.addEventListener("pointerleave", () => {
+      surface.style.removeProperty("--pointer-x");
+      surface.style.removeProperty("--pointer-y");
+    });
+  });
+</script>
