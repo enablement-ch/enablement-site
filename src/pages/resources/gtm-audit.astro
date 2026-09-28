@@ -189,12 +189,15 @@ const comparison = [
     <div class="container narrow-stack">
       <span class="eyebrow">The real problem</span>
       <h2>The <span class="revenue-emphasis">revenue lost</span> in your go-to-market system rarely comes from one obvious place.</h2>
-      <div class="system-graphic-placeholder" role="img" aria-label="Placeholder for a future go-to-market system flowchart showing handoffs and warning points">
-        <span class="graphic-placeholder-label">GTM system flowchart · graphic coming soon</span>
+      <div class="system-graphic-placeholder" role="img" aria-label="GTM systems flowchart from targeting to measurement, with broken handoffs marked by warning signs">
+        <span class="graphic-placeholder-label">GTM Systems Flowchart</span>
         <div class="graphic-placeholder-flow" aria-hidden="true">
-          <span>Target</span><b>→</b><span>Engage</span><b>⚠</b><span>Qualify</span><b>→</b><span>Convert</span><b>⚠</b><span>Measure</span>
+          <span class="flow-stage">Target</span><span class="flow-arrow">→</span>
+          <span class="flow-stage">Engage</span><span class="flow-break">↛ <span>⚠️</span></span>
+          <span class="flow-stage">Qualify</span><span class="flow-arrow">→</span>
+          <span class="flow-stage">Convert</span><span class="flow-break">↛ <span>⚠️</span></span>
+          <span class="flow-stage">Measure</span>
         </div>
-        <span class="graphic-placeholder-note">Planned: system architecture with warning markers at revenue leaks</span>
       </div>
       <p class="diagnosis-line">
         If several of the points below feel familiar, doing more is not the answer. You need to fix your GTM system.
@@ -497,13 +500,13 @@ const comparison = [
       background: var(--audit-pink);
       text-align: center;
     }
-    .graphic-placeholder-label,
-    .graphic-placeholder-note { font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-accent); }
+    .graphic-placeholder-label { font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-accent); }
     .graphic-placeholder-label { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-    .graphic-placeholder-note { color: var(--color-muted); }
     .graphic-placeholder-flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-2); }
-    .graphic-placeholder-flow span { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-heading); font-weight: 600; }
-    .graphic-placeholder-flow b { color: var(--color-warning); font-size: 1.3rem; }
+    .graphic-placeholder-flow .flow-stage { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-heading); font-weight: 600; }
+    .flow-arrow { color: var(--color-positive); font-size: 1.5rem; font-weight: 700; }
+    .flow-break { display: inline-flex; align-items: center; gap: 2px; color: var(--color-critical); font-size: 1.5rem; font-weight: 700; }
+    .flow-break span { font-size: 1.15rem; }
     .diagnosis-line {
       margin-top: var(--space-5);
       padding-left: var(--space-5);
