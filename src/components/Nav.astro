@@ -11,6 +11,7 @@ const resources: { href: string; label: string }[] = [
 
 const services = [
   { href: "/linkedin-thoughtleadership", label: "LinkedIn Thought Leadership" },
+  { href: "/signal-based-outbound", label: "Signal-Based Outbound" },
 ];
 
 const ctaHref = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
@@ -28,7 +29,6 @@ const ctaLabel = "Schedule meeting";
           <summary>Services <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
             {services.map(({ href, label }) => <a href={href}>{label}</a>)}
-            <span class="nav-coming-soon">Signal-Based Outbound <small>(Coming Soon)</small></span>
             <span class="nav-coming-soon">AI Revenue Operations <small>(Coming Soon)</small></span>
           </div>
         </details>
