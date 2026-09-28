@@ -19,16 +19,67 @@ const dms = [
   "/linkedin-results/img/dms/dm-enrico-b.png",
 ];
 
-const authorityBullets = [
-  "We shape the founder's unique POV, expertise, and stories into content that makes buyers stop scrolling and pay attention.",
-  "We position the founder around the problems your buyers already care about.",
-  'We make buyers think, "these people understand my problem - and probably know how to solve it."',
+const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+
+const problems = [
+  {
+    number: "01",
+    title: "Your competitors sound just like you on paper.",
+    body: "When buyers cannot tell providers apart, they choose the name they already know and trust. If your expertise is invisible, every sales conversation starts with proving you are credible.",
+    result: "Build recognition before the first conversation.",
+  },
+  {
+    number: "02",
+    title: "The founder has the ideas. Nobody has the time to publish them well.",
+    body: "Good content needs the right argument, hook, design, and consistency. The founder should supply the insight, not become a full-time writer, designer, and distribution team.",
+    result: "Make the founder's expertise visible at a sustainable cadence.",
+  },
+  {
+    number: "03",
+    title: "The posts get attention. Sales still starts from cold.",
+    body: "Impressions and likes show that people saw the content. They do not identify which companies fit, who is ready for a conversation, or whether anyone followed up.",
+    result: "Turn relevant engagement into qualified conversations.",
+  },
 ];
 
-const signalsBullets = [
-  "Track the signals your content creates: likes, comments, profile views, clicks, saves, DMs, and replies.",
-  "Filter for the people and companies that actually fit your ICP.",
-  "Start warm conversations that turn into meetings.",
+const stages = [
+  {
+    number: "01",
+    title: "Strategy and research",
+    body: "We interview the founder, study the market and competitors, define the buyer beliefs to shift, and turn real expertise into a point of view. AI agents accelerate research; people decide what is worth saying.",
+    detail: "One-hour kickoff and strategy session",
+  },
+  {
+    number: "02",
+    title: "Content and design",
+    body: "We turn biweekly interviews into LinkedIn posts, graphics, and lead magnets where they fit the strategy. Human editors shape the argument and preserve the founder's voice. You review before anything goes live.",
+    detail: "30-45 minute interviews every two weeks",
+  },
+  {
+    number: "03",
+    title: "Conversion and CRM",
+    body: "We identify relevant visitors, commenters, reactors, and lead magnet requests; check fit at account and contact level; start contextual conversations; and connect the activity to your CRM.",
+    detail: "Monthly reporting on content and commercial signals",
+  },
+];
+
+const questions = [
+  {
+    q: "How much time does the founder need to spend?",
+    a: "Plan for a one-hour kickoff, then a 30-45 minute interview every two weeks. We handle research, writing, design, signal capture, and execution. You provide your perspective, materials, access, and approvals.",
+  },
+  {
+    q: "Will the content sound like me or like AI?",
+    a: "It starts with your actual stories, opinions, customer conversations, and market experience. AI helps with research and workflow tasks. People interview, write, edit, and check every piece against your voice before you approve it.",
+  },
+  {
+    q: "Do you contact everyone who engages with a post?",
+    a: "No. We first check whether the person and company fit your ideal customer profile and whether there is a relevant reason to reach out. The goal is a useful conversation, not a blast to every liker.",
+  },
+  {
+    q: "What does the 30-day money-back guarantee cover?",
+    a: "The engagement is a six-month agreement. If you attend the agreed interviews, provide the materials and access we need, and decide within the first 30 days that you are not happy with our work, you can opt out and receive a refund of your first month's fee.",
+  },
 ];
 ---
 
@@ -36,43 +87,91 @@ const signalsBullets = [
   title="LinkedIn Thought Leadership for B2B Founders | Enablement.ch"
   description="Founder-led LinkedIn content that builds trust, captures buying signals, and starts qualified sales conversations. See real results from Enablement.ch."
 >
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container stack-6" style="padding-block: var(--space-10)">
-      <span class="eyebrow">For founders and executives of B2B companies making over $1M/year</span>
-      <h1>Results from <span class="italic-accent">founder-led content systems</span> we've built</h1>
-      <p class="lead">
-        We turn founder expertise into content that builds trust on LinkedIn -
-        then turn that trust and attention into qualified sales conversations.
-      </p>
-      <p class="hero-caption">
-        Below are real screenshots from the LinkedIn content systems we've built:
-        reach, engagement, buying signals, DMs, meetings, and pipeline outcomes.
-      </p>
-    </div>
-  </header>
+  <main class="linkedin-service">
+    <header class="service-hero">
+      <div class="container service-hero-grid">
+        <div class="service-hero-copy">
+          <span class="eyebrow">LinkedIn thought leadership for B2B tech founders</span>
+          <h1>Be the company buyers <span class="italic-accent">already trust.</span></h1>
+          <p class="lead">We turn your expertise into content that makes you known in your market. Then we identify the right people engaging with it and start relevant sales conversations. Strategy, content, and conversion in one system.</p>
+          <div class="service-actions">
+            <a href={meetingUrl} class="btn btn-accent btn-md">Build my LinkedIn system</a>
+            <a href="#real-examples" class="text-link">See real examples <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="service-hero-fit">Best for founders and executives who have tried LinkedIn, operate in a crowded market, and want content to contribute to pipeline.</p>
+        </div>
+        <div class="service-hero-diagram" aria-label="How LinkedIn thought leadership becomes a sales conversation">
+          <span class="diagram-kicker">The connected motion</span>
+          <div class="diagram-step"><span class="diagram-dot">01</span><div><strong>Your expertise</strong><small>Research and founder interviews</small></div></div>
+          <span class="diagram-arrow" aria-hidden="true">↓</span>
+          <div class="diagram-step"><span class="diagram-dot">02</span><div><strong>Content buyers remember</strong><small>Posts, graphics, and useful assets</small></div></div>
+          <span class="diagram-arrow" aria-hidden="true">↓</span>
+          <div class="diagram-step"><span class="diagram-dot">03</span><div><strong>Qualified conversations</strong><small>Fit checks, outreach, and CRM context</small></div></div>
+        </div>
+      </div>
+    </header>
 
-  <!-- 01 AUTHORITY -->
-  <section class="section scrolly" id="authority">
+    <section class="section service-problems" id="problems">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The real problem</span>
+          <h2>Being good at what you do does not mean buyers <span class="italic-accent">know why to choose you.</span></h2>
+          <p class="lead">In a crowded category, trust is built before the first sales call. These three gaps keep that trust from turning into revenue.</p>
+        </div>
+        <div class="problem-grid">
+          {problems.map((problem) => (
+            <article class="problem-card">
+              <span class="problem-number">{problem.number}</span>
+              <h3>{problem.title}</h3>
+              <p>{problem.body}</p>
+              <div class="problem-result"><span class="result-dot" aria-hidden="true"></span>{problem.result}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section service-system" id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">How we build it</span>
+          <h2>One system from your point of view to <span class="italic-accent">pipeline.</span></h2>
+          <p class="lead">Human insight sets the direction. AI agents speed up research and workflows. We build and run the content and the conversion system around both.</p>
+        </div>
+        <div class="stage-grid">
+          {stages.map((stage) => (
+            <article class="stage-card">
+              <span class="stage-number">{stage.number}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.body}</p>
+              <div class="stage-detail">{stage.detail}</div>
+            </article>
+          ))}
+        </div>
+        <div class="system-bridge"><span class="bridge-dot" aria-hidden="true"></span>Every piece of content has a job. Every relevant signal has a next step.</div>
+      </div>
+    </section>
+
+  <!-- Keep the complete original screenshot galleries and click-to-enlarge behavior. -->
+  <section class="section scrolly" id="real-examples">
     <div class="container">
-      <span class="eyebrow"><span class="num">01</span><span class="sep">/</span>Build Authority</span>
+      <span class="eyebrow">Real examples · Attention</span>
       <div class="scrolly-concept-mobile">
-        <h3>Content that earns attention and <span class="italic-accent">trust.</span></h3>
-        <p class="lead">Most LinkedIn content feels generic or obviously written by AI. We turn the founder's knowledge, stories, and hard-won insights into content buyers actually care about.</p>
-        <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
+        <h3>Ideas that make your market <span class="italic-accent">pay attention.</span></h3>
+        <p class="lead">These are real examples of reach and engagement from content systems we have built. Reach matters because buyers cannot trust a name they have never encountered.</p>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
           <div class="scrolly-sticky">
-            <h3>Content that earns attention and <span class="italic-accent">trust.</span></h3>
-            <p class="lead">Most LinkedIn content feels generic or obviously written by AI. We turn the founder's knowledge, stories, and hard-won insights into content buyers actually care about.</p>
-            <ul class="pain-bullets">{authorityBullets.map((b) => <li>{b}</li>)}</ul>
+            <h3>Ideas that make your market <span class="italic-accent">pay attention.</span></h3>
+            <p class="lead">These are real examples of reach and engagement from content systems we have built. Reach matters because buyers cannot trust a name they have never encountered.</p>
+            <p class="proof-caption">Click any screenshot to view it at full size.</p>
           </div>
         </aside>
         <div class="scrolly-steps">
           {impressions.map((src) => (
             <div class="scrolly-step">
-              <figure class="scrolly-card"><img loading="lazy" src={src} alt="Reach metric" /></figure>
+              <figure class="scrolly-card" role="button" tabindex="0" aria-label="Enlarge LinkedIn reach example"><img loading="lazy" src={src} alt="LinkedIn reach or engagement result from a content system" /></figure>
             </div>
           ))}
         </div>
@@ -80,27 +179,25 @@ const signalsBullets = [
     </div>
   </section>
 
-  <!-- 02 INBOUND -->
-  <section class="section scrolly" id="inbound">
+  <section class="section scrolly conversation-gallery" id="conversations">
     <div class="container">
-      <span class="eyebrow"><span class="num">02</span><span class="sep">/</span>Buying Signals</span>
+      <span class="eyebrow">Real examples · Conversations</span>
       <div class="scrolly-concept-mobile">
-        <h3>Turn attention into <span class="italic-accent">conversations.</span></h3>
-        <p class="lead">Likes, comments, and profile views don't pay the bills. But they are the signals we track to see who is interested, who fits your ICP, and where there is a reason to start a warm conversation.</p>
-        <ul class="pain-bullets">{signalsBullets.map((b) => <li>{b}</li>)}</ul>
+        <h3>From a familiar name to a <span class="italic-accent">real reply.</span></h3>
+        <p class="lead">Some buyers start the conversation themselves. For the ones who engage but stay quiet, we check fit and give sales a relevant reason to reach out.</p>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
           <div class="scrolly-sticky">
-            <h3>Turn attention into <span class="italic-accent">conversations.</span></h3>
-            <p class="lead">Likes, comments, and profile views don't pay the bills. But they are the signals we track to see who is interested, who fits your ICP, and where there is a reason to start a warm conversation.</p>
-            <ul class="pain-bullets">{signalsBullets.map((b) => <li>{b}</li>)}</ul>
+            <h3>From a familiar name to a <span class="italic-accent">real reply.</span></h3>
+            <p class="lead">Some buyers start the conversation themselves. For the ones who engage but stay quiet, we check fit and give sales a relevant reason to reach out.</p>
+            <p class="proof-caption">Click any screenshot to view it at full size.</p>
           </div>
         </aside>
         <div class="scrolly-steps">
           {dms.map((src) => (
             <div class="scrolly-step">
-              <figure class="scrolly-card"><img loading="lazy" src={src} alt="Inbound message" /></figure>
+              <figure class="scrolly-card" role="button" tabindex="0" aria-label="Enlarge LinkedIn conversation example"><img loading="lazy" src={src} alt="LinkedIn message showing a sales conversation" /></figure>
             </div>
           ))}
         </div>
@@ -108,36 +205,180 @@ const signalsBullets = [
     </div>
   </section>
 
-  <!-- 03 PIPELINE — proof videos (reused homepage component) -->
-  <VideoTestimonials
-    eyebrow="03 / Pipeline"
-    headline="Turning trust into pipeline."
-    lead="The point is not to post content. The point is to build trust before the sales call, create more qualified conversations, and turn those conversations into pipeline."
-  />
-
-  <!-- FINAL CTA -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta-inner">
-        <h2>Want this for <span class="italic-accent">your company?</span></h2>
-        <p class="lead">
-          Book a 30-min GTM session. We'll audit your pipeline, find the
-          highest-leverage action, and tell you whether we're a fit.
-        </p>
-        <div class="hero-actions" style="justify-content:center">
-          <a href="https://revenue.enablement.ch/meetings/l-heiz/firstmeeting" class="btn btn-accent btn-md">Book a GTM session</a>
+    <section class="section customer-proof" id="customer-proof">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Customer proof</span>
+          <h2>Recognition opens the door. A connected system <span class="italic-accent">moves the deal.</span></h2>
+          <p class="lead">Two different outcomes show the value of each half: content that earns trust, and a sales motion that acts on it.</p>
+        </div>
+        <div class="customer-proof-grid">
+          <article class="customer-proof-card">
+            <span class="proof-type">Content to inbound</span>
+            <img src="/logos/ekipa-black.png" alt="Ekipa" class="proof-logo" loading="lazy" />
+            <h3>A LinkedIn post helped Ekipa win Caritas.</h3>
+            <p>Ekipa's co-CEO said Caritas hired them for a pilot after seeing content we helped create. That is a buyer arriving with context before the first sales call.</p>
+            <a href="/customer-results/ekipa" class="text-link">Read the Ekipa story <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="customer-proof-card">
+            <span class="proof-type">Brand plus outbound</span>
+            <img src="/logos/blueprint-black.png" alt="Blueprint" class="proof-logo" loading="lazy" />
+            <h3>Blueprint's brand gave outreach a warmer start.</h3>
+            <p>Our broader global outbound system combined research, email, and LinkedIn to produce 30-40 qualified meetings a month and more than $10M in closed revenue. This is proof of the connected GTM motion, not a content-only result.</p>
+            <a href="/customer-results/blueprint" class="text-link">Read the Blueprint story <span aria-hidden="true">→</span></a>
+          </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <VideoTestimonials
+      eyebrow="Customer voices · The wider GTM system"
+      headline="Hear what changed beyond the post."
+      lead="These clients describe results from connected GTM work across content, outreach, and revenue operations. Their outcomes are not attributed to LinkedIn content alone."
+    />
+
+    <section class="section service-offer" id="the-offer">
+      <div class="container offer-grid">
+        <div class="offer-copy">
+          <span class="eyebrow">The engagement</span>
+          <h2>Bring your perspective. <span class="italic-accent">We build the system.</span></h2>
+          <p class="lead">The standard engagement includes strategy, content production, signal identification, relevant outreach, and CRM integration. It is built for founders who want LinkedIn to support sales without running a content operation themselves.</p>
+          <a href={meetingUrl} class="btn btn-accent btn-md">Talk through your LinkedIn system</a>
+        </div>
+        <div class="offer-details">
+          <div class="offer-detail"><span class="offer-detail-dot" aria-hidden="true"></span><div><strong>Your part</strong><p>One-hour kickoff, biweekly 30-45 minute interviews, materials, access, and approvals.</p></div></div>
+          <div class="offer-detail"><span class="offer-detail-dot" aria-hidden="true"></span><div><strong>Our part</strong><p>Research, writing, design, lead magnets where useful, signal capture, fit checks, outreach, CRM integration, and monthly reporting.</p></div></div>
+          <div class="offer-detail"><span class="offer-detail-dot" aria-hidden="true"></span><div><strong>The first 30 days</strong><p>The agreement runs for six months. If you provide the agreed inputs and are unhappy with our work during the first 30 days, you can exit and receive a refund of your first month's fee.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section service-faq" id="questions">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Before we start</span>
+          <h2>Common questions.</h2>
+        </div>
+        <div class="service-faq-list">
+          {questions.map((item) => (
+            <details class="service-faq-item">
+              <summary>{item.q}<span aria-hidden="true">+</span></summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section service-final-cta">
+      <div class="container">
+        <div class="final-cta-card">
+          <span class="eyebrow">From content to conversations</span>
+          <h2>Make your expertise impossible to miss, then give sales a way to act on it.</h2>
+          <p>Book a 30-minute GTM session. We will look at what you publish today, who it reaches, and where interested buyers fall out of the process.</p>
+          <a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
-  /* ---- hero ---- */
-  .hero-caption {
-    color: var(--color-muted);
-    max-width: 60ch;
+  .linkedin-service {
+    --service-pink: #FFF2F5;
+    --service-pink-strong: #FCE8ED;
+    --service-red-soft: #FBE6E9;
+    --service-green-soft: #E5F4E9;
   }
+  :global([data-theme="dark"] .linkedin-service) {
+    --service-pink: #241A20;
+    --service-pink-strong: #35202A;
+    --service-red-soft: #3B2028;
+    --service-green-soft: #193526;
+  }
+  :global(.linkedin-service section.section) { padding-block: 72px; }
+  :global(.linkedin-service .eyebrow) { color: var(--color-accent); }
+  .service-hero {
+    padding: 72px 0 64px;
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(155deg, var(--service-pink) 0%, var(--color-canvas) 64%);
+  }
+  .service-hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-7); align-items: center; }
+  .service-hero h1 { max-width: 730px; margin-top: var(--space-4); font-size: clamp(2.7rem, 5vw, 4.6rem); font-weight: 700; }
+  .service-hero .lead { max-width: 650px; margin-top: var(--space-5); }
+  .service-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-5); margin-top: var(--space-6); }
+  .text-link { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-accent); font-weight: 700; text-decoration: none; }
+  .text-link:hover { color: var(--color-accent-hover); text-decoration: underline; text-underline-offset: 4px; }
+  .service-hero-fit { max-width: 610px; margin-top: var(--space-5); color: var(--color-muted); font-size: .9rem; }
+  .service-hero-diagram { padding: var(--space-6); border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .diagram-kicker { display: block; margin-bottom: var(--space-5); color: var(--color-accent); font: 700 .72rem var(--font-mono); letter-spacing: .09em; text-transform: uppercase; }
+  .diagram-step { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface-raised); }
+  .diagram-step div { min-width: 0; }
+  .diagram-step strong, .diagram-step small { display: block; }
+  .diagram-step strong { color: var(--color-heading); font-size: 1.05rem; }
+  .diagram-step small { margin-top: 2px; color: var(--color-muted); font-size: .83rem; }
+  .diagram-dot { display: grid; flex: 0 0 34px; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--color-accent); color: #fff; font: 700 .74rem var(--font-mono); }
+  .diagram-arrow { display: block; padding: 3px 0 3px 31px; color: var(--color-accent); font-size: 1.35rem; line-height: 1; }
+
+  .section-heading { max-width: 850px; margin-bottom: var(--space-6); }
+  .section-heading h2 { margin-top: var(--space-3); font-size: clamp(2.1rem, 4vw, 3.1rem); }
+  .section-heading .lead { margin-top: var(--space-3); }
+  .service-problems { background: var(--color-surface); }
+  .problem-grid, .stage-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .problem-card { display: flex; flex-direction: column; min-width: 0; padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised); }
+  .problem-number, .stage-number { color: var(--color-accent); font: 700 .8rem var(--font-mono); }
+  .problem-card h3, .stage-card h3 { margin-top: var(--space-4); font-size: clamp(1.3rem, 2vw, 1.65rem); font-weight: 700; }
+  .problem-card p, .stage-card p { margin-top: var(--space-3); color: var(--color-body); font-size: .95rem; line-height: 1.55; }
+  .problem-result { display: flex; align-items: flex-start; gap: var(--space-2); margin-top: auto; padding-top: var(--space-5); color: var(--color-heading); font-weight: 700; font-size: .9rem; }
+  .result-dot { flex: 0 0 8px; width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--color-accent); }
+
+  .service-system { background: var(--service-pink); }
+  .stage-card { display: flex; flex-direction: column; min-width: 0; padding: var(--space-5); border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-md); background: var(--color-surface); }
+  .stage-detail { margin-top: auto; padding-top: var(--space-5); color: var(--color-accent); font: 700 .74rem var(--font-mono); line-height: 1.5; }
+  .system-bridge { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-5); padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-heading); font-weight: 700; }
+  .bridge-dot { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }
+
+  .conversation-gallery { background: var(--service-pink); }
+  .proof-caption { margin-top: var(--space-5); color: var(--color-muted); font-family: var(--font-mono); font-size: .75rem; }
+
+  .customer-proof { background: var(--color-surface); }
+  .customer-proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .customer-proof-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: var(--space-6); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: var(--radius-md); background: var(--color-surface-raised); }
+  .proof-type { color: var(--color-accent); font: 700 .72rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+  .proof-logo { max-width: 145px; width: auto; height: 42px; margin-top: var(--space-5); object-fit: contain; object-position: left center; }
+  :global([data-theme="dark"] .proof-logo) { filter: invert(1); }
+  .customer-proof-card h3 { margin-top: var(--space-5); font-size: clamp(1.4rem, 2.3vw, 2rem); }
+  .customer-proof-card p { margin-top: var(--space-3); color: var(--color-body); font-size: .95rem; }
+  .customer-proof-card .text-link { margin-top: auto; padding-top: var(--space-5); }
+
+  .service-offer { background: var(--service-pink); }
+  .offer-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-8); align-items: start; }
+  .offer-copy h2 { margin-top: var(--space-3); font-size: clamp(2.1rem, 4vw, 3.1rem); }
+  .offer-copy .lead { margin-top: var(--space-4); }
+  .offer-copy .btn { margin-top: var(--space-6); }
+  .offer-details { border-top: 1px solid var(--color-border-strong); }
+  .offer-detail { display: flex; gap: var(--space-4); padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+  .offer-detail-dot { flex: 0 0 24px; width: 24px; height: 24px; border-radius: 50%; background: var(--service-red-soft); position: relative; }
+  .offer-detail-dot::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--color-accent); }
+  .offer-detail strong { display: block; color: var(--color-heading); font-size: 1.1rem; }
+  .offer-detail p { margin-top: var(--space-2); color: var(--color-body); font-size: .95rem; }
+
+  .service-faq { background: var(--color-surface); }
+  .service-faq-list { border-top: 1px solid var(--color-border-strong); }
+  .service-faq-item { border-bottom: 1px solid var(--color-border); }
+  .service-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-5) 0; color: var(--color-heading); font-size: 1.12rem; font-weight: 700; cursor: pointer; list-style: none; }
+  .service-faq-item summary::-webkit-details-marker { display: none; }
+  .service-faq-item summary span { color: var(--color-accent); font: 500 1.5rem var(--font-sans); }
+  .service-faq-item[open] summary span { transform: rotate(45deg); }
+  .service-faq-item p { max-width: 760px; padding: 0 0 var(--space-5); color: var(--color-body); }
+  .service-faq-item summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+  .service-final-cta { background: var(--color-canvas); }
+  .final-cta-card { padding: clamp(32px, 6vw, 72px); border-radius: var(--radius-lg); background: #0F1217; text-align: center; }
+  .final-cta-card .eyebrow { color: #F77E99; }
+  .final-cta-card h2 { max-width: 900px; margin: var(--space-3) auto 0; color: #fff; font-size: clamp(2rem, 4vw, 3.1rem); }
+  .final-cta-card p { max-width: 610px; margin: var(--space-4) auto 0; color: #C6CDD7; }
+  .final-cta-card .btn { margin-top: var(--space-6); }
 
   /* ---- image lightbox ---- */
   .img-lightbox {
@@ -148,13 +389,9 @@ const signalsBullets = [
   .img-lightbox.open { display: flex; }
   .img-lightbox img { max-width: 92vw; max-height: 90vh; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
 
-  /* ---- scrollytelling ---- */
-  section.scrolly { padding-block: var(--space-8); }
-  @media (min-width: 1024px) {
-    section.scrolly { padding-block: var(--space-10); }
-  }
-
-  .scrolly .eyebrow { margin-bottom: var(--space-7); display: inline-flex; }
+  /* ---- screenshot galleries ---- */
+  section.scrolly { padding-block: 72px; }
+  .scrolly .eyebrow { margin-bottom: var(--space-5); display: inline-flex; }
 
   .scrolly-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
   .scrolly-aside { display: none; }
@@ -163,7 +400,7 @@ const signalsBullets = [
   .scrolly-concept-mobile p { margin-top: var(--space-3); }
 
   @media (min-width: 1024px) {
-    .scrolly-grid { grid-template-columns: 0.82fr 1.18fr; gap: var(--space-9); }
+    .scrolly-grid { grid-template-columns: 0.82fr 1.18fr; gap: var(--space-7); }
     .scrolly-aside { display: block; }
     .scrolly-concept-mobile { display: none; }
   }
@@ -174,19 +411,12 @@ const signalsBullets = [
   }
   .scrolly-sticky h3 { font-size: var(--font-size-h2); letter-spacing: -0.025em; }
   .scrolly-sticky p { margin-top: var(--space-4); max-width: 32ch; }
-  .scrolly-sticky .pain-bullets,
-  .scrolly-concept-mobile .pain-bullets { margin-top: var(--space-6); }
-
   .scrolly-step { padding: var(--space-3) 0; }
   @media (min-width: 1024px) {
-    /* Plain evenly-spaced stack. The headline is pinned near the top (not
-       centered), so screenshots just scroll past it - no lead-in/out padding,
-       no per-step min-height, no dead space between sections. Equal gap keeps
-       the spacing identical regardless of how tall each screenshot is. */
     .scrolly-steps {
       display: flex;
       flex-direction: column;
-      gap: var(--space-9);
+      gap: var(--space-6);
     }
     .scrolly-step { min-height: 0; padding: 0; }
   }
@@ -202,10 +432,32 @@ const signalsBullets = [
                 box-shadow var(--motion-duration-base) var(--motion-ease-standard);
   }
   .scrolly-card img { display: block; width: 100%; height: auto; }
+  .scrolly-card:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
 
   @media (min-width: 1024px) {
     .scrolly-step .scrolly-card { opacity: 0.4; transform: scale(0.98); }
     .scrolly-step.is-active .scrolly-card { opacity: 1; transform: scale(1); box-shadow: var(--shadow-lg); }
+  }
+  @media (max-width: 1023px) {
+    .service-hero-grid, .offer-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+    .service-hero-diagram { max-width: 680px; }
+    .problem-grid, .stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .scrolly-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .scrolly-step { padding: 0; }
+  }
+  @media (max-width: 700px) {
+    :global(.linkedin-service section.section), section.scrolly { padding-block: 56px; }
+    .service-hero { padding: 56px 0; }
+    .service-hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .section-heading { margin-bottom: var(--space-5); }
+    .problem-grid, .stage-grid, .customer-proof-grid, .scrolly-steps { grid-template-columns: 1fr; }
+    .problem-card, .stage-card, .customer-proof-card { padding: var(--space-5); }
+    .service-hero-diagram { padding: var(--space-5); }
+    .scrolly .eyebrow { margin-bottom: var(--space-4); }
+    .scrolly-concept-mobile { margin-bottom: var(--space-5); }
+    .scrolly-step { padding: 0; }
+    .scrolly-steps { gap: var(--space-4); }
+    .service-faq-item summary { font-size: 1rem; }
   }
 </style>
 
@@ -232,11 +484,19 @@ const signalsBullets = [
     var lb = document.getElementById("imgLightbox");
     var lbImg = lb && lb.querySelector("img");
     document.querySelectorAll(".scrolly-card").forEach(function (card) {
-      card.addEventListener("click", function () {
+      function openImage() {
         var img = card.querySelector("img");
         if (!img || !lb) return;
         lbImg.src = img.src;
+        lbImg.alt = img.alt;
         lb.classList.add("open");
+      }
+      card.addEventListener("click", openImage);
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openImage();
+        }
       });
     });
     if (lb) lb.addEventListener("click", function () { lb.classList.remove("open"); });
