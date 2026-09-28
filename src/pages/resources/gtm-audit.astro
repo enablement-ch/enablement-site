@@ -415,6 +415,7 @@ const comparison = [
       --audit-pink: #FFF2F5;
       --audit-pink-strong: #FCE8ED;
       --audit-red-soft: #FBE6E9;
+      --audit-green-soft: #E5F4E9;
       --audit-amber-soft: #FFF2D8;
       --audit-amber-text: #8A5600;
     }
@@ -568,15 +569,16 @@ const comparison = [
     .worlds-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
     .world-column { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
     .world-old { border-left: 3px solid var(--color-critical); }
-    .world-new { border-left: 3px solid var(--color-accent); }
+    .world-new { border-left: 3px solid var(--color-positive); }
     .world-heading { padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
     .world-kicker { display: block; font-family: var(--font-mono); font-size: var(--font-size-eyebrow); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--space-3); }
     .world-old .world-kicker { color: var(--color-critical); }
-    .world-new .world-kicker { color: var(--color-accent); }
+    .world-new .world-kicker { color: var(--color-positive); }
     .world-heading h3 { color: var(--color-heading); font-size: clamp(1.5rem, 2.5vw, 2.2rem); }
     .world-column ul { list-style: none; margin: 0; padding: var(--space-5) 0 0; }
     .world-column li { display: flex; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); color: var(--color-body); font-size: .95rem; }
     .world-mark { flex: 0 0 24px; width: 24px; height: 24px; border-radius: 50%; background: var(--audit-red-soft); color: var(--color-accent); text-align: center; line-height: 24px; font-family: var(--font-mono); font-weight: 700; }
+    .world-new .world-mark { background: var(--audit-green-soft); color: var(--color-positive); }
     .world-verdict { margin-top: var(--space-5); color: var(--color-heading); font-weight: 700; font-size: 1.1rem; }
 
     .audit-process-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-9); align-items: start; }
