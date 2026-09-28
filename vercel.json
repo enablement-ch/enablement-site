@@ -21,6 +21,11 @@
       "permanent": true
     },
     {
+      "source": "/legacy-case-studies",
+      "destination": "/customer-results",
+      "permanent": true
+    },
+    {
       "source": "/case-studies/:path*",
       "destination": "/customer-results/:path*",
       "permanent": true

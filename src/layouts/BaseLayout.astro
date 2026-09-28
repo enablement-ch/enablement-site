@@ -19,6 +19,8 @@ const {
   noindex = false,
   showFooter = true,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href;
 ---
 
 <!doctype html>
@@ -29,6 +31,8 @@ const {
     <meta name="description" content={description} />
     <meta name="facebook-domain-verification" content="h89dsqnipydet8ro6z5pliwezs04n2" />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
 
     <!-- Favicons -->
@@ -40,6 +44,7 @@ const {
     <!-- Open Graph / social sharing -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content="/icon.png" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
