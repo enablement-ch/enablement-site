@@ -148,6 +148,21 @@ const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.si
     </div>
 
     <script is:inline>
+      // A small local highlight follows the pointer over grid sections.
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        document.querySelectorAll(".texture-grid").forEach((surface) => {
+          surface.addEventListener("pointermove", (event) => {
+            const bounds = surface.getBoundingClientRect();
+            surface.style.setProperty("--texture-x", `${event.clientX - bounds.left}px`);
+            surface.style.setProperty("--texture-y", `${event.clientY - bounds.top}px`);
+          });
+          surface.addEventListener("pointerleave", () => {
+            surface.style.removeProperty("--texture-x");
+            surface.style.removeProperty("--texture-y");
+          });
+        });
+      }
+
       // Vimeo facade: click → open video in centered lightbox
       (function () {
         const modal = document.querySelector(".video-modal");

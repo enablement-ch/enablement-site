@@ -71,7 +71,7 @@ const ctaLabel = "Schedule meeting";
     gap: var(--space-2);
     list-style: none;
     cursor: pointer;
-    color: var(--color-muted);
+    color: var(--color-nav);
   }
   .nav-dropdown summary::-webkit-details-marker { display: none; }
   .nav-dropdown summary:hover,
@@ -97,12 +97,16 @@ const ctaLabel = "Schedule meeting";
   .nav-resources-panel a {
     display: block;
     padding: var(--space-3);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
     white-space: nowrap;
   }
   .nav-resources-panel a:hover,
   .nav-resources-panel a:focus-visible {
-    color: var(--color-heading);
-    background: var(--color-canvas);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+    background: var(--color-nav-highlight);
+    outline: none;
   }
   .nav-coming-soon {
     display: block;

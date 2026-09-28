@@ -88,7 +88,7 @@ const questions = [
   description="Founder-led LinkedIn content that builds trust, captures buying signals, and starts qualified sales conversations. See real results from Enablement.ch."
 >
   <main class="linkedin-service">
-    <header class="service-hero">
+    <header class="service-hero texture-grid">
       <div class="container service-hero-grid">
         <div class="service-hero-copy">
           <span class="eyebrow">LinkedIn thought leadership for B2B tech founders</span>
@@ -131,7 +131,7 @@ const questions = [
       </div>
     </section>
 
-    <section class="section service-system" id="how-it-works">
+    <section class="section service-system texture-glow" id="how-it-works">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">How we build it</span>
@@ -237,7 +237,7 @@ const questions = [
       lead="These clients describe results from connected GTM work across content, outreach, and revenue operations. Their outcomes are not attributed to LinkedIn content alone."
     />
 
-    <section class="section service-offer" id="the-offer">
+    <section class="section service-offer texture-hybrid" id="the-offer">
       <div class="container offer-grid">
         <div class="offer-copy">
           <span class="eyebrow">The engagement</span>
@@ -299,9 +299,9 @@ const questions = [
   :global(.linkedin-service section.section) { padding-block: 72px; }
   :global(.linkedin-service .eyebrow) { color: var(--color-accent); }
   .service-hero {
+    --texture-base: var(--color-canvas);
     padding: 72px 0 64px;
     border-bottom: 1px solid var(--color-border);
-    background: linear-gradient(155deg, var(--service-pink) 0%, var(--color-canvas) 64%);
   }
   .service-hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-7); align-items: center; }
   .service-hero h1 { max-width: 730px; margin-top: var(--space-4); font-size: clamp(2.7rem, 5vw, 4.6rem); font-weight: 700; }
@@ -332,7 +332,7 @@ const questions = [
   .problem-result { display: flex; align-items: flex-start; gap: var(--space-2); margin-top: auto; padding-top: var(--space-5); color: var(--color-heading); font-weight: 700; font-size: .9rem; }
   .result-dot { flex: 0 0 8px; width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--color-accent); }
 
-  .service-system { background: var(--service-pink); }
+  .service-system { --texture-base: var(--service-pink); }
   .stage-card { display: flex; flex-direction: column; min-width: 0; padding: var(--space-5); border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-md); background: var(--color-surface); }
   .stage-detail { margin-top: auto; padding-top: var(--space-5); color: var(--color-accent); font: 700 .74rem var(--font-mono); line-height: 1.5; }
   .system-bridge { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-5); padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-heading); font-weight: 700; }
@@ -351,7 +351,7 @@ const questions = [
   .customer-proof-card p { margin-top: var(--space-3); color: var(--color-body); font-size: .95rem; }
   .customer-proof-card .text-link { margin-top: auto; padding-top: var(--space-5); }
 
-  .service-offer { background: var(--service-pink); }
+  .service-offer { --texture-base: var(--service-pink); }
   .offer-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-8); align-items: start; }
   .offer-copy h2 { margin-top: var(--space-3); font-size: clamp(2.1rem, 4vw, 3.1rem); }
   .offer-copy .lead { margin-top: var(--space-4); }

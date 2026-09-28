@@ -25,6 +25,15 @@
   --color-positive: #2E8F54;
   --color-warning: #C77B0E;
   --color-critical: #B43A2A;
+  --color-nav: #CAD1DC;
+  --color-nav-highlight: #3B2028;
+
+  /* Subtle section textures for the dark website palette */
+  --texture-grid-line: #FFFFFF09;
+  --texture-hover: #E11E481A;
+  --texture-warm: #E11E4814;
+  --texture-warm-soft: #E11E480A;
+  --texture-cool: #5C78B010;
 
   /* Type families */
   --font-sans: "Sofia Sans", system-ui, -apple-system, sans-serif;
@@ -91,6 +100,40 @@ body {
   text-rendering: optimizeLegibility;
   transition: background var(--motion-duration-base) var(--motion-ease-standard),
               color var(--motion-duration-base) var(--motion-ease-standard);
+}
+
+/* Apply these to selected full-width sections, never to screenshots or reading cards. */
+header.texture-grid, section.texture-grid {
+  background-color: var(--texture-base, var(--color-canvas));
+  background-image:
+    radial-gradient(280px circle at var(--texture-x, -500px) var(--texture-y, -500px), var(--texture-hover), transparent 75%),
+    linear-gradient(to right, var(--texture-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--texture-grid-line) 1px, transparent 1px),
+    radial-gradient(ellipse 70% 85% at 0% 0%, var(--texture-warm-soft), transparent 80%);
+  background-size: auto, 36px 36px, 36px 36px, auto;
+}
+header.texture-glow, section.texture-glow {
+  background-color: var(--texture-base, var(--color-canvas));
+  background-image:
+    radial-gradient(ellipse 60% 80% at 8% 7%, var(--texture-warm), transparent 75%),
+    radial-gradient(ellipse 55% 75% at 95% 88%, var(--texture-cool), transparent 75%);
+  background-size: 110% 110%, 110% 110%;
+  animation: texture-drift 18s ease-in-out infinite alternate;
+}
+header.texture-hybrid, section.texture-hybrid {
+  background-color: var(--texture-base, var(--color-canvas));
+  background-image:
+    radial-gradient(ellipse 60% 90% at 5% 4%, var(--texture-warm-soft), transparent 80%),
+    linear-gradient(to right, var(--texture-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--texture-grid-line) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+@keyframes texture-drift {
+  from { background-position: 0% 0%, 100% 100%; }
+  to { background-position: 6% 3%, 94% 97%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  header.texture-glow, section.texture-glow { animation: none; }
 }
 a { color: inherit; }
 
@@ -235,7 +278,7 @@ p { margin: 0; max-width: 64ch; }
   letter-spacing: 0.14em;
 }
 .nav-menu a {
-  color: var(--color-muted);
+  color: var(--color-nav);
   text-decoration: none;
   transition: color var(--motion-duration-fast) var(--motion-ease-standard);
 }

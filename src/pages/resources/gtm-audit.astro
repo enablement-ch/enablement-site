@@ -148,7 +148,7 @@ const comparison = [
   title="Allbound Audit | Find the Leaks in Your Go-to-Market System"
   description="Find the bottlenecks across your go-to-market system that prevent activity from turning into revenue. Book an Allbound Audit with Enablement.ch."
 >
-  <header class="audit-hero">
+  <header class="audit-hero texture-hybrid">
     <div class="container audit-hero-inner">
       <span class="eyebrow"><span class="num">↳</span> Allbound Audit</span>
       <h1 class="display">
@@ -247,7 +247,7 @@ const comparison = [
     </div>
   </section>
 
-  <section class="section worlds-section">
+  <section class="section worlds-section texture-glow">
     <div class="container">
       <div class="section-heading">
         <span class="eyebrow">Two operating models</span>
@@ -432,12 +432,12 @@ const comparison = [
 
   <style>
     :global(:root) {
-      --audit-pink: #FFF2F5;
-      --audit-pink-strong: #FCE8ED;
-      --audit-red-soft: #FBE6E9;
-      --audit-green-soft: #E5F4E9;
-      --audit-amber-soft: #FFF2D8;
-      --audit-amber-text: #8A5600;
+      --audit-pink: #241A20;
+      --audit-pink-strong: #35202A;
+      --audit-red-soft: #3B2028;
+      --audit-green-soft: #193526;
+      --audit-amber-soft: #3A2C19;
+      --audit-amber-text: #F2C16B;
     }
     .audit-hero .eyebrow,
     .audit-intro .eyebrow,
@@ -451,17 +451,11 @@ const comparison = [
     .revenue-emphasis { color: var(--color-accent); }
 
     .audit-hero {
+      --texture-base: var(--color-canvas);
       position: relative;
       padding: 72px 0 64px;
       border-bottom: 1px solid var(--color-border);
       overflow: hidden;
-    }
-    .audit-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, var(--audit-pink) 0%, var(--color-canvas) 62%);
-      pointer-events: none;
     }
     .audit-hero-inner {
       position: relative;
@@ -611,7 +605,7 @@ const comparison = [
     }
     .pain-summary p { color: var(--color-heading); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; max-width: 850px; }
 
-    .worlds-section { background: var(--audit-pink); }
+    .worlds-section { --texture-base: var(--audit-pink); }
     .worlds-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
     .world-column { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
     .world-old { border-left: 3px solid var(--color-critical); }
