@@ -28,6 +28,8 @@ const ctaLabel = "Schedule meeting";
           <summary>Services <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
             {services.map(({ href, label }) => <a href={href}>{label}</a>)}
+            <span class="nav-coming-soon">Signal-Based Outbound <small>(Coming Soon)</small></span>
+            <span class="nav-coming-soon">AI Revenue Operations <small>(Coming Soon)</small></span>
           </div>
         </details>
         {links.map(({ href, label }) => <a href={href}>{label}</a>)}
@@ -119,6 +121,7 @@ const ctaLabel = "Schedule meeting";
     background: var(--color-surface);
     box-shadow: var(--shadow-lg);
   }
+  .nav-services .nav-resources-panel { left: 0; right: auto; }
   .nav-resources-panel a {
     display: block;
     padding: var(--space-3);
@@ -129,6 +132,13 @@ const ctaLabel = "Schedule meeting";
     color: var(--color-heading);
     background: var(--color-canvas);
   }
+  .nav-coming-soon {
+    display: block;
+    padding: var(--space-3);
+    white-space: nowrap;
+    color: var(--color-muted);
+  }
+  .nav-coming-soon small { font-size: 0.75em; }
   @media (max-width: 767px) {
     .nav-inner:has(.nav-menu) {
       height: auto;
