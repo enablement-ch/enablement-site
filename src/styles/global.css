@@ -1,15 +1,16 @@
 /* ============ TOKENS ============ */
 :root {
-  /* Semantic surface tokens — swap on theme */
-  --color-canvas: #F2F4F8;
-  --color-surface: #FFFFFF;
-  --color-surface-raised: #FAFBFD;
-  --color-border: #E1E5EC;
-  --color-border-strong: #C9CFD9;
-  --color-heading: #0F1217;
-  --color-body: #4A5360;
-  --color-muted: #7C8390;
-  --color-inverse: #FFFFFF;
+  color-scheme: dark;
+  /* Dark is the only site theme. */
+  --color-canvas: #0F1217;
+  --color-surface: #181C23;
+  --color-surface-raised: #232830;
+  --color-border: #2E343F;
+  --color-border-strong: #404754;
+  --color-heading: #E5E9F0;
+  --color-body: #A0A8B5;
+  --color-muted: #6B7280;
+  --color-inverse: #0F1217;
 
   /* Accent (constant across themes) */
   --color-accent: #E11E48;
@@ -55,11 +56,11 @@
   --radius-lg: 20px;
   --radius-pill: 999px;
 
-  /* Shadow (light theme) */
-  --shadow-xs: 0 1px 2px rgba(15, 18, 23, 0.04);
-  --shadow-sm: 0 4px 12px rgba(15, 18, 23, 0.06);
-  --shadow-md: 0 12px 32px rgba(15, 18, 23, 0.08);
-  --shadow-lg: 0 24px 64px rgba(15, 18, 23, 0.10);
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.6);
 
   /* Motion */
   --motion-duration-instant: 100ms;
@@ -75,26 +76,6 @@
   --container-wide: 1280px;
   --container-prose: 720px;
 }
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --color-canvas: #0F1217;
-  --color-surface: #181C23;
-  --color-surface-raised: #232830;
-  --color-border: #2E343F;
-  --color-border-strong: #404754;
-  --color-heading: #E5E9F0;
-  --color-body: #A0A8B5;
-  --color-muted: #6B7280;
-  --color-inverse: #0F1217;
-
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.6);
-}
-
-[data-theme="light"] { color-scheme: light; }
 
 /* ============ BASE ============ */
 * { box-sizing: border-box; }
@@ -263,27 +244,6 @@ p { margin: 0; max-width: 64ch; }
   .nav-menu { display: flex; }
 }
 .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
-
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-heading);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard),
-              background var(--motion-duration-fast) var(--motion-ease-standard);
-}
-.theme-toggle:hover { border-color: var(--color-border-strong); }
-.theme-toggle svg { width: 18px; height: 18px; }
-[data-theme="light"] .theme-toggle .icon-moon { display: block; }
-[data-theme="light"] .theme-toggle .icon-sun { display: none; }
-[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 /* ============ BUTTONS ============ */
 .btn {

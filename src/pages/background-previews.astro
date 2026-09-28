@@ -35,7 +35,7 @@ const variants = [
     <div class="container preview-intro">
       <span class="eyebrow">Design preview</span>
       <h1>More depth. <span class="italic-accent">Less noise.</span></h1>
-      <p class="lead">Three subtle background treatments using the same layout and content. Switch the site theme in the navigation to compare both palettes. Move your cursor over option 01 to see its interaction.</p>
+      <p class="lead">Three subtle background treatments using the same layout and content. Move your cursor over option 01 to see its interaction.</p>
       <nav class="preview-jump" aria-label="Background preview options">
         {variants.map((variant) => <a href={`#${variant.id}`}>{variant.number} · {variant.name}</a>)}
       </nav>
@@ -75,7 +75,6 @@ const variants = [
 
 <style>
   .texture-previews { --preview-grid: #FFFFFF0C; --preview-spot: #E11E481C; --preview-spot-soft: #E11E480B; --preview-blue: #5C78B016; }
-  :global([data-theme="light"] .texture-previews) { --preview-grid: #0F12170C; --preview-spot: #E11E4814; --preview-spot-soft: #E11E4809; --preview-blue: #6B8DD812; }
   .preview-intro { padding-block: 64px 48px; }
   .preview-intro .eyebrow, .variant-heading .eyebrow, .sample-copy .eyebrow { color: var(--color-accent); }
   .preview-intro h1 { margin-top: 12px; font-size: clamp(2.7rem, 5vw, 4.5rem); }
