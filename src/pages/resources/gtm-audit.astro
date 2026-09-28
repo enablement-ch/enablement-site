@@ -56,72 +56,82 @@ const bottlenecks = [
   {
     number: "01",
     area: "GTM motion",
+    severity: "Critical",
     pain: "Your market has fewer than 10,000 accounts. Your team is burning through it at a 0.2% positive reply rate.",
-    impact: "Two or three BDRs and one or two AEs spend up to 60% of their time researching companies and contacting enterprise buyers who have never heard of you. At a 0.2% to 0.3% positive reply rate, you are not just wasting salaries and software. You are teaching a finite market to ignore you.",
-    diagnosis: "You do not need more outbound volume. You need to stop treating a finite market like an infinite list.",
+    impact: "Two or three BDRs and one or two AEs spend up to 60% of their time researching and contacting buyers who have never heard of you. At that reply rate, every generic touch uses up a scarce chance to earn attention.",
+    outcome: "Protect a finite market with a motion built around fit and buyer readiness.",
   },
   {
     number: "02",
     area: "Customer intelligence",
+    severity: "Medium",
     pain: "The founder defines one ICP. Marketing targets another. Sales only accepts a third.",
-    impact: "The official ICP still comes from an agency workshop held two years ago. Current evidence is scattered across calls, CRM records, documents, Slack, and individual reps' heads. Marketing generates leads that sales rejects, but neither team has one source of truth. For one client, shared account and buyer criteria increased list accuracy to 95% to 97% and MQL-to-SQL conversion by 30%.",
-    diagnosis: "You do not need more leads. You need one shared definition of a buyer worth pursuing.",
+    impact: "The official ICP still comes from an agency workshop held two years ago. Current evidence is scattered across calls, CRM records, documents, Slack, and individual reps' heads. Marketing generates leads that sales rejects.",
+    outcome: "Shared buyer criteria brought one client's list accuracy to 95% to 97% and raised MQL-to-SQL conversion by 30%.",
   },
   {
     number: "03",
     area: "Tool architecture",
+    severity: "High",
     pain: "Clay, Apollo, and HubSpot. Your reps are still uploading CSV files.",
-    impact: "The team pays $500 to $800 per month for Clay and uses it as an email finder. Reps move CSV files between tools and manually complete CRM fields. At Emporix, processing one lead took roughly three minutes and 50 clicks. After connecting the stack, it took less than four seconds and pipeline output increased 3.2 times.",
-    diagnosis: "A lean stack should capture signals, enrich data, automate handoffs, run campaigns, and keep the CRM accurate. Nothing more.",
+    impact: "The team pays $500 to $800 per month for Clay and uses it as an email finder. Reps move CSV files between tools and manually complete CRM fields. At Emporix, processing one lead took roughly three minutes and 50 clicks.",
+    outcome: "After connecting the stack, Emporix processed a lead in under four seconds and increased pipeline output 3.2 times.",
   },
   {
     number: "04",
     area: "Targeting and timing",
+    severity: "High",
     pain: "Every Monday, 50 more accounts are contacted. Nobody knows whether any are ready to buy.",
     impact: "Reps work alphabetically through static lists and treat job openings or funding announcements as intent. But those signals are public, late, and often unrelated to the problem you solve. Meanwhile, accounts visiting your website, consuming content, or engaging with your category pass through their buying window unnoticed.",
-    diagnosis: "You do not need more signals. You need to rank accounts by fit, signal strength, and readiness to buy.",
+    outcome: "Rank accounts by fit, signal strength, and readiness to buy.",
   },
   {
     number: "05",
     area: "Messaging and activation",
+    severity: "High",
     pain: "You saw a job opening. Guessed the problem. Asked a stranger for a meeting.",
-    impact: "The observation may be correct. Everything after it is an assumption. The problem may not exist, the persona may be wrong, and the buyer has no reason to trust you. Yet every segment receives the same message and hard meeting request. Warmly replaced generic outreach with relevance-based messaging and increased responses from 0.2% to 7.7%.",
-    diagnosis: "A cold buyer needs useful content. A buyer already showing intent may be ready for a conversation.",
+    impact: "The observation may be correct. Everything after it is an assumption. The problem may not exist, the persona may be wrong, and the buyer has no reason to trust you. Yet every segment receives the same message and hard meeting request.",
+    outcome: "Relevance-based messaging took Warmly's response rate from 0.2% to 7.7%.",
   },
   {
     number: "06",
     area: "Data and qualification",
+    severity: "High",
     pain: "Your CRM has 10,000 contacts. By next quarter, 1,000 to 2,000 could already be out of date.",
     impact: "People change jobs, companies, roles, and email addresses. Meanwhile, duplicates and incomplete records keep entering the CRM. Automations fail, reporting becomes unreliable, and reps repair fields manually. Eventually, a customer, partner, or active opportunity receives cold outreach because sales and automation are working from different lists.",
-    diagnosis: "Bad data does not stay in the CRM. It reaches buyers, damages trust, and puts active opportunities at risk.",
+    outcome: "Keep records current so routing works and active buyers never receive cold outreach.",
   },
   {
     number: "07",
     area: "Lead qualification and routing",
+    severity: "Critical",
     pain: "More than 300 positive replies in three months. Only 10% to 15% turned into meetings.",
-    impact: "Blueprint thought outbound was failing. In reality, interested leads were sitting across disconnected tools without consistent follow-up, context, or attribution. After qualification, routing, and CRM handoffs were fixed, conversion from positive reply to initial meeting reached 50%. The outbound motion eventually contributed more than $10 million in closed revenue.",
-    diagnosis: "Generating demand was not the problem. Catching it was. Every qualified lead needs context, an owner, and an immediate response path.",
+    impact: "Blueprint thought outbound was failing. In reality, interested leads were sitting across disconnected tools without consistent follow-up, context, or attribution.",
+    outcome: "Fixed handoffs lifted positive-reply-to-meeting conversion to 50%. The motion later contributed over $10 million in closed revenue.",
   },
   {
     number: "08",
     area: "Sales process and automation",
+    severity: "High",
     pain: "The CRM says the quarter is covered. Nobody can say which deals will actually close.",
     impact: "Calls end without a committed next step. CRM fields are updated from memory. Deal stages change because someone selected a dropdown, not because the buyer made a commitment. The forecast looks healthy until the revenue gap becomes impossible to recover. Meanwhile, expensive salespeople spend hours preparing meetings, writing summaries, updating records, and setting reminders.",
-    diagnosis: "Keep the buyer conversation human. Automate the administration, stage control, follow-up, and forecasting around it.",
+    outcome: "Automate administration and follow-up while tying deal stages to buyer commitments.",
   },
   {
     number: "09",
     area: "Revenue reporting",
+    severity: "High",
     pain: "One GTM motion was outperforming another by 3.7 times. The dashboard made them look the same.",
-    impact: "The client saw aggregate contacts, replies, meetings, and deals. Once attribution connected every lead from first touch to closed revenue, one motion was producing 3.7 times more. Without that view, leadership could have hired into the weaker channel, cut the stronger one, or scaled a funnel that was still leaking revenue.",
-    diagnosis: "If a dashboard cannot change an investment decision, it is reporting theatre.",
+    impact: "The client saw aggregate contacts, replies, meetings, and deals. Without revenue attribution, leadership could have hired into the weaker channel, cut the stronger one, or scaled a funnel that was still leaking revenue.",
+    outcome: "First-touch-to-revenue attribution showed which motion produced 3.7 times more.",
   },
   {
     number: "10",
     area: "Feedback and experimentation",
+    severity: "Medium",
     pain: "The campaign ends. Someone says, \"I do not like the copy.\" On Monday, four things change at once.",
     impact: "The team changes the audience, message, offer, and channel without a hypothesis or enough volume to learn anything. Wins are celebrated, losses are closed, and neither is analyzed. The next experiment comes from gut feeling or whatever is popular on LinkedIn. Promising ideas are killed early while weak ones survive because one reply felt encouraging.",
-    diagnosis: "Test one hypothesis at a time, then feed replies, calls, wins, and losses back into the system.",
+    outcome: "Test one hypothesis at a time and feed replies, calls, wins, and losses into the next decision.",
   },
 ];
 
@@ -179,9 +189,13 @@ const comparison = [
     <div class="container narrow-stack">
       <span class="eyebrow">The real problem</span>
       <h2>The <span class="revenue-emphasis">revenue lost</span> in your go-to-market system rarely comes from one obvious place.</h2>
-      <p class="lead">
-        They start with the motion you choose and compound in every handoff. Research never becomes a shared strategy. Signals get mistaken for intent. The wrong tools create more manual work. Qualified interest never reaches sales. Your teams stay busy, but the activity does not reliably turn into revenue.
-      </p>
+      <div class="system-graphic-placeholder" role="img" aria-label="Placeholder for a future go-to-market system flowchart showing handoffs and warning points">
+        <span class="graphic-placeholder-label">GTM system flowchart · graphic coming soon</span>
+        <div class="graphic-placeholder-flow" aria-hidden="true">
+          <span>Target</span><b>→</b><span>Engage</span><b>⚠</b><span>Qualify</span><b>→</b><span>Convert</span><b>⚠</b><span>Measure</span>
+        </div>
+        <span class="graphic-placeholder-note">Planned: system architecture with warning markers at revenue leaks</span>
+      </div>
       <p class="diagnosis-line">
         If several of the points below feel familiar, doing more is not the answer. You need to fix your GTM system.
       </p>
@@ -206,10 +220,13 @@ const comparison = [
             <div class="bottleneck-copy">
               <h3>{item.pain}</h3>
               <p>{item.impact}</p>
-              {item.diagnosis && <p class="bottleneck-diagnosis">{item.diagnosis}</p>}
             </div>
-            <div class="bottleneck-check" aria-hidden="true">
-              <span></span>
+            <div class="bottleneck-side">
+              <span class:list={["severity-tag", `severity-${item.severity.toLowerCase()}`]}>{item.severity}</span>
+              <div class="bottleneck-outcome">
+                <span class="outcome-label">Impact when fixed</span>
+                <p>{item.outcome}</p>
+              </div>
             </div>
           </li>
         ))}
@@ -218,7 +235,7 @@ const comparison = [
       <div class="pain-summary">
         <span class="eyebrow">What this adds up to</span>
         <p>
-          More tools create more activity. More activity does not automatically create more pipeline. If your GTM system is poorly designed, the only things you scale are manual work, disconnected data, and cost.
+          If your GTM system is poorly designed, the only things you scale are manual work, disconnected data, and cost.
         </p>
       </div>
     </div>
@@ -394,11 +411,27 @@ const comparison = [
   </section>
 
   <style>
+    :global(:root) {
+      --audit-pink: #FFF2F5;
+      --audit-pink-strong: #FCE8ED;
+      --audit-red-soft: #FBE6E9;
+      --audit-amber-soft: #FFF2D8;
+      --audit-amber-text: #8A5600;
+    }
+    .audit-hero .eyebrow,
+    .audit-intro .eyebrow,
+    .bottleneck-section .eyebrow,
+    .worlds-section .eyebrow,
+    .audit-process-section .eyebrow,
+    .proof-section .eyebrow,
+    .authority-section .eyebrow,
+    .outcome-section .eyebrow { color: var(--color-accent); }
+    section.section { padding-block: 72px; }
     .revenue-emphasis { color: var(--color-accent); }
 
     .audit-hero {
       position: relative;
-      padding: var(--space-9) 0 var(--space-10);
+      padding: 72px 0 64px;
       border-bottom: 1px solid var(--color-border);
       overflow: hidden;
     }
@@ -406,12 +439,7 @@ const comparison = [
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 32%),
-        linear-gradient(var(--color-border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-      background-size: auto, 64px 64px, 64px 64px;
-      opacity: 0.46;
+      background: linear-gradient(160deg, var(--audit-pink) 0%, var(--color-canvas) 62%);
       pointer-events: none;
     }
     .audit-hero-inner {
@@ -422,8 +450,8 @@ const comparison = [
       align-items: center;
       text-align: center;
     }
-    .audit-hero h1 { max-width: 990px; margin-top: var(--space-5); }
-    .audit-hero-lead { max-width: 700px; margin-top: var(--space-5); }
+    .audit-hero h1 { max-width: 990px; margin-top: var(--space-4); }
+    .audit-hero-lead { max-width: 700px; margin-top: var(--space-4); }
     .audit-hero-actions {
       display: flex;
       align-items: center;
@@ -436,7 +464,7 @@ const comparison = [
       position: relative;
       width: min(100%, 960px);
       aspect-ratio: 16 / 9;
-      margin-top: var(--space-8);
+      margin-top: var(--space-7);
       overflow: hidden;
       border: 1px solid var(--color-border-strong);
       border-radius: var(--radius-lg);
@@ -452,10 +480,31 @@ const comparison = [
     }
 
     .narrow-stack { max-width: 820px; }
-    .narrow-stack h2 { margin-top: var(--space-5); }
-    .narrow-stack .lead { margin-top: var(--space-5); }
+    .narrow-stack h2 { margin-top: var(--space-3); }
+    .audit-intro { background: var(--color-surface); }
+    .system-graphic-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-5);
+      min-height: 290px;
+      margin-top: var(--space-6);
+      padding: var(--space-6);
+      border: 1px dashed var(--color-accent);
+      border-radius: var(--radius-md);
+      background: var(--audit-pink);
+      text-align: center;
+    }
+    .graphic-placeholder-label,
+    .graphic-placeholder-note { font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-accent); }
+    .graphic-placeholder-label { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .graphic-placeholder-note { color: var(--color-muted); }
+    .graphic-placeholder-flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-2); }
+    .graphic-placeholder-flow span { padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-heading); font-weight: 600; }
+    .graphic-placeholder-flow b { color: var(--color-warning); font-size: 1.3rem; }
     .diagnosis-line {
-      margin-top: var(--space-7);
+      margin-top: var(--space-5);
       padding-left: var(--space-5);
       border-left: 3px solid var(--color-accent);
       color: var(--color-heading);
@@ -463,9 +512,10 @@ const comparison = [
       font-weight: 600;
     }
 
-    .section-heading { max-width: 760px; margin-bottom: var(--space-8); }
-    .section-heading h2 { margin-top: var(--space-5); }
-    .section-heading .lead { margin-top: var(--space-5); }
+    .section-heading { max-width: 760px; margin-bottom: var(--space-6); }
+    .section-heading h2 { margin-top: var(--space-3); }
+    .section-heading .lead { margin-top: var(--space-3); }
+    .bottleneck-section { background: var(--color-canvas); }
     .bottleneck-list {
       list-style: none;
       margin: 0;
@@ -474,10 +524,10 @@ const comparison = [
     }
     .bottleneck-item {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr) 40px;
-      gap: var(--space-6);
+      grid-template-columns: 128px minmax(0, 1fr) minmax(220px, .62fr);
+      gap: var(--space-5);
       align-items: start;
-      padding: var(--space-7) 0;
+      padding: var(--space-6) 0;
       border-bottom: 1px solid var(--color-border);
     }
     .bottleneck-meta { display: flex; flex-direction: column; gap: var(--space-2); }
@@ -493,54 +543,41 @@ const comparison = [
       text-transform: uppercase;
       color: var(--color-muted);
     }
-    .bottleneck-copy h3 { max-width: 780px; font-size: clamp(1.35rem, 2.3vw, 2rem); }
-    .bottleneck-copy p { margin-top: var(--space-3); color: var(--color-muted); }
-    .bottleneck-copy .bottleneck-diagnosis {
-      margin-top: var(--space-5);
-      padding-left: var(--space-4);
-      border-left: 2px solid var(--color-accent);
-      color: var(--color-heading);
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-    .bottleneck-check {
-      width: 30px;
-      height: 30px;
-      border: 1px solid var(--color-border-strong);
-      border-radius: var(--radius-xs);
-      background: var(--color-surface);
-    }
+    .bottleneck-copy h3 { max-width: 780px; font-size: clamp(1.35rem, 2.1vw, 1.8rem); font-weight: 700; }
+    .bottleneck-copy p { margin-top: var(--space-3); color: var(--color-body); font-size: .95rem; line-height: 1.55; }
+    .bottleneck-side { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+    .severity-tag { display: inline-flex; padding: 5px 11px; border-radius: var(--radius-pill); font: 700 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
+    .severity-critical { color: var(--color-critical); background: var(--audit-red-soft); }
+    .severity-high { color: var(--color-accent-hover); background: var(--audit-pink-strong); }
+    .severity-medium { color: var(--audit-amber-text); background: var(--audit-amber-soft); }
+    .bottleneck-outcome { width: 100%; padding: var(--space-4); border-left: 3px solid var(--color-accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--color-surface); }
+    .outcome-label { display: block; color: var(--color-accent); font: 700 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+    .bottleneck-outcome p { margin-top: var(--space-2); color: var(--color-heading); font-size: .9rem; line-height: 1.5; }
     .pain-summary {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
+      grid-template-columns: 128px minmax(0, 1fr);
       gap: var(--space-6);
-      margin-top: var(--space-8);
-      padding: var(--space-7);
+      margin-top: var(--space-6);
+      padding: var(--space-6);
       border: 1px solid var(--color-border-strong);
       background: var(--color-surface);
     }
     .pain-summary p { color: var(--color-heading); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; max-width: 850px; }
 
-    .worlds-section { background: var(--color-heading); }
-    .worlds-section::before { border-color: rgba(255,255,255,0.08) !important; }
-    .worlds-section .section-heading h2,
-    .worlds-section .section-heading .lead { color: #fff; }
-    .worlds-section .eyebrow { color: rgba(255,255,255,0.5); }
-    .worlds-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid rgba(255,255,255,0.14); }
-    .world-column { padding: var(--space-7); }
-    .world-column + .world-column { border-left: 1px solid rgba(255,255,255,0.14); }
-    .world-heading { padding-bottom: var(--space-6); border-bottom: 1px solid rgba(255,255,255,0.14); }
+    .worlds-section { background: var(--audit-pink); }
+    .worlds-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .world-column { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+    .world-old { border-left: 3px solid var(--color-critical); }
+    .world-new { border-left: 3px solid var(--color-accent); }
+    .world-heading { padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
     .world-kicker { display: block; font-family: var(--font-mono); font-size: var(--font-size-eyebrow); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--space-3); }
-    .world-old .world-kicker { color: #ff8a73; }
-    .world-new .world-kicker { color: #72d596; }
-    .world-heading h3 { color: #fff; font-size: clamp(1.7rem, 3vw, 2.6rem); }
+    .world-old .world-kicker { color: var(--color-critical); }
+    .world-new .world-kicker { color: var(--color-accent); }
+    .world-heading h3 { color: var(--color-heading); font-size: clamp(1.5rem, 2.5vw, 2.2rem); }
     .world-column ul { list-style: none; margin: 0; padding: var(--space-5) 0 0; }
-    .world-column li { display: flex; gap: var(--space-3); padding: var(--space-4) 0; border-bottom: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.76); }
-    .world-mark { flex: 0 0 20px; font-family: var(--font-mono); font-weight: 600; }
-    .world-old .world-mark { color: #ff8a73; }
-    .world-new .world-mark { color: #72d596; }
-    .world-verdict { margin-top: var(--space-6); color: #fff; font-weight: 600; font-size: var(--font-size-lead); }
+    .world-column li { display: flex; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); color: var(--color-body); font-size: .95rem; }
+    .world-mark { flex: 0 0 24px; width: 24px; height: 24px; border-radius: 50%; background: var(--audit-red-soft); color: var(--color-accent); text-align: center; line-height: 24px; font-family: var(--font-mono); font-weight: 700; }
+    .world-verdict { margin-top: var(--space-5); color: var(--color-heading); font-weight: 700; font-size: 1.1rem; }
 
     .audit-process-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-9); align-items: start; }
     .audit-process-intro { position: sticky; top: 112px; }
@@ -656,21 +693,23 @@ const comparison = [
       .audit-hero { padding-top: var(--space-8); }
       .audit-hero h1 br { display: none; }
       .vsl-video { margin-top: var(--space-7); border-radius: var(--radius-md); }
-      .bottleneck-item { grid-template-columns: 70px minmax(0, 1fr); gap: var(--space-4); }
-      .bottleneck-check { display: none; }
+      .bottleneck-item { grid-template-columns: 88px minmax(0, 1fr); gap: var(--space-4); }
+      .bottleneck-side { grid-column: 2; }
       .pain-summary { grid-template-columns: 1fr; }
       .worlds-grid { grid-template-columns: 1fr; }
-      .world-column + .world-column { border-left: 0; border-top: 1px solid rgba(255,255,255,0.14); }
       .audit-process-grid, .outcome-card, .authority-grid { grid-template-columns: 1fr; }
       .audit-process-intro { position: static; }
     }
 
     @media (max-width: 520px) {
+      section.section { padding-block: 56px; }
       .audit-hero-actions { flex-direction: column; }
       .audit-hero-actions .btn { width: 100%; justify-content: center; }
       .vsl-center .mono { display: none; }
       .bottleneck-item { grid-template-columns: 1fr; }
       .bottleneck-meta { flex-direction: row; align-items: center; }
+      .bottleneck-side { grid-column: 1; }
+      .system-graphic-placeholder { min-height: 240px; padding: var(--space-4); }
       .pain-summary, .world-column { padding: var(--space-5); }
       .authority-card { grid-template-columns: 1fr; }
       .authority-photo { width: 88px; height: 88px; }
