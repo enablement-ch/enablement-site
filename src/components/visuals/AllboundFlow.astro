@@ -1,0 +1,89 @@
+---
+const sources = [
+  { label: "Outbound", detail: "Email · LinkedIn · calls" },
+  { label: "Content", detail: "Founder and team voices" },
+  { label: "Ads", detail: "Reach and retargeting" },
+  { label: "Market signals", detail: "Hiring · events · changes" },
+];
+
+const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "Replies and CRM activity"];
+---
+
+<div class="allbound-flow" role="img" aria-label="Allbound architecture: outbound, content, ads, and market signals create activity; lead magnets and observed signals are qualified by account and contact fit; relevant outreach leads to sales conversations and opportunities; CRM outcomes feed back into the system.">
+  <div class="flow-label"><span class="flow-dot"></span> ALLBOUND / ONE CONNECTED SYSTEM</div>
+  <div class="flow-sources">
+    {sources.map((source) => (
+      <div class="flow-source">
+        <strong>{source.label}</strong>
+        <span>{source.detail}</span>
+      </div>
+    ))}
+  </div>
+  <div class="flow-connector" aria-hidden="true"><span></span><b>↓</b></div>
+  <div class="flow-capture">
+    <div>
+      <span class="flow-stage">01 / CAPTURE</span>
+      <h3>Signals and responses</h3>
+      <p>Activity across channels becomes usable account context.</p>
+    </div>
+    <div class="flow-inputs">
+      {inputs.map((input) => <span>{input}</span>)}
+    </div>
+  </div>
+  <div class="flow-connector" aria-hidden="true"><b>↓</b></div>
+  <div class="flow-qualify">
+    <span class="flow-stage">02 / QUALIFY</span>
+    <h3>Who is worth talking to?</h3>
+    <p>Check account fit, contact fit, signal strength and context before choosing a next step.</p>
+  </div>
+  <div class="flow-connector" aria-hidden="true"><b>↓</b></div>
+  <div class="flow-outcomes">
+    <div><span class="flow-stage">03 / ACT</span><strong>Relevant next touch</strong><small>Email · LinkedIn · calls · nurture</small></div>
+    <div><span class="flow-stage">04 / CONVERT</span><strong>Sales conversation</strong><small>The right rep gets the full context</small></div>
+    <div><span class="flow-stage">05 / LEARN</span><strong>Opportunity and revenue</strong><small>Outcomes improve the next play</small></div>
+  </div>
+  <div class="flow-ops"><span>AI REVENUE OPERATIONS</span><strong>Clean data · scoring · routing · automation · CRM attribution</strong></div>
+  <div class="flow-feedback">↰ CRM outcomes feed back into targeting, content and outreach</div>
+</div>
+
+<style>
+  .allbound-flow { background: #141820; border: 1px solid var(--color-border); border-radius: 20px; padding: clamp(20px, 4vw, 40px); color: var(--color-heading); box-shadow: var(--shadow-md); }
+  .flow-label, .flow-stage, .flow-ops span { font: 500 11px var(--font-mono); letter-spacing: .11em; color: var(--color-accent); }
+  .flow-label { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .flow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 16px var(--color-accent); }
+  .flow-sources { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .flow-source, .flow-capture, .flow-qualify, .flow-outcomes > div { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; }
+  .flow-source { min-height: 105px; padding: 16px; display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--color-accent); }
+  .flow-source strong { font-size: 18px; line-height: 1.2; }
+  .flow-source span, .flow-inputs span, .flow-outcomes small { font-size: 13px; color: var(--color-body); line-height: 1.35; }
+  .flow-connector { min-height: 33px; display: grid; place-items: center; color: var(--color-positive); font: 600 20px var(--font-sans); }
+  .flow-capture { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; padding: 22px; }
+  .flow-capture h3, .flow-qualify h3 { font-size: 25px; margin: 5px 0 6px; }
+  .flow-capture p, .flow-qualify p { font-size: 14px; color: var(--color-body); max-width: 42ch; }
+  .flow-inputs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; align-content: center; }
+  .flow-inputs span { border: 1px solid var(--color-border); border-radius: 8px; padding: 10px 12px; background: var(--color-surface-raised); }
+  .flow-qualify { padding: 22px; text-align: center; border-color: var(--color-accent); background: #261b24; }
+  .flow-qualify p { margin-inline: auto; }
+  .flow-outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .flow-outcomes > div { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 17px; border-top: 2px solid var(--color-positive); }
+  .flow-outcomes > div:not(:last-child)::after { content: "→"; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: #85cda3; z-index: 1; font-size: 21px; }
+  .flow-outcomes strong { font-size: 17px; line-height: 1.2; }
+  .flow-ops { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; padding: 14px 16px; border: 1px solid #355343; border-radius: 10px; background: #17251d; }
+  .flow-ops span { color: #6bc591; }
+  .flow-ops strong { font-size: 13px; font-weight: 500; color: #c4e4d1; }
+  .flow-feedback { margin-top: 14px; font: 500 12px var(--font-mono); color: #85cda3; text-align: center; }
+  @media (max-width: 700px) {
+    .flow-sources { grid-template-columns: repeat(2, 1fr); }
+    .flow-source { min-height: 88px; }
+    .flow-capture { grid-template-columns: 1fr; }
+    .flow-outcomes { grid-template-columns: 1fr; }
+    .flow-outcomes > div { min-height: 80px; }
+    .flow-outcomes > div:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
+  }
+  @media (max-width: 440px) {
+    .flow-source { padding: 12px; }
+    .flow-source strong { font-size: 16px; }
+    .flow-inputs { grid-template-columns: 1fr 1fr; }
+    .flow-inputs span { padding: 8px; font-size: 11px; }
+  }
+</style>

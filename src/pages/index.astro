@@ -3,90 +3,220 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
 import VideoTestimonials from "../components/VideoTestimonials.astro";
-import PainBlock from "../components/PainBlock.astro";
+import AllboundFlow from "../components/visuals/AllboundFlow.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from "../components/FinalCTA.astro";
-import Workflow from "../components/Workflow.astro";
-import LinkedInMock from "../components/visuals/LinkedInMock.astro";
-import BeforeAfterEmail from "../components/visuals/BeforeAfterEmail.astro";
-import OperatingPipeline from "../components/visuals/OperatingPipeline.astro";
-import AllboundOrg from "../components/visuals/AllboundOrg.astro";
+
+const problems = [
+  { label: "01 / INBOUND ALONE", title: "Attention does not automatically become pipeline.", body: "Content and ads build familiarity, but they take work to sustain. The people who engage may not fit your ICP, and most interested buyers will never fill in a form." },
+  { label: "02 / OUTBOUND ALONE", title: "A cold market runs out of patience.", body: "Outreach gives you control over whom you contact. Without trust, useful timing, and relevant messaging, higher volume burns through a finite market." },
+  { label: "03 / REVOPS ALONE", title: "The CRM records the gap instead of closing it.", body: "Leads are researched, exported, qualified, and routed by hand. Sales gets a name without the signal, the content, or the reason to reach out now." },
+];
+
+const questions = [
+  { q: "Who is Allbound for?", a: "B2B tech companies with a proven product and a clear market to grow into. We help teams scale a working offer and improve the system around it; we are not a product-market-fit experiment." },
+  { q: "Do we need all three services from day one?", a: "No. We start with the part of your GTM system that has the clearest opportunity. That could be LinkedIn thought leadership, signal-based outbound, or the data and workflow layer behind them. We connect and expand the system as we learn what works." },
+  { q: "What does your team actually handle?", a: "We design and build the GTM workflows, then can run and improve them with you. Depending on the priorities, that includes content and design, account research, signal capture, scoring, outreach, routing, CRM automation, and reporting. We agree the first scope together after reviewing your current setup." },
+  { q: "How do you work with our existing sales, marketing, and RevOps teams?", a: "We work inside the tools and processes you already use where they fit. Your team keeps ownership of the buyer relationship and sales conversations. We connect the work between teams, agree who acts on each signal, and make the context visible in the CRM." },
+  { q: "Will I work directly with the founders?", a: "Yes. You work directly with Lanny on the strategy, priorities, and ongoing decisions. Our delivery team builds and operates the system alongside him, so the people shaping the work stay close to its results." },
+  { q: "What happens on the first call?", a: "We look at how you currently create demand, identify the right accounts, start conversations, and pass opportunities to sales. We will show you the most useful place to start and whether we are the right team to help." },
+];
 ---
 
-<BaseLayout>
-  <!-- 01 Hero with VSL -->
-  {/* secondary CTA hidden for soft launch — restore default "See client work → /customer-results" when customer results relaunch */}
-  <Hero secondaryLabel="" secondaryHref="" />
+<BaseLayout
+  title="Allbound GTM Engineering for B2B Tech | Enablement.ch"
+  description="Build one Allbound engine across LinkedIn thought leadership, signal-based outbound, and AI Revenue Operations. For B2B tech companies with proven product-market fit."
+>
+  <main class="home-page">
+    <Hero secondaryLabel="" secondaryHref="" />
+    <MarqueeLogoWall />
+    <VideoTestimonials />
 
-  <!-- 02 Marquee logos -->
-  <MarqueeLogoWall />
-
-  <!-- 03 Video testimonials -->
-  <VideoTestimonials />
-
-  <!-- 04 Value props × 3 -->
-  <section class="section pain-section texture-glow">
-    <div class="container stack-6">
-      <h2>Combine Outbound and Inbound into an <span class="italic-accent">Allbound Engine</span></h2>
-      <p class="lead">Inbound earns trust. Outbound triggers on intent. The connected stack makes both compound.</p>
-    </div>
-
-    <div class="pain-stack">
+    <section class="section home-problem texture-hybrid" id="the-problem">
       <div class="container">
-        <PainBlock
-          eyebrow="Allbound Foundation"
-          headline="Connect every GTM tool into one automated stack."
-          lead="Your stack runs as one engine, not 12 disconnected tools."
-          bullets={[
-            "Connect your tool stack in one system and never export & import a CSV file again.",
-            "Identify, score and route leads to the right rep",
-            "Enrich any data point you need and act on it in minutes not hours or even days",
-          ]}
-        >
-          <AllboundOrg />
-        </PainBlock>
+        <div class="home-heading">
+          <span class="eyebrow">The old way</span>
+          <h2>Three teams touch the same buyer. <span class="italic-accent">The context gets lost between them.</span></h2>
+          <p class="lead">Inbound, outbound, and RevOps each do a useful job. Pipeline leaks when they work from different data, different priorities, and different definitions of a qualified buyer.</p>
+        </div>
+        <div class="home-problem-grid">
+          {problems.map((problem) => (
+            <article><span class="home-card-index">{problem.label}</span><h3>{problem.title}</h3><p>{problem.body}</p></article>
+          ))}
+        </div>
+        <div class="home-problem-answer"><span class="home-answer-mark" aria-hidden="true">✓</span><p><strong>Allbound connects the work.</strong> Build trust across channels, act on the right signals, and give sales the full context in one system.</p></div>
       </div>
-    </div>
+    </section>
 
-    <div class="pain-stack">
+    <section class="section home-system texture-glow" id="allbound-system">
       <div class="container">
-        <PainBlock
-          eyebrow="Outbound Alone Falls Flat"
-          headline="Turn Content into Sales Pipeline"
-          lead="Buyers buy from people they already trust."
-          bullets={[
-            "Create content that people trust instead of AI slop they scroll past.",
-            "Build a loyal audience and convert them into inbound leads",
-            "Reach out to the people that already know, like and trust you.",
-          ]}
-          reverse={true}
-        >
-          <LinkedInMock />
-        </PainBlock>
+        <div class="home-heading">
+          <span class="eyebrow">The Allbound engine</span>
+          <h2>Many ways in. <span class="italic-accent">One path to a better sales conversation.</span></h2>
+          <p class="lead">Cold outreach, content, ads, and changes in your market all create opportunities to engage. The system captures what happened, checks who is worth talking to, and turns that context into a relevant next step.</p>
+        </div>
+        <AllboundFlow />
+        <p class="home-system-note">This is the architecture behind the motion, not a fixed list of channels every client must run.</p>
       </div>
-    </div>
+    </section>
 
-    <div class="pain-stack">
+    <section class="section home-services" id="services">
       <div class="container">
-        <PainBlock
-          eyebrow="Inbound Alone is Slow"
-          headline="Put your outreach on autopilot"
-          lead="Outreach that books, because it triggers on real intent."
-          bullets={[
-            "Research any prospect in seconds instead of doing it manually",
-            "Personalised messages that sound like you wrote them 1:1 - at a 1:1000 scale",
-            "Deploy AI Agents that find high-intent leads, personalise the message and fill your calendar with qualified meetings.",
-          ]}
-        >
-          <BeforeAfterEmail />
-        </PainBlock>
+        <div class="home-heading">
+          <span class="eyebrow">Three connected services</span>
+          <h2>Build the motion you need. <span class="italic-accent">Make each part strengthen the next.</span></h2>
+          <p class="lead">We can begin with one part of the system and expand it as the evidence comes in. You do not need to buy every channel at once.</p>
+        </div>
+
+        <article class="home-service">
+          <div class="home-service-copy">
+            <span class="eyebrow">01 / LinkedIn thought leadership</span>
+            <h3>Be the company buyers <span class="italic-accent">already trust.</span></h3>
+            <p>Turn a founder's or executive's real perspective into content that makes the company easier to recognize, understand, and trust. Then identify which relevant accounts are engaging and give sales a way to act.</p>
+            <ul><li>Research, interviews, writing, and design</li><li>Content and lead magnets built around real buyer problems</li><li>Qualified engagement connected to the CRM</li></ul>
+            <p class="home-proof"><strong>In practice:</strong> Ekipa's co-CEO said a LinkedIn post we helped create led Caritas to hire them for a pilot. <a href="/customer-results/ekipa">Read the story →</a></p>
+            <a href="/linkedin-thoughtleadership" class="home-service-link">Explore LinkedIn thought leadership <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="home-visual" role="img" aria-label="Thought leadership content earns attention, relevant accounts engage, and qualified signals reach sales">
+            <span class="home-visual-kicker">TRUST LAYER</span>
+            <div class="home-post"><span class="home-avatar">LH</span><div><strong>A useful point of view</strong><small>Built from founder interviews and market insight</small></div><span class="home-social">in</span></div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-signal"><span class="home-pulse"></span> Relevant accounts engage</div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-result"><strong>Sales sees the context</strong><small>Fit + engagement + a reason to talk</small></div>
+          </div>
+        </article>
+
+        <article class="home-service home-service-reverse">
+          <div class="home-service-copy">
+            <span class="eyebrow">02 / Signal-based outbound</span>
+            <h3>Reach the right people <span class="italic-accent">at the right time.</span></h3>
+            <p>Build coverage around a defined market, then act when a signal or account insight creates a credible reason to start a conversation. Content engagement is one signal among many, not a requirement.</p>
+            <ul><li>Account and buyer qualification</li><li>Market, website, content, and CRM signals</li><li>Relevant email, LinkedIn, and call plays with clean handoffs</li></ul>
+            <p class="home-proof"><strong>In practice:</strong> Blueprint's broader outbound motion generated 30-40 qualified meetings a month. Its existing brand helped make conversations warmer. <a href="/customer-results/blueprint">Read the story →</a></p>
+            <a href="/signal-based-outbound" class="home-service-link">Explore signal-based outbound <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="home-visual" role="img" aria-label="Website, hiring, CRM, and content signals are checked against account fit before relevant outreach reaches sales">
+            <span class="home-visual-kicker">ACTIVATION LAYER</span>
+            <div class="home-signal-grid"><span>Website visit</span><span>Hiring change</span><span>CRM activity</span><span>Content engagement</span></div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-score"><strong>Fit + timing + context</strong><span>QUALIFIED</span></div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-result"><strong>A relevant first message</strong><small>One reason to reach out. One useful next step.</small></div>
+          </div>
+        </article>
+
+        <article class="home-service">
+          <div class="home-service-copy">
+            <span class="eyebrow">03 / AI Revenue Operations</span>
+            <h3>Grow revenue <span class="italic-accent">without adding headcount.</span></h3>
+            <p>Connect the tools, data, and decisions behind the entire journey. Clean records, scoring, routing, and automation let a lean team spend less time moving data and more time with the right buyers.</p>
+            <ul><li>One connected GTM stack and CRM</li><li>Lead sourcing, enrichment, scoring, and routing</li><li>AI workflows and reporting tied to sales outcomes</li></ul>
+            <p class="home-proof"><strong>In practice:</strong> For Emporix, a lead handoff that took roughly three minutes and 50 clicks fell to under four seconds after automation. <a href="/resources/gtm-audit">See the audit →</a></p>
+            <a href="/ai-revenue-operations" class="home-service-link">Explore AI Revenue Operations <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="home-visual" role="img" aria-label="Signals and data from GTM tools pass through qualification and routing into CRM records and sales action">
+            <span class="home-visual-kicker">OPERATING LAYER</span>
+            <div class="home-ops-sources"><span>Content</span><span>Outbound</span><span>Website</span><span>CRM</span></div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-ops-core"><strong>One connected system</strong><small>Clean · enrich · score · route · automate</small></div>
+            <div class="home-visual-arrow">↓</div>
+            <div class="home-result"><strong>Sales action + CRM feedback</strong><small>Every useful signal has an owner and outcome</small></div>
+          </div>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 05 FAQ -->
-  <FAQ />
+    <section class="section home-delivery texture-hybrid" id="how-we-work">
+      <div class="container home-delivery-grid">
+        <div>
+          <span class="eyebrow">How we work</span>
+          <h2>Start with one working motion. <span class="italic-accent">Expand what earns its place.</span></h2>
+          <p class="lead">We identify the most useful place to begin, build it inside your GTM system, and validate it against real buyer response. Then we improve that motion and add the next connected part, whether that is content, another market, better routing, or cleaner CRM data.</p>
+          <a href="/resources/gtm-audit" class="home-service-link">Explore the Allbound Audit <span aria-hidden="true">→</span></a>
+        </div>
+        <aside class="home-founder-card">
+          <img src="/team/lanny.png" alt="Lanny Heiz" loading="lazy" />
+          <div><span class="home-card-index">DIRECT FOUNDER INVOLVEMENT</span><h3>The people shaping the strategy stay in the work.</h3><p>You work directly with Lanny on the priorities and decisions while our team builds and runs the system with you.</p></div>
+        </aside>
+      </div>
+    </section>
 
-  <!-- 06 Final CTA -->
-  <FinalCTA />
+    <FAQ headline="Questions before we build." questions={questions} />
+    <FinalCTA headline="Build an Allbound engine that" accent="turns context into pipeline." lead="Book a GTM session. We'll review your current motion, identify the strongest place to start, and show you how the parts can work together." submitLabel="Book a GTM session" />
+  </main>
 </BaseLayout>
+
+<style>
+  :global(.home-page > .hero) { padding-block: 88px 72px; }
+  :global(.home-page .video-testimonials-section), :global(.home-page .faq-section) { padding-block: 72px; }
+  .home-page .section { padding-block: 72px; }
+  .home-heading { max-width: 840px; margin-bottom: 34px; }
+  .home-heading h2, .home-delivery h2 { margin: 12px 0 16px; font-size: clamp(2.25rem, 4vw, 3.25rem); text-wrap: balance; }
+  .home-heading .lead { max-width: 68ch; }
+  .home-problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .home-problem-grid article { min-height: 245px; padding: 25px; background: var(--color-surface); border: 1px solid var(--color-border); border-top: 2px solid var(--color-accent); border-radius: 12px; }
+  .home-card-index, .home-visual-kicker { font: 500 11px var(--font-mono); color: var(--color-accent); letter-spacing: .1em; }
+  .home-problem-grid h3 { font-size: 22px; margin: 18px 0 12px; }
+  .home-problem-grid p { font-size: 15px; line-height: 1.55; }
+  .home-problem-answer { display: flex; align-items: center; gap: 16px; margin-top: 12px; padding: 20px 24px; background: #17251d; border: 1px solid #355343; border-radius: 12px; }
+  .home-problem-answer p { max-width: none; color: #c4e4d1; }
+  .home-problem-answer strong { color: #e0f1e6; }
+  .home-answer-mark { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--color-positive); color: white; font-weight: 700; }
+  .home-system-note { margin-top: 14px; color: var(--color-muted); font-size: 13px; text-align: center; max-width: none; }
+  .home-service { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 56px; padding-block: 48px; border-top: 1px solid var(--color-border); }
+  .home-service:first-of-type { border-top: 0; padding-top: 0; }
+  .home-service:last-child { padding-bottom: 0; }
+  .home-service-reverse .home-service-copy { order: 2; }
+  .home-service-reverse .home-visual { order: 1; }
+  .home-service-copy h3 { font-size: clamp(2.1rem, 3.5vw, 2.9rem); margin: 12px 0 16px; text-wrap: balance; }
+  .home-service-copy > p { font-size: 18px; line-height: 1.5; }
+  .home-service-copy ul { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 8px; }
+  .home-service-copy li { position: relative; padding-left: 20px; color: var(--color-body); }
+  .home-service-copy li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+  .home-service-copy .home-proof { padding: 12px 0 12px 16px; margin: 0 0 20px; border-left: 2px solid var(--color-positive); color: var(--color-body); font-size: 14px; line-height: 1.45; }
+  .home-proof strong { color: var(--color-heading); }
+  .home-proof a { color: #85cda3; text-underline-offset: 3px; }
+  .home-service-link { display: inline-flex; align-items: center; gap: 8px; color: var(--color-heading); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--color-accent); padding-bottom: 4px; }
+  .home-service-link:hover, .home-service-link:focus-visible { color: var(--color-accent); }
+  .home-visual { min-height: 330px; padding: 28px; display: flex; flex-direction: column; justify-content: center; align-items: stretch; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 18px; box-shadow: var(--shadow-md); }
+  .home-visual-kicker { margin-bottom: 25px; }
+  .home-post, .home-result, .home-signal, .home-score, .home-ops-core { border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface-raised); padding: 14px; }
+  .home-post { display: flex; align-items: center; gap: 12px; }
+  .home-post div, .home-result { display: flex; flex-direction: column; }
+  .home-post strong, .home-result strong, .home-score strong, .home-ops-core strong { color: var(--color-heading); line-height: 1.25; }
+  .home-post small, .home-result small, .home-ops-core small { color: var(--color-body); font-size: 12px; }
+  .home-avatar { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 50%; background: var(--color-accent); color: white; font: 600 12px var(--font-mono); }
+  .home-social { margin-left: auto; align-self: flex-start; color: #78b5ef; font-weight: 700; }
+  .home-visual-arrow { text-align: center; color: var(--color-positive); font-size: 22px; line-height: 30px; }
+  .home-signal { display: flex; align-items: center; gap: 10px; color: var(--color-heading); }
+  .home-pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--color-positive); box-shadow: 0 0 12px var(--color-positive); }
+  .home-result { border-color: #355343; background: #17251d; }
+  .home-signal-grid, .home-ops-sources { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .home-signal-grid span, .home-ops-sources span { padding: 9px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface-raised); color: var(--color-heading); font-size: 13px; }
+  .home-score { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-color: var(--color-accent); }
+  .home-score span { color: #85cda3; font: 500 10px var(--font-mono); }
+  .home-ops-sources { grid-template-columns: repeat(4, 1fr); }
+  .home-ops-sources span { text-align: center; padding-inline: 3px; }
+  .home-ops-core { display: flex; flex-direction: column; text-align: center; border-color: var(--color-accent); background: #261b24; }
+  .home-delivery-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
+  .home-delivery .lead { margin-bottom: 24px; }
+  .home-founder-card { display: flex; gap: 18px; padding: 22px; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-surface); }
+  .home-founder-card img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
+  .home-founder-card h3 { font-size: 23px; margin: 10px 0; }
+  .home-founder-card p { font-size: 15px; }
+  @media (max-width: 800px) {
+    :global(.home-page > .hero) { padding-block: 72px 56px; }
+    :global(.home-page .video-testimonials-section), :global(.home-page .faq-section) { padding-block: 56px; }
+    .home-page .section { padding-block: 56px; }
+    .home-problem-grid, .home-service, .home-delivery-grid { grid-template-columns: 1fr; }
+    .home-problem-grid article { min-height: 0; }
+    .home-service { gap: 24px; padding-block: 42px; }
+    .home-service-reverse .home-service-copy, .home-service-reverse .home-visual { order: initial; }
+  }
+  @media (max-width: 480px) {
+    .home-problem-grid article, .home-visual { padding: 20px; }
+    .home-founder-card { flex-direction: column; }
+    .home-ops-sources { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

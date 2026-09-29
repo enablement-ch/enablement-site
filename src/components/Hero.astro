@@ -7,23 +7,23 @@ interface Props {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
-  /** Rotating phrases after "Turn your tools into". First entry is the static fallback. */
+  /** Full rotating headlines. First entry is the static and reduced-motion fallback. */
   rotatingWords?: string[];
   /** Vimeo URL (any format) for the hero VSL. Loaded on click. */
   vimeoUrl?: string;
 }
 
 const {
-  eyebrow = "GTM Engineering for B2B tech companies above $1m ARR",
+  eyebrow = "GTM Engineering for B2B tech companies with proven product-market fit",
   primaryHref = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting",
   primaryLabel = "Schedule meeting",
   secondaryHref = "/customer-results",
   secondaryLabel = "See client work",
   rotatingWords = [
-    "a GTM System",
-    "an Allbound Engine",
-    "Pipeline",
-    "Revenue Growth",
+    "Build and design your Allbound engine.",
+    "Be the company buyers already trust.",
+    "Reach the right people at the right time.",
+    "Grow revenue without adding headcount.",
   ],
   vimeoUrl = "https://vimeo.com/1054121771/bbe92f66a3",
 } = Astro.props;
@@ -57,12 +57,8 @@ if (vimeoUrl) {
       <span class="eyebrow"
         >{eyebrow}</span
       >
-      <h1 class="display">
-        Turn your tools into<br />
-        <span
-          class="italic-accent rotating-word"
-          data-words={JSON.stringify(rotatingWords)}>{rotatingWords[0]}</span
-        >
+      <h1 class="display home-display">
+        <span class="rotating-word" data-words={JSON.stringify(rotatingWords)}>{rotatingWords[0]}</span>
       </h1>
       <p class="lead hero-lead">
         Your fractional GTM engineering team. We turn your tools into outbound,
@@ -132,3 +128,20 @@ if (vimeoUrl) {
     });
   })();
 </script>
+
+<style>
+  .home-display {
+    max-width: 19ch;
+    min-height: 2.1em;
+    text-wrap: balance;
+  }
+  .home-display .rotating-word {
+    display: block;
+    color: var(--color-accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+  @media (max-width: 640px) {
+    .home-display { min-height: 3.15em; }
+  }
+</style>
