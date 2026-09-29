@@ -4,12 +4,14 @@ Marketing site for Enablement.ch. Astro + Vercel. Deploys on every push to `main
 
 **Design system:** https://github.com/MarcusAurelian/enablement-design-system
 
+**Current website decisions and handoff:** [WEBSITE_STATE.md](WEBSITE_STATE.md)
+
 ## Stack
 
 - [Astro](https://astro.build) — static site, components, markdown content collections
 - Sofia Sans (Google Fonts) + JetBrains Mono
-- Crimson `#E11E48` accent on cool off-white canvas
-- Light + dark mode via semantic CSS custom properties
+- Crimson `#E11E48` accent on a dark canvas
+- Dark mode only, using semantic CSS custom properties
 
 ## Structure
 
