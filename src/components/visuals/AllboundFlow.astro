@@ -1,15 +1,14 @@
 ---
 const sources = [
   { label: "Outbound", detail: "Email · LinkedIn · calls" },
-  { label: "Content", detail: "Founder and team voices" },
+  { label: "Content", detail: "Company and team voices" },
   { label: "Ads", detail: "Reach and retargeting" },
-  { label: "Market signals", detail: "Hiring · events · changes" },
 ];
 
-const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "Replies and CRM activity"];
+const inputs = ["Website visits", "Content and ad engagement", "Lead magnet requests", "Outreach replies"];
 ---
 
-<div class="allbound-flow" role="img" aria-label="Allbound architecture: outbound, content, ads, and market signals create activity; lead magnets and observed signals are qualified by account and contact fit; relevant outreach leads to sales conversations and opportunities; CRM outcomes feed back into the system.">
+<div class="allbound-flow" role="img" aria-label="Allbound architecture: outbound, content, and ads create reach, traffic, and responses. The resulting signals and responses are qualified by account and contact fit, then routed to sales for conversations and opportunities. CRM outcomes feed back into the system.">
   <div class="flow-label"><span class="flow-dot"></span> ALLBOUND / ONE CONNECTED SYSTEM</div>
   <div class="flow-sources">
     {sources.map((source) => (
@@ -24,7 +23,7 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "
     <div>
       <span class="flow-stage">01 / CAPTURE</span>
       <h3>Signals and responses</h3>
-      <p>Activity across channels becomes usable account context.</p>
+      <p>Reach and traffic from these motions become signals and responses.</p>
     </div>
     <div class="flow-inputs">
       {inputs.map((input) => <span>{input}</span>)}
@@ -34,12 +33,12 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "
   <div class="flow-qualify">
     <span class="flow-stage">02 / QUALIFY</span>
     <h3>Who is worth talking to?</h3>
-    <p>Check account fit, contact fit, signal strength and context before choosing a next step.</p>
+    <p>Check account fit, contact fit, signal strength and context before routing to sales.</p>
   </div>
   <div class="flow-connector" aria-hidden="true"><b>↓</b></div>
   <div class="flow-outcomes">
-    <div><span class="flow-stage">03 / ACT</span><strong>Relevant next touch</strong><small>Email · LinkedIn · calls · nurture</small></div>
-    <div><span class="flow-stage">04 / CONVERT</span><strong>Sales conversation</strong><small>The right rep gets the full context</small></div>
+    <div><span class="flow-stage">03 / ROUTE</span><strong>Qualified lead to sales</strong><small>The right owner gets the full context</small></div>
+    <div><span class="flow-stage">04 / ENGAGE</span><strong>Sales conversation</strong><small>Relevant follow-up at the right time</small></div>
     <div><span class="flow-stage">05 / LEARN</span><strong>Opportunity and revenue</strong><small>Outcomes improve the next play</small></div>
   </div>
   <div class="flow-ops"><span>AI REVENUE OPERATIONS</span><strong>Clean data · scoring · routing · automation · CRM attribution</strong></div>
@@ -51,7 +50,7 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "
   .flow-label, .flow-stage, .flow-ops span { font: 500 11px var(--font-mono); letter-spacing: .11em; color: var(--color-accent); }
   .flow-label { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
   .flow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 16px var(--color-accent); }
-  .flow-sources { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .flow-sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .flow-source, .flow-capture, .flow-qualify, .flow-outcomes > div { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; }
   .flow-source { min-height: 105px; padding: 16px; display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--color-accent); }
   .flow-source strong { font-size: 18px; line-height: 1.2; }
@@ -73,7 +72,7 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnets", "
   .flow-ops strong { font-size: 13px; font-weight: 500; color: #c4e4d1; }
   .flow-feedback { margin-top: 14px; font: 500 12px var(--font-mono); color: #85cda3; text-align: center; }
   @media (max-width: 700px) {
-    .flow-sources { grid-template-columns: repeat(2, 1fr); }
+    .flow-sources { grid-template-columns: 1fr; }
     .flow-source { min-height: 88px; }
     .flow-capture { grid-template-columns: 1fr; }
     .flow-outcomes { grid-template-columns: 1fr; }
