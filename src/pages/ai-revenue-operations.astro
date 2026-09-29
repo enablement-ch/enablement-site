@@ -1,0 +1,392 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
+
+const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+
+const problems = [
+  {
+    number: "01",
+    title: "Enterprise tools. Spreadsheet handoffs.",
+    body: "You pay for Clay, a CRM, and sales tools. Reps still export lists, copy data between systems, and repair records by hand because nobody connected the workflow.",
+    outcome: "Make the tools work as one system.",
+  },
+  {
+    number: "02",
+    title: "More pipeline means more admin and more hires.",
+    body: "Research, qualification, meeting prep, follow-up, and CRM updates consume time your best salespeople should spend with buyers.",
+    outcome: "Give sellers more capacity without adding manual work.",
+  },
+  {
+    number: "03",
+    title: "Your CRM gets less reliable every month.",
+    body: "People change roles, duplicates multiply, and lifecycle stages drift. Scoring, routing, and automations then make decisions from stale or incomplete data.",
+    outcome: "Keep buyer records accurate enough to act on.",
+  },
+  {
+    number: "04",
+    title: "The dashboard counts activity. It cannot explain revenue.",
+    body: "Marketing, outbound, and sales report different numbers. Leadership sees meetings and pipeline, but cannot tell which motion created the opportunity or where it stalled.",
+    outcome: "See what produces pipeline and what needs fixing.",
+  },
+];
+
+const system = [
+  { number: "01", label: "Source", detail: "Accounts, leads, and buying signals" },
+  { number: "02", label: "Qualify", detail: "Enrich, clean, and score for fit" },
+  { number: "03", label: "Route", detail: "Send the right lead to the right owner" },
+  { number: "04", label: "Support sales", detail: "Context, tasks, and follow-up" },
+  { number: "05", label: "Learn", detail: "Attribution and funnel reporting" },
+];
+
+const capabilities = [
+  {
+    number: "01",
+    title: "Stack architecture",
+    body: "Choose the tools you actually need and connect your CRM, data sources, outreach, and reporting around one sales process.",
+    result: "Fewer gaps between systems",
+  },
+  {
+    number: "02",
+    title: "Lead sourcing and enrichment",
+    body: "Build repeatable ways to find relevant accounts, add missing data, and update records as companies and people change.",
+    result: "Better data with less research",
+  },
+  {
+    number: "03",
+    title: "Scoring and routing",
+    body: "Combine account fit and useful signals, prioritize the leads worth acting on, and assign each one a clear next step and owner.",
+    result: "Fast, consistent handoffs",
+  },
+  {
+    number: "04",
+    title: "Sales support and AI agents",
+    body: "Automate repetitive research, context gathering, task creation, and follow-up preparation. Keep people in control of customer-facing decisions.",
+    result: "More selling time per rep",
+  },
+  {
+    number: "05",
+    title: "CRM automation and data cleaning",
+    body: "Fix lifecycle stages, deduplicate records, validate important fields, and keep the workflows that move data between tools running.",
+    result: "A CRM the team can trust",
+  },
+  {
+    number: "06",
+    title: "Reporting and attribution",
+    body: "Connect sources, activity, opportunities, and revenue so the team can see conversion by stage and invest in what works.",
+    result: "Decisions based on the full funnel",
+  },
+];
+
+const questions = [
+  {
+    q: "Do we need to replace our CRM or buy more tools?",
+    a: "Usually the first job is making the existing stack work together. We review your sales process, data, and current tools before recommending any change. If a tool is unnecessary or a connection is broken, you should know why before spending more.",
+  },
+  {
+    q: "What do the AI agents actually do?",
+    a: "We use task-specific automation for work such as research, enrichment, classification, meeting context, and preparing the next action. The workflow determines what an agent can read or change. People stay involved when a decision affects a customer or a sensitive CRM record.",
+  },
+  {
+    q: "Can you clean up an existing CRM?",
+    a: "Yes. We can identify duplicates and stale records, align lifecycle stages and properties to your sales process, and put validation and maintenance workflows in place so the data stays useful.",
+  },
+  {
+    q: "How does the subscription work?",
+    a: "We map the system, prioritize the bottlenecks with the greatest commercial cost, and work through the build and ongoing operation with your team. The priorities evolve as the tools, data, and sales process change. We discuss the scope and working rhythm for your situation in the first conversation.",
+  },
+  {
+    q: "How does this connect to your other services?",
+    a: "LinkedIn thought leadership can create engagement signals. Signal-based outbound can act on qualified accounts. AI Revenue Operations connects the data, scoring, routing, sales workflows, and reporting behind those motions, and can also improve an existing inbound or sales-led process.",
+  },
+];
+---
+
+<BaseLayout
+  title="AI Revenue Operations for B2B Teams | Enablement.ch"
+  description="Grow revenue without adding headcount. Connect your GTM tools, automate manual handoffs, keep CRM data clean, and give sales reliable next actions."
+>
+  <main class="revops-service">
+    <header class="hero texture-grid">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">AI Revenue Operations</span>
+          <h1>Grow revenue <span class="italic-accent">without adding headcount.</span></h1>
+          <p class="lead">We connect your revenue tools, automate the handoffs that slow sales down, and turn scattered data into clear next actions. Your existing team can handle more opportunity without carrying more admin.</p>
+          <div class="hero-actions">
+            <a href={meetingUrl} class="btn btn-accent btn-md">Fix my revenue system</a>
+            <a href="#system" class="text-link">See the system <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="fit-note">For B2B teams whose tools, data, and people are working harder than the revenue system around them.</p>
+        </div>
+        <div class="hero-panel" aria-label="Illustrative connected revenue operations system">
+          <div class="panel-header"><span>REVENUE SYSTEM</span><span class="panel-status"><i aria-hidden="true"></i> CONNECTED</span></div>
+          <div class="panel-inputs"><span>Website and content</span><span>Outbound and events</span><span>CRM and product data</span></div>
+          <div class="panel-flow" aria-hidden="true">↓</div>
+          <div class="panel-engine"><span class="engine-mark" aria-hidden="true">↳</span><div><strong>One operating layer</strong><small>Clean data · score · route · automate</small></div></div>
+          <div class="panel-flow" aria-hidden="true">↓</div>
+          <div class="panel-outputs"><div><span class="output-dot" aria-hidden="true"></span><strong>Sales knows what to do next</strong></div><div><span class="output-dot" aria-hidden="true"></span><strong>Leadership sees what creates revenue</strong></div></div>
+        </div>
+      </div>
+    </header>
+
+    <MarqueeLogoWall />
+
+    <section class="section problems-section" id="problems">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The problem behind the tools</span>
+          <h2>Your revenue stack should create <span class="italic-accent">capacity.</span></h2>
+          <p class="lead">When the system is disconnected, buying more software and hiring more people can make the same bottlenecks more expensive.</p>
+        </div>
+        <div class="problem-grid">
+          {problems.map((problem) => (
+            <article class="problem-card">
+              <span class="item-number">{problem.number}</span>
+              <h3>{problem.title}</h3>
+              <p>{problem.body}</p>
+              <div class="problem-outcome"><span aria-hidden="true">●</span>{problem.outcome}</div>
+            </article>
+          ))}
+        </div>
+        <a href="/resources/gtm-audit" class="text-link section-link">Explore the GTM Audit <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section system-section texture-glow" id="system">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The connected system</span>
+          <h2>From the first signal to a <span class="italic-accent">revenue decision.</span></h2>
+          <p class="lead">Every stage should pass useful data and context to the next. We design the full path, then keep it working as your GTM motion changes.</p>
+        </div>
+        <div class="system-track">
+          {system.map((item) => (
+            <div class="system-stage"><span class="stage-number">{item.number}</span><strong>{item.label}</strong><p>{item.detail}</p></div>
+          ))}
+        </div>
+        <div class="foundation"><span class="foundation-label">THE FOUNDATION</span><p>Right-sized tools <span aria-hidden="true">·</span> connected data <span aria-hidden="true">·</span> clean CRM <span aria-hidden="true">·</span> accountable owners</p></div>
+      </div>
+    </section>
+
+    <section class="section capability-section" id="what-we-build">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">What we build and operate</span>
+          <h2>The work between your tools is where <span class="italic-accent">the leverage lives.</span></h2>
+          <p class="lead">Each part has a job: remove manual work, help sales act on the right opportunity, or make the revenue picture more reliable.</p>
+        </div>
+        <div class="capability-grid">
+          {capabilities.map((item) => (
+            <article class="capability-card"><span class="item-number">{item.number}</span><h3>{item.title}</h3><p>{item.body}</p><div class="capability-result"><span aria-hidden="true">↳</span>{item.result}</div></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section example-section texture-hybrid" id="example">
+      <div class="container example-grid">
+        <div class="example-copy">
+          <span class="eyebrow">What changes in practice</span>
+          <h2>One lead. No lost context. <span class="italic-accent">One clear next step.</span></h2>
+          <p class="lead">A buyer raises their hand. The system checks fit, fills the gaps in the record, and puts the opportunity in front of the right person with a reason to act.</p>
+          <p>Sales spends its time on the conversation. The CRM keeps the history. Reporting shows what happened after the handoff.</p>
+        </div>
+        <div class="journey" aria-label="Illustrative lead workflow from signal to sales and reporting">
+          <div class="journey-top"><span>ILLUSTRATIVE WORKFLOW</span><span>01 → 04</span></div>
+          <div class="journey-step"><span>01</span><div><strong>A relevant signal appears</strong><p>A target account engages with a page, form, event, or campaign.</p></div></div>
+          <div class="journey-step"><span>02</span><div><strong>The record gets checked</strong><p>Data is enriched, duplicates are suppressed, and the account is scored.</p></div></div>
+          <div class="journey-step"><span>03</span><div><strong>Sales gets an action</strong><p>The right owner receives the buyer context, priority, and next step.</p></div></div>
+          <div class="journey-step"><span>04</span><div><strong>The outcome feeds the system</strong><p>Activity, opportunity, and source stay connected in the CRM.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section proof-section" id="customer-proof">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Customer proof</span>
+          <h2>Less manual work. Better decisions. <span class="italic-accent">More useful pipeline.</span></h2>
+          <p class="lead">These results come from connected GTM engagements with different scopes. Each card names the system behind the outcome.</p>
+        </div>
+        <div class="proof-grid">
+          <article class="proof-card">
+            <img src="/logos/ohalo-white.png" alt="Ohalo" loading="lazy" />
+            <span class="proof-type">Multi-signal ABM scoring and outreach</span>
+            <h3>Up to $200K in monthly enterprise pipeline.</h3>
+            <p>Ohalo used a ranked account system that combined buying signals with fit to focus outreach on the right enterprise opportunities.</p>
+            <span class="proof-note">Monthly pipeline from the broader ABM motion; not closed revenue.</span>
+          </article>
+          <article class="proof-card">
+            <span class="proof-wordmark">EMPORIX</span>
+            <span class="proof-type">Connected data and CRM workflow</span>
+            <h3>Fifty clicks per lead became an automated handoff.</h3>
+            <p>After connecting research, enrichment, scoring, and HubSpot, processing a lead went from roughly three minutes to under four seconds.</p>
+            <a href="/resources/gtm-audit" class="text-link">See the GTM Audit <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="proof-card">
+            <img src="/logos/bound-white.avif" alt="Bound" loading="lazy" />
+            <span class="proof-type">Outbound engine and HubSpot reporting</span>
+            <h3>A seven-figure pipeline doubled in 90 days.</h3>
+            <p>Bound replaced manual list building and unclear reporting with connected enrichment, campaign execution, and HubSpot visibility.</p>
+            <a href="/customer-results/bound" class="text-link">Read the Bound story <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="proof-card">
+            <img src="/logos/lipdub-white.avif" alt="Lipdub.ai" loading="lazy" />
+            <span class="proof-type">GTM testing and CRM attribution</span>
+            <h3>599 deals visible in HubSpot.</h3>
+            <p>Lipdub.ai connected campaign activity to signups and opportunities, giving the team a clearer view of what its broader GTM motion produced.</p>
+            <a href="/customer-results/lipdub" class="text-link">Read the Lipdub.ai story <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subscription-section texture-glow" id="engagement">
+      <div class="container subscription-grid">
+        <div>
+          <span class="eyebrow">The engagement</span>
+          <h2>Your ongoing <span class="italic-accent">RevOps team.</span></h2>
+          <p class="lead">AI Revenue Operations is a subscription for building, running, and improving the system behind your revenue team. We start with the bottleneck costing you the most, then keep the stack, workflows, and reporting useful as your business changes.</p>
+          <a href={meetingUrl} class="btn btn-accent btn-md">Talk through your revenue system</a>
+        </div>
+        <div class="subscription-steps">
+          <div><span>01</span><strong>Find the bottleneck</strong><p>Map the journey from lead to revenue and prioritize the work that matters.</p></div>
+          <div><span>02</span><strong>Build and connect</strong><p>Fix the data, integrations, automation, and handoffs inside your stack.</p></div>
+          <div><span>03</span><strong>Operate and improve</strong><p>Monitor the system, maintain data quality, and adjust as the motion evolves.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="questions">
+      <div class="container faq-grid">
+        <div class="faq-intro"><span class="eyebrow">Before we start</span><h2>Common questions.</h2><p>Need to find the bottleneck first? Start with the <a href="/resources/gtm-audit">Allbound Audit</a>.</p></div>
+        <div class="faq-list">
+          {questions.map((item) => (
+            <details class="faq-item"><summary>{item.q}<span aria-hidden="true">+</span></summary><p>{item.a}</p></details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-section texture-hybrid">
+      <div class="container final-inner">
+        <span class="eyebrow">Give the team capacity to grow</span>
+        <h2>Make the system do the work <span class="italic-accent">between the conversations.</span></h2>
+        <p class="lead">Book a GTM session. We will look at your tools, data, and sales handoffs, then identify the first fix worth making.</p>
+        <a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(.revops-service section.section) { padding-block: 72px; }
+  :global(.revops-service .eyebrow) { color: var(--color-accent); }
+  .hero { --texture-base: var(--color-canvas); padding: 72px 0 64px; border-bottom: 1px solid var(--color-border); }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: var(--space-7); }
+  .hero h1 { max-width: 760px; margin-top: var(--space-4); font-size: clamp(2.7rem, 5vw, 4.6rem); }
+  .hero .lead { max-width: 670px; margin-top: var(--space-5); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-5); margin-top: var(--space-6); }
+  .fit-note { max-width: 620px; margin-top: var(--space-5); color: var(--color-body); font-size: .92rem; }
+  .text-link { display: inline-flex; align-items: center; gap: var(--space-2); width: fit-content; color: var(--color-accent); font-weight: 700; text-decoration: none; }
+  .text-link:hover { color: var(--color-accent-hover); text-decoration: underline; text-underline-offset: 4px; }
+  .hero-panel { padding: var(--space-5); border: 1px solid var(--color-border-strong); border-top: 3px solid var(--color-accent); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-md); }
+  .panel-header, .journey-top { display: flex; justify-content: space-between; gap: var(--space-2); color: var(--color-accent); font: 700 .69rem var(--font-mono); letter-spacing: .07em; }
+  .panel-status { display: inline-flex; align-items: center; gap: 7px; color: var(--color-positive); }
+  .panel-status i { width: 6px; height: 6px; border-radius: 50%; background: var(--color-positive); }
+  .panel-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); margin-top: var(--space-5); }
+  .panel-inputs span { display: grid; min-height: 62px; place-items: center; padding: var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface-raised); color: var(--color-heading); text-align: center; font-size: .75rem; line-height: 1.3; }
+  .panel-flow { color: var(--color-positive); text-align: center; font-size: 1.3rem; line-height: 1.5; }
+  .panel-engine { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-accent); border-radius: var(--radius-sm); background: var(--color-canvas); }
+  .engine-mark { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: var(--color-accent); color: #fff; font-size: 1.3rem; }
+  .panel-engine strong, .panel-engine small { display: block; }
+  .panel-engine strong { color: var(--color-heading); }
+  .panel-engine small { color: var(--color-body); font-size: .78rem; }
+  .panel-outputs { display: grid; gap: var(--space-2); }
+  .panel-outputs div { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface-raised); color: var(--color-heading); font-size: .84rem; }
+  .output-dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-positive); }
+  .section-heading { max-width: 850px; margin-bottom: var(--space-6); }
+  .section-heading h2, .example-copy h2, .subscription-grid h2, .faq-intro h2 { margin-top: var(--space-3); font-size: clamp(2.05rem, 4vw, 3.1rem); }
+  .section-heading .lead, .example-copy .lead, .subscription-grid .lead { margin-top: var(--space-3); }
+  .problems-section, .capability-section, .proof-section, .faq-section { background: var(--color-canvas); }
+  .problem-grid, .capability-grid, .proof-grid { display: grid; gap: var(--space-4); }
+  .problem-grid, .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .problem-card, .capability-card, .proof-card { display: flex; flex-direction: column; padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+  .problem-card { border-top: 2px solid var(--color-accent); }
+  .item-number, .proof-type { color: var(--color-accent); font: 700 .72rem var(--font-mono); letter-spacing: .07em; text-transform: uppercase; }
+  .problem-card h3, .capability-card h3, .proof-card h3 { margin-top: var(--space-4); font-size: 1.45rem; line-height: 1.18; }
+  .problem-card p, .capability-card p, .proof-card p { margin-top: var(--space-3); }
+  .problem-outcome, .capability-result { display: flex; align-items: baseline; gap: var(--space-2); margin-top: auto; padding-top: var(--space-4); color: var(--color-heading); font-weight: 700; }
+  .problem-outcome span, .capability-result span { color: var(--color-accent); }
+  .problem-outcome span { font-size: .7rem; }
+  .section-link { margin-top: var(--space-5); }
+  .system-section, .subscription-section { --texture-base: var(--color-surface); }
+  .system-track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2); }
+  .system-stage { position: relative; min-height: 168px; padding: var(--space-4); border: 1px solid var(--color-border); border-top: 2px solid var(--color-accent); border-radius: var(--radius-sm); background: var(--color-canvas); }
+  .system-stage:not(:last-child)::after { content: "→"; position: absolute; top: 12px; right: -16px; z-index: 1; color: var(--color-positive); font-weight: 700; }
+  .stage-number { display: block; margin-bottom: var(--space-4); color: var(--color-accent); font: 700 .72rem var(--font-mono); }
+  .system-stage strong { display: block; color: var(--color-heading); font-size: 1.1rem; }
+  .system-stage p { margin-top: var(--space-2); font-size: .86rem; line-height: 1.4; }
+  .foundation { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-4); padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-canvas); }
+  .foundation-label { flex: 0 0 auto; color: var(--color-accent); font: 700 .69rem var(--font-mono); letter-spacing: .07em; }
+  .foundation p { color: var(--color-heading); font-weight: 700; }
+  .foundation p span { color: var(--color-positive); }
+  .capability-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .capability-card { border-top: 2px solid var(--color-accent); }
+  .capability-result { font-size: .9rem; }
+  .example-section { --texture-base: var(--color-surface); }
+  .example-grid { display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: var(--space-7); }
+  .example-copy p:not(.lead) { max-width: 570px; margin-top: var(--space-4); }
+  .journey { padding: var(--space-5); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-canvas); box-shadow: var(--shadow-md); }
+  .journey-top { padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
+  .journey-step { display: flex; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .journey-step:last-child { border-bottom: 0; padding-bottom: 0; }
+  .journey-step > span { display: grid; flex: 0 0 34px; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--color-accent); color: #fff; font: 700 .7rem var(--font-mono); }
+  .journey-step strong { color: var(--color-heading); }
+  .journey-step p { margin-top: 3px; font-size: .89rem; }
+  .proof-card img, .proof-wordmark { display: block; width: fit-content; max-width: 160px; height: 28px; margin-bottom: var(--space-5); object-fit: contain; object-position: left center; }
+  .proof-wordmark { color: var(--color-heading); font: 800 1.1rem var(--font-sans); letter-spacing: .11em; }
+  .proof-card h3 { min-height: 68px; }
+  .proof-card .text-link, .proof-note { margin-top: auto; padding-top: var(--space-5); }
+  .proof-note { display: block; color: var(--color-muted); font-size: .78rem; }
+  .subscription-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-7); }
+  .subscription-grid .btn { margin-top: var(--space-5); }
+  .subscription-steps { border-top: 1px solid var(--color-border); }
+  .subscription-steps div { display: grid; grid-template-columns: 36px 1fr; gap: 0 var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .subscription-steps span { grid-row: span 2; color: var(--color-accent); font: 700 .73rem var(--font-mono); }
+  .subscription-steps strong { color: var(--color-heading); font-size: 1.06rem; }
+  .subscription-steps p { margin-top: 3px; font-size: .91rem; }
+  .faq-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: var(--space-7); }
+  .faq-intro p { margin-top: var(--space-4); }
+  .faq-intro a { color: var(--color-accent); }
+  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-item:first-child { border-top: 1px solid var(--color-border); }
+  .faq-item summary { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; color: var(--color-heading); font-size: 1.05rem; font-weight: 700; cursor: pointer; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary span { color: var(--color-accent); font-size: 1.3rem; line-height: 1; }
+  .faq-item[open] summary span { transform: rotate(45deg); }
+  .faq-item p { padding-bottom: var(--space-4); }
+  .final-section { --texture-base: var(--color-surface); text-align: center; }
+  .final-inner { max-width: 880px; }
+  .final-inner h2 { margin-top: var(--space-3); font-size: clamp(2.2rem, 4.5vw, 3.5rem); }
+  .final-inner .lead { max-width: 670px; margin: var(--space-4) auto var(--space-5); }
+  @media (max-width: 1023px) {
+    .hero-grid, .example-grid, .subscription-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+    .hero-panel { max-width: 650px; }
+    .system-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .capability-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 700px) {
+    :global(.revops-service section.section) { padding-block: 56px; }
+    .hero { padding: 56px 0; }
+    .hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .problem-grid, .system-track, .capability-grid, .proof-grid, .faq-grid { grid-template-columns: 1fr; }
+    .system-stage { min-height: 0; }
+    .system-stage:not(:last-child)::after { top: auto; bottom: -21px; right: 50%; transform: rotate(90deg); }
+    .foundation { display: block; }
+    .foundation p { margin-top: var(--space-2); }
+    .proof-card h3 { min-height: 0; }
+    .panel-inputs span { font-size: .66rem; }
+  }
+</style>
