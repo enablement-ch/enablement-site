@@ -7,8 +7,8 @@ interface Props {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
-  /** Full rotating headlines. First entry is the static and reduced-motion fallback. */
-  rotatingWords?: string[];
+  /** Rotating headlines. The first entry is the static and reduced-motion fallback. */
+  rotatingHeadlines?: { lead: string; accent: string }[];
   /** Vimeo URL (any format) for the hero VSL. Loaded on click. */
   vimeoUrl?: string;
 }
@@ -19,11 +19,11 @@ const {
   primaryLabel = "Schedule meeting",
   secondaryHref = "/customer-results",
   secondaryLabel = "See client work",
-  rotatingWords = [
-    "Build and design your Allbound engine.",
-    "Be the company buyers already trust.",
-    "Reach the right people at the right time.",
-    "Grow revenue without adding headcount.",
+  rotatingHeadlines = [
+    { lead: "Build and design your", accent: "Allbound engine." },
+    { lead: "Be the company buyers", accent: "already trust." },
+    { lead: "Reach the right people", accent: "at the right time." },
+    { lead: "Grow revenue", accent: "without adding headcount." },
   ],
   vimeoUrl = "https://vimeo.com/1054121771/bbe92f66a3",
 } = Astro.props;
@@ -58,7 +58,7 @@ if (vimeoUrl) {
         >{eyebrow}</span
       >
       <h1 class="display home-display">
-        <span class="rotating-word" data-words={JSON.stringify(rotatingWords)}>{rotatingWords[0]}</span>
+        <span class="rotating-word" data-headlines={JSON.stringify(rotatingHeadlines)}><span class="headline-lead">{rotatingHeadlines[0].lead} </span><span class="headline-accent">{rotatingHeadlines[0].accent}</span></span>
       </h1>
       <p class="lead hero-lead">
         Your fractional GTM engineering team. We turn your tools into outbound,
@@ -109,19 +109,23 @@ if (vimeoUrl) {
     )
       return;
     document.querySelectorAll(".rotating-word").forEach((el) => {
-      let words = [];
+      let headlines = [];
       try {
-        words = JSON.parse(el.dataset.words || "[]");
+        headlines = JSON.parse(el.dataset.headlines || "[]");
       } catch (e) {
         return;
       }
-      if (!words || words.length <= 1) return;
+      if (!headlines || headlines.length <= 1) return;
+      const lead = el.querySelector(".headline-lead");
+      const accent = el.querySelector(".headline-accent");
+      if (!lead || !accent) return;
       let i = 0;
       setInterval(() => {
         el.classList.add("fading");
         setTimeout(() => {
-          i = (i + 1) % words.length;
-          el.textContent = words[i];
+          i = (i + 1) % headlines.length;
+          lead.textContent = headlines[i].lead + " ";
+          accent.textContent = headlines[i].accent;
           el.classList.remove("fading");
         }, 300);
       }, 3500);
@@ -137,6 +141,13 @@ if (vimeoUrl) {
   }
   .home-display .rotating-word {
     display: block;
+  }
+  .headline-lead {
+    color: var(--color-heading);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .headline-accent {
     color: var(--color-accent);
     font-style: italic;
     font-weight: 400;
