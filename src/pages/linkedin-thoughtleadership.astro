@@ -154,6 +154,7 @@ const questions = [
       <div class="scrolly-concept-mobile">
         <h3>Ideas that make your market <span class="italic-accent">pay attention.</span></h3>
         <p class="lead">These are real examples of reach and engagement from content systems we have built. Reach matters because buyers cannot trust a name they have never encountered.</p>
+        <a href={meetingUrl} class="btn btn-accent btn-md scrolly-cta">{ctaLabel}</a>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
@@ -161,6 +162,7 @@ const questions = [
             <h3>Ideas that make your market <span class="italic-accent">pay attention.</span></h3>
             <p class="lead">These are real examples of reach and engagement from content systems we have built. Reach matters because buyers cannot trust a name they have never encountered.</p>
             <p class="proof-caption">Click any screenshot to view it at full size.</p>
+            <a href={meetingUrl} class="btn btn-accent btn-md scrolly-cta">{ctaLabel}</a>
           </div>
         </aside>
         <div class="scrolly-steps">
@@ -171,7 +173,6 @@ const questions = [
           ))}
         </div>
       </div>
-      <div class="section-cta"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
     </div>
   </section>
 
@@ -181,6 +182,7 @@ const questions = [
       <div class="scrolly-concept-mobile">
         <h3>From a familiar name to a <span class="italic-accent">real reply.</span></h3>
         <p class="lead">Some buyers start the conversation themselves. For the ones who engage but stay quiet, we check fit and give sales a relevant reason to reach out.</p>
+        <a href={meetingUrl} class="btn btn-accent btn-md scrolly-cta">{ctaLabel}</a>
       </div>
       <div class="scrolly-grid">
         <aside class="scrolly-aside">
@@ -188,6 +190,7 @@ const questions = [
             <h3>From a familiar name to a <span class="italic-accent">real reply.</span></h3>
             <p class="lead">Some buyers start the conversation themselves. For the ones who engage but stay quiet, we check fit and give sales a relevant reason to reach out.</p>
             <p class="proof-caption">Click any screenshot to view it at full size.</p>
+            <a href={meetingUrl} class="btn btn-accent btn-md scrolly-cta">{ctaLabel}</a>
           </div>
         </aside>
         <div class="scrolly-steps">
@@ -198,7 +201,6 @@ const questions = [
           ))}
         </div>
       </div>
-      <div class="section-cta"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
     </div>
   </section>
 
@@ -329,6 +331,7 @@ const questions = [
 
   .conversation-gallery { background: var(--service-pink); }
   .proof-caption { margin-top: var(--space-5); color: var(--color-muted); font-family: var(--font-mono); font-size: .75rem; }
+  .scrolly-cta { width: fit-content; margin-top: var(--space-5); }
 
   .customer-proof { background: var(--color-surface); }
   .customer-proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }

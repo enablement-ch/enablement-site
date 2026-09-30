@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
 
 const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const ctaLabel = "I want to fix my revenue system";
 
 const problems = [
   {
@@ -114,7 +115,7 @@ const questions = [
           <h1>Grow revenue <span class="italic-accent">without adding headcount.</span></h1>
           <p class="lead">We connect your revenue tools, automate the handoffs that slow sales down, and turn scattered data into clear next actions. Your existing team can handle more opportunity without carrying more admin.</p>
           <div class="hero-actions">
-            <a href={meetingUrl} class="btn btn-accent btn-md">Fix my revenue system</a>
+            <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
             <a href="#system" class="text-link">See the system <span aria-hidden="true">→</span></a>
           </div>
           <p class="fit-note">For B2B teams whose tools, data, and people are working harder than the revenue system around them.</p>
@@ -166,6 +167,7 @@ const questions = [
           ))}
         </div>
         <div class="foundation"><span class="foundation-label">THE FOUNDATION</span><p>Right-sized tools <span aria-hidden="true">·</span> connected data <span aria-hidden="true">·</span> clean CRM <span aria-hidden="true">·</span> accountable owners</p></div>
+        <div class="system-action"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
       </div>
     </section>
 
@@ -191,6 +193,7 @@ const questions = [
           <h2>One lead. No lost context. <span class="italic-accent">One clear next step.</span></h2>
           <p class="lead">A buyer raises their hand. The system checks fit, fills the gaps in the record, and puts the opportunity in front of the right person with a reason to act.</p>
           <p>Sales spends its time on the conversation. The CRM keeps the history. Reporting shows what happened after the handoff.</p>
+          <a href={meetingUrl} class="btn btn-accent btn-md example-action">{ctaLabel}</a>
         </div>
         <div class="journey" aria-label="Illustrative lead workflow from signal to sales and reporting">
           <div class="journey-top"><span>ILLUSTRATIVE WORKFLOW</span><span>01 → 04</span></div>
@@ -248,7 +251,7 @@ const questions = [
           <span class="eyebrow">The engagement</span>
           <h2>Your ongoing <span class="italic-accent">RevOps team.</span></h2>
           <p class="lead">AI Revenue Operations is a subscription for building, running, and improving the system behind your revenue team. We start with the bottleneck costing you the most, then keep the stack, workflows, and reporting useful as your business changes.</p>
-          <a href={meetingUrl} class="btn btn-accent btn-md">Talk through your revenue system</a>
+          <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
         </div>
         <div class="subscription-steps">
           <div><span>01</span><strong>Find the bottleneck</strong><p>Map the journey from lead to revenue and prioritize the work that matters.</p></div>
@@ -274,7 +277,7 @@ const questions = [
         <span class="eyebrow">Give the team capacity to grow</span>
         <h2>Make the system do the work <span class="italic-accent">between the conversations.</span></h2>
         <p class="lead">Book a GTM session. We will look at your tools, data, and sales handoffs, then identify the first fix worth making.</p>
-        <a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a>
+        <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
       </div>
     </section>
   </main>
@@ -332,12 +335,14 @@ const questions = [
   .foundation-label { flex: 0 0 auto; color: var(--color-accent); font: 700 .69rem var(--font-mono); letter-spacing: .07em; }
   .foundation p { color: var(--color-heading); font-weight: 700; }
   .foundation p span { color: var(--color-positive); }
+  .system-action { display: flex; justify-content: center; margin-top: var(--space-6); }
   .capability-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .capability-card { border-top: 2px solid var(--color-accent); }
   .capability-result { font-size: .9rem; }
   .example-section { --texture-base: var(--color-surface); }
   .example-grid { display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: var(--space-7); }
   .example-copy p:not(.lead) { max-width: 570px; margin-top: var(--space-4); }
+  .example-action { margin-top: var(--space-6); }
   .journey { padding: var(--space-5); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-canvas); box-shadow: var(--shadow-md); }
   .journey-top { padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
   .journey-step { display: flex; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
@@ -378,6 +383,7 @@ const questions = [
     .capability-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 700px) {
+    .revops-service .btn { max-width: 100%; white-space: normal; text-align: center; }
     :global(.revops-service section.section) { padding-block: 56px; }
     .hero { padding: 56px 0; }
     .hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
