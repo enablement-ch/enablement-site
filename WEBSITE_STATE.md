@@ -1,13 +1,14 @@
 # Website conversation state
 
-Last updated: 2026-09-29
+Last updated: 2026-09-30
 
 ## Current status
 
 - Production site: https://www.enablement.ch/
 - Source: `enablement-ch/enablement-site`, Astro, deployed from `main` to Vercel.
-- The latest homepage Allbound diagram correction was pushed as commit `35a5a7f` and verified on the live homepage. The production build passed.
-- No website change is pending. The next step is the user's deeper homepage review and any requested iteration.
+- The homepage Allbound diagram includes Capture and Qualify as a narrowing funnel, followed by Route, Engage, Close, and Learn.
+- The homepage booking actions now use direct calendar buttons below the hero video, Allbound diagram, founder involvement card, and in the final CTA. The navigation button reads "Book a GTM session" site-wide.
+- The current task covers the homepage only. Review the other pages with the user after this change is live.
 
 ## Positioning and voice
 
@@ -20,7 +21,7 @@ Last updated: 2026-09-29
 ## Homepage direction
 
 - Keep the rotating hero promises, video, booking CTA, logo band, and client testimonials. The headline splits white and red text in the same way as the service pages.
-- The Allbound engine graphic is a sequence: **Outbound / Content / Ads → Signals and responses → Qualification → Route to sales → Sales conversation → Opportunity and revenue**. AI revenue operations supports the full sequence; CRM outcomes feed back into the motions.
+- The Allbound engine graphic is a sequence: **Outbound / Content / Ads → Capture → Qualify → Route → Engage → Close → Learn**. AI revenue operations supports the full sequence; signals, conversations, and deals feed back into the motions.
 - There are exactly **three** boxes in the first graphic layer. Market signals belong in the following signals layer, not beside the three motions.
 - The content box says "Company and team voices" to support the company-brand direction.
 - The three service graphics should tell their respective stories in the shared visual language. The thought leadership comparison uses red for the old world and green for the new world.

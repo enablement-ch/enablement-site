@@ -1,6 +1,4 @@
 ---
-import LeadIntakeForm from "./LeadIntakeForm.astro";
-
 interface Props {
   eyebrow?: string;
   primaryHref?: string;
@@ -16,7 +14,7 @@ interface Props {
 const {
   eyebrow = "GTM Engineering for B2B tech companies with proven product-market fit",
   primaryHref = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting",
-  primaryLabel = "Schedule meeting",
+  primaryLabel = "Book a GTM session",
   secondaryHref = "/customer-results",
   secondaryLabel = "See client work",
   rotatingHeadlines = [
@@ -91,7 +89,7 @@ if (vimeoUrl) {
   <!-- CTAs below the video -->
   <div class="container">
     <div class="hero-actions hero-actions-below">
-      <LeadIntakeForm submitLabel={primaryLabel} />
+      <a href={primaryHref} class="btn btn-accent btn-md">{primaryLabel}</a>
       {secondaryLabel && (
         <a href={secondaryHref} class="btn btn-tertiary"
           >{secondaryLabel} <span class="arrow">→</span></a

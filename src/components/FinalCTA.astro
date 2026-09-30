@@ -6,6 +6,7 @@ interface Props {
   accent?: string;
   lead?: string;
   submitLabel?: string;
+  actionHref?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   accent = "a GTM system?",
   lead = "Book a 30-min GTM session. We'll audit your pipeline, find the highest-leverage action to take, and tell you whether we're a fit. If we're not, we'll point you to who is.",
   submitLabel = "Book a GTM session",
+  actionHref,
 } = Astro.props;
 ---
 
@@ -25,7 +27,11 @@ const {
       <p class="lead">
         {lead}
       </p>
-      <LeadIntakeForm theme="dark" submitLabel={submitLabel} />
+      {actionHref ? (
+        <a href={actionHref} class="btn btn-accent btn-md">{submitLabel}</a>
+      ) : (
+        <LeadIntakeForm theme="dark" submitLabel={submitLabel} />
+      )}
     </div>
   </div>
 </section>

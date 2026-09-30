@@ -8,6 +8,8 @@ import ThoughtLeadershipFlow from "../components/visuals/ThoughtLeadershipFlow.a
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 
+const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+
 const problems = [
   { label: "01 / INBOUND ALONE", title: "Attention does not automatically become pipeline.", body: "Content and ads build familiarity, but they take work to sustain. The people who engage may not fit your ICP, and most interested buyers will never fill in a form." },
   { label: "02 / OUTBOUND ALONE", title: "A cold market runs out of patience.", body: "Outreach gives you control over whom you contact. Without trust, useful timing, and relevant messaging, higher volume burns through a finite market." },
@@ -29,7 +31,7 @@ const questions = [
   description="Build one Allbound engine across LinkedIn thought leadership, signal-based outbound, and AI Revenue Operations. For B2B tech companies with proven product-market fit."
 >
   <main class="home-page">
-    <Hero secondaryLabel="" secondaryHref="" />
+    <Hero primaryHref={meetingUrl} secondaryLabel="" secondaryHref="" />
     <MarqueeLogoWall />
     <VideoTestimonials />
 
@@ -58,6 +60,7 @@ const questions = [
         </div>
         <AllboundFlow />
         <p class="home-system-note">This is the architecture behind the motion, not a fixed list of channels every client must run.</p>
+        <div class="home-system-action"><a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a></div>
       </div>
     </section>
 
@@ -129,15 +132,18 @@ const questions = [
           <p class="lead">We identify the most useful place to begin, build it inside your GTM system, and validate it against real buyer response. Then we improve that motion and add the next connected part, whether that is content, another market, better routing, or cleaner CRM data.</p>
           <a href="/resources/gtm-audit" class="home-service-link">Explore the Allbound Audit <span aria-hidden="true">→</span></a>
         </div>
-        <aside class="home-founder-card">
-          <img src="/team/gilbert.png" alt="Gilbert Kralinger" loading="lazy" />
-          <div><span class="home-card-index">DIRECT FOUNDER INVOLVEMENT</span><h3>The people shaping the strategy stay in the work.</h3><p>You work directly with the founding team on priorities and decisions while our team builds and runs the system with you.</p></div>
-        </aside>
+        <div class="home-founder-column">
+          <aside class="home-founder-card">
+            <img src="/team/gilbert.png" alt="Gilbert Kralinger" loading="lazy" />
+            <div><span class="home-card-index">DIRECT FOUNDER INVOLVEMENT</span><h3>The people shaping the strategy stay in the work.</h3><p>You work directly with the founding team on priorities and decisions while our team builds and runs the system with you.</p></div>
+          </aside>
+          <a href={meetingUrl} class="btn btn-accent btn-md home-founder-action">Book a GTM session</a>
+        </div>
       </div>
     </section>
 
     <FAQ headline="Questions before we build." questions={questions} />
-    <FinalCTA headline="Build an Allbound engine that" accent="turns context into pipeline." lead="Book a GTM session. We'll review your current motion, identify the strongest place to start, and show you how the parts can work together." submitLabel="Book a GTM session" />
+    <FinalCTA headline="Build an Allbound engine that" accent="turns context into pipeline." lead="Book a GTM session. We'll review your current motion, identify the strongest place to start, and show you how the parts can work together." submitLabel="Book a GTM session" actionHref={meetingUrl} />
   </main>
 </BaseLayout>
 
@@ -158,6 +164,7 @@ const questions = [
   .home-problem-answer strong { color: #e0f1e6; }
   .home-answer-mark { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--color-positive); color: white; font-weight: 700; }
   .home-system-note { margin-top: 14px; color: var(--color-muted); font-size: 13px; text-align: center; max-width: none; }
+  .home-system-action { display: flex; justify-content: center; margin-top: 24px; }
   .home-service { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 56px; padding-block: 48px; border-top: 1px solid var(--color-border); }
   .home-service:first-of-type { border-top: 0; padding-top: 0; }
   .home-service:last-child { padding-bottom: 0; }
@@ -190,6 +197,8 @@ const questions = [
   .home-ops-core { display: flex; flex-direction: column; text-align: center; border-color: var(--color-accent); background: #261b24; }
   .home-delivery-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
   .home-delivery .lead { margin-bottom: 24px; }
+  .home-founder-column { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .home-founder-action { align-self: flex-start; }
   .home-founder-card { display: flex; gap: 18px; padding: 22px; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-surface); }
   .home-founder-card img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
   .home-founder-card h3 { font-size: 23px; margin: 10px 0; }
