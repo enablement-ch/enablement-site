@@ -32,7 +32,7 @@ Last updated: 2026-09-29
 - Resources: `/resources/ai-sales-coach/` and `/resources/gtm-audit/` established the current page style.
 - Customer results and the current example galleries are important proof assets. Keep them when editing related pages.
 - Dark mode is the only site theme. Use compact spacing, red eyebrows and accents, rounded red bullets where appropriate, green for positive states, and subtle grids/glows/textures. Menu text and submenu hover states should remain readable.
-- Shared website design rules are in `~/enablement-design-system/site-plan.md`; use that file for reusable design decisions. This file records project and conversation state.
+- Shared website design rules are in `~/Claude Code/enablement-brain/Design/site-plan.md`; use that file for reusable design decisions. This file records project and conversation state.
 
 ## Working files and verification
 

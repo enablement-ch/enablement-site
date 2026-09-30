@@ -8,7 +8,7 @@ const sources = [
 const inputs = ["Website visits", "Content and ad engagement", "Lead magnet requests", "Outreach replies"];
 ---
 
-<div class="allbound-flow" role="img" aria-label="Allbound architecture: outbound, content, and ads create reach, traffic, and responses. The resulting signals and responses are qualified by account and contact fit, then routed to sales for conversations and opportunities. CRM outcomes feed back into the system.">
+<div class="allbound-flow" role="img" aria-label="Allbound architecture: outbound, content, and ads create signals and responses. Capture and qualification narrow those signals to the right accounts and contacts. Sales receives the context, starts conversations, and turns opportunities into closed deals. Every signal, conversation, and deal informs the next play.">
   <div class="flow-label"><span class="flow-dot"></span> ALLBOUND / ONE CONNECTED SYSTEM</div>
   <div class="flow-sources">
     {sources.map((source) => (
@@ -39,10 +39,15 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnet requ
   <div class="flow-outcomes">
     <div><span class="flow-stage">03 / ROUTE</span><strong>Qualified lead to sales</strong><small>The right owner gets the full context</small></div>
     <div><span class="flow-stage">04 / ENGAGE</span><strong>Sales conversation</strong><small>Relevant follow-up at the right time</small></div>
-    <div><span class="flow-stage">05 / LEARN</span><strong>Opportunity and revenue</strong><small>Outcomes improve the next play</small></div>
+    <div><span class="flow-stage">05 / CLOSE</span><strong>Turn opportunities into closed deals</strong><small>Sales process and deal support keep the next step moving</small></div>
+  </div>
+  <div class="flow-connector" aria-hidden="true"><b>↓</b></div>
+  <div class="flow-learn">
+    <div><span class="flow-stage">06 / LEARN</span><h3>Feed what we learn back into the engine</h3></div>
+    <p>Every signal, conversation and deal helps improve targeting, content and outreach.</p>
   </div>
   <div class="flow-ops"><span>AI REVENUE OPERATIONS</span><strong>Clean data · scoring · routing · automation · CRM attribution</strong></div>
-  <div class="flow-feedback">↰ CRM outcomes feed back into targeting, content and outreach</div>
+  <div class="flow-feedback">↰ Better inputs for the next play</div>
 </div>
 
 <style>
@@ -51,22 +56,24 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnet requ
   .flow-label { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
   .flow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 16px var(--color-accent); }
   .flow-sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .flow-source, .flow-capture, .flow-qualify, .flow-outcomes > div { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; }
+  .flow-source, .flow-capture, .flow-qualify, .flow-outcomes > div, .flow-learn { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; }
   .flow-source { min-height: 105px; padding: 16px; display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--color-accent); }
   .flow-source strong { font-size: 18px; line-height: 1.2; }
   .flow-source span, .flow-inputs span, .flow-outcomes small { font-size: 13px; color: var(--color-body); line-height: 1.35; }
   .flow-connector { min-height: 33px; display: grid; place-items: center; color: var(--color-positive); font: 600 20px var(--font-sans); }
-  .flow-capture { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; padding: 22px; }
-  .flow-capture h3, .flow-qualify h3 { font-size: 25px; margin: 5px 0 6px; }
+  .flow-capture { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; width: 92%; margin-inline: auto; padding: 22px; }
+  .flow-capture h3, .flow-qualify h3, .flow-learn h3 { font-size: 25px; margin: 5px 0 6px; }
   .flow-capture p, .flow-qualify p { font-size: 14px; color: var(--color-body); max-width: 42ch; }
   .flow-inputs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; align-content: center; }
   .flow-inputs span { border: 1px solid var(--color-border); border-radius: 8px; padding: 10px 12px; background: var(--color-surface-raised); }
-  .flow-qualify { padding: 22px; text-align: center; border-color: var(--color-accent); background: #261b24; }
+  .flow-qualify { width: 82%; margin-inline: auto; padding: 22px; text-align: center; border-color: var(--color-accent); background: #261b24; }
   .flow-qualify p { margin-inline: auto; }
   .flow-outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .flow-outcomes > div { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 17px; border-top: 2px solid var(--color-positive); }
   .flow-outcomes > div:not(:last-child)::after { content: "→"; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: #85cda3; z-index: 1; font-size: 21px; }
   .flow-outcomes strong { font-size: 17px; line-height: 1.2; }
+  .flow-learn { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 20px; padding: 20px 22px; border-top: 2px solid var(--color-positive); }
+  .flow-learn p { font-size: 14px; color: var(--color-body); }
   .flow-ops { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; padding: 14px 16px; border: 1px solid #355343; border-radius: 10px; background: #17251d; }
   .flow-ops span { color: #6bc591; }
   .flow-ops strong { font-size: 13px; font-weight: 500; color: #c4e4d1; }
@@ -74,10 +81,12 @@ const inputs = ["Website visits", "Content and ad engagement", "Lead magnet requ
   @media (max-width: 700px) {
     .flow-sources { grid-template-columns: 1fr; }
     .flow-source { min-height: 88px; }
-    .flow-capture { grid-template-columns: 1fr; }
+    .flow-capture { grid-template-columns: 1fr; width: 100%; }
+    .flow-qualify { width: 100%; }
     .flow-outcomes { grid-template-columns: 1fr; }
     .flow-outcomes > div { min-height: 80px; }
     .flow-outcomes > div:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
+    .flow-learn { grid-template-columns: 1fr; gap: 4px; }
   }
   @media (max-width: 440px) {
     .flow-source { padding: 12px; }

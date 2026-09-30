@@ -2,7 +2,7 @@
 
 Marketing site for Enablement.ch. Astro + Vercel. Deploys on every push to `main`.
 
-**Design system:** https://github.com/MarcusAurelian/enablement-design-system
+**Design system:** https://github.com/enablement-ch/enablement-design-system
 
 **Current website decisions and handoff:** [WEBSITE_STATE.md](WEBSITE_STATE.md)
 
