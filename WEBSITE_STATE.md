@@ -8,7 +8,8 @@ Last updated: 2026-09-30
 - Source: `enablement-ch/enablement-site`, Astro, deployed from `main` to Vercel.
 - The homepage Allbound diagram includes Capture and Qualify as a narrowing funnel, followed by Route, Engage, Close, and Learn.
 - The homepage booking actions now use direct calendar buttons below the hero video, Allbound diagram, founder involvement card, and in the final CTA. The navigation button reads "Book a GTM session" site-wide.
-- The current task covers the homepage only. Review the other pages with the user after this change is live.
+- The homepage How we work booking button is centered below the founder card; the Allbound Audit text link in that section was removed.
+- The LinkedIn thought leadership page uses "I want to fix my LinkedIn system" for all six page-specific booking buttons: hero, attention examples, conversation examples, customer proof, engagement, and final CTA. Other service pages remain for review with the user.
 
 ## Positioning and voice
 

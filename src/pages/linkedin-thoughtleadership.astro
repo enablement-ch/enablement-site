@@ -21,6 +21,7 @@ const dms = [
 ];
 
 const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const ctaLabel = "I want to fix my LinkedIn system";
 
 const problems = [
   {
@@ -96,7 +97,7 @@ const questions = [
           <h1>Be the company buyers <span class="italic-accent">already trust.</span></h1>
           <p class="lead">We turn your expertise into content that makes you known in your market. Then we identify the right people engaging with it and start relevant sales conversations. Strategy, content, and conversion in one system.</p>
           <div class="service-actions">
-            <a href={meetingUrl} class="btn btn-accent btn-md">Build my LinkedIn system</a>
+            <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
             <a href="#real-examples" class="text-link">See real examples <span aria-hidden="true">→</span></a>
           </div>
           <p class="service-hero-fit">Best for founders and executives who have tried LinkedIn, operate in a crowded market, and want content to contribute to pipeline.</p>
@@ -170,6 +171,7 @@ const questions = [
           ))}
         </div>
       </div>
+      <div class="section-cta"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
     </div>
   </section>
 
@@ -196,6 +198,7 @@ const questions = [
           ))}
         </div>
       </div>
+      <div class="section-cta"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
     </div>
   </section>
 
@@ -222,6 +225,7 @@ const questions = [
             <a href="/customer-results/blueprint" class="text-link">Read the Blueprint story <span aria-hidden="true">→</span></a>
           </article>
         </div>
+        <div class="section-cta"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
       </div>
     </section>
 
@@ -237,7 +241,7 @@ const questions = [
           <span class="eyebrow">The engagement</span>
           <h2>Bring your perspective. <span class="italic-accent">We build the system.</span></h2>
           <p class="lead">The standard engagement includes strategy, content production, signal identification, relevant outreach, and CRM integration. It is built for founders who want LinkedIn to support sales without running a content operation themselves.</p>
-          <a href={meetingUrl} class="btn btn-accent btn-md">Talk through your LinkedIn system</a>
+          <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
         </div>
         <div class="offer-details">
           <div class="offer-detail"><span class="offer-detail-dot" aria-hidden="true"></span><div><strong>Your part</strong><p>One-hour kickoff, biweekly 30-45 minute interviews, materials, access, and approvals.</p></div></div>
@@ -270,7 +274,7 @@ const questions = [
           <span class="eyebrow">From content to conversations</span>
           <h2>Make your expertise impossible to miss, then give sales a way to act on it.</h2>
           <p>Book a 30-minute GTM session. We will look at what you publish today, who it reaches, and where interested buyers fall out of the process.</p>
-          <a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a>
+          <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
         </div>
       </div>
     </section>
@@ -335,6 +339,7 @@ const questions = [
   .customer-proof-card h3 { margin-top: var(--space-5); font-size: clamp(1.4rem, 2.3vw, 2rem); }
   .customer-proof-card p { margin-top: var(--space-3); color: var(--color-body); font-size: .95rem; }
   .customer-proof-card .text-link { margin-top: auto; padding-top: var(--space-5); }
+  .section-cta { display: flex; justify-content: center; margin-top: var(--space-6); }
 
   .service-offer { --texture-base: var(--service-pink); }
   .offer-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-8); align-items: start; }
@@ -430,6 +435,7 @@ const questions = [
     .scrolly-step { padding: 0; }
   }
   @media (max-width: 700px) {
+    .linkedin-service .btn { max-width: 100%; white-space: normal; text-align: center; }
     :global(.linkedin-service section.section), section.scrolly { padding-block: 56px; }
     .service-hero { padding: 56px 0; }
     .service-hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
