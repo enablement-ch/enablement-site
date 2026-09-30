@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import MarqueeLogoWall from "../components/MarqueeLogoWall.astro";
 
 const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const ctaLabel = "I want to fix my outbound system";
 
 const problems = [
   {
@@ -111,7 +112,7 @@ const questions = [
           <h1>Reach the right people <span class="italic-accent">at the right time.</span></h1>
           <p class="lead">We build outbound around market fit, buying signals, relevant messages, and clean sales handoffs. Your team gets qualified conversations without relying on more manual research or indiscriminate volume.</p>
           <div class="hero-actions">
-            <a href={meetingUrl} class="btn btn-accent btn-md">Build my outbound system</a>
+            <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
             <a href="#customer-proof" class="text-link">See customer results <span aria-hidden="true">→</span></a>
           </div>
           <p class="fit-note">For B2B tech teams starting outbound or rebuilding a motion that is not producing reliable pipeline.</p>
@@ -187,6 +188,7 @@ const questions = [
             </article>
           ))}
         </div>
+        <div class="plays-action"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
       </div>
     </section>
 
@@ -252,7 +254,7 @@ const questions = [
           <article class="engagement-card"><span class="engagement-label">01 / BUILD WITH YOUR TEAM</span><h3>Build the engine</h3><p>We design and implement the motion in your stack, launch the first plays, and enable your team to operate and improve it.</p><span class="engagement-best">For teams with capacity to take over execution.</span></article>
           <article class="engagement-card"><span class="engagement-label">02 / BUILD AND RUN</span><h3>Run the execution layer</h3><p>We build the system and keep operating the research, campaigns, monitoring, routing, and experiments alongside your sales team.</p><span class="engagement-best">For teams that want an external GTM engineering function.</span></article>
         </div>
-        <div class="engagement-action"><a href={meetingUrl} class="btn btn-accent btn-md">Talk through your outbound system</a></div>
+        <div class="engagement-action"><a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a></div>
       </div>
     </section>
 
@@ -272,7 +274,7 @@ const questions = [
         <span class="eyebrow">Build a better outbound motion</span>
         <h2>Protect your market. Find the right moments. <span class="italic-accent">Start better conversations.</span></h2>
         <p class="lead">Book a GTM session. We will look at your market, current outbound, and the first part of the system worth fixing.</p>
-        <a href={meetingUrl} class="btn btn-accent btn-md">Book a GTM session</a>
+        <a href={meetingUrl} class="btn btn-accent btn-md">{ctaLabel}</a>
       </div>
     </section>
   </main>
@@ -325,6 +327,7 @@ const questions = [
   .plays-grid, .proof-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .play-card { display: flex; flex-direction: column; }
   .play-example { margin-top: auto; padding-top: var(--space-5); color: var(--color-heading); font-size: .9rem; }
+  .plays-action { display: flex; justify-content: center; margin-top: var(--space-6); }
   .handoff-section { --texture-base: var(--color-surface); }
   .handoff-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: var(--space-7); align-items: center; }
   .handoff-copy p:not(.lead) { max-width: 580px; margin-top: var(--space-4); }
@@ -366,6 +369,7 @@ const questions = [
     .plays-grid, .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 700px) {
+    .outbound-service .btn { max-width: 100%; white-space: normal; text-align: center; }
     :global(.outbound-service section.section) { padding-block: 56px; }
     .hero { padding: 56px 0; }
     .hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }

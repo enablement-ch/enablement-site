@@ -9,7 +9,8 @@ Last updated: 2026-09-30
 - The homepage Allbound diagram includes Capture and Qualify as a narrowing funnel, followed by Route, Engage, Close, and Learn.
 - The homepage booking actions now use direct calendar buttons below the hero video, Allbound diagram, founder involvement card, and in the final CTA. The navigation button reads "Book a GTM session" site-wide.
 - The homepage How we work booking button is centered below the founder card; the Allbound Audit text link in that section was removed.
-- The LinkedIn thought leadership page uses "I want to fix my LinkedIn system" for all six page-specific booking buttons: hero, attention examples, conversation examples, customer proof, engagement, and final CTA. Other service pages remain for review with the user.
+- The LinkedIn thought leadership page uses "I want to fix my LinkedIn system" for all six page-specific booking buttons: hero, attention examples, conversation examples, customer proof, engagement, and final CTA.
+- The signal-based outbound page uses "I want to fix my outbound system" in its hero, below the three campaign plays, in engagement, and in the final CTA. The customer results section has no booking button. The AI Revenue Operations page remains for review with the user.
 
 ## Positioning and voice
 
