@@ -7,12 +7,17 @@
     },
     {
       "source": "/resources/allbound-audit",
-      "destination": "/resources/gtm-audit",
+      "destination": "/resources/gtm-self-audit",
       "permanent": true
     },
     {
       "source": "/resources/gtm-checklist",
-      "destination": "/resources/gtm-audit",
+      "destination": "/resources/gtm-self-audit",
+      "permanent": true
+    },
+    {
+      "source": "/resources/gtm-audit",
+      "destination": "/resources/gtm-self-audit",
       "permanent": true
     },
     {

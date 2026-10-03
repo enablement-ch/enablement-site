@@ -3,12 +3,8 @@ const links: { href: string; label: string }[] = [
   { href: "/customer-results", label: "Customer Results" },
 ];
 
-// Add future resource pages here to include them in the dropdown.
-const isSelfAudit = Astro.url.pathname.replace(/\/$/, "") === "/resources/gtm-self-audit";
-const resources: { href: string; label: string }[] = [
-  isSelfAudit
-    ? { href: "/resources/gtm-self-audit", label: "GTM Self Audit" }
-    : { href: "/resources/gtm-audit", label: "GTM Audit" },
+const tools: { href: string; label: string }[] = [
+  { href: "/resources/gtm-self-audit", label: "GTM Self Audit" },
   { href: "/resources/ai-sales-coach", label: "AI Sales Coach" },
 ];
 
@@ -37,9 +33,9 @@ const ctaLabel = "Book a GTM session";
         </details>
         {links.map(({ href, label }) => <a href={href}>{label}</a>)}
         <details class="nav-resources nav-dropdown">
-          <summary>Resources <span aria-hidden="true">⌄</span></summary>
+          <summary>Tools <span aria-hidden="true">⌄</span></summary>
           <div class="nav-resources-panel">
-            {resources.map(({ href, label }) => <a href={href}>{label}</a>)}
+            {tools.map(({ href, label }) => <a href={href}>{label}</a>)}
           </div>
         </details>
       </div>

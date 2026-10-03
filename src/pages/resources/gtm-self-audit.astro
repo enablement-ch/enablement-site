@@ -22,13 +22,12 @@ const faq = [
 
 <BaseLayout
   title="GTM Self Audit | Find the gaps in your Allbound system"
-  description="Answer eight questions to see where your go-to-market system may be losing buyers, context, and revenue. Get an immediate score and next steps."
-  noindex
+  description="Answer eight questions to see where your go-to-market system may be losing revenue. Get an immediate score and next steps."
 >
   <header class="self-hero texture-hybrid">
     <div class="container hero-inner">
       <span class="eyebrow">↳ Free GTM Self Audit</span>
-      <h1 class="display">Find where your GTM system <span class="italic-accent">loses momentum.</span></h1>
+      <h1 class="display">Find where your GTM system <span class="italic-accent">loses revenue.</span></h1>
       <p class="lead">Eight specific questions. An immediate score, your two biggest gaps, and a useful first step. No email required.</p>
       <a href="#self-audit" class="btn btn-accent btn-lg">Start the self audit</a>
       <span class="hero-note">About 3 minutes · No signup · Directional score</span>
@@ -184,8 +183,8 @@ const faq = [
       opportunities.forEach((item, index) => {
         const card = document.createElement("article");
         card.className = "gap-card";
-        const label = document.createElement("span"); label.className = "gap-label"; label.textContent = `0${index + 1} / ${item.gap}`;
-        const title = document.createElement("h4"); title.textContent = item.loss ? (item.answer === "partly" ? "Make this consistent" : "Build this connection") : "Pressure-test this strength";
+        const label = document.createElement("span"); label.className = "gap-label"; label.textContent = `0${index + 1}`;
+        const title = document.createElement("h4"); title.textContent = item.gap;
         const text = document.createElement("p"); text.textContent = item.action;
         card.append(label, title, text); gaps.append(card);
       });
@@ -252,7 +251,7 @@ const faq = [
     .gap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .gap-card, .step-grid article, .founder-card { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 24px; }
     .gap-card { border-top: 2px solid var(--color-accent); }
-    .gap-card h4 { color: var(--color-heading); font-size: 21px; margin: 12px 0 8px; }
+    .gap-card h4 { color: var(--color-heading); font-size: clamp(23px, 2.5vw, 28px); line-height: 1.2; margin: 12px 0 12px; }
     .gap-card p { margin: 0; }
     .result-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 28px; }
     .text-link, .matched-proof a, .founder-card a { color: var(--color-heading); text-decoration-color: var(--color-accent); text-underline-offset: 5px; }
