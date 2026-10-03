@@ -50,32 +50,32 @@ export default async function handler(request, response) {
   const companyDomain = domainFromInput(body.companyDomain);
   const linkedinUrl = linkedinProfile(body.linkedinUrl);
   const email = workEmail(body.email);
+  const firstName = safeText(body.firstName, 80);
+  const lastName = safeText(body.lastName, 80);
+  if (!firstName || !lastName) return send(response, 400, { error: "Enter your first and last name." });
   if (!companyDomain) return send(response, 400, { error: "Enter a valid company domain." });
   if (!linkedinUrl) return send(response, 400, { error: "Enter your personal LinkedIn profile URL." });
   if (!email) return send(response, 400, { error: "Enter a valid work email for delivery." });
 
-  const webhookUrl = process.env.CLAY_INTAKE_WEBHOOK_URL;
-  if (!webhookUrl) {
-    console.error("Competitor content request: CLAY_INTAKE_WEBHOOK_URL is missing");
-    return send(response, 503, { error: "Requests are temporarily unavailable. Please try again later." });
-  }
+  const webhookUrl = "https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-00ea8418-d321-481a-bf50-c3e3d30e7bbe";
 
   const payload = {
-    source: "website_competitor_content_pull",
-    requestType: "competitor_content_pull",
+    source: "website_linkedin_analysis",
+    requestType: "linkedin_analysis",
+    analysisType: "competitor_content_pull",
+    firstName,
+    lastName,
     companyDomain,
     linkedinUrl,
     email,
-    firstName: safeText(body.firstName, 80),
-    lastName: safeText(body.lastName, 80),
     knownCompetitors: safeText(body.knownCompetitors, 500),
-    attribution: {
-      pageUrl: safeText(body.pageUrl, 500),
-      referrer: safeText(body.referrer, 500),
-      utmSource: safeText(body.utmSource, 120),
-      utmMedium: safeText(body.utmMedium, 120),
-      utmCampaign: safeText(body.utmCampaign, 120),
-    },
+    pageUrl: safeText(body.pageUrl, 500),
+    referrer: safeText(body.referrer, 500),
+    utmSource: safeText(body.utmSource, 120),
+    utmMedium: safeText(body.utmMedium, 120),
+    utmCampaign: safeText(body.utmCampaign, 120),
+    utmTerm: safeText(body.utmTerm, 120),
+    utmContent: safeText(body.utmContent, 120),
     submittedAt: new Date().toISOString(),
   };
 

@@ -21,7 +21,7 @@ const proof = (await getCollection("caseStudies")).find((study) => study.id === 
 <BaseLayout noindex title={`${report.companyName} | Your LinkedIn content gap`} description={`A personal competitor content analysis for ${report.companyName}.`}>
   <header class="report-hero texture-hybrid">
     <div class="container report-hero-inner">
-      <span class="eyebrow">↳ Your competitor content pull</span>
+      <span class="eyebrow">↳ Your LinkedIn Analysis</span>
       <h1 class="display">{report.headline}</h1>
       <p class="lead">{report.summary}</p>
       <div class="report-meta"><span>{report.companyName}</span><span>{report.category}</span><span>{report.window}</span></div>

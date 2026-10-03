@@ -35,4 +35,4 @@ mkdirSync(folder, { recursive: true });
 const output = join(folder, `${slug}.json`);
 writeFileSync(output, JSON.stringify(report, null, 2) + "\n", { flag: "wx" });
 console.log(`Report file: ${output}`);
-console.log(`After deployment: https://www.enablement.ch/resources/competitor-content-pull/${slug}`);
+console.log(`After deployment: https://www.enablement.ch/resources/linkedin-analysis/${slug}`);

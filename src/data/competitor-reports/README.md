@@ -1,7 +1,9 @@
 # Competitor content reports
 
-The public request form sends leads to `CLAY_INTAKE_WEBHOOK_URL` with
-`requestType: competitor_content_pull`. Review requests there, run the
+The public LinkedIn Analysis form sends all visible form fields and
+attribution to the dedicated Clay webhook via the server endpoint, with
+`requestType: linkedin_analysis` and `analysisType: competitor_content_pull`.
+Review requests there, run the
 `content-lead-magnet-competitor-analysis` workflow, and publish each reviewed
 result as a hosted page. The source skill is an analyst workflow, so the site
 does not claim to generate a report instantly.
