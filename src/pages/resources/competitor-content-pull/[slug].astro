@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CaseStudyCard from "../../../components/CaseStudyCard.astro";
+import { getCollection } from "astro:content";
+
+type Voice = { name: string; title: string; company: string; linkedinUrl?: string; posts: number; followers?: number; medianEngagement?: number; representativePost?: string; representativePostUrl?: string };
+type Theme = { title: string; explanation: string; owner: string; exampleUrl?: string };
+type Opening = { title: string; whyItFits: string; buyerProblem: string; firstMove: string };
+type Report = { slug: string; companyName: string; companyDomain: string; category: string; generatedAt: string; window: string; screenedCompanies: number; mode: "active" | "quiet" | "parity"; headline: string; summary: string; consequence: string; voices: Voice[]; themes: Theme[]; openings: Opening[]; handoff: string };
+
+export function getStaticPaths() {
+  const files = import.meta.glob<Report>("../../../data/competitor-reports/*.json", { eager: true, import: "default" });
+  return Object.values(files).map((report) => ({ params: { slug: report.slug }, props: { report } }));
+}
+
+const { report } = Astro.props as { report: Report };
+const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
+---
+
+<BaseLayout noindex title={`${report.companyName} | Your LinkedIn content gap`} description={`A personal competitor content analysis for ${report.companyName}.`}>
+  <header class="report-hero texture-hybrid">
+    <div class="container report-hero-inner">
+      <span class="eyebrow">↳ Your competitor content pull</span>
+      <h1 class="display">{report.headline}</h1>
+      <p class="lead">{report.summary}</p>
+      <div class="report-meta"><span>{report.companyName}</span><span>{report.category}</span><span>{report.window}</span></div>
+    </div>
+  </header>
+
+  <section class="section report-findings">
+    <div class="container narrow">
+      <span class="eyebrow">The commercial problem</span>
+      <h2>What this means for <span class="italic-accent">your pipeline.</span></h2>
+      <p class="consequence">{report.consequence}</p>
+      <div class="finding-strip"><strong>{report.screenedCompanies}</strong><span>relevant companies screened</span><strong>{report.voices.length}</strong><span>individual voices profiled</span></div>
+      <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
+    </div>
+  </section>
+
+  <section class="section voice-section">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">The evidence</span><h2>Who is earning attention <span class="italic-accent">right now?</span></h2><p>These are individual voices at relevant companies. Post and engagement figures describe public LinkedIn activity in the report window.</p></div>
+      {report.voices.length === 0 && <p class="empty-finding">We did not find a regular individual publisher in the companies screened. That empty field is the finding: a useful buyer topic may still be open.</p>}
+      <div class="voice-grid">
+        {report.voices.map((voice) => <article class="voice-card">
+          <span class="voice-company">{voice.company}</span>
+          <h3>{voice.name}</h3><p class="voice-title">{voice.title}</p>
+          <div class="voice-metrics"><div><strong>{voice.posts}</strong><span>posts</span></div>{voice.followers !== undefined && <div><strong>{voice.followers.toLocaleString()}</strong><span>followers</span></div>}{voice.medianEngagement !== undefined && <div><strong>{voice.medianEngagement.toLocaleString()}</strong><span>median interactions</span></div>}</div>
+          {voice.representativePost && <blockquote>{voice.representativePost}</blockquote>}
+        </article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section theme-section texture-glow">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">The crowded ground</span><h2>What the category already <span class="italic-accent">talks about.</span></h2></div>
+      {report.themes.length === 0 && <p class="empty-finding">No topic is clearly owned by an active individual voice in this set. The openings below are grounded in your own positioning and buyer problems.</p>}
+      <div class="theme-grid">{report.themes.map((theme, index) => <article><span>0{index + 1} / {theme.owner}</span><h3>{theme.title}</h3><p>{theme.explanation}</p></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section opening-section" id="your-openings">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">Your opening</span><h2>Buyer problems you can <span class="italic-accent">credibly own.</span></h2><p>Each opening connects a buyer problem to something your company can substantiate. These are starting angles to test, not promises of reach or revenue.</p></div>
+      <div class="opening-grid">{report.openings.map((opening, index) => <article><span>0{index + 1} / CONTENT OPENING</span><h3>{opening.title}</h3><p><strong>The buyer problem</strong>{opening.buyerProblem}</p><p><strong>Why you can say it</strong>{opening.whyItFits}</p><p class="first-move"><strong>First move</strong>{opening.firstMove}</p></article>)}</div>
+      <div class="result-action"><p>{report.handoff}</p><a href={meetingUrl} class="btn btn-accent btn-lg">I want to fix my LinkedIn system</a><a href="#what-happens" class="text-link">What happens on the call ↓</a></div>
+    </div>
+  </section>
+
+  <section class="section audit-section" id="what-happens">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">The LinkedIn System Audit</span><h2>A content gap is useful when it becomes <span class="italic-accent">a sales motion.</span></h2><p>In a free 30-minute call, Lanny reviews the opportunities in this report with you and checks how your team publishes, identifies relevant engagement, and turns it into conversations.</p></div>
+      <div class="audit-grid"><article><span>01 / Choose</span><h3>Pick the buyer problem</h3><p>Pressure-test the angle against your buyers and the proof your team has.</p></article><article><span>02 / Build</span><h3>Plan the content motion</h3><p>Decide who should publish, what to say, and how to sustain it.</p></article><article><span>03 / Convert</span><h3>Connect it to sales</h3><p>Define which engaged accounts matter and what a relevant follow-up looks like.</p></article></div>
+      <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
+    </div>
+  </section>
+
+  {proof && <section class="section proof-section"><div class="container proof-grid"><div><span class="eyebrow">Customer proof</span><h2>Attention can become <span class="italic-accent">a deal.</span></h2><p>Ekipa won a Caritas pilot after the buyer saw LinkedIn content Enablement helped create. The broader engagement also included outbound and GTM work.</p></div><CaseStudyCard cs={proof} /></div></section>}
+
+  <section class="section final-section"><div class="container final-inner"><span class="eyebrow">Your next move</span><h2>Turn the opening into <span class="italic-accent">qualified conversations.</span></h2><p>Book a free 30-minute LinkedIn System Audit with Lanny to decide what to publish and how to act when the right buyers engage.</p><a href={meetingUrl} class="btn btn-accent btn-lg">I want to fix my LinkedIn system</a></div></section>
+
+  <style>
+    .report-hero { padding: 100px 0 83px; border-bottom: 1px solid var(--color-border); }
+    .report-hero-inner { max-width: 930px; }
+    .report-hero h1 { margin: 17px 0 20px; line-height: 1.07; }
+    .report-hero .lead { max-width: 760px; }
+    .report-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .report-meta span { padding: 7px 11px; border: 1px solid var(--color-border-strong); border-radius: 4px; color: var(--color-muted); font: 11px var(--font-mono); }
+    .report-findings, .voice-section, .theme-section, .opening-section, .audit-section, .proof-section, .final-section { border-bottom: 1px solid var(--color-border); }
+    .narrow { max-width: 850px; }
+    .report-findings h2 { margin: 12px 0 15px; }
+    .consequence { color: var(--color-heading); font-size: clamp(20px, 2.5vw, 28px); line-height: 1.4; }
+    .finding-strip { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; margin: 25px 0 29px; padding: 20px 0; border-block: 1px solid var(--color-border); }
+    .finding-strip strong { color: var(--color-accent); font-size: 29px; }.finding-strip span { margin-right: 25px; }
+    .section-heading { max-width: 750px; margin-bottom: 30px; }.section-heading h2 { margin: 10px 0 15px; }.section-heading p { margin: 0; }
+    .voice-grid, .theme-grid, .opening-grid, .audit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .voice-card, .theme-grid article, .opening-grid article, .audit-grid article { background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); padding: 27px; }
+    .voice-company, .theme-grid article > span, .opening-grid article > span, .audit-grid article > span { display: block; color: var(--color-accent); font: 11px var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+    .voice-card h3, .theme-grid h3, .opening-grid h3, .audit-grid h3 { margin: 17px 0 5px; color: var(--color-heading); font-size: 22px; }.voice-title { margin: 0; font-size: 14px; }
+    .voice-metrics { display: flex; gap: 15px; flex-wrap: wrap; margin: 23px 0; padding-block: 18px; border-block: 1px solid var(--color-border); }.voice-metrics strong, .voice-metrics span { display: block; }.voice-metrics strong { color: var(--color-heading); font-size: 19px; }.voice-metrics span { color: var(--color-muted); font-size: 11px; }
+    .voice-card blockquote { margin: 0 0 15px; padding-left: 14px; border-left: 2px solid var(--color-accent); color: var(--color-heading); font-size: 14px; line-height: 1.5; }.empty-finding { max-width: 700px; font-size: 19px; color: var(--color-heading); }
+    .theme-grid p, .audit-grid p { margin-bottom: 0; }.opening-grid p { margin: 20px 0 0; }.opening-grid p strong { display: block; color: var(--color-accent); font: 11px var(--font-mono); text-transform: uppercase; margin-bottom: 7px; }.opening-grid .first-move { border-top: 1px solid var(--color-border); padding-top: 18px; }
+    .result-action { max-width: 740px; margin: 35px auto 0; text-align: center; }.result-action p { color: var(--color-heading); font-size: 19px; }.result-action .text-link { display: block; margin-top: 16px; }
+    .proof-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 65px; align-items: center; }.proof-grid h2 { margin: 12px 0 16px; }
+    .final-inner { text-align: center; max-width: 760px; margin: auto; }.final-inner h2 { margin: 12px 0 17px; }.final-inner p { margin: 0 0 27px; }
+    @media (max-width: 900px) { .voice-grid, .theme-grid, .opening-grid, .audit-grid, .proof-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 550px) { .report-hero { padding: 72px 0; }.finding-strip { gap: 6px; }.finding-strip span { width: calc(100% - 60px); } }
+  </style>
+</BaseLayout>

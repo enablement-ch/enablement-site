@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MarqueeLogoWall from "../../components/MarqueeLogoWall.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import FAQ from "../../components/FAQ.astro";
+import { getCollection } from "astro:content";
+
+const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
+const faq = [
+  { q: "Is this a generic competitor list?", a: "No. We look for companies a buyer could actually consider alongside yours, then compare what their people publish. You can name competitors we should include." },
+  { q: "Will I see this immediately?", a: "We check the competitor set and the content findings before sending a personal report link. You will not get an instant automated score." },
+  { q: "Do I need to be connected with you on LinkedIn?", a: "No. We will send the report in your existing LinkedIn conversation where possible, or use your work email." },
+  { q: "What happens on the call?", a: "In a free 30-minute LinkedIn System Audit, we review the content gap, the buyer problems you can credibly speak to, and how to turn relevant engagement into sales conversations." },
+];
+---
+
+<BaseLayout title="Competitor Content Pull | Find your LinkedIn content gap" description="See what relevant competitors publish on LinkedIn, which buyer topics they own, and where your team could earn attention. Request a personal analysis.">
+  <header class="pull-hero texture-hybrid">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">↳ Free competitor content pull</span>
+        <h1 class="display">Your competitors are teaching your buyers. <span class="italic-accent">What are you missing?</span></h1>
+        <p class="lead">See what relevant companies publish on LinkedIn, which ideas already win attention, and the buyer problems your team could credibly own.</p>
+        <a href="#request-analysis" class="btn btn-accent btn-lg">Find my content gap</a>
+        <span class="hero-note">Personal analysis · Hosted report · No PDF</span>
+      </div>
+      <div class="report-preview" aria-label="Example of the analysis sections">
+        <div class="preview-top"><span>CONTENT GAP / PREVIEW</span><span>↗</span></div>
+        <div class="preview-main"><span class="preview-kicker">THE QUESTION</span><strong>What could your buyers learn from you that they cannot learn from a competitor?</strong></div>
+        <div class="preview-row"><span>01</span><div><strong>The people publishing</strong><small>Relevant voices, not a random company list</small></div></div>
+        <div class="preview-row"><span>02</span><div><strong>The topics they own</strong><small>Posts and engagement behind the pattern</small></div></div>
+        <div class="preview-row"><span>03</span><div><strong>Your credible opening</strong><small>Buyer problems your own offer can support</small></div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section request-section" id="request-analysis">
+    <div class="container request-grid">
+      <div class="request-intro">
+        <span class="eyebrow">The analysis</span>
+        <h2>Find the gap you can <span class="italic-accent">actually claim.</span></h2>
+        <p>We review your positioning and LinkedIn activity, check a relevant competitor set, and compare the topics their people publish. You get a hosted report with the evidence and a practical place to start.</p>
+        <div class="request-steps">
+          <div><span>01 / Compare</span><strong>Who is active in your category?</strong></div>
+          <div><span>02 / Diagnose</span><strong>Which topics are crowded or missing?</strong></div>
+          <div><span>03 / Act</span><strong>What should you publish and who should follow up?</strong></div>
+        </div>
+      </div>
+      <form class="request-form" id="competitor-request-form">
+        <span class="eyebrow">Request your report</span>
+        <h3>What should we analyse?</h3>
+        <div class="form-two">
+          <label>First name<input name="firstName" autocomplete="given-name" maxlength="80" required /></label>
+          <label>Last name<input name="lastName" autocomplete="family-name" maxlength="80" required /></label>
+        </div>
+        <label>Your LinkedIn profile<input name="linkedinUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://www.linkedin.com/in/your-name/" required /></label>
+        <label>Company domain<input name="companyDomain" inputmode="url" placeholder="company.com" required /></label>
+        <label>Work email<input name="email" type="email" autocomplete="email" placeholder="you@company.com" required /></label>
+        <label>Competitors we should consider <span class="optional">Optional</span><textarea name="knownCompetitors" rows="2" maxlength="500" placeholder="Names or domains, if you have them"></textarea></label>
+        <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <button type="submit" class="btn btn-accent btn-lg">Request my content pull</button>
+        <p class="form-note">We check the findings before sending your personal report link. We will reply in your LinkedIn conversation where possible, with email as a fallback.</p>
+        <p class="form-status" id="competitor-request-status" role="status" aria-live="polite"></p>
+      </form>
+      <div class="request-success" id="competitor-request-success" hidden tabindex="-1">
+        <span class="eyebrow">Request received</span>
+        <h3>We have the starting point.</h3>
+        <p>We will check the competitor set and send your hosted report link in LinkedIn chat where possible, or by email.</p>
+        <p>You can book a LinkedIn System Audit now if you already know content is not turning into enough qualified conversations.</p>
+        <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section finding-section texture-glow">
+    <div class="container finding-grid">
+      <div><span class="eyebrow">Why this matters</span><h2>More posting is rarely <span class="italic-accent">the diagnosis.</span></h2></div>
+      <div><p>If everyone teaches the same tactics, your posts make the category louder without making your company easier to choose. If nobody teaches the buyer, the opening may be wider than you think.</p><p>The useful question is which buyer problem your team can explain from direct experience, then whether the right accounts see it and have a reason to talk.</p></div>
+    </div>
+  </section>
+
+  <MarqueeLogoWall />
+
+  <section class="section audit-section" id="linkedin-audit">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">The next step</span><h2>The report finds the opening. The call builds <span class="italic-accent">the system.</span></h2><p class="lead">A free 30-minute LinkedIn System Audit connects the content gap to your buyers, your publishing process, and your sales follow-up.</p></div>
+      <div class="audit-grid">
+        <article><span>01 / Position</span><h3>Choose the buyer problem</h3><p>Check which topic your team can own with real expertise and proof.</p></article>
+        <article><span>02 / Publish</span><h3>Build the content motion</h3><p>Turn that point of view into posts that earn attention from the right people.</p></article>
+        <article><span>03 / Convert</span><h3>Act on the right signals</h3><p>Qualify the people who engage and create a relevant reason for sales to speak with them.</p></article>
+      </div>
+      <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
+    </div>
+  </section>
+
+  {proof && <section class="section proof-section"><div class="container proof-grid"><div><span class="eyebrow">Customer proof</span><h2>Content can open <span class="italic-accent">real deals.</span></h2><p>Ekipa won a Caritas pilot after the buyer saw LinkedIn content Enablement helped create. The wider engagement also included outbound and GTM work.</p></div><CaseStudyCard cs={proof} /></div></section>}
+
+  <FAQ eyebrow="Before you request" headline="What to expect." questions={faq} />
+
+  <section class="section final-section"><div class="container final-inner"><span class="eyebrow">Competitor content pull</span><h2>See the gap. Then decide <span class="italic-accent">what to do with it.</span></h2><p class="lead">Get a personal analysis of the LinkedIn content in your category, with a clear path from attention to pipeline.</p><a href="#request-analysis" class="btn btn-accent btn-lg">Find my content gap</a></div></section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>("#competitor-request-form")!;
+    const status = document.querySelector<HTMLElement>("#competitor-request-status")!;
+    const success = document.querySelector<HTMLElement>("#competitor-request-success")!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form));
+      const params = new URLSearchParams(location.search);
+      const payload = { ...data, pageUrl: location.href, referrer: document.referrer,
+        utmSource: params.get("utm_source") || "", utmMedium: params.get("utm_medium") || "", utmCampaign: params.get("utm_campaign") || "" };
+      status.textContent = "Sending your request...";
+      submit.disabled = true;
+      try {
+        const response = await fetch("/api/competitor-content-request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+        const body = await response.json();
+        if (!response.ok || !body.ok) throw new Error(body.error || "Could not send your request.");
+        form.hidden = true; success.hidden = false; success.focus();
+        (window as Window & { syft?: { track?: (event: string, properties: Record<string, string>) => void } }).syft?.track?.("competitor_content_pull_requested", { company_domain: String(data.companyDomain || "") });
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : "Could not send your request. Please try again.";
+        submit.disabled = false;
+      }
+    });
+  </script>
+
+  <style>
+    .pull-hero { padding: 105px 0 95px; border-bottom: 1px solid var(--color-border); }
+    .hero-grid { display: grid; grid-template-columns: 1.07fr .93fr; gap: clamp(40px, 6vw, 90px); align-items: center; }
+    .hero-copy h1 { max-width: 750px; line-height: 1.05; margin: 18px 0 21px; }
+    .hero-copy .lead { max-width: 630px; margin: 0 0 30px; }
+    .hero-note { display: block; margin-top: 16px; color: var(--color-muted); font: 12px var(--font-mono); }
+    .report-preview { background: #171b22; border: 1px solid var(--color-border-strong); border-radius: 12px; box-shadow: 0 22px 80px rgba(0,0,0,.24); overflow: hidden; }
+    .preview-top { display: flex; justify-content: space-between; padding: 19px 24px; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font: 11px var(--font-mono); letter-spacing: .08em; }
+    .preview-top span:last-child { color: var(--color-accent); font-size: 18px; }
+    .preview-main { padding: 30px 26px 32px; border-bottom: 1px solid var(--color-border); }
+    .preview-kicker { display: block; color: var(--color-accent); font: 11px var(--font-mono); margin-bottom: 18px; }
+    .preview-main strong { display: block; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.18; color: var(--color-heading); font-weight: 600; }
+    .preview-row { display: flex; gap: 20px; padding: 19px 26px; border-bottom: 1px solid var(--color-border); }
+    .preview-row:last-child { border: 0; }
+    .preview-row > span { color: var(--color-accent); font: 11px var(--font-mono); padding-top: 4px; }
+    .preview-row strong, .preview-row small { display: block; }
+    .preview-row strong { color: var(--color-heading); font-size: 16px; }
+    .preview-row small { color: var(--color-muted); font-size: 13px; margin-top: 2px; }
+    .request-section, .finding-section, .audit-section, .proof-section, .final-section { border-bottom: 1px solid var(--color-border); }
+    .request-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 510px); gap: clamp(40px, 8vw, 100px); align-items: start; }
+    .request-intro h2, .finding-grid h2, .section-heading h2, .proof-grid h2, .final-inner h2 { margin: 12px 0 18px; }
+    .request-intro p { max-width: 560px; }
+    .request-steps { margin-top: 38px; border-top: 1px solid var(--color-border); }
+    .request-steps div { display: grid; grid-template-columns: 100px 1fr; gap: 14px; padding: 19px 0; border-bottom: 1px solid var(--color-border); }
+    .request-steps span, .audit-grid article > span { color: var(--color-accent); font: 11px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
+    .request-steps strong { color: var(--color-heading); font-weight: 600; }
+    .request-form, .request-success { padding: clamp(24px, 4vw, 40px); background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); }
+    .request-form h3, .request-success h3 { margin: 9px 0 25px; font-size: 28px; }
+    .request-form label { display: block; color: var(--color-heading); font-size: 14px; margin-bottom: 17px; }
+    .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .request-form input, .request-form textarea { display: block; width: 100%; min-height: 48px; margin-top: 7px; padding: 11px 13px; color: var(--color-heading); background: var(--color-bg); border: 1px solid var(--color-border-strong); border-radius: 6px; font: inherit; }
+    .request-form input:focus, .request-form textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+    .request-form input::placeholder, .request-form textarea::placeholder { color: var(--color-muted); }
+    .optional { color: var(--color-muted); font-size: 12px; }
+    .request-form button { width: 100%; justify-content: center; }
+    .request-form button:disabled { opacity: .7; cursor: wait; }
+    .form-note, .form-status { font-size: 13px; line-height: 1.5; color: var(--color-muted); margin: 12px 0 0; }
+    .form-status:not(:empty) { color: var(--color-heading); }
+    .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; left: -9999px; }
+    .request-success { grid-column: 2; }
+    .request-success p { margin: 0 0 16px; }
+    .request-success .btn { margin-top: 8px; }
+    .finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+    .finding-grid p { font-size: 18px; line-height: 1.55; margin: 0 0 18px; }
+    .section-heading { max-width: 750px; margin-bottom: 34px; }
+    .section-heading .lead { margin: 0; }
+    .audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+    .audit-grid article { padding: 28px; border: 1px solid var(--color-border-strong); background: var(--color-surface); border-radius: var(--radius-md); }
+    .audit-grid h3 { margin: 19px 0 8px; color: var(--color-heading); }
+    .audit-grid p { margin: 0; }
+    .proof-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 65px; align-items: center; }
+    .final-inner { text-align: center; max-width: 760px; margin: auto; }
+    .final-inner .lead { margin: 0 auto 28px; }
+    @media (max-width: 850px) { .hero-grid, .request-grid, .finding-grid, .proof-grid { grid-template-columns: 1fr; } .request-success { grid-column: auto; } .audit-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 550px) { .pull-hero { padding: 72px 0; } .form-two { grid-template-columns: 1fr; gap: 0; } .request-steps div { grid-template-columns: 1fr; gap: 5px; } }
+  </style>
+</BaseLayout>

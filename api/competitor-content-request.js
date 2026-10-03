@@ -1,0 +1,95 @@
+const FREE_EMAIL_DOMAINS = new Set([
+  "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "yahoo.com",
+  "icloud.com", "me.com", "aol.com", "proton.me", "protonmail.com",
+]);
+
+function send(response, status, body) {
+  response.status(status).json(body);
+}
+
+function domainFromInput(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  if (!raw || raw.length > 255 || /[\s@]/.test(raw)) return null;
+  try {
+    const url = new URL(raw.includes("://") ? raw : `https://${raw}`);
+    const domain = url.hostname.replace(/^www\./, "");
+    if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(domain) || domain.includes("..")) return null;
+    return domain;
+  } catch { return null; }
+}
+
+function linkedinProfile(value) {
+  try {
+    const url = new URL(String(value || "").trim());
+    if (url.protocol !== "https:" || !["linkedin.com", "www.linkedin.com"].includes(url.hostname)) return null;
+    if (!/^\/in\/[a-z0-9_-]+\/?$/i.test(url.pathname)) return null;
+    return `https://www.linkedin.com${url.pathname.replace(/\/$/, "")}/`;
+  } catch { return null; }
+}
+
+function workEmail(value) {
+  const email = String(value || "").trim().toLowerCase();
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+  if (FREE_EMAIL_DOMAINS.has(email.split("@")[1])) return null;
+  return email;
+}
+
+function safeText(value, max = 150) {
+  return String(value || "").trim().slice(0, max);
+}
+
+export default async function handler(request, response) {
+  if (request.method !== "POST") return send(response, 405, { error: "Method not allowed" });
+  const raw = JSON.stringify(request.body || "");
+  if (raw.length > 8000) return send(response, 413, { error: "Request is too large" });
+  let body;
+  try { body = typeof request.body === "string" ? JSON.parse(request.body) : request.body || {}; }
+  catch { return send(response, 400, { error: "Invalid request" }); }
+  if (body.website) return send(response, 200, { ok: true }); // Honeypot.
+
+  const companyDomain = domainFromInput(body.companyDomain);
+  const linkedinUrl = linkedinProfile(body.linkedinUrl);
+  const email = workEmail(body.email);
+  if (!companyDomain) return send(response, 400, { error: "Enter a valid company domain." });
+  if (!linkedinUrl) return send(response, 400, { error: "Enter your personal LinkedIn profile URL." });
+  if (!email) return send(response, 400, { error: "Enter a valid work email for delivery." });
+
+  const webhookUrl = process.env.CLAY_INTAKE_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.error("Competitor content request: CLAY_INTAKE_WEBHOOK_URL is missing");
+    return send(response, 503, { error: "Requests are temporarily unavailable. Please try again later." });
+  }
+
+  const payload = {
+    source: "website_competitor_content_pull",
+    requestType: "competitor_content_pull",
+    companyDomain,
+    linkedinUrl,
+    email,
+    firstName: safeText(body.firstName, 80),
+    lastName: safeText(body.lastName, 80),
+    knownCompetitors: safeText(body.knownCompetitors, 500),
+    attribution: {
+      pageUrl: safeText(body.pageUrl, 500),
+      referrer: safeText(body.referrer, 500),
+      utmSource: safeText(body.utmSource, 120),
+      utmMedium: safeText(body.utmMedium, 120),
+      utmCampaign: safeText(body.utmCampaign, 120),
+    },
+    submittedAt: new Date().toISOString(),
+  };
+
+  try {
+    const result = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!result.ok) throw new Error(`Webhook returned ${result.status}`);
+    return send(response, 200, { ok: true });
+  } catch (error) {
+    console.error("Competitor content request failed", error);
+    return send(response, 502, { error: "We could not receive your request. Please try again." });
+  }
+}
