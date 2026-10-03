@@ -16,7 +16,7 @@ export default defineConfig({
           '/meeting-booked',
           '/li-playbook-typ',
           '/legacy-case-studies',
-        ].includes(path) && !path.startsWith('/case-study-variants/') && !path.startsWith('/resources/linkedin-analysis/');
+        ].includes(path) && !path.startsWith('/case-study-variants/') && !path.startsWith('/resources/linkedin-analysis');
       },
     }),
   ],
