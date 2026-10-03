@@ -34,7 +34,7 @@ Last updated: 2026-10-03
 
 - Service pages: `/linkedin-thoughtleadership/`, `/signal-based-outbound/`, and `/ai-revenue-operations/` are live and linked from the Services menu.
 - The navigation dropdown is called Tools. It links to `/resources/gtm-self-audit` and `/resources/ai-sales-coach`.
-- `/resources/gtm-self-audit` is the public eight-question interactive GTM Self Audit. It shows an immediate weighted score, two gaps, first actions, related proof, and direct booking, then explains the free Allbound Audit call on the same page. The former `/resources/gtm-audit` route redirects here.
+- `/resources/gtm-self-audit` is the public eight-question interactive GTM Self Audit. It shows an immediate weighted score and two gap cards, each with a challenging question, the commercial consequence, and a first action. The direct booking action follows the gaps; customer proof stays in the section below the audit explanation. The former `/resources/gtm-audit` route redirects here.
 - Customer results and the current example galleries are important proof assets. Keep them when editing related pages.
 - Dark mode is the only site theme. Use compact spacing, red eyebrows and accents, rounded red bullets where appropriate, green for positive states, and subtle grids/glows/textures. Menu text and submenu hover states should remain readable.
 - Shared website design rules are in `~/Claude Code/enablement-brain/Design/site-plan.md`; use that file for reusable design decisions. This file records project and conversation state.
