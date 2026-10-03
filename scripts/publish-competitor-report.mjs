@@ -28,7 +28,8 @@ for (const voice of source.voices) {
 for (const theme of source.themes) for (const field of ["title", "explanation", "owner"]) if (!theme[field]) throw new Error(`Theme is missing ${field}`);
 for (const opening of source.openings) for (const field of ["title", "whyItFits", "buyerProblem", "firstMove"]) if (!opening[field]) throw new Error(`Opening is missing ${field}`);
 
-const slug = `${source.companyDomain.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}-${randomBytes(9).toString("hex")}`;
+const slug = source.reportSlug || `${source.companyDomain.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}-${randomBytes(9).toString("hex")}`;
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || slug.length > 120) throw new Error("Invalid reportSlug");
 const report = { ...source, slug, generatedAt: new Date().toISOString() };
 const folder = resolve("src/data/competitor-reports");
 mkdirSync(folder, { recursive: true });

@@ -58,6 +58,8 @@ export default async function handler(request, response) {
   if (!email) return send(response, 400, { error: "Enter a valid work email for delivery." });
 
   const webhookUrl = "https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-00ea8418-d321-481a-bf50-c3e3d30e7bbe";
+  const reportSlug = `${companyDomain.replace(/[^a-z0-9]+/g, "-")}-${randomBytes(12).toString("hex")}`;
+  const statusUrl = `/resources/linkedin-analysis/report?slug=${reportSlug}`;
 
   const payload = {
     source: "website_linkedin_analysis",
@@ -76,6 +78,8 @@ export default async function handler(request, response) {
     utmCampaign: safeText(body.utmCampaign, 120),
     utmTerm: safeText(body.utmTerm, 120),
     utmContent: safeText(body.utmContent, 120),
+    reportSlug,
+    statusUrl: `https://www.enablement.ch${statusUrl}`,
     submittedAt: new Date().toISOString(),
   };
 
@@ -87,9 +91,10 @@ export default async function handler(request, response) {
       signal: AbortSignal.timeout(12000),
     });
     if (!result.ok) throw new Error(`Webhook returned ${result.status}`);
-    return send(response, 200, { ok: true });
+    return send(response, 200, { ok: true, statusUrl });
   } catch (error) {
     console.error("Competitor content request failed", error);
     return send(response, 502, { error: "We could not receive your request. Please try again." });
   }
 }
+import { randomBytes } from "node:crypto";

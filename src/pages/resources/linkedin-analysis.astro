@@ -60,16 +60,9 @@ const faq = [
         <label>Competitors we should consider <span class="optional">Optional</span><textarea name="knownCompetitors" rows="2" maxlength="500" placeholder="Names or domains, if you have them"></textarea></label>
         <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
         <button type="submit" class="btn btn-accent btn-lg">Request my audit</button>
-        <p class="form-note">We check the findings before sending your personal report link. We will reply in your LinkedIn conversation where possible, with email as a fallback.</p>
+        <p class="form-note">After submitting, you will get a link to check the status of your analysis. We review the findings before publishing the report and send it in your LinkedIn conversation where possible, with email as a fallback.</p>
         <p class="form-status" id="competitor-request-status" role="status" aria-live="polite"></p>
       </form>
-      <div class="request-success" id="competitor-request-success" hidden tabindex="-1">
-        <span class="eyebrow">Request received</span>
-        <h3>We have the starting point.</h3>
-        <p>We will check the competitor set and send your hosted report link in LinkedIn chat where possible, or by email.</p>
-        <p>You can book a LinkedIn System Audit now if you already know content is not turning into enough qualified conversations.</p>
-        <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
-      </div>
     </div>
   </section>
 
@@ -103,7 +96,6 @@ const faq = [
   <script>
     const form = document.querySelector<HTMLFormElement>("#competitor-request-form")!;
     const status = document.querySelector<HTMLElement>("#competitor-request-status")!;
-    const success = document.querySelector<HTMLElement>("#competitor-request-success")!;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -118,9 +110,9 @@ const faq = [
       try {
         const response = await fetch("/api/competitor-content-request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
         const body = await response.json();
-        if (!response.ok || !body.ok) throw new Error(body.error || "Could not send your request.");
-        form.hidden = true; success.hidden = false; success.focus();
+        if (!response.ok || !body.ok || !body.statusUrl?.startsWith("/resources/linkedin-analysis/report?slug=")) throw new Error(body.error || "Could not send your request.");
         (window as Window & { syft?: { track?: (event: string, properties: Record<string, string>) => void } }).syft?.track?.("competitor_content_pull_requested", { company_domain: String(data.companyDomain || "") });
+        window.location.assign(body.statusUrl);
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : "Could not send your request. Please try again.";
         submit.disabled = false;
@@ -167,9 +159,6 @@ const faq = [
     .form-note, .form-status { font-size: 13px; line-height: 1.5; color: var(--color-muted); margin: 12px 0 0; }
     .form-status:not(:empty) { color: var(--color-heading); }
     .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; left: -9999px; }
-    .request-success { grid-column: 2; }
-    .request-success p { margin: 0 0 16px; }
-    .request-success .btn { margin-top: 8px; }
     .finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
     .finding-grid p { font-size: 18px; line-height: 1.55; margin: 0 0 18px; }
     .section-heading { max-width: 750px; margin-bottom: 34px; }

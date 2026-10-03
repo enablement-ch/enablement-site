@@ -8,6 +8,12 @@ Review requests there, run the
 result as a hosted page. The source skill is an analyst workflow, so the site
 does not claim to generate a report instantly.
 
+Every new request includes a `reportSlug` and `statusUrl` in Clay. The visitor
+is redirected to that status URL. Copy `reportSlug` into the JSON before
+publishing so the status page can find the finished report. For a report
+requested in outreach without a website form, omit `reportSlug` and the script
+will generate a new unlisted slug.
+
 Create a JSON file using this shape, then run
 `npm run publish:competitor-report -- /path/to/report.json`. The script checks
 required fields, adds an unguessable URL slug, and writes a JSON file here.
@@ -18,6 +24,7 @@ LinkedIn conversation where possible; use the submitted work email otherwise.
 {
   "companyName": "Example Company",
   "companyDomain": "example.com",
+  "reportSlug": "example-com-copy-this-from-clay-if-present",
   "category": "B2B software",
   "window": "Last 90 days, ending 3 October 2026",
   "screenedCompanies": 6,
