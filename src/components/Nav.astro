@@ -4,8 +4,11 @@ const links: { href: string; label: string }[] = [
 ];
 
 // Add future resource pages here to include them in the dropdown.
+const isSelfAudit = Astro.url.pathname.replace(/\/$/, "") === "/resources/gtm-self-audit";
 const resources: { href: string; label: string }[] = [
-  { href: "/resources/gtm-audit", label: "GTM Audit" },
+  isSelfAudit
+    ? { href: "/resources/gtm-self-audit", label: "GTM Self Audit" }
+    : { href: "/resources/gtm-audit", label: "GTM Audit" },
   { href: "/resources/ai-sales-coach", label: "AI Sales Coach" },
 ];
 
@@ -110,6 +113,8 @@ const ctaLabel = "Book a GTM session";
   }
   @media (max-width: 767px) {
     .nav-inner:has(.nav-menu) {
+      width: 100%;
+      min-width: 0;
       height: auto;
       min-height: 72px;
       flex-wrap: wrap;
@@ -120,6 +125,7 @@ const ctaLabel = "Book a GTM session";
     .nav-menu {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       width: 100%;
       order: 3;
       gap: var(--space-5);

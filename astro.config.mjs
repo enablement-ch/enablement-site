@@ -15,6 +15,7 @@ export default defineConfig({
           '/block1-preview',
           '/meeting-booked',
           '/li-playbook-typ',
+          '/resources/gtm-self-audit',
           '/legacy-case-studies',
         ].includes(path) && !path.startsWith('/case-study-variants/');
       },

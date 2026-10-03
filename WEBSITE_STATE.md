@@ -34,6 +34,7 @@ Last updated: 2026-09-30
 
 - Service pages: `/linkedin-thoughtleadership/`, `/signal-based-outbound/`, and `/ai-revenue-operations/` are live and linked from the Services menu.
 - Resources: `/resources/ai-sales-coach/` and `/resources/gtm-audit/` established the current page style.
+- The unlinked, noindex `/resources/gtm-self-audit/` is a review page for an eight-question interactive GTM Self Audit. It shows an immediate weighted score, two gaps, first actions, related proof, and direct booking, then explains the free Allbound Audit on the same page. The existing `/resources/gtm-audit/` remains the public resource until the new page is approved.
 - Customer results and the current example galleries are important proof assets. Keep them when editing related pages.
 - Dark mode is the only site theme. Use compact spacing, red eyebrows and accents, rounded red bullets where appropriate, green for positive states, and subtle grids/glows/textures. Menu text and submenu hover states should remain readable.
 - Shared website design rules are in `~/Claude Code/enablement-brain/Design/site-plan.md`; use that file for reusable design decisions. This file records project and conversation state.
