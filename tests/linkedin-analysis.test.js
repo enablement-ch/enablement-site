@@ -53,23 +53,44 @@ test("minimal form sends the unchanged Clay webhook and exposes a resumable job"
   } finally { globalThis.fetch = originalFetch; }
 });
 
-test("research requires linked evidence and omits private Clay fields", async () => {
+test("research uses recent executive posts from verified competitors and omits private Clay fields", async () => {
   process.env.OPENAI_API_KEY = "test-key";
+  process.env.RAPIDAPI_KEY = "test-fresh-key";
   const originalFetch = globalThis.fetch;
-  let prompt;
-  globalThis.fetch = async (_url, options) => {
-    prompt = JSON.parse(options.body).input;
-    return Response.json({ status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
-      companyName: "Example", headline: "A specific opening", summary: "Evidence based summary", categoryFinding: "Peers publish about a shared buyer problem.",
-      evidence: [{ company: "Peer A", finding: "A documented topic", url: "https://peer-a.com/a" }, { company: "Peer B", finding: "A public post on another topic", url: "https://www.linkedin.com/posts/peer-b-example" }],
-      openings: [{ title: "Explain the tradeoff", buyerProblem: "A buying decision", whyItFits: "The company solves it", firstMove: "Publish a case example", sourceUrl: "https://example.com/c" }],
-      limitations: "Public post metrics were unavailable.",
-    }) }] }] });
+  const prompts = [];
+  let freshCalls = 0;
+  globalThis.fetch = async (url, options) => {
+    if (url === "https://api.openai.com/v1/responses") {
+      const prompt = JSON.parse(options.body).input;
+      prompts.push(prompt);
+      const body = prompts.length === 1 ? {
+        companyDescription: "Example sells software to operations teams", companySourceUrl: "https://example.com/",
+        competitors: [{ name: "Peer A", domain: "peer-a.com", reason: "Same buyer" }, { name: "Peer B", domain: "peer-b.com", reason: "Same buyer" }],
+      } : {
+        companyName: "Example", headline: "A specific opening", summary: "Evidence based summary", categoryFinding: "The sampled field is quiet.",
+        openings: [{ title: "Explain the tradeoff", buyerProblem: "A buying decision", whyItFits: "The company solves it", firstMove: "Publish a case example", sourceUrl: "https://example.com/" }],
+        limitations: "The latest-post sample is limited.",
+      };
+      return Response.json({ status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(body) }] }] });
+    }
+    if (String(url).includes("/get-company-by-domain")) {
+      freshCalls++;
+      return Response.json({ confident_score: "80%", data: { company_id: String(freshCalls), company_name: freshCalls === 1 ? "Example" : `Peer ${freshCalls === 3 ? "A" : "B"}` } });
+    }
+    if (String(url).includes("/search-posts")) {
+      freshCalls++;
+      const peer = freshCalls === 4 ? "Peer A" : freshCalls === 6 ? "Peer B" : "Example";
+      return Response.json({ data: peer === "Example" ? [] : [{ posted: new Date(Date.now() - 60000).toISOString(), poster_name: `Founder of ${peer}`, poster_title: `CEO at ${peer} | B2B`, post_url: `https://www.linkedin.com/posts/${peer.toLowerCase().replace(" ", "-")}-recent`, text: "A concrete buyer issue", num_likes: 12, num_comments: 3, num_shares: 1, is_sponsored: false }] });
+    }
+    throw new Error(`Unexpected URL: ${url}`);
   };
   try {
     const report = await researchLinkedinAnalysis({ companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" }, { company: { name: "Example", domain: "example.com" }, contact: { firstName: "Jane", lastName: "Example", linkedinUrl: "https://www.linkedin.com/in/example/" }, email: "private@example.com" });
     assert.equal(report.openings.length, 1);
-    assert.equal(prompt.includes("private@example.com"), false);
+    assert.equal(report.evidence.length, 2);
+    assert.equal(report.evidence.every((item) => item.url.includes("linkedin.com/posts/")), true);
+    assert.equal(prompts.some((prompt) => prompt.includes("private@example.com")), false);
+    assert.equal(freshCalls, 6);
   } finally { globalThis.fetch = originalFetch; }
 });
 
