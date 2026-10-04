@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import intake from "../api/competitor-content-request.js";
 import status from "../api/linkedin-analysis-status.js";
 import { researchLinkedinAnalysis } from "../src/server/linkedin-research.js";
+import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
 
 function response() {
   return {
@@ -70,4 +71,20 @@ test("research requires linked evidence and omits private Clay fields", async ()
     assert.equal(report.openings.length, 1);
     assert.equal(prompt.includes("private@example.com"), false);
   } finally { globalThis.fetch = originalFetch; }
+});
+
+test("Clay's snake-case fields map to the requested company and competitor set", () => {
+  const input = { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/", knownCompetitors: "Peer One" };
+  const payload = {
+    contact_first_name: "Jane", contact_last_name: "Example", contact_job_title: "CEO",
+    contact_linkedin_url: "https://www.linkedin.com/in/example/",
+    company_name: "Example Inc", company_domain: "https://www.example.com",
+    company_linkedin_url: "https://www.linkedin.com/company/example/",
+    competitors: [{ name: "Peer Two", domain: "peer-two.com" }],
+  };
+  const result = normalizeClayPayload(payload, input);
+  assert.equal(result.contact.firstName, "Jane");
+  assert.equal(result.company.name, "Example Inc");
+  assert.deepEqual(result.knownCompetitors, ["Peer One", "Peer Two - peer-two.com"]);
+  assert.throws(() => normalizeClayPayload({ ...payload, company_domain: "wrong.com" }, input), /does not match/);
 });

@@ -1,6 +1,7 @@
 import { waitUntil } from "@vercel/functions";
 import { getJob, saveJob, validToken } from "../src/server/linkedin-jobs.js";
 import { researchLinkedinAnalysis } from "../src/server/linkedin-research.js";
+import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
 
 async function finishResearch(job, enrichment) {
   try {
@@ -28,8 +29,11 @@ export default async function handler(request, response) {
     const job = await getJob(id);
     if (!job || !validToken(token, job.callbackToken)) return response.status(401).json({ error: "Unauthorized" });
     if (job.status === "complete" || job.status === "researching") return response.status(200).json({ ok: true, status: job.status });
+    let normalized;
+    try { normalized = normalizeClayPayload(enrichment, job.input); }
+    catch (error) { return response.status(422).json({ error: error.message }); }
     await saveJob({ ...job, status: "researching" });
-    waitUntil(finishResearch(job, enrichment));
+    waitUntil(finishResearch(job, normalized));
     return response.status(202).json({ ok: true, status: "researching" });
   } catch (error) {
     console.error("Could not accept analysis callback", error);

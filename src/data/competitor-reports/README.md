@@ -14,9 +14,13 @@ Example callback body (additional Clay fields are accepted):
 
 ```json
 {
-  "companyName": "Example Company",
-  "companyDescription": "B2B software for industrial teams",
-  "linkedinProfile": "https://www.linkedin.com/in/example/",
+  "contact_first_name": "Jane",
+  "contact_last_name": "Example",
+  "contact_job_title": "CEO",
+  "contact_linkedin_url": "https://www.linkedin.com/in/example/",
+  "company_name": "Example Company",
+  "company_domain": "example.com",
+  "company_linkedin_url": "https://www.linkedin.com/company/example/",
   "competitors": [
     { "name": "Peer Company", "domain": "peer.example", "reason": "Same buyer and use case" }
   ]
@@ -36,13 +40,9 @@ Tools menu link paused until the complete Clay callback flow is tested live.
 
 ## Legacy reviewed reports
 
-The public LinkedIn Analysis form sends all visible form fields and
-attribution to the dedicated Clay webhook via the server endpoint, with
-`requestType: linkedin_analysis` and `analysisType: competitor_content_pull`.
-Review requests there, run the
-`content-lead-magnet-competitor-analysis` workflow, and publish each reviewed
-result as a hosted page. The source skill is an analyst workflow, so the site
-does not claim to generate a report instantly.
+The earlier manual publishing path is retained for reviewed reports outside
+the live form flow. Run the `content-lead-magnet-competitor-analysis` workflow
+and publish each reviewed result as a hosted page.
 
 Create a JSON file using this shape, then run
 `npm run publish:competitor-report -- /path/to/report.json`. The script checks
