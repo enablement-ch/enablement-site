@@ -61,13 +61,13 @@ test("research requires linked evidence and omits private Clay fields", async ()
     prompt = JSON.parse(options.body).input;
     return Response.json({ status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
       companyName: "Example", headline: "A specific opening", summary: "Evidence based summary", categoryFinding: "Peers publish about a shared buyer problem.",
-      evidence: [{ company: "Peer A", finding: "A documented topic", url: "https://example.com/a" }, { company: "Peer B", finding: "Another documented topic", url: "https://example.com/b" }],
+      evidence: [{ company: "Peer A", finding: "A documented topic", url: "https://peer-a.com/a" }, { company: "Peer B", finding: "A public post on another topic", url: "https://www.linkedin.com/posts/peer-b-example" }],
       openings: [{ title: "Explain the tradeoff", buyerProblem: "A buying decision", whyItFits: "The company solves it", firstMove: "Publish a case example", sourceUrl: "https://example.com/c" }],
       limitations: "Public post metrics were unavailable.",
     }) }] }] });
   };
   try {
-    const report = await researchLinkedinAnalysis({ companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" }, { companyName: "Example", email: "private@example.com" });
+    const report = await researchLinkedinAnalysis({ companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" }, { company: { name: "Example", domain: "example.com" }, contact: { firstName: "Jane", lastName: "Example", linkedinUrl: "https://www.linkedin.com/in/example/" }, email: "private@example.com" });
     assert.equal(report.openings.length, 1);
     assert.equal(prompt.includes("private@example.com"), false);
   } finally { globalThis.fetch = originalFetch; }
