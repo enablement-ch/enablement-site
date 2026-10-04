@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "api/linkedin-analysis-callback.js": { "maxDuration": 300 }
+  },
   "redirects": [
     {
       "source": "/resources/competitor-content-pull",
