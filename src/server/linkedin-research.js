@@ -65,13 +65,13 @@ export async function researchLinkedinAnalysis(input, clayData) {
       tools: [{ type: "web_search" }],
       text: { format: { type: "json_schema", name: "linkedin_content_gap", strict: true, schema: reportSchema } },
       input: prompt,
-      max_output_tokens: 4500,
+      max_output_tokens: 12000,
     }),
     signal: AbortSignal.timeout(240000),
   });
   if (!response.ok) throw new Error(`Research API returned ${response.status}`);
   const body = await response.json();
-  if (body.status && body.status !== "completed") throw new Error(`Research status: ${body.status}`);
+  if (body.status && body.status !== "completed") throw new Error(`Research status: ${body.status} (${body.incomplete_details?.reason || "unknown reason"})`);
   const raw = outputText(body).trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
   return cleanReport(JSON.parse(raw));
 }
