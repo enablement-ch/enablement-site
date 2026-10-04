@@ -204,6 +204,9 @@ const faq = [
     startOver.addEventListener("click", () => {
       if (pollTimer) window.clearTimeout(pollTimer);
       localStorage.removeItem(storageKey);
+      const url = new URL(location.href);
+      url.searchParams.delete("jobId");
+      history.replaceState(null, "", url);
       results.hidden = true;
       results.replaceChildren();
       startOver.hidden = true;
@@ -215,7 +218,9 @@ const faq = [
       status.textContent = "";
     });
 
-    const existingJob = localStorage.getItem(storageKey);
+    const sharedJob = new URLSearchParams(location.search).get("jobId");
+    const existingJob = sharedJob && /^[a-f0-9]{40}$/.test(sharedJob) ? sharedJob : localStorage.getItem(storageKey);
+    if (sharedJob && existingJob === sharedJob) localStorage.setItem(storageKey, sharedJob);
     if (existingJob && /^[a-f0-9]{40}$/.test(existingJob)) showProgress(existingJob);
 
     form.addEventListener("submit", async (event) => {
