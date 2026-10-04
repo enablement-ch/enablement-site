@@ -32,8 +32,8 @@ research, and finished findings in the same page. The job ID stays in the
 visitor's browser storage so a refresh resumes the page. The job and report
 expire after 24 hours. No static result page is created for this flow.
 
-Production needs `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and
-`OPENAI_API_KEY` on the Vercel project. The Redis store holds transient jobs;
+Production needs `KV_REST_API_URL`, `KV_REST_API_TOKEN`, and `OPENAI_API_KEY`
+on the Vercel project. The Redis store holds transient jobs;
 the OpenAI Responses web search researches public sources after Clay calls
 back. `OPENAI_RESEARCH_MODEL` is optional and defaults to `gpt-5`. Keep the
 Tools menu link paused until the complete Clay callback flow is tested live.

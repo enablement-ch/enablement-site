@@ -46,7 +46,9 @@ export default async function handler(request, response) {
   const webhookUrl = "https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-00ea8418-d321-481a-bf50-c3e3d30e7bbe";
   const jobId = randomBytes(20).toString("hex");
   const callbackToken = randomBytes(24).toString("hex");
-  const callbackUrl = `https://www.enablement.ch/api/linkedin-analysis-callback?jobId=${jobId}&token=${callbackToken}`;
+  const callbackOrigin = process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}` : "https://www.enablement.ch";
+  const callbackUrl = `${callbackOrigin}/api/linkedin-analysis-callback?jobId=${jobId}&token=${callbackToken}`;
   const knownCompetitors = safeText(body.knownCompetitors, 500);
   try {
     await createJob(jobId, callbackToken, { companyDomain, linkedinUrl, knownCompetitors });
