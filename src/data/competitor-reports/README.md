@@ -1,5 +1,41 @@
 # Competitor content reports
 
+## Live on-page analysis flow
+
+The form at `/resources/linkedin-analysis` asks for a LinkedIn profile URL,
+company domain, and optional known competitors. It still posts to the same
+dedicated Clay webhook. Each payload contains `jobId` and a complete
+`callbackUrl`. Clay should enrich the row, then POST its JSON object to that
+exact `callbackUrl` with `Content-Type: application/json`. The callback URL is
+unique to that request and includes a secret token, so do not expose it in
+public logs or a browser. The callback returns HTTP 202 when research starts.
+
+Example callback body (additional Clay fields are accepted):
+
+```json
+{
+  "companyName": "Example Company",
+  "companyDescription": "B2B software for industrial teams",
+  "linkedinProfile": "https://www.linkedin.com/in/example/",
+  "competitors": [
+    { "name": "Peer Company", "domain": "peer.example", "reason": "Same buyer and use case" }
+  ]
+}
+```
+
+The page polls `/api/linkedin-analysis-status?jobId=...` and shows Clay intake,
+research, and finished findings in the same page. The job ID stays in the
+visitor's browser storage so a refresh resumes the page. The job and report
+expire after 24 hours. No static result page is created for this flow.
+
+Production needs `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and
+`OPENAI_API_KEY` on the Vercel project. The Redis store holds transient jobs;
+the OpenAI Responses web search researches public sources after Clay calls
+back. `OPENAI_RESEARCH_MODEL` is optional and defaults to `gpt-5`. Keep the
+Tools menu link paused until the complete Clay callback flow is tested live.
+
+## Legacy reviewed reports
+
 The public LinkedIn Analysis form sends all visible form fields and
 attribution to the dedicated Clay webhook via the server endpoint, with
 `requestType: linkedin_analysis` and `analysisType: competitor_content_pull`.
