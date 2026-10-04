@@ -1,5 +1,7 @@
-import { randomBytes } from "node:crypto";
-import { createJob, saveJob } from "../src/server/linkedin-jobs.js";
+const FREE_EMAIL_DOMAINS = new Set([
+  "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "yahoo.com",
+  "icloud.com", "me.com", "aol.com", "proton.me", "protonmail.com",
+]);
 
 function send(response, status, body) {
   response.status(status).json(body);
@@ -25,6 +27,13 @@ function linkedinProfile(value) {
   } catch { return null; }
 }
 
+function workEmail(value) {
+  const email = String(value || "").trim().toLowerCase();
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+  if (FREE_EMAIL_DOMAINS.has(email.split("@")[1])) return null;
+  return email;
+}
+
 function safeText(value, max = 150) {
   return String(value || "").trim().slice(0, max);
 }
@@ -40,32 +49,26 @@ export default async function handler(request, response) {
 
   const companyDomain = domainFromInput(body.companyDomain);
   const linkedinUrl = linkedinProfile(body.linkedinUrl);
+  const email = workEmail(body.email);
+  const firstName = safeText(body.firstName, 80);
+  const lastName = safeText(body.lastName, 80);
+  if (!firstName || !lastName) return send(response, 400, { error: "Enter your first and last name." });
   if (!companyDomain) return send(response, 400, { error: "Enter a valid company domain." });
   if (!linkedinUrl) return send(response, 400, { error: "Enter your personal LinkedIn profile URL." });
+  if (!email) return send(response, 400, { error: "Enter a valid work email for delivery." });
 
   const webhookUrl = "https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-00ea8418-d321-481a-bf50-c3e3d30e7bbe";
-  const jobId = randomBytes(20).toString("hex");
-  const callbackToken = randomBytes(24).toString("hex");
-  const callbackOrigin = process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}` : "https://www.enablement.ch";
-  const callbackUrl = `${callbackOrigin}/api/linkedin-analysis-callback?jobId=${jobId}&token=${callbackToken}`;
-  const knownCompetitors = safeText(body.knownCompetitors, 500);
-  try {
-    await createJob(jobId, callbackToken, { companyDomain, linkedinUrl, knownCompetitors });
-  } catch (error) {
-    console.error("Could not create analysis job", error);
-    return send(response, 503, { error: "The analysis is temporarily unavailable. Please try again." });
-  }
 
   const payload = {
     source: "website_linkedin_analysis",
     requestType: "linkedin_analysis",
     analysisType: "competitor_content_pull",
+    firstName,
+    lastName,
     companyDomain,
     linkedinUrl,
-    knownCompetitors,
-    jobId,
-    callbackUrl,
+    email,
+    knownCompetitors: safeText(body.knownCompetitors, 500),
     pageUrl: safeText(body.pageUrl, 500),
     referrer: safeText(body.referrer, 500),
     utmSource: safeText(body.utmSource, 120),
@@ -84,12 +87,9 @@ export default async function handler(request, response) {
       signal: AbortSignal.timeout(12000),
     });
     if (!result.ok) throw new Error(`Webhook returned ${result.status}`);
-    return send(response, 200, { ok: true, jobId });
+    return send(response, 200, { ok: true });
   } catch (error) {
     console.error("Competitor content request failed", error);
-    try {
-      await saveJob({ id: jobId, input: { companyDomain, linkedinUrl, knownCompetitors }, status: "failed", createdAt: new Date().toISOString() });
-    } catch (storeError) { console.error("Could not mark failed analysis job", storeError); }
     return send(response, 502, { error: "We could not receive your request. Please try again." });
   }
 }
