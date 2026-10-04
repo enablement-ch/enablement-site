@@ -75,11 +75,14 @@ test("research uses recent executive posts from verified competitors and omits p
     }
     if (String(url).includes("/get-company-by-domain")) {
       freshCalls++;
-      return Response.json({ confident_score: "80%", data: { company_id: String(freshCalls), company_name: freshCalls === 1 ? "Example" : `Peer ${freshCalls === 3 ? "A" : "B"}` } });
+      const companyDomain = new URL(url).searchParams.get("domain");
+      const company = companyDomain === "example.com" ? "Example" : companyDomain === "peer-a.com" ? "Peer A" : "Peer B";
+      return Response.json({ confident_score: "80%", data: { company_id: companyDomain, company_name: company } });
     }
     if (String(url).includes("/search-posts")) {
       freshCalls++;
-      const peer = freshCalls === 4 ? "Peer A" : freshCalls === 6 ? "Peer B" : "Example";
+      const companyDomain = JSON.parse(options.body).author_company[0];
+      const peer = companyDomain === "example.com" ? "Example" : companyDomain === "peer-a.com" ? "Peer A" : "Peer B";
       return Response.json({ data: peer === "Example" ? [] : [{ posted: new Date(Date.now() - 60000).toISOString(), poster_name: `Founder of ${peer}`, poster_title: `CEO at ${peer} | B2B`, post_url: `https://www.linkedin.com/posts/${peer.toLowerCase().replace(" ", "-")}-recent`, text: "A concrete buyer issue", num_likes: 12, num_comments: 3, num_shares: 1, is_sponsored: false }] });
     }
     throw new Error(`Unexpected URL: ${url}`);

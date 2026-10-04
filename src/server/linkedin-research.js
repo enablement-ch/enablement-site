@@ -51,6 +51,7 @@ function linkedinPostUrl(value) {
 }
 
 async function openaiJson(prompt, schema, name, webSearch = false) {
+  const timeoutMs = webSearch ? 160000 : 85000;
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json" },
@@ -58,7 +59,7 @@ async function openaiJson(prompt, schema, name, webSearch = false) {
       ...(webSearch ? { tools: [{ type: "web_search" }] } : {}),
       text: { format: { type: "json_schema", name, strict: true, schema } },
       input: prompt, max_output_tokens: webSearch ? 8000 : 5000 }),
-    signal: AbortSignal.timeout(webSearch ? 100000 : 90000),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   if (!response.ok) throw new Error(`Research API returned ${response.status}`);
   const body = await response.json();
@@ -137,9 +138,12 @@ export async function researchLinkedinAnalysis(input, clayData) {
 
   // At most ten Fresh requests: the seed and four peers, with one lookup and one post search each.
   const now = Date.now();
+  const candidatesToScreen = [{ name: clayData.company.name, domain: clayData.company.domain }, ...peers];
   const companies = [];
-  for (const item of [{ name: clayData.company.name, domain: clayData.company.domain }, ...peers]) {
-    companies.push(await companyPosts(item.name, item.domain, now));
+  // Three at a time keeps Fresh below the burst that triggered rate limits in the skill's research.
+  for (let offset = 0; offset < candidatesToScreen.length; offset += 3) {
+    const batch = candidatesToScreen.slice(offset, offset + 3);
+    companies.push(...await Promise.all(batch.map((item) => companyPosts(item.name, item.domain, now))));
   }
   const [seed, ...competitors] = companies;
   const verified = competitors.filter((company) => company.verified);
