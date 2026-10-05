@@ -186,12 +186,12 @@ export async function researchLinkedinAnalysis(input, clayData, progress = async
   const found = new Map();
   for (const item of discovery.competitors || []) {
     const candidateDomain = domain(item.domain);
-    if (!candidateDomain || candidateDomain === seedDomain || !officialUrl(item.sourceUrl, candidateDomain)) continue;
+    if (!candidateDomain || candidateDomain === seedDomain) continue;
     found.set(candidateDomain, { name: String(item.name).slice(0, 100), domain: candidateDomain,
-      sourceUrl: item.sourceUrl, reason: item.reason });
+      sourceUrl: officialUrl(item.sourceUrl, candidateDomain) ? item.sourceUrl : `https://${candidateDomain}/`, reason: item.reason });
   }
   const candidates = [...found.values()].slice(0, 12);
-  console.info("Competitor discovery", { proposed: discovery.competitors?.length || 0, verifiedCandidates: candidates.length });
+  console.info("Competitor discovery", { proposed: discovery.competitors?.length || 0, candidates: candidates.map(({ name, domain }) => ({ name, domain })) });
   if (candidates.length < 4) throw new Error("Competitor search produced too few verifiable candidates");
   const sites = await Promise.all(candidates.map(async (candidate) => ({ ...candidate,
     siteText: await websiteText(candidate.sourceUrl) })));
