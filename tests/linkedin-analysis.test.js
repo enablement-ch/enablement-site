@@ -55,6 +55,7 @@ test("research screens websites and reads founder profiles rather than company-a
   const originalFetch = globalThis.fetch;
   const promptInputs = [];
   const freshPaths = [];
+  let paginated = false;
   const founders = {
     "example": ["Jane Example", "Example"],
     "alice-a": ["Alice A", "Peer A"],
@@ -70,18 +71,22 @@ test("research screens websites and reads founder profiles rather than company-a
     if (url === "https://api.openai.com/v1/responses") {
       const request = JSON.parse(options.body);
       promptInputs.push(request.input);
-      const output = promptInputs.length === 1 ? {
+      const output = request.text.format.name === "linkedin_competitor_candidates" ? {
         companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
         businessModel: "agency/services", subindustry: "GTM engineering",
         searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
         competitors: ["a", "b", "c", "d"].map((letter) => ({
           name: `Peer ${letter.toUpperCase()}`, domain: `peer-${letter}.com`,
-          sourceUrl: `https://peer-${letter}.com/`, founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
-          founderUrl: `https://www.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
-          founderSourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
+          sourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
         })),
-      } : promptInputs.length === 2 ? {
+      } : request.text.format.name === "linkedin_competitor_screen" ? {
         accepted: ["peer-a.com", "peer-b.com", "peer-c.com"].map((domain) => ({ domain, reason: "Same delivery model" })),
+      } : request.text.format.name === "linkedin_competitor_founders" ? {
+        founders: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
+          founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
+          founderUrl: `https://www.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
+          founderSourceUrl: `https://peer-${letter}.com/`,
+        })),
       } : {
         headline: "A credible content opening", summary: "Peers are active.", mode: "crowded",
         pain: "Buyers can hear from other founders before they hear from you.",
@@ -105,12 +110,25 @@ test("research screens websites and reads founder profiles rather than company-a
       const [name, company] = founders[slug];
       if (parsed.pathname === "/enrich-lead") return Response.json({ data: {
         full_name: name, headline: `Founder at ${company}`, follower_count: 1200 } });
-      if (parsed.pathname === "/get-profile-posts") return Response.json({ data: [{
+      if (parsed.pathname === "/get-profile-posts") {
+        const row = {
         posted: new Date(Date.now() - 86400000).toISOString(),
         poster_linkedin_url: `https://www.linkedin.com/in/${slug}/`,
         post_url: `https://www.linkedin.com/posts/${slug}-one`, text: "A concrete buyer problem and solution",
         num_likes: 12, num_comments: 3, num_reposts: 1, reshared: false,
-      }] });
+        };
+        if (slug === "alice-a" && parsed.searchParams.has("start")) {
+          assert.equal(parsed.searchParams.get("start"), "50");
+          assert.equal(parsed.searchParams.get("pagination_token"), "page-2-token");
+          paginated = true;
+          return Response.json({ data: [row, { ...row, post_url: `${row.post_url}-next` },
+            { ...row, post_url: `${row.post_url}-old`, posted: new Date(Date.now() - 100 * 86400000).toISOString() }] });
+        }
+        if (slug === "alice-a") return Response.json({ data: Array.from({ length: 50 }, (_, i) => ({
+          ...row, post_url: i ? `${row.post_url}-${i}` : row.post_url,
+        })), paging: { pagination_token: "page-2-token" } });
+        return Response.json({ data: [row] });
+      }
     }
     throw new Error(`Unexpected URL: ${url}`);
   };
@@ -122,9 +140,11 @@ test("research screens websites and reads founder profiles rather than company-a
         email: "private@example.com" });
     assert.equal(report.competitors.length, 3);
     assert.equal(report.topics.length, 2);
-    assert.equal(report.competitors[0].posts90, 1);
+    assert.equal(report.competitors[0].posts90, 51);
+    assert.equal(report.competitors[0].countIsMinimum, false);
     assert.equal(report.competitors[0].averageEngagement, 16);
-    assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 4);
+    assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 5);
+    assert.equal(paginated, true);
     assert.equal(freshPaths.includes("/search-posts"), false);
     assert.equal(promptInputs.some((input) => input.includes("private@example.com")), false);
   } finally { globalThis.fetch = originalFetch; }
