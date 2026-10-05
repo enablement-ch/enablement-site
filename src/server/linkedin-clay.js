@@ -15,15 +15,6 @@ function profilePath(value) {
 
 const text = (value, limit = 300) => String(value || "").trim().slice(0, limit);
 
-function competitors(value) {
-  if (Array.isArray(value)) return value.slice(0, 20).map((item) => {
-    if (typeof item === "string") return text(item, 160);
-    if (item && typeof item === "object") return [text(item.name, 120), text(item.domain, 160)].filter(Boolean).join(" - ");
-    return "";
-  }).filter(Boolean);
-  return typeof value === "string" ? value.split(/[,\n;]/).map((item) => text(item, 160)).filter(Boolean).slice(0, 20) : [];
-}
-
 export function normalizeClayPayload(payload, requestInput) {
   const clayDomain = domain(payload.company_domain);
   const clayProfile = profilePath(payload.contact_linkedin_url);
@@ -41,9 +32,5 @@ export function normalizeClayPayload(payload, requestInput) {
       domain: requestInput.companyDomain,
       linkedinUrl: text(payload.company_linkedin_url, 500),
     },
-    knownCompetitors: [...new Set([
-      ...competitors(requestInput.knownCompetitors),
-      ...competitors(payload.competitors),
-    ])],
   };
 }

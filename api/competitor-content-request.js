@@ -49,9 +49,8 @@ export default async function handler(request, response) {
   const callbackOrigin = process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}` : "https://www.enablement.ch";
   const callbackUrl = `${callbackOrigin}/api/linkedin-analysis-callback?jobId=${jobId}&token=${callbackToken}`;
-  const knownCompetitors = safeText(body.knownCompetitors, 500);
   try {
-    await createJob(jobId, callbackToken, { companyDomain, linkedinUrl, knownCompetitors });
+    await createJob(jobId, callbackToken, { companyDomain, linkedinUrl });
   } catch (error) {
     console.error("Could not create analysis job", error);
     return send(response, 503, { error: "The analysis is temporarily unavailable. Please try again." });
@@ -63,7 +62,6 @@ export default async function handler(request, response) {
     analysisType: "competitor_content_pull",
     companyDomain,
     linkedinUrl,
-    knownCompetitors,
     jobId,
     callbackUrl,
     pageUrl: safeText(body.pageUrl, 500),
@@ -88,7 +86,7 @@ export default async function handler(request, response) {
   } catch (error) {
     console.error("Competitor content request failed", error);
     try {
-      await saveJob({ id: jobId, input: { companyDomain, linkedinUrl, knownCompetitors }, status: "failed", createdAt: new Date().toISOString() });
+      await saveJob({ id: jobId, input: { companyDomain, linkedinUrl }, status: "failed", createdAt: new Date().toISOString() });
     } catch (storeError) { console.error("Could not mark failed analysis job", storeError); }
     return send(response, 502, { error: "We could not receive your request. Please try again." });
   }

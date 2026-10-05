@@ -8,7 +8,7 @@ import { getCollection } from "astro:content";
 const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
 const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
 const faq = [
-  { q: "Is this a generic competitor list?", a: "No. We look for companies a buyer could actually consider alongside yours, then compare what their people publish. You can name competitors we should include." },
+  { q: "Is this a generic competitor list?", a: "No. We start with your website, find firms that sell a similar service or product to similar buyers, then check what their founders publish." },
   { q: "Will I see this immediately?", a: "The analysis starts after Clay enriches your request. Keep this page open to see its progress and the results. It can take several minutes." },
   { q: "Do I need to be connected with you on LinkedIn?", a: "No. Your LinkedIn profile URL gives us a starting point for the analysis." },
   { q: "What happens on the call?", a: "In a free 30-minute LinkedIn System Audit, we review the content gap, the buyer problems you can credibly speak to, and how to turn relevant engagement into sales conversations." },
@@ -23,7 +23,7 @@ const faq = [
         <h1 class="display">Your competitors are teaching your buyers. <span class="italic-accent">What are you missing?</span></h1>
         <p class="lead">See what relevant companies publish on LinkedIn, which ideas already win attention, and the buyer problems your team could credibly own.</p>
         <a href="#request-analysis" class="btn btn-accent btn-lg">Find my content gap</a>
-        <span class="hero-note">Personal analysis · Hosted report · No PDF</span>
+        <span class="hero-note">Your profile + company domain · Results on this page</span>
       </div>
       <div class="report-preview" aria-label="Example of the analysis sections">
         <div class="preview-top"><span>CONTENT GAP / PREVIEW</span><span>↗</span></div>
@@ -40,7 +40,7 @@ const faq = [
       <div class="request-intro">
         <span class="eyebrow">The analysis</span>
         <h2>Find the gap you can <span class="italic-accent">actually claim.</span></h2>
-        <p>We review your positioning and LinkedIn activity, check a relevant competitor set, and compare the topics their people publish. The findings appear on this page with evidence and a practical place to start.</p>
+        <p>We read your website and profile, find comparable businesses, and review their founders' recent posts. The findings appear here with sources and a practical place to start.</p>
         <div class="request-steps">
           <div><span>01 / Compare</span><strong>Who is active in your category?</strong></div>
           <div><span>02 / Diagnose</span><strong>Which topics are crowded or missing?</strong></div>
@@ -52,7 +52,6 @@ const faq = [
         <h3>What should we analyse?</h3>
         <label>Your LinkedIn profile<input name="linkedinUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://www.linkedin.com/in/your-name/" required /></label>
         <label>Company domain<input name="companyDomain" inputmode="url" placeholder="company.com" required /></label>
-        <label>Competitors we should consider <span class="optional">Optional</span><textarea name="knownCompetitors" rows="2" maxlength="500" placeholder="Names or domains, if you have them"></textarea></label>
         <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
         <button type="submit" class="btn btn-accent btn-lg">Analyse my content gap</button>
         <p class="form-note">Your analysis will appear here after the enrichment and research finish. This may take several minutes.</p>
@@ -62,6 +61,8 @@ const faq = [
         <span class="eyebrow">Your LinkedIn Analysis</span>
         <h3 id="analysis-progress-title">Preparing your analysis</h3>
         <p id="analysis-progress-message" role="status" aria-live="polite">We received your request.</p>
+        <div class="analysis-wait" id="analysis-wait"><span class="wait-dial" aria-hidden="true"></span><span>Research in progress <strong id="analysis-elapsed">00:00</strong></span></div>
+        <p class="analysis-stay" id="analysis-stay">Do not close this page while your analysis is being prepared.</p>
         <div id="analysis-results" hidden></div>
         <button type="button" class="btn btn-outline btn-md" id="analysis-start-over" hidden>Start another analysis</button>
       </div>
@@ -79,13 +80,13 @@ const faq = [
 
   <section class="section audit-section" id="linkedin-audit">
     <div class="container">
-      <div class="section-heading"><span class="eyebrow">The next step</span><h2>The report finds the opening. The call builds <span class="italic-accent">the system.</span></h2><p class="lead">A free 30-minute LinkedIn System Audit connects the content gap to your buyers, your publishing process, and your sales follow-up.</p></div>
+      <div class="section-heading"><span class="eyebrow">The next step</span><h2>The report finds the opening. The call builds <span class="italic-accent">the system.</span></h2><p class="lead">This quick automated scan uses public content. In a free 30-minute LinkedIn System Audit, we look deeper at your positioning, content that earns relevant attention, and how to turn that attention into sales conversations.</p></div>
       <div class="audit-grid">
         <article><span>01 / Position</span><h3>Choose the buyer problem</h3><p>Check which topic your team can own with real expertise and proof.</p></article>
         <article><span>02 / Publish</span><h3>Build the content motion</h3><p>Turn that point of view into posts that earn attention from the right people.</p></article>
         <article><span>03 / Convert</span><h3>Act on the right signals</h3><p>Qualify the people who engage and create a relevant reason for sales to speak with them.</p></article>
       </div>
-      <a href={meetingUrl} class="btn btn-accent btn-md">I want to fix my LinkedIn system</a>
+      <a href={meetingUrl} class="btn btn-accent btn-md">Book my free LinkedIn audit</a>
     </div>
   </section>
 
@@ -103,9 +104,14 @@ const faq = [
     const progressMessage = document.querySelector<HTMLElement>("#analysis-progress-message")!;
     const results = document.querySelector<HTMLElement>("#analysis-results")!;
     const startOver = document.querySelector<HTMLButtonElement>("#analysis-start-over")!;
+    const wait = document.querySelector<HTMLElement>("#analysis-wait")!;
+    const stay = document.querySelector<HTMLElement>("#analysis-stay")!;
+    const elapsed = document.querySelector<HTMLElement>("#analysis-elapsed")!;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const storageKey = "enablement-linkedin-analysis-job";
     let pollTimer: number | undefined;
+    let clockTimer: number | undefined;
+    let startedAt = Date.now();
 
     function addText(parent: HTMLElement, tag: string, value: string, className = "") {
       const element = document.createElement(tag);
@@ -115,44 +121,128 @@ const faq = [
       return element;
     }
 
-    function addSource(parent: HTMLElement, url: string) {
+    function addSource(parent: HTMLElement, url: string, label = "View source ↗") {
       const link = document.createElement("a");
       link.href = url;
-      link.textContent = "View source ↗";
+      link.textContent = label;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       parent.append(link);
     }
 
+    const number = (value: number) => new Intl.NumberFormat("en").format(value || 0);
+    function setClock(start: string | number) {
+      startedAt = typeof start === "number" ? start : Date.parse(start) || Date.now();
+      if (clockTimer) window.clearInterval(clockTimer);
+      const tick = () => {
+        const seconds = Math.max(0, Math.floor((Date.now() - startedAt) / 1000));
+        elapsed.textContent = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+      };
+      tick();
+      clockTimer = window.setInterval(tick, 1000);
+    }
+    function stopClock() {
+      if (clockTimer) window.clearInterval(clockTimer);
+      wait.hidden = true;
+      stay.hidden = true;
+    }
+
+    function founderCard(person: any, isOwn = false) {
+      const card = document.createElement("article");
+      card.className = isOwn ? "founder-card founder-own" : "founder-card";
+      addText(card, "span", isOwn ? "YOUR PROFILE" : person.name.toUpperCase(), "card-eyebrow");
+      addText(card, "h6", person.founderName);
+      const metrics = document.createElement("div");
+      metrics.className = "founder-metrics";
+      for (const [value, label] of [
+        [number(person.followers), "followers"],
+        [`${person.countIsMinimum ? "≥" : ""}${number(person.posts90)}`, "posts / 90 days"],
+        [number(person.averageEngagement), "avg. interactions"],
+        [number(person.medianEngagement), "median interactions"],
+      ]) {
+        const metric = document.createElement("div");
+        addText(metric, "strong", value);
+        addText(metric, "span", label);
+        metrics.append(metric);
+      }
+      card.append(metrics);
+      if (!isOwn && person.highlight) {
+        addText(card, "p", `Top sampled post: ${number(person.highlight.likes + person.highlight.comments + person.highlight.reposts)} interactions. ${person.highlight.text.slice(0, 135)}…`, "founder-highlight");
+        addSource(card, person.highlight.url, "Read the post ↗");
+      }
+      addSource(card, person.founderUrl, "View profile ↗");
+      return card;
+    }
+
     function showReport(report: any) {
       results.replaceChildren();
+      addText(results, "span", `90-DAY CONTENT SCAN / ${report.checkedAt}`, "report-eyebrow");
       addText(results, "h4", report.headline);
-      addText(results, "p", report.summary);
-      addText(results, "h5", "What we found");
+      addText(results, "p", report.summary, "report-summary");
+      const pain = document.createElement("div");
+      pain.className = "report-pain";
+      addText(pain, "span", "THE PROBLEM", "card-eyebrow");
+      addText(pain, "p", report.pain);
+      results.append(pain);
+      addText(results, "h5", "The founder comparison");
       addText(results, "p", report.categoryFinding);
-      const evidenceList = document.createElement("div");
-      evidenceList.className = "analysis-list";
-      for (const item of report.evidence) {
-        const card = document.createElement("article");
-        addText(card, "strong", item.company || "Public evidence");
-        addText(card, "p", item.finding);
-        addSource(card, item.url);
-        evidenceList.append(card);
+      const founders = document.createElement("div");
+      founders.className = "founder-grid";
+      founders.append(founderCard(report.own, true));
+      for (const person of report.competitors) founders.append(founderCard(person));
+      results.append(founders);
+      const featured = new Set(report.competitors.map((person: any) => person.domain));
+      const others = (report.screenedCompetitors || []).filter((person: any) => !featured.has(person.domain));
+      if (others.length) {
+        const extra = document.createElement("p");
+        extra.className = "screened-peers";
+        addText(extra, "strong", "Also screened: ");
+        for (const [index, person] of others.entries()) {
+          if (index) extra.append(document.createTextNode(" · "));
+          addSource(extra, person.url, person.name);
+        }
+        results.append(extra);
       }
-      results.append(evidenceList);
-      addText(results, "h5", "Your content openings");
+      addText(results, "h5", "What they talk about");
+      if (report.topics.length) {
+        const topicList = document.createElement("div");
+        topicList.className = "report-topics";
+        for (const [index, item] of report.topics.entries()) {
+          const card = document.createElement("article");
+          addText(card, "span", `TOPIC 0${index + 1}`, "card-eyebrow");
+          addText(card, "h6", item.title);
+          addText(card, "p", item.finding);
+          addSource(card, item.sourceUrl, "See example post ↗");
+          topicList.append(card);
+        }
+        results.append(topicList);
+      } else {
+        addText(results, "p", "No sustained buyer topic appeared in the verified founder-post sample.");
+      }
+      addText(results, "h5", "Where you could make a mark");
       const openingList = document.createElement("div");
       openingList.className = "analysis-list";
-      for (const item of report.openings) {
+      for (const [index, item] of report.openings.entries()) {
         const card = document.createElement("article");
-        addText(card, "strong", item.title);
+        addText(card, "span", `OPENING 0${index + 1}`, "card-eyebrow");
+        addText(card, "h6", item.title);
         addText(card, "p", item.buyerProblem);
         addText(card, "p", item.whyItFits);
-        addText(card, "p", `First move: ${item.firstMove}`);
-        addSource(card, item.sourceUrl);
+        addText(card, "p", `First post: ${item.firstMove}`, "first-move");
         openingList.append(card);
       }
       results.append(openingList);
+      const next = document.createElement("div");
+      next.className = "report-next";
+      addText(next, "span", "GO DEEPER", "card-eyebrow");
+      addText(next, "h5", "Turn the opening into content buyers remember.");
+      addText(next, "p", "This is a quick automated scan of public posts. In a free audit, we'll examine your positioning, shape content that earns relevant attention, and build the follow-up that turns that attention into sales conversations.");
+      const audit = document.createElement("a");
+      audit.href = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+      audit.className = "btn btn-accent btn-md";
+      audit.textContent = "Book my free LinkedIn audit";
+      next.append(audit);
+      results.append(next);
       if (report.limitations) addText(results, "p", report.limitations, "analysis-limitations");
       results.hidden = false;
     }
@@ -162,13 +252,22 @@ const faq = [
         const response = await fetch(`/api/linkedin-analysis-status?jobId=${encodeURIComponent(jobId)}`, { cache: "no-store" });
         const job = await response.json();
         if (!response.ok) throw new Error(job.error || "Could not check status");
+        if (job.createdAt && startedAt > Date.parse(job.createdAt)) setClock(job.createdAt);
         if (job.status === "waiting_for_clay") {
           progressTitle.textContent = "Enriching your request";
           progressMessage.textContent = "We received your details. This page will update when the enrichment arrives from Clay.";
         } else if (job.status === "researching") {
-          progressTitle.textContent = "Researching the content gap";
-          progressMessage.textContent = "We are checking public sources and preparing the findings. This can take several minutes.";
+          const stages: Record<string, [string, string]> = {
+            discovering_competitors: ["Finding comparable businesses", "We are searching for companies with a similar offer and buyer."],
+            screening_competitors: ["Checking the competitor set", "We are verifying each company's business model and positioning."],
+            collecting_posts: ["Reading founder posts", "We are reviewing verified founders' posts from the last 90 days."],
+            writing_analysis: ["Building your analysis", "We are comparing topics, engagement, and defensible openings."],
+          };
+          const [title, message] = stages[job.stage] || ["Researching the content gap", "We are checking public sources and preparing the findings."];
+          progressTitle.textContent = title;
+          progressMessage.textContent = message;
         } else if (job.status === "complete") {
+          stopClock();
           progressTitle.textContent = `Your analysis for ${job.report.companyName}`;
           progressMessage.textContent = "The analysis is ready.";
           progress.classList.add("has-results");
@@ -176,6 +275,7 @@ const faq = [
           startOver.hidden = false;
           return;
         } else if (job.status === "failed") {
+          stopClock();
           progressTitle.textContent = "We could not finish the analysis";
           progressMessage.textContent = job.message;
           startOver.hidden = false;
@@ -183,6 +283,7 @@ const faq = [
         }
       } catch (error) {
         if (error instanceof Error && error.message.includes("expired or not found")) {
+          stopClock();
           progressTitle.textContent = "This analysis has expired";
           progressMessage.textContent = "Start a new analysis to see current findings.";
           startOver.hidden = false;
@@ -195,6 +296,9 @@ const faq = [
 
     function showProgress(jobId: string) {
       if (pollTimer) window.clearTimeout(pollTimer);
+      wait.hidden = false;
+      stay.hidden = false;
+      setClock(Date.now());
       form.hidden = true;
       progress.hidden = false;
       progress.focus();
@@ -203,6 +307,7 @@ const faq = [
 
     startOver.addEventListener("click", () => {
       if (pollTimer) window.clearTimeout(pollTimer);
+      stopClock();
       localStorage.removeItem(storageKey);
       const url = new URL(location.href);
       url.searchParams.delete("jobId");
@@ -276,10 +381,9 @@ const faq = [
     .request-form, .request-success { padding: clamp(24px, 4vw, 40px); background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); }
     .request-form h3, .request-success h3 { margin: 9px 0 25px; font-size: 28px; }
     .request-form label { display: block; color: var(--color-heading); font-size: 14px; margin-bottom: 17px; }
-    .request-form input, .request-form textarea { display: block; width: 100%; min-height: 48px; margin-top: 7px; padding: 11px 13px; color: var(--color-heading); background: var(--color-bg); border: 1px solid var(--color-border-strong); border-radius: 6px; font: inherit; }
-    .request-form input:focus, .request-form textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
-    .request-form input::placeholder, .request-form textarea::placeholder { color: var(--color-muted); }
-    .optional { color: var(--color-muted); font-size: 12px; }
+    .request-form input { display: block; width: 100%; min-height: 48px; margin-top: 7px; padding: 11px 13px; color: var(--color-heading); background: var(--color-bg); border: 1px solid var(--color-border-strong); border-radius: 6px; font: inherit; }
+    .request-form input:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+    .request-form input::placeholder { color: var(--color-muted); }
     .request-form button { width: 100%; justify-content: center; }
     .request-form button:disabled { opacity: .7; cursor: wait; }
     .form-note, .form-status { font-size: 13px; line-height: 1.5; color: var(--color-muted); margin: 12px 0 0; }
@@ -289,14 +393,44 @@ const faq = [
     .request-success p { margin: 0 0 16px; }
     .request-success .btn { margin-top: 8px; }
     .request-success.has-results { grid-column: 1 / -1; }
+    .analysis-wait { display: flex; align-items: center; gap: 16px; padding: 17px 20px; margin: 15px 0; color: var(--color-heading); font: 12px var(--font-mono); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg); }
+    .analysis-wait[hidden], .analysis-stay[hidden] { display: none; }
+    .analysis-wait strong { display: inline-block; margin-left: 8px; min-width: 44px; color: var(--color-accent); font-weight: 500; }
+    .wait-dial { display: block; width: 30px; height: 30px; flex: 0 0 30px; border: 2px solid var(--color-border-strong); border-top-color: var(--color-accent); border-radius: 50%; animation: wait-turn 1.4s linear infinite; }
+    .analysis-stay { color: var(--color-accent) !important; font-weight: 700; }
+    @keyframes wait-turn { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .wait-dial { animation: none; border-color: var(--color-accent); } }
     #analysis-results { margin-top: 30px; border-top: 1px solid var(--color-border); padding-top: 25px; }
+    .report-eyebrow, .card-eyebrow { display: block; color: var(--color-accent); font: 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .report-eyebrow { margin-bottom: 16px; }
     #analysis-results h4 { color: var(--color-heading); font-size: clamp(26px, 3vw, 40px); line-height: 1.18; margin: 0 0 16px; }
-    #analysis-results h5 { color: var(--color-heading); font-size: 22px; margin: 32px 0 15px; }
-    .analysis-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .analysis-list article { padding: 22px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg); }
-    .analysis-list strong { display: block; color: var(--color-heading); margin-bottom: 12px; }
-    .analysis-list p { margin: 0 0 12px; }
-    .analysis-list a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+    #analysis-results h5 { color: var(--color-heading); font-size: clamp(22px, 2.5vw, 30px); margin: 37px 0 13px; }
+    #analysis-results h6 { color: var(--color-heading); font-size: 19px; line-height: 1.25; margin: 10px 0 16px; }
+    .report-summary { max-width: 800px; font-size: 18px; line-height: 1.55; }
+    .report-pain { max-width: 850px; margin: 30px 0 36px; padding: 26px 30px; background: var(--color-bg); border: 1px solid var(--color-border-strong); border-top: 3px solid var(--color-accent); border-radius: var(--radius-md); }
+    .report-pain p { color: var(--color-heading); font-size: clamp(17px, 2vw, 22px); line-height: 1.45; margin: 10px 0 0 !important; }
+    .founder-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 24px; }
+    .founder-card, .analysis-list article, .report-topics article { padding: 23px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg); }
+    .founder-own { border-color: var(--color-accent); }
+    .founder-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; padding: 17px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+    .founder-metrics strong, .founder-metrics span { display: block; }
+    .founder-metrics strong { color: var(--color-heading); font-size: clamp(21px, 2.7vw, 29px); font-weight: 600; line-height: 1.1; }
+    .founder-metrics span { color: var(--color-muted); font: 11px var(--font-mono); margin-top: 5px; }
+    .founder-highlight { margin: 16px 0 12px !important; font-size: 14px; line-height: 1.5; }
+    .founder-card a, .report-topics a { display: inline-block; color: var(--color-accent); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; margin: 8px 18px 0 0; }
+    .screened-peers { margin: 20px 0 0 !important; font-size: 13px; }
+    .screened-peers strong { color: var(--color-heading); }
+    .screened-peers a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+    .report-topics { display: grid; gap: 12px; margin-top: 20px; }
+    .report-topics article { border-left: 3px solid var(--color-accent); }
+    .report-topics p, .analysis-list p { max-width: 850px; line-height: 1.55; }
+    .analysis-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+    .analysis-list article { border-top: 2px solid var(--color-accent); }
+    .analysis-list .first-move { color: var(--color-heading); font-weight: 600; margin-top: 18px !important; }
+    .report-next { margin-top: 42px; padding: clamp(24px, 4vw, 42px); background: linear-gradient(130deg, #271922, var(--color-bg)); border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); }
+    .report-next h5 { margin-top: 10px !important; }
+    .report-next p { max-width: 730px; line-height: 1.55; margin-bottom: 21px !important; }
+    .report-next .btn { margin-top: 0; }
     .analysis-limitations { margin-top: 24px; color: var(--color-muted); font-size: 14px; }
     .finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
     .finding-grid p { font-size: 18px; line-height: 1.55; margin: 0 0 18px; }
@@ -310,6 +444,7 @@ const faq = [
     .final-inner { text-align: center; max-width: 760px; margin: auto; }
     .final-inner .lead { margin: 0 auto 28px; }
     @media (max-width: 850px) { .hero-grid, .request-grid, .finding-grid, .proof-grid { grid-template-columns: 1fr; } .request-success { grid-column: auto; } .audit-grid, .analysis-list { grid-template-columns: 1fr; } }
+    @media (max-width: 650px) { .founder-grid { grid-template-columns: 1fr; } }
     @media (max-width: 550px) { .pull-hero { padding: 72px 0; } .request-steps div { grid-template-columns: 1fr; gap: 5px; } }
   </style>
 </BaseLayout>

@@ -5,7 +5,9 @@ import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
 
 async function finishResearch(job, enrichment) {
   try {
-    const report = await researchLinkedinAnalysis(job.input, enrichment);
+    const report = await researchLinkedinAnalysis(job.input, enrichment, async (stage) => {
+      await saveJob({ ...job, status: "researching", stage });
+    });
     await saveJob({ ...job, status: "complete", report });
   } catch (error) {
     console.error("LinkedIn research failed", error);

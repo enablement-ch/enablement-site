@@ -6,15 +6,13 @@ import { researchLinkedinAnalysis } from "../src/server/linkedin-research.js";
 import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
 
 function response() {
-  return {
-    code: 200, headers: {}, body: null,
+  return { code: 200, headers: {}, body: null,
     status(code) { this.code = code; return this; },
     setHeader(key, value) { this.headers[key] = value; return this; },
-    json(body) { this.body = body; return this; },
-  };
+    json(body) { this.body = body; return this; } };
 }
 
-test("minimal form sends the unchanged Clay webhook and exposes a resumable job", async () => {
+test("two-field intake uses the existing Clay webhook and creates a resumable job", async () => {
   process.env.UPSTASH_REDIS_REST_URL = "https://redis.example";
   process.env.UPSTASH_REDIS_REST_TOKEN = "test-token";
   const jobs = new Map();
@@ -35,17 +33,15 @@ test("minimal form sends the unchanged Clay webhook and exposes a resumable job"
   try {
     const submitted = response();
     await intake({ method: "POST", body: {
-      linkedinUrl: "https://www.linkedin.com/in/example/",
-      companyDomain: "example.com", knownCompetitors: "Peer Co",
+      linkedinUrl: "https://www.linkedin.com/in/example/", companyDomain: "example.com",
+      knownCompetitors: "Ignored old field",
     } }, submitted);
     assert.equal(submitted.code, 200);
     assert.match(submitted.body.jobId, /^[a-f0-9]{40}$/);
     assert.equal(clayPayload.companyDomain, "example.com");
-    assert.equal(clayPayload.knownCompetitors, "Peer Co");
-    assert.equal(clayPayload.jobId, submitted.body.jobId);
+    assert.equal(clayPayload.linkedinUrl, "https://www.linkedin.com/in/example/");
+    assert.equal(clayPayload.knownCompetitors, undefined);
     assert.match(clayPayload.callbackUrl, /^https:\/\/www\.enablement\.ch\/api\/linkedin-analysis-callback\?jobId=/);
-    assert.equal(clayPayload.email, undefined);
-    assert.equal(clayPayload.firstName, undefined);
     const checked = response();
     await status({ method: "GET", query: { jobId: submitted.body.jobId } }, checked);
     assert.equal(checked.body.status, "waiting_for_clay");
@@ -53,62 +49,99 @@ test("minimal form sends the unchanged Clay webhook and exposes a resumable job"
   } finally { globalThis.fetch = originalFetch; }
 });
 
-test("research uses recent executive posts from verified competitors and omits private Clay fields", async () => {
+test("research screens websites and reads founder profiles rather than company-associated post snippets", async () => {
   process.env.OPENAI_API_KEY = "test-key";
   process.env.RAPIDAPI_KEY = "test-fresh-key";
   const originalFetch = globalThis.fetch;
-  const prompts = [];
-  let freshCalls = 0;
-  globalThis.fetch = async (url, options) => {
+  const promptInputs = [];
+  const freshPaths = [];
+  const founders = {
+    "example": ["Jane Example", "Example"],
+    "alice-a": ["Alice A", "Peer A"],
+    "bob-b": ["Bob B", "Peer B"],
+    "cara-c": ["Cara C", "Peer C"],
+  };
+  const postUrls = ["https://www.linkedin.com/posts/alice-a-one", "https://www.linkedin.com/posts/bob-b-one"];
+  globalThis.fetch = async (url, options = {}) => {
+    if (url === "https://example.com/" || /^https:\/\/peer-[a-d]\.com\/$/.test(url)) {
+      return new Response("Example B2B agency builds outbound systems, founder content and revenue operations for SaaS buyers. ".repeat(5),
+        { headers: { "content-type": "text/html" } });
+    }
     if (url === "https://api.openai.com/v1/responses") {
-      const prompt = JSON.parse(options.body).input;
-      prompts.push(prompt);
-      const body = prompts.length === 1 ? {
-        companyDescription: "Example sells software to operations teams", companySourceUrl: "https://example.com/",
-        competitors: [{ name: "Peer A", domain: "peer-a.com", reason: "Same buyer" }, { name: "Peer B", domain: "peer-b.com", reason: "Same buyer" }],
+      const request = JSON.parse(options.body);
+      promptInputs.push(request.input);
+      const output = promptInputs.length === 1 ? {
+        companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
+        businessModel: "agency/services", subindustry: "GTM engineering",
+        searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
+        competitors: ["a", "b", "c", "d"].map((letter) => ({
+          name: `Peer ${letter.toUpperCase()}`, domain: `peer-${letter}.com`,
+          sourceUrl: `https://peer-${letter}.com/`, founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
+          founderUrl: `https://www.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
+          founderSourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
+        })),
+      } : promptInputs.length === 2 ? {
+        accepted: ["peer-a.com", "peer-b.com", "peer-c.com"].map((domain) => ({ domain, reason: "Same delivery model" })),
       } : {
-        companyName: "Example", headline: "A specific opening", summary: "Evidence based summary", categoryFinding: "The sampled field is quiet.",
-        openings: [{ title: "Explain the tradeoff", buyerProblem: "A buying decision", whyItFits: "The company solves it", firstMove: "Publish a case example", sourceUrl: "https://example.com/" }],
-        limitations: "The latest-post sample is limited.",
+        headline: "A credible content opening", summary: "Peers are active.", mode: "crowded",
+        pain: "Buyers can hear from other founders before they hear from you.",
+        categoryFinding: "Three founders post on this topic.",
+        topics: [
+          { title: "Outbound systems", finding: "Peer A shows systems.", sourceUrl: postUrls[0] },
+          { title: "Founder content", finding: "Peer B teaches content.", sourceUrl: postUrls[1] },
+        ],
+        openings: [{ title: "Show the handoff", buyerProblem: "Leads get lost",
+          whyItFits: "The agency builds GTM systems", firstMove: "Show one CRM handoff" }],
+        limitations: "This is a rapid automated scan of public content.",
       };
-      return Response.json({ status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(body) }] }] });
+      return Response.json({ status: "completed", output: [{ type: "message",
+        content: [{ type: "output_text", text: JSON.stringify(output) }] }] });
     }
-    if (String(url).includes("/get-company-by-domain")) {
-      freshCalls++;
-      const companyDomain = new URL(url).searchParams.get("domain");
-      const company = companyDomain === "example.com" ? "Example" : companyDomain === "peer-a.com" ? "Peer A" : "Peer B";
-      return Response.json({ confident_score: "80%", data: { company_id: companyDomain, company_name: company } });
-    }
-    if (String(url).includes("/search-posts")) {
-      freshCalls++;
-      const companyDomain = JSON.parse(options.body).author_company[0];
-      const peer = companyDomain === "example.com" ? "Example" : companyDomain === "peer-a.com" ? "Peer A" : "Peer B";
-      return Response.json({ data: peer === "Example" ? [] : [{ posted: new Date(Date.now() - 60000).toISOString(), poster_name: `Founder of ${peer}`, poster_title: `CEO at ${peer} | B2B`, post_url: `https://www.linkedin.com/posts/${peer.toLowerCase().replace(" ", "-")}-recent`, text: "A concrete buyer issue", num_likes: 12, num_comments: 3, num_shares: 1, is_sponsored: false }] });
+    if (String(url).startsWith("https://fresh-linkedin-profile-data.p.rapidapi.com/")) {
+      const parsed = new URL(url);
+      freshPaths.push(parsed.pathname);
+      const slug = parsed.searchParams.get("linkedin_url")?.match(/\/in\/([^/]+)/)?.[1];
+      if (!founders[slug]) throw new Error(`Unscreened founder: ${slug}`);
+      const [name, company] = founders[slug];
+      if (parsed.pathname === "/enrich-lead") return Response.json({ data: {
+        full_name: name, headline: `Founder at ${company}`, follower_count: 1200 } });
+      if (parsed.pathname === "/get-profile-posts") return Response.json({ data: [{
+        posted: new Date(Date.now() - 86400000).toISOString(),
+        poster_linkedin_url: `https://www.linkedin.com/in/${slug}/`,
+        post_url: `https://www.linkedin.com/posts/${slug}-one`, text: "A concrete buyer problem and solution",
+        num_likes: 12, num_comments: 3, num_reposts: 1, reshared: false,
+      }] });
     }
     throw new Error(`Unexpected URL: ${url}`);
   };
   try {
-    const report = await researchLinkedinAnalysis({ companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" }, { company: { name: "Example", domain: "example.com" }, contact: { firstName: "Jane", lastName: "Example", linkedinUrl: "https://www.linkedin.com/in/example/" }, email: "private@example.com" });
-    assert.equal(report.openings.length, 1);
-    assert.equal(report.evidence.length, 2);
-    assert.equal(report.evidence.every((item) => item.url.includes("linkedin.com/posts/")), true);
-    assert.equal(prompts.some((prompt) => prompt.includes("private@example.com")), false);
-    assert.equal(freshCalls, 6);
+    const report = await researchLinkedinAnalysis(
+      { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" },
+      { company: { name: "Example", domain: "example.com" },
+        contact: { firstName: "Jane", lastName: "Example", jobTitle: "CEO" },
+        email: "private@example.com" });
+    assert.equal(report.competitors.length, 3);
+    assert.equal(report.topics.length, 2);
+    assert.equal(report.competitors[0].posts90, 1);
+    assert.equal(report.competitors[0].averageEngagement, 16);
+    assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 4);
+    assert.equal(freshPaths.includes("/search-posts"), false);
+    assert.equal(promptInputs.some((input) => input.includes("private@example.com")), false);
   } finally { globalThis.fetch = originalFetch; }
 });
 
-test("Clay's snake-case fields map to the requested company and competitor set", () => {
-  const input = { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/", knownCompetitors: "Peer One" };
+test("Clay enrichment verifies the submitted inputs and ignores legacy competitor values", () => {
+  const input = { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" };
   const payload = {
     contact_first_name: "Jane", contact_last_name: "Example", contact_job_title: "CEO",
     contact_linkedin_url: "https://www.linkedin.com/in/example/",
     company_name: "Example Inc", company_domain: "https://www.example.com",
     company_linkedin_url: "https://www.linkedin.com/company/example/",
-    competitors: [{ name: "Peer Two", domain: "peer-two.com" }],
+    competitors: ["Old value"],
   };
   const result = normalizeClayPayload(payload, input);
   assert.equal(result.contact.firstName, "Jane");
   assert.equal(result.company.name, "Example Inc");
-  assert.deepEqual(result.knownCompetitors, ["Peer One", "Peer Two - peer-two.com"]);
+  assert.equal(result.knownCompetitors, undefined);
   assert.throws(() => normalizeClayPayload({ ...payload, company_domain: "wrong.com" }, input), /does not match/);
 });

@@ -52,6 +52,7 @@ export function publicJob(job) {
   return {
     id: job.id,
     status: job.status,
+    stage: job.status === "researching" ? job.stage : undefined,
     companyDomain: job.input.companyDomain,
     createdAt: job.createdAt,
     updatedAt: job.updatedAt,
