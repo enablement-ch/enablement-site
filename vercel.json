@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/linkedin-analysis-callback.js": { "maxDuration": 300 }
+    "api/linkedin-analysis-callback.js": { "maxDuration": 800 }
   },
   "redirects": [
     {

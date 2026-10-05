@@ -99,7 +99,9 @@ test("research screens websites and reads founder profiles rather than company-a
           whyItFits: "The agency builds GTM systems", firstMove: "Show one CRM handoff" }],
         limitations: "This is a rapid automated scan of public content.",
       };
-      return Response.json({ status: "completed", output: [{ type: "message",
+      return Response.json({ status: "completed", output: [...(request.tools ? [{ type: "web_search_call", action: {
+        sources: ["a", "b", "c", "d"].map((letter) => ({ url: `https://peer-${letter}.com/` })),
+      } }] : []), { type: "message",
         content: [{ type: "output_text", text: JSON.stringify(output) }] }] });
     }
     if (String(url).startsWith("https://fresh-linkedin-profile-data.p.rapidapi.com/")) {

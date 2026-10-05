@@ -28,19 +28,29 @@ function outputText(response) {
 }
 
 async function openaiJson(prompt, schema, name, webSearch = false) {
+  const model = process.env.OPENAI_RESEARCH_MODEL || (webSearch ? "gpt-5" : "gpt-4.1");
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ model: process.env.OPENAI_RESEARCH_MODEL || "gpt-4.1",
-      ...(webSearch ? { tools: [{ type: "web_search" }], tool_choice: "required" } : {}),
+    body: JSON.stringify({ model,
+      ...(webSearch ? { tools: [{ type: "web_search" }], tool_choice: "required",
+        include: ["web_search_call.action.sources"], max_tool_calls: 8 } : {}),
+      ...(/^gpt-5/.test(model) ? { reasoning: { effort: "low" } } : {}),
       text: { format: { type: "json_schema", name, strict: true, schema } },
-      input: prompt, max_output_tokens: webSearch ? 4500 : 5000 }),
-    signal: AbortSignal.timeout(webSearch ? 65000 : 85000),
+      input: prompt, max_output_tokens: webSearch ? 9000 : 5000 }),
+    signal: AbortSignal.timeout(webSearch ? 180000 : 85000),
   });
   if (!response.ok) throw new Error(`Research API returned ${response.status}`);
   const body = await response.json();
   if (body.status && body.status !== "completed") throw new Error(`Research status: ${body.status}`);
-  return JSON.parse(outputText(body).trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, ""));
+  const parsed = JSON.parse(outputText(body).trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, ""));
+  if (webSearch) {
+    const calls = (body.output || []).filter((item) => item.type === "web_search_call");
+    parsed.searchSources = [...new Set(calls.flatMap((item) => item.action?.sources || []).map((source) => source.url).filter(Boolean))];
+    console.info("Research search sources", { name, searches: calls.length, sources: parsed.searchSources });
+    if (!calls.length || !parsed.searchSources.length) throw new Error("Research returned no live web sources");
+  }
+  return parsed;
 }
 
 function domain(value) {
