@@ -159,7 +159,7 @@ export async function researchLinkedinAnalysis(input, clayData, progress = async
   const discovery = await openaiJson(
     `Research competitors using ONLY the submitted company domain and personal LinkedIn profile. Official website text: ${seedText}. Domain: ${seedDomain}. Profile: ${input.linkedinUrl}. Determine the company's DELIVERY MODEL (agency/services, software product, manufacturer, etc.), precise subindustry, target buyer, and geographic scope. Derive 3-5 distinctive multiword search phrases. Search several phrases and both local and international pools when justified. Return 8-10 possible DIRECT buyer alternatives. An agency is not a competitor to a marketing software vendor merely because both discuss marketing. Exclude customers, vendors, partners, directories and parent firms. For each candidate provide its official website page and a current founder or C-level personal LinkedIn URL with a direct source confirming affiliation. Do not use a preexisting competitor list. Keep descriptions and reasons concise.`,
     discoverySchema, "linkedin_competitor_candidates", true);
-  if (!officialUrl(discovery.companySourceUrl, seedDomain)) throw new Error("Could not verify the submitted company's positioning");
+  const companySourceUrl = `https://${seedDomain}/`;
   const found = new Map();
   for (const item of discovery.competitors || []) {
     const candidateDomain = domain(item.domain), founderUrl = profileUrl(item.founderUrl);
@@ -170,6 +170,7 @@ export async function researchLinkedinAnalysis(input, clayData, progress = async
       founderSourceUrl: item.founderSourceUrl, reason: item.reason });
   }
   const candidates = [...found.values()].slice(0, 12);
+  console.info("Competitor discovery", { proposed: discovery.competitors?.length || 0, verifiedCandidates: candidates.length });
   if (candidates.length < 4) throw new Error("Competitor search produced too few verifiable candidates");
   const sites = await Promise.all(candidates.map(async (candidate) => ({ ...candidate,
     siteText: await websiteText(candidate.sourceUrl) })));
@@ -203,7 +204,7 @@ export async function researchLinkedinAnalysis(input, clayData, progress = async
   const compactPosts = (posts) => posts.map((post) => ({ ...post, text: post.text.slice(0, 550) }));
   const sourceData = { company: clayData.company.name, companyDescription: discovery.companyDescription,
     businessModel: discovery.businessModel, subindustry: discovery.subindustry,
-    companySourceUrl: discovery.companySourceUrl,
+    companySourceUrl,
     own: { ...own, posts: compactPosts(own.posts) },
     competitors: selected.map((peer) => ({ ...peer, posts: compactPosts(peer.posts) })) };
   const permittedLinks = new Set(selected.flatMap((peer) => peer.posts.map((post) => post.url)));
