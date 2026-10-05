@@ -30,11 +30,11 @@ async function openaiJson(prompt, schema, name, webSearch = false) {
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ model: process.env.OPENAI_RESEARCH_MODEL || "gpt-5",
+    body: JSON.stringify({ model: process.env.OPENAI_RESEARCH_MODEL || (webSearch ? "gpt-4.1-mini" : "gpt-4.1"),
       ...(webSearch ? { tools: [{ type: "web_search" }] } : {}),
       text: { format: { type: "json_schema", name, strict: true, schema } },
-      input: prompt, max_output_tokens: webSearch ? 9000 : 6500 }),
-    signal: AbortSignal.timeout(webSearch ? 160000 : 85000),
+      input: prompt, max_output_tokens: webSearch ? 4500 : 5000 }),
+    signal: AbortSignal.timeout(webSearch ? 65000 : 85000),
   });
   if (!response.ok) throw new Error(`Research API returned ${response.status}`);
   const body = await response.json();
@@ -157,7 +157,7 @@ export async function researchLinkedinAnalysis(input, clayData, progress = async
   if (seedText.length < 200) throw new Error("Could not read the company website");
   await progress("discovering_competitors");
   const discovery = await openaiJson(
-    `Research competitors using ONLY the submitted company domain and personal LinkedIn profile. Official website text: ${seedText}. Domain: ${seedDomain}. Profile: ${input.linkedinUrl}. Determine the company's DELIVERY MODEL (agency/services, software product, manufacturer, etc.), precise subindustry, target buyer, and geographic scope. Derive 3-5 distinctive multiword search phrases. Search several phrases and both local and international pools when justified. Return 8-12 possible DIRECT buyer alternatives. An agency is not a competitor to a marketing software vendor merely because both discuss marketing. Exclude customers, vendors, partners, directories and parent firms. For each candidate provide its official website page and a current founder or C-level personal LinkedIn URL with a direct source confirming affiliation. Do not use a preexisting competitor list.`,
+    `Research competitors using ONLY the submitted company domain and personal LinkedIn profile. Official website text: ${seedText}. Domain: ${seedDomain}. Profile: ${input.linkedinUrl}. Determine the company's DELIVERY MODEL (agency/services, software product, manufacturer, etc.), precise subindustry, target buyer, and geographic scope. Derive 3-5 distinctive multiword search phrases. Search several phrases and both local and international pools when justified. Return 8-10 possible DIRECT buyer alternatives. An agency is not a competitor to a marketing software vendor merely because both discuss marketing. Exclude customers, vendors, partners, directories and parent firms. For each candidate provide its official website page and a current founder or C-level personal LinkedIn URL with a direct source confirming affiliation. Do not use a preexisting competitor list. Keep descriptions and reasons concise.`,
     discoverySchema, "linkedin_competitor_candidates", true);
   if (!officialUrl(discovery.companySourceUrl, seedDomain)) throw new Error("Could not verify the submitted company's positioning");
   const found = new Map();
