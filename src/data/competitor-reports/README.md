@@ -39,12 +39,14 @@ When a published agency description conflicts with a software homepage, a
 focused search checks whether the service division has rebranded or split into
 a current business. Its published domain and offer are screened again.
 Competitor homepages are screened for the same delivery model and buyer;
-software vendors are excluded from a services-company comparison. Up to eight
+software vendors are excluded from a services-company comparison. Up to twelve
 companies proceed to founder verification. Personal profile URLs must come
 from published search sources or company website links, rather than guessed slugs.
 
 The collector follows post continuation tokens through the 90-day window and
-retries temporary fetch failures. It counts original posts and all reactions,
+retries temporary fetch failures. Exhausted data allowances fail promptly with
+a temporary-unavailability message rather than triggering repeated requests
+or producing a partial competitor benchmark. It counts original posts and all reactions,
 comments and reposts. Topic counts, averages and medians are calculated from
 classified posts. Profiles that could not be read are never counted as inactive.
 Missing profiles prevent a confident quiet-category claim. The closing audit

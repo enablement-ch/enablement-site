@@ -4,6 +4,7 @@ import intake from "../api/competitor-content-request.js";
 import status from "../api/linkedin-analysis-status.js";
 import { researchLinkedinAnalysis } from "../src/server/linkedin-research.js";
 import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
+import { publicJob } from "../src/server/linkedin-jobs.js";
 
 function response() {
   return { code: 200, headers: {}, body: null,
@@ -210,4 +211,40 @@ test("Clay enrichment verifies the submitted inputs and ignores legacy competito
   assert.equal(result.company.name, "Example Inc");
   assert.equal(result.knownCompetitors, undefined);
   assert.throws(() => normalizeClayPayload({ ...payload, company_domain: "wrong.com" }, input), /does not match/);
+});
+
+
+test("exhausted LinkedIn credits stop research without retries or a partial benchmark", async () => {
+  const originalFetch = globalThis.fetch;
+  try {
+    for (const phase of ["initial", "pagination"]) {
+      let profileRequests = 0;
+      globalThis.fetch = async (url) => {
+        if (url === "https://example.com/") return new Response("B2B agency builds outbound and revenue systems. ".repeat(10),
+          { headers: { "content-type": "text/html" } });
+        if (String(url).startsWith("https://fresh-linkedin-profile-data.p.rapidapi.com/")) {
+          profileRequests++;
+          if (phase === "pagination" && String(url).includes("/enrich-lead?"))
+            return Response.json({ data: { full_name: "Jane Example" } });
+          if (phase === "pagination" && !String(url).includes("pagination_token="))
+            return Response.json({ data: Array.from({ length: 50 }, (_, index) => ({
+              posted: new Date().toISOString(), post_url: `https://www.linkedin.com/posts/example-${index}`,
+            })), paging: { pagination_token: "next-page" } });
+          return new Response("Capacity exceeded", { status: 429, headers: {
+            "x-ratelimit-credits-remaining": "0", "x-ratelimit-requests-remaining": "200",
+          } });
+        }
+        throw new Error(`Unexpected research request: ${url}`);
+      };
+      await assert.rejects(() => researchLinkedinAnalysis(
+        { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" },
+        { company: { name: "Example", domain: "example.com" }, contact: { firstName: "Jane", lastName: "Example" } }),
+        (error) => error.code === "LINKEDIN_QUOTA_EXHAUSTED");
+      assert.equal(profileRequests, phase === "initial" ? 2 : 3);
+    }
+    const job = publicJob({ id: "test", status: "failed", failureReason: "data_capacity", input: { companyDomain: "example.com" } });
+    assert.match(job.message, /temporarily unavailable/);
+    assert.equal(job.report, undefined);
+    assert.equal(job.failureReason, undefined);
+  } finally { globalThis.fetch = originalFetch; }
 });

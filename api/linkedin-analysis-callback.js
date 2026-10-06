@@ -11,7 +11,7 @@ async function finishResearch(job, enrichment) {
     await saveJob({ ...job, status: "complete", report });
   } catch (error) {
     console.error("LinkedIn research failed", error);
-    await saveJob({ ...job, status: "failed" });
+    await saveJob({ ...job, status: "failed", failureReason: error.code === "LINKEDIN_QUOTA_EXHAUSTED" ? "data_capacity" : undefined });
   }
 }
 

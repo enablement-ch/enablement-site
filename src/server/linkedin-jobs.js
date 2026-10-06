@@ -57,6 +57,8 @@ export function publicJob(job) {
     createdAt: job.createdAt,
     updatedAt: job.updatedAt,
     report: job.status === "complete" ? job.report : undefined,
-    message: job.status === "failed" ? "The analysis could not be completed. Please try again later." : undefined,
+    message: job.status === "failed" ? (job.failureReason === "data_capacity"
+      ? "The analysis service is temporarily unavailable. Please try again later or book a free audit below."
+      : "The analysis could not be completed. Please try again later.") : undefined,
   };
 }
