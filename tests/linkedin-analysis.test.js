@@ -71,10 +71,12 @@ test("research screens websites and reads founder profiles rather than company-a
     if (url === "https://api.openai.com/v1/responses") {
       const request = JSON.parse(options.body);
       promptInputs.push(request.input);
-      const output = request.text.format.name === "linkedin_competitor_candidates" ? {
+      const output = request.text.format.name === "linkedin_company_positioning" ? {
         companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
         businessModel: "agency/services", subindustry: "GTM engineering",
+        targetBuyer: "B2B SaaS founders", geographicScope: "international",
         searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
+      } : request.text.format.name === "linkedin_competitor_candidates" ? {
         competitors: ["a", "b", "c", "d"].map((letter) => ({
           name: `Peer ${letter.toUpperCase()}`, domain: `peer-${letter}.com`,
           sourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
@@ -87,14 +89,21 @@ test("research screens websites and reads founder profiles rather than company-a
           founderUrl: `https://www.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
           founderSourceUrl: `https://peer-${letter}.com/`,
         })),
+      } : request.text.format.name === "linkedin_content_topics" ? {
+        buckets: [
+          { label: "Outbound systems", buyerRelevant: true, postIds: Array.from({ length: 51 }, (_, index) => index + 1) },
+          { label: "Founder content", buyerRelevant: true, postIds: [52, 53] },
+          { label: "Personal updates", buyerRelevant: false, postIds: [0] },
+        ],
       } : {
         headline: "A credible content opening", summary: "Peers are active.", mode: "crowded",
         pain: "Buyers can hear from other founders before they hear from you.",
         categoryFinding: "Three founders post on this topic.",
         topics: [
-          { title: "Outbound systems", finding: "Peer A shows systems.", sourceUrl: postUrls[0] },
-          { title: "Founder content", finding: "Peer B teaches content.", sourceUrl: postUrls[1] },
+          { bucketId: 0, title: "Outbound systems", finding: "Peer A shows systems.", sourceUrl: postUrls[0] },
+          { bucketId: 1, title: "Founder content", finding: "Peer B teaches content.", sourceUrl: postUrls[1] },
         ],
+        whatWorks: "Specific buyer problems earn consistent engagement.", whatIsWeaker: "The sample contains little proof of buyer outcomes.",
         openings: [{ title: "Show the handoff", buyerProblem: "Leads get lost",
           whyItFits: "The agency builds GTM systems", firstMove: "Show one CRM handoff" }],
         limitations: "This is a rapid automated scan of public content.",
@@ -142,6 +151,9 @@ test("research screens websites and reads founder profiles rather than company-a
         email: "private@example.com" });
     assert.equal(report.competitors.length, 3);
     assert.equal(report.topics.length, 2);
+    assert.equal(report.topics[0].postCount, 51);
+    assert.equal(report.topics[0].medianEngagement, 16);
+    assert.equal(report.topics[1].founderCount, 2);
     assert.equal(report.competitors[0].posts90, 51);
     assert.equal(report.competitors[0].countIsMinimum, false);
     assert.equal(report.competitors[0].averageEngagement, 16);

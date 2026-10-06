@@ -155,7 +155,7 @@ const faq = [
       const metrics = document.createElement("div");
       metrics.className = "founder-metrics";
       for (const [value, label] of [
-        [number(person.followers), "followers"],
+        [person.followers == null ? "Unavailable" : number(person.followers), "followers"],
         [`${person.countIsMinimum ? "≥" : ""}${number(person.posts90)}`, "posts / 90 days"],
         [number(person.averageEngagement), "avg. interactions"],
         [number(person.medianEngagement), "median interactions"],
@@ -211,6 +211,7 @@ const faq = [
           const card = document.createElement("article");
           addText(card, "span", `TOPIC 0${index + 1}`, "card-eyebrow");
           addText(card, "h6", item.title);
+          addText(card, "p", `${number(item.postCount)} competitor posts · ${number(item.founderCount)} founders · ${number(item.averageEngagement)} average interactions · ${number(item.medianEngagement)} median`, "topic-metrics");
           addText(card, "p", item.finding);
           addSource(card, item.sourceUrl, "See example post ↗");
           topicList.append(card);
@@ -219,6 +220,16 @@ const faq = [
       } else {
         addText(results, "p", "No sustained buyer topic appeared in the verified founder-post sample.");
       }
+      const performance = document.createElement("div");
+      performance.className = "report-performance";
+      for (const [heading, finding] of [["What earns attention", report.whatWorks], ["What looks weaker", report.whatIsWeaker]]) {
+        if (!finding) continue;
+        const card = document.createElement("article");
+        addText(card, "h6", heading);
+        addText(card, "p", finding);
+        performance.append(card);
+      }
+      results.append(performance);
       addText(results, "h5", "Where you could make a mark");
       const openingList = document.createElement("div");
       openingList.className = "analysis-list";
@@ -258,10 +269,12 @@ const faq = [
           progressMessage.textContent = "We received your details. This page will update when the enrichment arrives from Clay.";
         } else if (job.status === "researching") {
           const stages: Record<string, [string, string]> = {
+            understanding_company: ["Understanding your company", "We are reading your offer and identifying the services and buyers to compare."],
             discovering_competitors: ["Finding comparable businesses", "We are searching for companies with a similar offer and buyer."],
             screening_competitors: ["Checking the competitor set", "We are verifying each company's business model and positioning."],
             resolving_founders: ["Finding the founder voices", "We are verifying current founders and leaders at the comparable companies."],
             collecting_posts: ["Reading founder posts", "We are reviewing verified founders' posts from the last 90 days."],
+            classifying_topics: ["Mapping the content topics", "We are grouping the posts and calculating which topics attract engagement."],
             writing_analysis: ["Building your analysis", "We are comparing topics, engagement, and defensible openings."],
           };
           const [title, message] = stages[job.stage] || ["Researching the content gap", "We are checking public sources and preparing the findings."];
@@ -425,6 +438,10 @@ const faq = [
     .report-topics { display: grid; gap: 12px; margin-top: 20px; }
     .report-topics article { border-left: 3px solid var(--color-accent); }
     .report-topics p, .analysis-list p { max-width: 850px; line-height: 1.55; }
+    .report-topics .topic-metrics { color: var(--color-muted); font: 12px/1.7 var(--font-mono); margin-bottom: 14px; }
+    .report-performance { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 28px; }
+    .report-performance article { padding: 22px 0; border-top: 1px solid var(--color-border-strong); }
+    .report-performance p { line-height: 1.6; }
     .analysis-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
     .analysis-list article { border-top: 2px solid var(--color-accent); }
     .analysis-list .first-move { color: var(--color-heading); font-weight: 600; margin-top: 18px !important; }
@@ -445,7 +462,7 @@ const faq = [
     .final-inner { text-align: center; max-width: 760px; margin: auto; }
     .final-inner .lead { margin: 0 auto 28px; }
     @media (max-width: 850px) { .hero-grid, .request-grid, .finding-grid, .proof-grid { grid-template-columns: 1fr; } .request-success { grid-column: auto; } .audit-grid, .analysis-list { grid-template-columns: 1fr; } }
-    @media (max-width: 650px) { .founder-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 650px) { .founder-grid, .report-performance { grid-template-columns: 1fr; } }
     @media (max-width: 550px) { .pull-hero { padding: 72px 0; } .request-steps div { grid-template-columns: 1fr; gap: 5px; } }
   </style>
 </BaseLayout>
