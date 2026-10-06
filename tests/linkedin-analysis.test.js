@@ -71,6 +71,14 @@ test("research screens websites and reads founder profiles rather than company-a
     if (url === "https://api.openai.com/v1/responses") {
       const request = JSON.parse(options.body);
       promptInputs.push(request.input);
+      if (request.tools) {
+        const sources = ["a", "b", "c", "d"].map((letter) => ({ url: `https://peer-${letter}.com/` }));
+        return Response.json({ status: "completed", output: [
+          { type: "web_search_call", action: { sources: request.input.includes("founders LinkedIn") ? [] : sources } },
+          { type: "message", content: [{ type: "output_text", text: "Published company and founder evidence",
+            annotations: sources.map((source) => ({ type: "url_citation", ...source })) }] },
+        ] });
+      }
       const output = request.text.format.name === "linkedin_company_positioning" ? {
         companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
         businessModel: "agency/services", subindustry: "GTM engineering",
@@ -86,7 +94,7 @@ test("research screens websites and reads founder profiles rather than company-a
       } : request.text.format.name === "linkedin_competitor_founders" ? {
         founders: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
           founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
-          founderUrl: `https://www.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
+          founderUrl: `https://${letter === "b" ? "uk" : "www"}.linkedin.com/in/${({a:"alice-a",b:"bob-b",c:"cara-c",d:"dee-d"})[letter]}/`,
           founderSourceUrl: `https://peer-${letter}.com/`,
         })),
       } : request.text.format.name === "linkedin_content_topics" ? {
@@ -126,7 +134,7 @@ test("research screens websites and reads founder profiles rather than company-a
         posted: new Date(Date.now() - 86400000).toISOString(),
         poster_linkedin_url: `https://www.linkedin.com/in/${slug}/`,
         post_url: `https://www.linkedin.com/posts/${slug}-one`, text: "A concrete buyer problem and solution",
-        num_likes: 12, num_comments: 3, num_reposts: 1, reshared: false,
+        num_likes: 12, num_reactions: 20, num_comments: 3, num_reposts: 1, reshared: false,
         };
         if (slug === "alice-a" && parsed.searchParams.has("start")) {
           assert.equal(parsed.searchParams.get("start"), "50");
@@ -152,11 +160,12 @@ test("research screens websites and reads founder profiles rather than company-a
     assert.equal(report.competitors.length, 3);
     assert.equal(report.topics.length, 2);
     assert.equal(report.topics[0].postCount, 51);
-    assert.equal(report.topics[0].medianEngagement, 16);
+    assert.equal(report.topics[0].medianEngagement, 24);
     assert.equal(report.topics[1].founderCount, 2);
     assert.equal(report.competitors[0].posts90, 51);
     assert.equal(report.competitors[0].countIsMinimum, false);
-    assert.equal(report.competitors[0].averageEngagement, 16);
+    assert.equal(report.competitors[0].averageEngagement, 24);
+    assert.equal(report.competitors.find((person) => person.founderName === "Bob B").founderUrl, "https://www.linkedin.com/in/bob-b/");
     assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 5);
     assert.equal(paginated, true);
     assert.equal(freshPaths.includes("/search-posts"), false);
