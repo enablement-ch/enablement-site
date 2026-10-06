@@ -56,6 +56,7 @@ test("research screens websites and reads founder profiles rather than company-a
   const promptInputs = [];
   const freshPaths = [];
   let paginated = false;
+  let transientRetried = false;
   const founders = {
     "example": ["Jane Example", "Example"],
     "alice-a": ["Alice A", "Peer A"],
@@ -81,7 +82,7 @@ test("research screens websites and reads founder profiles rather than company-a
       }
       const output = request.text.format.name === "linkedin_company_positioning" ? {
         companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
-        businessModel: "agency/services", subindustry: "GTM engineering",
+        businessModel: "agency/services", primaryCategory: "GTM engineering", subindustry: "GTM engineering",
         targetBuyer: "B2B SaaS founders", geographicScope: "international",
         deliveryModel: "services", serviceCategories: ["GTM engineering"], toolSpecializations: [],
         searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
@@ -129,8 +130,13 @@ test("research screens websites and reads founder profiles rather than company-a
       const slug = parsed.searchParams.get("linkedin_url")?.match(/\/in\/([^/]+)/)?.[1];
       if (!founders[slug]) throw new Error(`Unscreened founder: ${slug}`);
       const [name, company] = founders[slug];
-      if (parsed.pathname === "/enrich-lead") return Response.json({ data: {
-        full_name: name, headline: `Founder at ${company}`, follower_count: 1200 } });
+      if (parsed.pathname === "/enrich-lead") {
+        if (slug === "bob-b" && !transientRetried) {
+          transientRetried = true;
+          throw new DOMException("Transient provider timeout", "TimeoutError");
+        }
+        return Response.json({ data: { full_name: name, headline: `Founder at ${company}`, follower_count: 1200 } });
+      }
       if (parsed.pathname === "/get-profile-posts") {
         const row = {
         posted: new Date(Date.now() - 86400000).toISOString(),
@@ -172,6 +178,7 @@ test("research screens websites and reads founder profiles rather than company-a
     assert.equal(report.competitors.find((person) => person.founderName === "Bob B").founderUrl, "https://www.linkedin.com/in/bob-b/");
     assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 5);
     assert.equal(paginated, true);
+    assert.equal(transientRetried, true);
     assert.equal(freshPaths.includes("/search-posts"), false);
     assert.equal(promptInputs.some((input) => input.includes("private@example.com")), false);
   } finally { globalThis.fetch = originalFetch; }
