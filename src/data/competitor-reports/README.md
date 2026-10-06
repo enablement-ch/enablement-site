@@ -35,6 +35,9 @@ the OpenAI Responses web search researches public sources after Clay calls
 back. Discovery reads the homepage, linked service pages, and the submitted
 person's recent public posts. It derives specialist search phrases, reads
 published agency roundups, and also searches for founders with a similar offer.
+When a published agency description conflicts with a software homepage, a
+focused search checks whether the service division has rebranded or split into
+a current business. Its published domain and offer are screened again.
 Competitor homepages are screened for the same delivery model and buyer;
 software vendors are excluded from a services-company comparison. Up to eight
 companies proceed to founder verification. Personal profile URLs must come

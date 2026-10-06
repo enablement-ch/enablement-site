@@ -57,6 +57,7 @@ test("research screens websites and reads founder profiles rather than company-a
   const freshPaths = [];
   let paginated = false;
   let transientRetried = false;
+  let screenRuns = 0;
   const founders = {
     "example": ["Jane Example", "Example"],
     "alice-a": ["Alice A", "Peer A"],
@@ -65,7 +66,7 @@ test("research screens websites and reads founder profiles rather than company-a
   };
   const postUrls = ["https://www.linkedin.com/posts/alice-a-one", "https://www.linkedin.com/posts/bob-b-one"];
   globalThis.fetch = async (url, options = {}) => {
-    if (url === "https://example.com/" || /^https:\/\/peer-[a-e]\.com\/$/.test(url)) {
+    if (url === "https://example.com/" || /^https:\/\/peer-[a-f]\.com\/$/.test(url)) {
       return new Response("Example B2B agency builds outbound systems, founder content and revenue operations for SaaS buyers. ".repeat(5),
         { headers: { "content-type": "text/html" } });
     }
@@ -77,6 +78,7 @@ test("research screens websites and reads founder profiles rather than company-a
           ...["a", "b", "c", "d", "e"].map((letter) => ({ url: `https://peer-${letter}.com/` })),
           ...["alice-a", "bob-b", "cara-c"].map((slug) => ({ url: `https://www.linkedin.com/in/${slug}/` })),
         ];
+        if (request.input.includes("agency services current brand")) sources.push({ url: "https://peer-f.com/" });
         return Response.json({ status: "completed", output: [
           { type: "web_search_call", action: { sources: request.input.includes("founders LinkedIn") ? [] : sources } },
           { type: "message", content: [{ type: "output_text", text: "Published company and founder evidence",
@@ -95,9 +97,13 @@ test("research screens websites and reads founder profiles rather than company-a
           name: `Peer ${letter.toUpperCase()}`, domain: `peer-${letter}.com`,
           sourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
         })),
+      } : request.text.format.name === "linkedin_competitor_brand_resolution" ? {
+        competitors: [{ name: "Peer F", domain: "peer-f.com", sourceUrl: "https://peer-f.com/", reason: "Published service successor of Peer D" }],
       } : request.text.format.name === "linkedin_competitor_screen" ? {
-        accepted: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
+        accepted: [...["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
           name: `Peer ${letter.toUpperCase()}`, deliveryModel: letter === "d" ? "software" : "services", reason: "Model verdict" })),
+          { domain: "peer-f.com", name: "Peer F", deliveryModel: "services", reason: "Verified service successor" }],
+        resolveBrands: screenRuns++ === 0 ? [{ domain: "peer-d.com", name: "Peer D", reason: "Former agency is now software" }] : [],
       } : request.text.format.name === "linkedin_competitor_founders" ? {
         founders: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
           founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
@@ -170,7 +176,9 @@ test("research screens websites and reads founder profiles rather than company-a
         contact: { firstName: "Jane", lastName: "Example", jobTitle: "CEO" },
         email: "private@example.com" });
     assert.equal(report.competitors.length, 3);
-    assert.equal(report.screenedCompanies, 5);
+    assert.equal(report.screenedCompanies, 6);
+    assert.equal(screenRuns, 2);
+    assert.equal(report.screenedCompetitors.some((person) => person.domain === "peer-f.com"), true);
     assert.equal(report.screenedCompetitors.some((person) => person.domain === "peer-d.com"), false);
     assert.equal(report.topics.length, 2);
     assert.equal(report.topics[0].postCount, 51);
