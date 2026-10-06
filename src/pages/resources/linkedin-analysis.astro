@@ -9,7 +9,7 @@ const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
 const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
 const faq = [
   { q: "Is this a generic competitor list?", a: "No. We start with your website, find firms that sell a similar service or product to similar buyers, then check what their founders publish." },
-  { q: "Will I see this immediately?", a: "The analysis starts after Clay enriches your request. Keep this page open to see its progress and the results. It can take several minutes." },
+  { q: "Will I see this immediately?", a: "We first check your profile and company details, then research the competitor set. Keep this page open to see the progress and results. It can take several minutes." },
   { q: "Do I need to be connected with you on LinkedIn?", a: "No. Your LinkedIn profile URL gives us a starting point for the analysis." },
   { q: "What happens on the call?", a: "In a free 30-minute LinkedIn System Audit, we review the content gap, the buyer problems you can credibly speak to, and how to turn relevant engagement into sales conversations." },
 ];
@@ -115,7 +115,7 @@ const faq = [
 
     function addText(parent: HTMLElement, tag: string, value: string, className = "") {
       const element = document.createElement(tag);
-      element.textContent = value;
+      element.textContent = String(value).replace(/[\u2013\u2014]/g, " - ");
       if (className) element.className = className;
       parent.append(element);
       return element;
@@ -156,7 +156,7 @@ const faq = [
       metrics.className = "founder-metrics";
       for (const [value, label] of [
         [person.followers == null ? "Unavailable" : number(person.followers), "followers"],
-        [`${person.countIsMinimum ? "≥" : ""}${number(person.posts90)}`, "posts / 90 days"],
+        [`${person.countIsMinimum ? "≥" : ""}${number(person.posts90)}`, "original posts / 90 days"],
         [number(person.averageEngagement), "avg. interactions"],
         [number(person.medianEngagement), "median interactions"],
       ]) {
@@ -266,7 +266,7 @@ const faq = [
         if (job.createdAt && startedAt > Date.parse(job.createdAt)) setClock(job.createdAt);
         if (job.status === "waiting_for_clay") {
           progressTitle.textContent = "Enriching your request";
-          progressMessage.textContent = "We received your details. This page will update when the enrichment arrives from Clay.";
+          progressMessage.textContent = "We received your details and are checking your profile and company information. This page will update as the analysis progresses.";
         } else if (job.status === "researching") {
           const stages: Record<string, [string, string]> = {
             understanding_company: ["Understanding your company", "We are reading your offer and identifying the services and buyers to compare."],
