@@ -120,7 +120,7 @@ function currentPosts(rows, url, now) {
       !row.reshared && (!author || author === expected) && postUrl(row.post_url || row.url);
   }).map((row) => ({ date: String(row.posted).slice(0, 10), url: row.post_url || row.url,
     text: String(row.text || "").replace(/\s+/g, " ").slice(0, 4000),
-    likes: Number(row.num_likes) || 0, comments: Number(row.num_comments) || 0,
+    likes: Number(row.num_reactions ?? row.num_likes) || 0, comments: Number(row.num_comments) || 0,
     reposts: Number(row.num_reposts) || 0 }));
 }
 const engagement = (post) => post.likes + post.comments + post.reposts;
