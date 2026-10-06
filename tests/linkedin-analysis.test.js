@@ -73,7 +73,10 @@ test("research screens websites and reads founder profiles rather than company-a
       const request = JSON.parse(options.body);
       promptInputs.push(request.input);
       if (request.tools) {
-        const sources = ["a", "b", "c", "d", "e"].map((letter) => ({ url: `https://peer-${letter}.com/` }));
+        const sources = [
+          ...["a", "b", "c", "d", "e"].map((letter) => ({ url: `https://peer-${letter}.com/` })),
+          ...["alice-a", "bob-b", "cara-c"].map((slug) => ({ url: `https://www.linkedin.com/in/${slug}/` })),
+        ];
         return Response.json({ status: "completed", output: [
           { type: "web_search_call", action: { sources: request.input.includes("founders LinkedIn") ? [] : sources } },
           { type: "message", content: [{ type: "output_text", text: "Published company and founder evidence",
@@ -86,7 +89,8 @@ test("research screens websites and reads founder profiles rather than company-a
         targetBuyer: "B2B SaaS founders", geographicScope: "international",
         deliveryModel: "services", serviceCategories: ["GTM engineering"], toolSpecializations: [],
         searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
-      } : request.text.format.name === "linkedin_competitor_candidates" ? {
+      } : request.text.format.name === "linkedin_founder_company_discovery" ? { people: [] }
+      : request.text.format.name === "linkedin_competitor_candidates" ? {
         competitors: ["a", "b", "c", "d"].map((letter) => ({
           name: `Peer ${letter.toUpperCase()}`, domain: `peer-${letter}.com`,
           sourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
