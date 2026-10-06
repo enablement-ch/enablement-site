@@ -64,7 +64,7 @@ test("research screens websites and reads founder profiles rather than company-a
   };
   const postUrls = ["https://www.linkedin.com/posts/alice-a-one", "https://www.linkedin.com/posts/bob-b-one"];
   globalThis.fetch = async (url, options = {}) => {
-    if (url === "https://example.com/" || /^https:\/\/peer-[a-d]\.com\/$/.test(url)) {
+    if (url === "https://example.com/" || /^https:\/\/peer-[a-e]\.com\/$/.test(url)) {
       return new Response("Example B2B agency builds outbound systems, founder content and revenue operations for SaaS buyers. ".repeat(5),
         { headers: { "content-type": "text/html" } });
     }
@@ -72,7 +72,7 @@ test("research screens websites and reads founder profiles rather than company-a
       const request = JSON.parse(options.body);
       promptInputs.push(request.input);
       if (request.tools) {
-        const sources = ["a", "b", "c", "d"].map((letter) => ({ url: `https://peer-${letter}.com/` }));
+        const sources = ["a", "b", "c", "d", "e"].map((letter) => ({ url: `https://peer-${letter}.com/` }));
         return Response.json({ status: "completed", output: [
           { type: "web_search_call", action: { sources: request.input.includes("founders LinkedIn") ? [] : sources } },
           { type: "message", content: [{ type: "output_text", text: "Published company and founder evidence",
@@ -83,6 +83,7 @@ test("research screens websites and reads founder profiles rather than company-a
         companyDescription: "B2B GTM services agency", companySourceUrl: "https://example.com/",
         businessModel: "agency/services", subindustry: "GTM engineering",
         targetBuyer: "B2B SaaS founders", geographicScope: "international",
+        deliveryModel: "services", serviceCategories: ["GTM engineering"], toolSpecializations: [],
         searchPhrases: ["GTM engineering agency", "B2B founder content agency"],
       } : request.text.format.name === "linkedin_competitor_candidates" ? {
         competitors: ["a", "b", "c", "d"].map((letter) => ({
@@ -90,7 +91,8 @@ test("research screens websites and reads founder profiles rather than company-a
           sourceUrl: `https://peer-${letter}.com/`, reason: "Same service and buyer",
         })),
       } : request.text.format.name === "linkedin_competitor_screen" ? {
-        accepted: ["peer-a.com", "peer-b.com", "peer-c.com"].map((domain) => ({ domain, reason: "Same delivery model" })),
+        accepted: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
+          name: `Peer ${letter.toUpperCase()}`, deliveryModel: letter === "d" ? "software" : "services", reason: "Model verdict" })),
       } : request.text.format.name === "linkedin_competitor_founders" ? {
         founders: ["a", "b", "c", "d"].map((letter) => ({ domain: `peer-${letter}.com`,
           founderName: ({a:"Alice A",b:"Bob B",c:"Cara C",d:"Dee D"})[letter],
@@ -158,6 +160,8 @@ test("research screens websites and reads founder profiles rather than company-a
         contact: { firstName: "Jane", lastName: "Example", jobTitle: "CEO" },
         email: "private@example.com" });
     assert.equal(report.competitors.length, 3);
+    assert.equal(report.screenedCompanies, 5);
+    assert.equal(report.screenedCompetitors.some((person) => person.domain === "peer-d.com"), false);
     assert.equal(report.topics.length, 2);
     assert.equal(report.topics[0].postCount, 51);
     assert.equal(report.topics[0].medianEngagement, 24);
