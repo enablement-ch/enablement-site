@@ -51,7 +51,9 @@ Missing profiles prevent a confident quiet-category claim. The closing audit
 invitation frames the results as a quick automated scan.
 
 `OPENAI_RESEARCH_MODEL` is optional and defaults to `gpt-4.1`;
-`OPENAI_ANALYSIS_MODEL` defaults to `gpt-5`. The Clay callback allows up to
+`OPENAI_ANALYSIS_MODEL` defaults to `gpt-5` and is also used for the
+competitor-fit screen. Fit is ranked by actual service and buyer overlap, not
+exact category-word repetition. The Clay callback allows up to
 800 seconds for research on the existing Vercel Pro project. The tool is linked
 from the Tools menu. Progress and generated report cards use the site's styles
 on desktop and mobile.
