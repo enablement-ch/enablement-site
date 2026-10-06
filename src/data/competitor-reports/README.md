@@ -32,11 +32,26 @@ expire after 24 hours. No static result page is created for this flow.
 Production needs `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `OPENAI_API_KEY`, and `RAPIDAPI_KEY`
 on the Vercel project. The Redis store holds transient jobs;
 the OpenAI Responses web search researches public sources after Clay calls
-back. Discovery uses the seed site's vocabulary, screens candidates against
-their own websites for the same business model and buyer, then reads verified
-founders' personal posts for the last 90 days. `OPENAI_RESEARCH_MODEL` is
-optional and defaults to `gpt-5`. Keep the Tools menu link paused until the
-complete Clay callback flow is tested live.
+back. Discovery reads the homepage, linked service pages, and the submitted
+person's recent public posts. It derives specialist search phrases, reads
+published agency roundups, and also searches for founders with a similar offer.
+Competitor homepages are screened for the same delivery model and buyer;
+software vendors are excluded from a services-company comparison. Up to eight
+companies proceed to founder verification. Personal profile URLs must come
+from published search sources or company website links, rather than guessed slugs.
+
+The collector follows post continuation tokens through the 90-day window and
+retries temporary fetch failures. It counts original posts and all reactions,
+comments and reposts. Topic counts, averages and medians are calculated from
+classified posts. Profiles that could not be read are never counted as inactive.
+Missing profiles prevent a confident quiet-category claim. The closing audit
+invitation frames the results as a quick automated scan.
+
+`OPENAI_RESEARCH_MODEL` is optional and defaults to `gpt-4.1`;
+`OPENAI_ANALYSIS_MODEL` defaults to `gpt-5`. The Clay callback allows up to
+800 seconds for research on the existing Vercel Pro project. The tool is linked
+from the Tools menu. Progress and generated report cards use the site's styles
+on desktop and mobile.
 
 ## Legacy reviewed reports
 
