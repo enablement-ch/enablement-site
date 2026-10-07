@@ -18,7 +18,7 @@ const {
       role: "Founder & GTM Architect",
       linkedin: "https://www.linkedin.com/in/gilbert-kralinger/",
       initials: "GK",
-      photo: "/team/gilbert.png",
+      photo: "/team/gilbert-x-profile.jpg",
     },
     {
       name: "Lanny Heiz",
@@ -36,7 +36,7 @@ const {
     founders.map((f) => (
       <a href={f.linkedin} class="founder-row" target="_blank" rel="noopener">
         <span class="founder-avatar">
-          {f.photo ? <img src={f.photo} alt={f.name} /> : f.initials}
+          {f.photo ? <img src={f.photo} alt={f.name} width="40" height="40" loading="lazy" decoding="async" /> : f.initials}
         </span>
         <span class="founder-info">
           <span class="founder-name">{f.name}</span>
