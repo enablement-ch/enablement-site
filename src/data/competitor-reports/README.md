@@ -34,7 +34,9 @@ on the Vercel project. The Redis store holds transient jobs;
 the OpenAI Responses web search researches public sources after Clay calls
 back. Discovery reads the homepage, linked service pages, and the submitted
 person's recent public posts. It derives specialist search phrases, reads
-published agency roundups, and also searches for founders with a similar offer.
+published agency roundups and vendor-owned partner directories, and also searches for founders with a similar offer.
+Directory entries provide published company website URLs and founder evidence;
+no competitor name is hardcoded into discovery.
 When a published agency description conflicts with a software homepage, a
 focused search checks whether the service division has rebranded or split into
 a current business. Its published domain and offer are screened again.
@@ -43,7 +45,11 @@ software vendors are excluded from a services-company comparison. Up to twelve
 companies proceed to founder verification. Personal profile URLs must come
 from published search sources or company website links, rather than guessed slugs.
 
-The collector follows post continuation tokens through the 90-day window and
+LinkedIn calls are queued and spaced to avoid parallel-request throttling.
+Founder identities and affiliations are checked before reading post histories.
+The largest verified founder audience per company is selected, and histories
+are collected for up to eight companies before comparing the three strongest
+observed publishers. The collector follows post continuation tokens through the 90-day window and
 retries temporary fetch failures. Exhausted data allowances fail promptly with
 a temporary-unavailability message rather than triggering repeated requests
 or producing a partial competitor benchmark. It counts original posts and all reactions,

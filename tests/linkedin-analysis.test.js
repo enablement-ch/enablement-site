@@ -2,9 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import intake from "../api/competitor-content-request.js";
 import status from "../api/linkedin-analysis-status.js";
-import { researchLinkedinAnalysis } from "../src/server/linkedin-research.js";
+import { researchLinkedinAnalysis, readProviderDirectory } from "../src/server/linkedin-research.js";
 import { normalizeClayPayload } from "../src/server/linkedin-clay.js";
 import { publicJob } from "../src/server/linkedin-jobs.js";
+
+process.env.LINKEDIN_API_INTERVAL_MS = "0";
 
 function response() {
   return { code: 200, headers: {}, body: null,
@@ -59,6 +61,7 @@ test("research screens websites and reads founder profiles rather than company-a
   let paginated = false;
   let transientRetried = false;
   let screenRuns = 0;
+  let activeFresh = 0, maxActiveFresh = 0;
   const founders = {
     "example": ["Jane Example", "Example"],
     "alice-a": ["Alice A", "Peer A"],
@@ -136,6 +139,10 @@ test("research screens websites and reads founder profiles rather than company-a
         content: [{ type: "output_text", text: JSON.stringify(output) }] }] });
     }
     if (String(url).startsWith("https://fresh-linkedin-profile-data.p.rapidapi.com/")) {
+      activeFresh++;
+      maxActiveFresh = Math.max(maxActiveFresh, activeFresh);
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      activeFresh--;
       const parsed = new URL(url);
       freshPaths.push(parsed.pathname);
       const slug = parsed.searchParams.get("linkedin_url")?.match(/\/in\/([^/]+)/)?.[1];
@@ -190,6 +197,7 @@ test("research screens websites and reads founder profiles rather than company-a
     assert.equal(report.competitors[0].averageEngagement, 24);
     assert.equal(report.competitors.find((person) => person.founderName === "Bob B").founderUrl, "https://www.linkedin.com/in/bob-b/");
     assert.equal(freshPaths.filter((path) => path === "/get-profile-posts").length, 5);
+    assert.equal(maxActiveFresh, 1);
     assert.equal(paginated, true);
     assert.equal(transientRetried, true);
     assert.equal(freshPaths.includes("/search-posts"), false);
@@ -240,11 +248,39 @@ test("exhausted LinkedIn credits stop research without retries or a partial benc
         { companyDomain: "example.com", linkedinUrl: "https://www.linkedin.com/in/example/" },
         { company: { name: "Example", domain: "example.com" }, contact: { firstName: "Jane", lastName: "Example" } }),
         (error) => error.code === "LINKEDIN_QUOTA_EXHAUSTED");
-      assert.equal(profileRequests, phase === "initial" ? 2 : 3);
+      assert.equal(profileRequests, phase === "initial" ? 1 : 3);
     }
     const job = publicJob({ id: "test", status: "failed", failureReason: "data_capacity", input: { companyDomain: "example.com" } });
     assert.match(job.message, /temporarily unavailable/);
     assert.equal(job.report, undefined);
     assert.equal(job.failureReason, undefined);
   } finally { globalThis.fetch = originalFetch; }
+});
+
+
+test("provider directories use published partner websites and exclude navigation links", async () => {
+  const catalog = "https://platform.example/experts";
+  const pages = {
+    [catalog]: { text: "Official service partners", links: [
+      { url: "https://platform.example/solutions/sales", text: "Sales solution" },
+      { url: "https://platform.example/en/experts/partner/provider-a", text: "Provider A" },
+      { url: "https://platform.example/en/experts/partner/provider-b", text: "Provider B" },
+      { url: "https://outside.example/partners/unknown", text: "Unverified external list" },
+    ] },
+    "https://platform.example/en/experts/partner/provider-a": { title: "Provider A", text: "Agency for B2B systems", links: [
+      { url: "https://provider-a.example/", text: "Visit website" },
+    ] },
+    "https://platform.example/en/experts/partner/provider-b": { title: "Provider B", text: "Revenue engineering studio", links: [
+      { url: "https://provider-b.example/", text: "Visit website" },
+    ] },
+  };
+  const visited = [];
+  const companies = await readProviderDirectory(catalog, "Platform", async (url) => {
+    visited.push(url);
+    assert.ok(pages[url], `Unexpected directory page: ${url}`);
+    return pages[url];
+  });
+  assert.deepEqual(companies.map((company) => company.domain), ["provider-a.example", "provider-b.example"]);
+  assert.equal(companies[1].partnerEvidence.url, "https://platform.example/en/experts/partner/provider-b");
+  assert.equal(visited.length, 3);
 });
