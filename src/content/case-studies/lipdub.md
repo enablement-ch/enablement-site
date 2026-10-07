@@ -1,5 +1,7 @@
 ---
 company: Lipdub.ai
+seoTitle: "Lipdub.ai: 599 Deals from a Repeatable GTM System"
+seoDescription: "How Lipdub.ai created 599 deals and 191 monthly signups with ICP testing, outbound campaigns, clearer messaging, and improved GTM attribution."
 logo: /logos/lipdub-black.png
 logoDark: /logos/lipdub-white.avif
 result: 599 deals created and 191 signups per month

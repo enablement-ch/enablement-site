@@ -1,5 +1,7 @@
 ---
 company: Bound.co
+seoTitle: "Bound: Doubled B2B Pipeline in 90 Days"
+seoDescription: "How Bound doubled its seven-figure pipeline in 90 days with a structured outbound system covering targeting, messaging, campaign execution, and HubSpot."
 logo: /logos/bound-black.avif
 logoDark: /logos/bound-white.avif
 result: doubled its 7-figure pipeline in 90 days

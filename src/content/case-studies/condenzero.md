@@ -1,5 +1,7 @@
 ---
 company: CondenZero
+seoTitle: "CondenZero: $2.4M Conference Pipeline"
+seoDescription: "How CondenZero generated $2.4 million in pipeline from one conference through buyer research, targeted outreach, and follow-up before and after the event."
 logo: /logos/condenzero-black.png
 logoDark: /logos/condenzero-white.png
 result: $2.4M in pipeline from a single conference

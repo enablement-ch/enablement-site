@@ -1,5 +1,7 @@
 ---
 company: Ekipa
+seoTitle: "Ekipa: 15-30 Sales Meetings per Week"
+seoDescription: "How Ekipa rebuilt deliverability, positioning, email, LinkedIn, and founder-led content to generate 15-30 sales meetings per week."
 logo: /logos/ekipa-black.png
 logoDark: /logos/ekipa-white.png
 result: 15-30 sales meetings per week

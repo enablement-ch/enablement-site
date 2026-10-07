@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "node --test tests/*.test.js",
+    "audit:seo": "python3 scripts/audit-seo.py",
     "astro": "astro",
     "publish:competitor-report": "node scripts/publish-competitor-report.mjs"
   },

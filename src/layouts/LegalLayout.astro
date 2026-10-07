@@ -3,13 +3,14 @@ import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
   title: string;
+  description: string;
   lastUpdated: string; // ISO date or human-readable
 }
 
-const { title, lastUpdated } = Astro.props;
+const { title, description, lastUpdated } = Astro.props;
 ---
 
-<BaseLayout title={`${title} — Enablement.ch`}>
+<BaseLayout title={`${title} | Enablement.ch`} description={description}>
   <header class="hero legal-hero texture-hybrid">
     <div class="container">
       <div class="hero-inner" style="text-align:left; align-items:flex-start;">

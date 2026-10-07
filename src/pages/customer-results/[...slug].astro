@@ -63,10 +63,11 @@ const outcomeParagraphs =
   cs.data.outcomeSection?.paragraphs ?? compactParagraphs(cs.data.finalLesson);
 ---
 
-<BaseLayout title={`${title} - Enablement.ch`} description={cs.data.outcome}>
+<BaseLayout title={`${cs.data.seoTitle ?? title} | Enablement.ch`} description={cs.data.seoDescription ?? cs.data.outcome}>
   <header class="hero case-detail-hero texture-hybrid" data-variant={hasVideo ? "video" : "text"}>
     <div class="container">
       <div class="case-detail-hero-copy">
+          <p class="case-breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href="/customer-results">Customer Results</a></p>
           <h1 class="case-detail-title">
             {
               pipelineTitleMatch ? (
@@ -267,6 +268,8 @@ const outcomeParagraphs =
 </BaseLayout>
 
 <style>
+  .case-breadcrumb { margin: 0 0 18px; font-size: 13px; }
+  .case-breadcrumb a { color: var(--color-muted); text-decoration: underline; text-underline-offset: 3px; }
   .case-narrative {
     max-width: var(--container-prose);
     margin: 0 auto;

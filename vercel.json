@@ -44,6 +44,11 @@
       "permanent": true
     },
     {
+      "source": "/case-studies/:slug(brandergroup|emporix|eyva|ohalo|scrypt|suturehealth)",
+      "destination": "/legacy-case-studies/:slug",
+      "permanent": true
+    },
+    {
       "source": "/case-studies/:path*",
       "destination": "/customer-results/:path*",
       "permanent": true

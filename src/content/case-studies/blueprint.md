@@ -1,5 +1,7 @@
 ---
 company: Blueprint
+seoTitle: "Blueprint: $10M+ Revenue from B2B Outbound"
+seoDescription: "How Blueprint built global email and LinkedIn outbound across 30 countries, generating 30-40 qualified meetings a month and over $10M in closed revenue."
 logo: /logos/blueprint-black.png
 logoDark: /logos/blueprint-white.png
 result: 30-40 qualified meetings a month and $10M+ in closed revenue

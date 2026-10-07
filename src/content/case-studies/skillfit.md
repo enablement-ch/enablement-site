@@ -1,5 +1,7 @@
 ---
 company: Skillfit.io
+seoTitle: "Skillfit.io: 4-5 Sales Meetings per Week"
+seoDescription: "How Skillfit.io grew from one meeting every two weeks to 4-5 weekly meetings through founder-led outbound, targeting, infrastructure, and campaign coaching."
 logo: /logos/skillfit-darkblue.png
 logoDark: /logos/skillfit-white.png
 result: 4-5 meetings per week from outbound

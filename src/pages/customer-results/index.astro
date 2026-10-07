@@ -7,11 +7,12 @@ import { getCollection } from "astro:content";
 const studies = (await getCollection("caseStudies"))
   .filter((cs) => cs.data.live)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const earlierStudies = (await getCollection("caseStudies")).filter((cs) => cs.data.legacy);
 ---
 
 <BaseLayout
-  title="Customer Results - Enablement.ch"
-  description="Real systems we've shipped for B2B teams in DACH. Pipeline lifts, deliverability fixes, and outbound engines built from scratch."
+  title="B2B GTM Case Studies & Customer Results | Enablement.ch"
+  description="Read B2B GTM case studies covering qualified meetings, outbound pipeline, LinkedIn content, and revenue systems built by Enablement."
 >
   <header class="hero texture-glow">
     <div class="container">
@@ -35,6 +36,20 @@ const studies = (await getCollection("caseStudies"))
       <div class="case-grid">
         {studies.map((cs) => <CaseStudyCard cs={cs} />)}
       </div>
+      <aside class="earlier-stories" aria-label="Earlier customer stories">
+        <h2>More customer stories</h2>
+        <p>Explore earlier work on outbound, deliverability, and GTM automation.</p>
+        <ul>{earlierStudies.map((cs) => <li><a href={`/legacy-case-studies/${cs.id}`}>{cs.data.company}: {cs.data.result}</a></li>)}</ul>
+      </aside>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .earlier-stories { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--color-border); }
+  .earlier-stories h2 { font-size: var(--font-size-h4); margin-bottom: 12px; }
+  .earlier-stories ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; padding: 0; list-style: none; }
+  .earlier-stories a { color: var(--color-body); text-decoration: underline; text-underline-offset: 3px; }
+  .earlier-stories a:hover { color: var(--color-heading); }
+  @media (max-width: 650px) { .earlier-stories ul { grid-template-columns: 1fr; } }
+</style>

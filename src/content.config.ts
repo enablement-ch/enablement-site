@@ -11,6 +11,9 @@ const caseStudies = defineCollection({
     outcome: z.string(),
     /** Optional full case-study page title. Falls back to "How [Company] got [result]". */
     headline: z.string().optional(),
+    /** Search metadata can be shorter than the visible outcome headline. */
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
     /** Method or system name used in the proof-led page title. */
     method: z.string().optional(),
     /** Richer hero explanation for the detail page. Falls back to outcome. */

@@ -15,13 +15,13 @@ const faq = [
 ];
 ---
 
-<BaseLayout title="LinkedIn Analysis | Find your content gap" description="See what relevant competitors publish on LinkedIn, which buyer topics they own, and where your team could earn attention. Request a personal analysis.">
+<BaseLayout title="Free LinkedIn Competitor Analysis | Enablement.ch" description="Find relevant competitors and compare their founders' LinkedIn posts, engagement, and content topics. Get a free analysis of your content opportunities.">
   <header class="pull-hero texture-hybrid">
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">↳ Free LinkedIn Analysis</span>
         <h1 class="display">Your competitors are teaching your buyers. <span class="italic-accent">What are you missing?</span></h1>
-        <p class="lead">See what relevant companies publish on LinkedIn, which ideas already win attention, and the buyer problems your team could credibly own.</p>
+        <p class="lead">Get a free LinkedIn competitor analysis. See what relevant companies publish, which ideas already win attention, and the buyer problems your team could credibly own.</p>
         <a href="#request-analysis" class="btn btn-accent btn-lg">Find my content gap</a>
         <span class="hero-note">Your profile + company domain · Results on this page</span>
       </div>
@@ -63,6 +63,10 @@ const faq = [
         <p id="analysis-progress-message" role="status" aria-live="polite">We received your request.</p>
         <div class="analysis-wait" id="analysis-wait"><span class="wait-dial" aria-hidden="true"></span><span>Research in progress <strong id="analysis-elapsed">00:00</strong></span></div>
         <p class="analysis-stay" id="analysis-stay">Do not close this page while your analysis is being prepared.</p>
+        <div class="analysis-checklist" id="analysis-checklist">
+          <p class="analysis-step-count" id="analysis-step-count" role="status" aria-live="polite"></p>
+          <ol id="analysis-steps" aria-label="Research steps"></ol>
+        </div>
         <div id="analysis-results" hidden></div>
         <button type="button" class="btn btn-outline btn-md" id="analysis-start-over" hidden>Start another analysis</button>
       </div>
@@ -107,6 +111,9 @@ const faq = [
     const wait = document.querySelector<HTMLElement>("#analysis-wait")!;
     const stay = document.querySelector<HTMLElement>("#analysis-stay")!;
     const elapsed = document.querySelector<HTMLElement>("#analysis-elapsed")!;
+    const checklist = document.querySelector<HTMLElement>("#analysis-checklist")!;
+    const stepCount = document.querySelector<HTMLElement>("#analysis-step-count")!;
+    const stepList = document.querySelector<HTMLOListElement>("#analysis-steps")!;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const storageKey = "enablement-linkedin-analysis-job";
     let pollTimer: number | undefined;
@@ -145,6 +152,52 @@ const faq = [
       if (clockTimer) window.clearInterval(clockTimer);
       wait.hidden = true;
       stay.hidden = true;
+    }
+
+    const researchSteps = [
+      { stage: "waiting_for_clay", title: "Enriching your request", message: "We are checking your profile and company information." },
+      { stage: "understanding_company", title: "Understanding your company", message: "We are reading your offer and identifying the services and buyers to compare." },
+      { stage: "discovering_competitors", title: "Finding comparable businesses", message: "We are searching for companies with a similar offer and buyer." },
+      { stage: "screening_competitors", title: "Checking the competitor set", message: "We are verifying each company's business model and positioning." },
+      { stage: "resolving_founders", title: "Finding the founder voices", message: "We are verifying current founders and leaders at the comparable companies." },
+      { stage: "verifying_profiles", title: "Checking founder profiles", message: "We are confirming current roles and selecting the LinkedIn audiences to compare." },
+      { stage: "collecting_posts", title: "Reading founder posts", message: "We are reviewing verified founders' posts from the last 90 days." },
+      { stage: "classifying_topics", title: "Mapping the content topics", message: "We are grouping the posts and calculating which topics attract engagement." },
+      { stage: "writing_analysis", title: "Building your analysis", message: "We are comparing topics, engagement, and defensible openings." },
+    ];
+    let activeStep = 0;
+    const stepRows = researchSteps.map((step) => {
+      const row = document.createElement("li");
+      row.className = "analysis-step";
+      const icon = addText(row, "span", "", "analysis-step-icon");
+      icon.setAttribute("aria-hidden", "true");
+      addText(row, "span", step.title, "analysis-step-label");
+      const state = addText(row, "span", "Pending", "analysis-step-state");
+      stepList.append(row);
+      return { row, icon, state };
+    });
+
+    function updateSteps(index: number, outcome: "running" | "complete" | "failed" = "running") {
+      activeStep = index;
+      checklist.hidden = false;
+      stepCount.textContent = outcome === "complete" ? `All ${researchSteps.length} steps complete` : `Step ${index + 1} of ${researchSteps.length}${outcome === "failed" ? " - stopped" : ""}`;
+      stepRows.forEach(({ row, icon, state }, position) => {
+        const done = outcome === "complete" || position < index;
+        const current = position === index && outcome !== "complete";
+        row.classList.toggle("is-complete", done);
+        row.classList.toggle("is-current", current);
+        row.classList.toggle("is-stopped", current && outcome === "failed");
+        if (current) row.setAttribute("aria-current", "step");
+        else row.removeAttribute("aria-current");
+        icon.textContent = done ? "✓" : current && outcome === "failed" ? "!" : String(position + 1).padStart(2, "0");
+        state.textContent = done ? "Complete" : current ? outcome === "failed" ? "Stopped" : "In progress" : "Pending";
+      });
+    }
+
+    function showStep(index: number) {
+      updateSteps(index);
+      progressTitle.textContent = researchSteps[index].title;
+      progressMessage.textContent = researchSteps[index].message;
     }
 
     function founderCard(person: any, isOwn = false) {
@@ -265,24 +318,13 @@ const faq = [
         if (!response.ok) throw new Error(job.error || "Could not check status");
         if (job.createdAt && startedAt > Date.parse(job.createdAt)) setClock(job.createdAt);
         if (job.status === "waiting_for_clay") {
-          progressTitle.textContent = "Enriching your request";
-          progressMessage.textContent = "We received your details and are checking your profile and company information. This page will update as the analysis progresses.";
+          showStep(0);
         } else if (job.status === "researching") {
-          const stages: Record<string, [string, string]> = {
-            understanding_company: ["Understanding your company", "We are reading your offer and identifying the services and buyers to compare."],
-            discovering_competitors: ["Finding comparable businesses", "We are searching for companies with a similar offer and buyer."],
-            screening_competitors: ["Checking the competitor set", "We are verifying each company's business model and positioning."],
-            resolving_founders: ["Finding the founder voices", "We are verifying current founders and leaders at the comparable companies."],
-            verifying_profiles: ["Checking founder profiles", "We are confirming current roles and selecting the LinkedIn audiences to compare."],
-            collecting_posts: ["Reading founder posts", "We are reviewing verified founders' posts from the last 90 days."],
-            classifying_topics: ["Mapping the content topics", "We are grouping the posts and calculating which topics attract engagement."],
-            writing_analysis: ["Building your analysis", "We are comparing topics, engagement, and defensible openings."],
-          };
-          const [title, message] = stages[job.stage] || ["Researching the content gap", "We are checking public sources and preparing the findings."];
-          progressTitle.textContent = title;
-          progressMessage.textContent = message;
+          const index = researchSteps.findIndex((step) => step.stage === job.stage);
+          showStep(index > 0 ? index : Math.max(1, activeStep));
         } else if (job.status === "complete") {
           stopClock();
+          updateSteps(researchSteps.length - 1, "complete");
           progressTitle.textContent = `Your analysis for ${job.report.companyName}`;
           progressMessage.textContent = "The analysis is ready.";
           progress.classList.add("has-results");
@@ -291,6 +333,8 @@ const faq = [
           return;
         } else if (job.status === "failed") {
           stopClock();
+          const index = researchSteps.findIndex((step) => step.stage === job.stage);
+          updateSteps(index >= 0 ? index : activeStep, "failed");
           progressTitle.textContent = "We could not finish the analysis";
           progressMessage.textContent = job.message;
           startOver.hidden = false;
@@ -299,6 +343,7 @@ const faq = [
       } catch (error) {
         if (error instanceof Error && error.message.includes("expired or not found")) {
           stopClock();
+          checklist.hidden = true;
           progressTitle.textContent = "This analysis has expired";
           progressMessage.textContent = "Start a new analysis to see current findings.";
           startOver.hidden = false;
@@ -313,6 +358,7 @@ const faq = [
       if (pollTimer) window.clearTimeout(pollTimer);
       wait.hidden = false;
       stay.hidden = false;
+      showStep(0);
       setClock(Date.now());
       form.hidden = true;
       progress.hidden = false;
@@ -407,12 +453,28 @@ const faq = [
     .request-success { grid-column: 2; }
     .request-success p { margin: 0 0 16px; }
     .request-success .btn { margin-top: 8px; }
+    #analysis-start-over[hidden] { display: none; }
     .request-success.has-results { grid-column: 1 / -1; }
     .analysis-wait { display: flex; align-items: center; gap: 16px; padding: 17px 20px; margin: 15px 0; color: var(--color-heading); font: 12px var(--font-mono); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg); }
     .analysis-wait[hidden], .analysis-stay[hidden] { display: none; }
     .analysis-wait strong { display: inline-block; margin-left: 8px; min-width: 44px; color: var(--color-accent); font-weight: 500; }
     .wait-dial { display: block; width: 30px; height: 30px; flex: 0 0 30px; border: 2px solid var(--color-border-strong); border-top-color: var(--color-accent); border-radius: 50%; animation: wait-turn 1.4s linear infinite; }
     .analysis-stay { color: var(--color-accent) !important; font-weight: 700; }
+    .analysis-checklist { max-width: 600px; margin-top: 24px; }
+    .analysis-checklist[hidden] { display: none; }
+    .request-success .analysis-step-count { color: var(--color-heading); font: 12px var(--font-mono); margin-bottom: 12px; }
+    #analysis-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+    .analysis-step { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid transparent; border-radius: var(--radius-md); color: var(--color-body); }
+    .analysis-step-icon { display: grid; place-items: center; flex: 0 0 26px; width: 26px; height: 26px; border: 1px solid var(--color-border-strong); border-radius: 50%; font: 10px var(--font-mono); }
+    .analysis-step-label { font-size: 14px; line-height: 1.35; }
+    .analysis-step-state { margin-left: auto; font: 10px var(--font-mono); white-space: nowrap; }
+    .analysis-step.is-complete .analysis-step-icon { color: #4ade80; border-color: rgba(74,222,128,.4); background: rgba(74,222,128,.08); font-size: 16px; }
+    .analysis-step.is-complete .analysis-step-state { color: #4ade80; }
+    .analysis-step.is-current { color: var(--color-heading); border-color: var(--color-accent); background: rgba(225,30,72,.08); }
+    .analysis-step.is-current .analysis-step-label { font-weight: 700; }
+    .analysis-step.is-current .analysis-step-icon { border-color: var(--color-accent); color: var(--color-accent); }
+    .analysis-step.is-current .analysis-step-state { color: var(--color-accent); }
+    @media (max-width: 420px) { .analysis-step { gap: 9px; padding: 10px 8px; flex-wrap: wrap; } .analysis-step-label { flex: 1; } .analysis-step-state { width: 100%; margin-left: 35px; } }
     @keyframes wait-turn { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .wait-dial { animation: none; border-color: var(--color-accent); } }
     #analysis-results { margin-top: 30px; border-top: 1px solid var(--color-border); padding-top: 25px; }
