@@ -252,6 +252,9 @@ const schema = JSON.stringify(pageSchema(path, safeTitle, description)).replace(
       />
     </noscript>
 
+    <!-- Vercel Web Analytics -->
+    <script is:inline defer src="/_vercel/insights/script.js"></script>
+
     <!-- Start of HubSpot Embed Code -->
     <script
       is:inline
@@ -261,8 +264,5 @@ const schema = JSON.stringify(pageSchema(path, safeTitle, description)).replace(
       defer
       src="//js-eu1.hs-scripts.com/19613414.js"></script>
     <!-- End of HubSpot Embed Code -->
-
-    <!-- Vercel Web Analytics -->
-    <script is:inline defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
