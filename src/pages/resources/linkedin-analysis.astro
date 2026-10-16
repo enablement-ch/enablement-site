@@ -5,7 +5,7 @@ import CaseStudyCard from "../../components/CaseStudyCard.astro";
 import FAQ from "../../components/FAQ.astro";
 import { getCollection } from "astro:content";
 
-const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const meetingUrl = "https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website";
 const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
 const faq = [
   { q: "Is this a generic competitor list?", a: "No. We start with your website, find firms that sell a similar service or product to similar buyers, then check what their founders publish." },
@@ -302,7 +302,7 @@ const faq = [
       addText(next, "h5", "Turn the opening into content buyers remember.");
       addText(next, "p", "This is a quick automated scan of public posts. In a free audit, we'll examine your positioning, shape content that earns relevant attention, and build the follow-up that turns that attention into sales conversations.");
       const audit = document.createElement("a");
-      audit.href = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+      audit.href = "https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website";
       audit.className = "btn btn-accent btn-md";
       audit.textContent = "Book my free LinkedIn audit";
       next.append(audit);

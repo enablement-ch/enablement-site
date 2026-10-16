@@ -14,7 +14,7 @@ export function getStaticPaths() {
 }
 
 const { report } = Astro.props as { report: Report };
-const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const meetingUrl = "https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website";
 const proof = (await getCollection("caseStudies")).find((study) => study.id === "ekipa");
 ---
 

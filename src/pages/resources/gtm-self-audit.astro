@@ -6,7 +6,7 @@ import FAQ from "../../components/FAQ.astro";
 import { getCollection } from "astro:content";
 import { questions } from "../../lib/allboundAudit";
 
-const meetingUrl = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const meetingUrl = "https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website";
 const proofOrder = ["blueprint", "ekipa", "bound"];
 const proofStudies = (await getCollection("caseStudies"))
   .filter((study) => study.data.live && proofOrder.includes(study.id))

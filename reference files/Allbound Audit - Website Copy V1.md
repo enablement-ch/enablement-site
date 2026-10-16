@@ -4,7 +4,7 @@
 
 **Page:** `/resources/allbound-audit/`
 
-**Booking destination:** `https://revenue.enablement.ch/meetings/l-heiz/firstmeeting`
+**Booking destination:** `https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website`
 
 ---
 

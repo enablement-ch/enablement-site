@@ -54,7 +54,7 @@ Yes, I want to fix my GTM system
 
 All booking CTAs, redirects, and embeds use:
 
-`https://revenue.enablement.ch/meetings/l-heiz/firstmeeting`
+`https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website`
 
 ## Audit details
 

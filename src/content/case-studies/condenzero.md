@@ -107,7 +107,7 @@ summaryMetrics:
 finalLesson: Most companies prepare the booth. The better companies prepare the room. Conference ROI is created weeks before anyone gets on a plane.
 cta:
   label: Book a GTM session
-  href: https://revenue.enablement.ch/meetings/l-heiz/firstmeeting
+  href: https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website
 live: true
 publishedAt: 2026-07-11
 featured: true

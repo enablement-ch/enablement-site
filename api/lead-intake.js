@@ -1,6 +1,6 @@
-const MEETING_URL = "https://revenue.enablement.ch/meetings/l-heiz/firstmeeting";
+const MEETING_URL = "https://revenue.enablement.ch/meetings/g-kralinger/firstmeeting-website";
 const ALLOWED_MEETING_HOST = "revenue.enablement.ch";
-const ALLOWED_MEETING_PATH_PREFIX = "/meetings/l-heiz/";
+const ALLOWED_MEETING_PATH_PREFIX = "/meetings/g-kralinger/";
 
 function json(status, body) {
   return { status, body };
