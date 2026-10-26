@@ -4,6 +4,21 @@
   },
   "redirects": [
     {
+      "source": "/book-a-demo",
+      "destination": "/book",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/General-terms-and-conditions",
+      "destination": "/gtc",
+      "permanent": true
+    },
+    {
       "source": "/resources/competitor-content-pull",
       "destination": "/resources/linkedin-analysis",
       "permanent": true
