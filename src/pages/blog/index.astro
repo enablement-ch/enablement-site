@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import "../../styles/blog.css";
+
+const posts = (await getCollection("blog"))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const [featured, ...more] = posts;
+const dateFormat = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+});
+---
+
+<BaseLayout
+  title="B2B GTM, Outbound and Revenue Systems Blog | Enablement.ch"
+  description="Practical guides on signal-based outbound, B2B thought leadership, and revenue operations from the people building these systems at Enablement.ch."
+>
+  <main class="blog-page">
+    <header class="blog-index-hero texture-grid">
+      <div class="container blog-index-hero-inner">
+        <span class="blog-eyebrow">Enablement / Blog</span>
+        <h1>Ideas worth <span class="italic-accent">acting on.</span></h1>
+        <p>Clear thinking on B2B outbound, content, and the revenue systems that connect them. Written from the work we do, for teams building their own motion.</p>
+      </div>
+    </header>
+
+    <section class="blog-index-content" aria-labelledby="latest-title">
+      <div class="container">
+        <div class="blog-section-heading">
+          <div><span class="blog-eyebrow">From the field</span><h2 id="latest-title">Latest article</h2></div>
+          <span class="blog-count">{posts.length} {posts.length === 1 ? "article" : "articles"}</span>
+        </div>
+        {featured && <a href={`/blog/${featured.id}`} class="blog-feature-card">
+          <div class="blog-feature-art" aria-hidden="true">
+            <div class="blog-art-ring blog-art-ring-one"></div>
+            <div class="blog-art-ring blog-art-ring-two"></div>
+            <div class="blog-art-core">SIGNAL<br />→<br />ACTION</div>
+          </div>
+          <div class="blog-feature-copy">
+            <span class="blog-card-category">{featured.data.category}</span>
+            <h3>{featured.data.title}</h3>
+            <p>{featured.data.summary}</p>
+            <div class="blog-card-meta"><span>{featured.data.author}</span><span aria-hidden="true">·</span><time datetime={featured.data.publishedAt.toISOString()}>{dateFormat.format(featured.data.publishedAt)}</time></div>
+            <span class="blog-card-read">Read article <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>}
+        {more.length > 0 && <div class="blog-card-grid">
+          {more.map((post) => <a href={`/blog/${post.id}`} class="blog-list-card">
+            <span class="blog-card-category">{post.data.category}</span>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.summary}</p>
+            <span class="blog-card-read">Read article <span aria-hidden="true">↗</span></span>
+          </a>)}
+        </div>}
+      </div>
+    </section>
+
+    <section class="blog-topic-section" aria-labelledby="topics-title">
+      <div class="container">
+        <div class="blog-section-heading"><div><span class="blog-eyebrow">What we work on</span><h2 id="topics-title">Explore the system</h2></div></div>
+        <div class="blog-topic-grid">
+          <a href="/linkedin-thoughtleadership"><span>01 / Create demand</span><h3>LinkedIn thought leadership</h3><p>Give the right buyers a reason to know and trust your team.</p><span aria-hidden="true">↗</span></a>
+          <a href="/signal-based-outbound"><span>02 / Act on signals</span><h3>Signal-based outbound</h3><p>Turn relevant moments into better sales conversations.</p><span aria-hidden="true">↗</span></a>
+          <a href="/ai-revenue-operations"><span>03 / Connect the motion</span><h3>AI Revenue Operations</h3><p>Keep the data, routing, and feedback loop working together.</p><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

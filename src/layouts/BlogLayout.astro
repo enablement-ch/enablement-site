@@ -1,0 +1,103 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { render, type CollectionEntry } from "astro:content";
+import "../styles/blog.css";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  related: CollectionEntry<"blog">[];
+}
+
+const { post, related } = Astro.props;
+const { Content, headings } = await render(post);
+const contents = headings.filter((heading) => heading.depth === 2);
+const dateFormat = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+});
+const published = dateFormat.format(post.data.publishedAt);
+const updated = post.data.updatedAt ? dateFormat.format(post.data.updatedAt) : null;
+---
+
+<BaseLayout
+  title={`${post.data.title} | Enablement.ch`}
+  description={post.data.description}
+  article={{
+    headline: post.data.title,
+    author: post.data.author,
+    publishedAt: post.data.publishedAt,
+    updatedAt: post.data.updatedAt,
+    image: post.data.heroImage,
+  }}
+>
+  <main class="blog-page">
+    <header class="blog-article-hero texture-grid">
+      <div class="container">
+        <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <a href="/blog">Blog</a><span aria-hidden="true">/</span>
+          <span>{post.data.category}</span>
+        </nav>
+        <div class="blog-article-heading">
+          <span class="blog-eyebrow">{post.data.category}</span>
+          <h1>{post.data.title}</h1>
+          <p class="blog-article-deck">{post.data.summary}</p>
+          <div class="blog-byline">
+            <span>By <strong>{post.data.author}</strong></span>
+            <span class="blog-byline-dot" aria-hidden="true"></span>
+            <time datetime={post.data.publishedAt.toISOString()}>{published}</time>
+            {updated && <><span class="blog-byline-dot" aria-hidden="true"></span><span>Updated {updated}</span></>}
+          </div>
+        </div>
+        {post.data.heroImage && <figure class="blog-hero-image"><img src={post.data.heroImage} alt={post.data.heroAlt} loading="eager" /><figcaption>{post.data.heroAlt}</figcaption></figure>}
+      </div>
+    </header>
+
+    <div class="container blog-article-grid">
+      <aside class="blog-toc" aria-label="Article sections">
+        <div class="blog-toc-inner">
+          <span class="blog-toc-label">On this page</span>
+          <ol>
+            {contents.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+          </ol>
+        </div>
+      </aside>
+
+      <div class="blog-reading-column">
+        <details class="blog-mobile-toc">
+          <summary>On this page <span aria-hidden="true">⌄</span></summary>
+          <ol>
+            {contents.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+          </ol>
+        </details>
+        <article class="blog-prose"><Content /></article>
+
+        <section class="blog-end-cta" aria-labelledby="blog-end-cta-title">
+          <span class="blog-eyebrow">Put it into practice</span>
+          <h2 id="blog-end-cta-title">Find the signals worth acting on.</h2>
+          <p>We can look at your market, where interest appears today, and what it would take to turn that into qualified sales conversations.</p>
+          <div class="blog-end-actions">
+            <a class="btn btn-accent btn-md" href="/book">Book a GTM session</a>
+            <a class="blog-text-link" href="/signal-based-outbound">Explore signal-based outbound <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <div class="blog-article-footer">
+          <p>Written by <strong>{post.data.author}</strong> for Enablement.ch.</p>
+          <a href="/blog">← All articles</a>
+        </div>
+
+        {related.length > 0 && <section class="blog-related" aria-labelledby="blog-related-title">
+          <h2 id="blog-related-title">Keep reading</h2>
+          <div class="blog-related-grid">
+            {related.map((entry) => <a href={`/blog/${entry.id}`} class="blog-related-card">
+              <span>{entry.data.category}</span>
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.summary}</p>
+              <span class="blog-card-arrow" aria-hidden="true">↗</span>
+            </a>)}
+          </div>
+        </section>}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

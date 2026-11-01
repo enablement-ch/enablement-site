@@ -19,17 +19,23 @@ Marketing site for Enablement.ch. Astro + Vercel. Deploys on every push to `main
 src/
 ├── components/        # Reusable Astro components (Hero, Workflow, LogoWall, etc.)
 ├── content/
-│   └── case-studies/  # Markdown files, one per case study
-├── content.config.ts  # Schema for case studies frontmatter
+│   ├── case-studies/  # Markdown files, one per case study
+│   └── blog/          # Markdown files, one per article
+├── content.config.ts  # Schemas for content frontmatter
 ├── layouts/
-│   └── BaseLayout.astro  # HTML shell, fonts, theme toggle
+│   ├── BaseLayout.astro  # Shared HTML shell and metadata
+│   └── BlogLayout.astro  # Article reading layout
 ├── pages/
 │   ├── index.astro       # Homepage
-│   └── customer-results/
-│       ├── index.astro   # List
-│       └── [...slug].astro  # Detail template
+│   ├── customer-results/
+│   │   ├── index.astro   # List
+│   │   └── [...slug].astro  # Detail template
+│   └── blog/
+│       ├── index.astro       # Article index
+│       └── [...slug].astro  # Article template route
 └── styles/
-    └── global.css     # All design system tokens + components
+    ├── global.css     # Design tokens and shared components
+    └── blog.css       # Blog index and article styles
 ```
 
 ## Commands

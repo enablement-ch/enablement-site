@@ -123,4 +123,25 @@ const caseStudies = defineCollection({
   }),
 });
 
-export const collections = { caseStudies };
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    summary: z.string(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    author: z.string(),
+    category: z.string(),
+    tags: z.array(z.string()).default([]),
+    heroImage: z.string().optional(),
+    heroAlt: z.string().optional(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(true),
+  }).refine((data) => !data.heroImage || Boolean(data.heroAlt), {
+    message: "A hero image needs descriptive alt text",
+    path: ["heroAlt"],
+  }),
+});
+
+export const collections = { caseStudies, blog };

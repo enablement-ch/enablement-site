@@ -98,6 +98,24 @@ for page in pages.values():
                 errors.append(f"Missing absolute {key} URL")
         if not page.schemas:
             errors.append("Missing structured data")
+        if page.path == "/blog" and page.schemas:
+            nodes = page.schemas[0].get("@graph", [])
+            if not any(node.get("@type") == "CollectionPage" for node in nodes):
+                errors.append("Blog index missing CollectionPage structured data")
+        if page.path.startswith("/blog/"):
+            nodes = page.schemas[0].get("@graph", []) if page.schemas else []
+            article_nodes = [node for node in nodes if node.get("@type") == "BlogPosting"]
+            if len(article_nodes) != 1:
+                errors.append("Expected one BlogPosting structured data node")
+            else:
+                article = article_nodes[0]
+                if not all(article.get(key) for key in ("headline", "author", "datePublished", "dateModified", "publisher")):
+                    errors.append("Incomplete BlogPosting structured data")
+            breadcrumbs = [node for node in nodes if node.get("@type") == "BreadcrumbList"]
+            if not breadcrumbs or not any(item.get("item") == SITE + "/blog" for item in breadcrumbs[0].get("itemListElement", [])):
+                errors.append("Article breadcrumb missing Blog")
+            if page.meta.get("og:type") != "article" or not page.meta.get("article:published_time"):
+                errors.append("Missing article social metadata")
     elif SITE + page.path in sitemap:
         errors.append("Noindex page included in sitemap")
     for image in page.images:

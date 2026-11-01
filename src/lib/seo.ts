@@ -7,7 +7,15 @@ const serviceNames: Record<string, string> = {
   "/ai-revenue-operations": "AI Revenue Operations",
 };
 
-export function pageSchema(path: string, title: string, description: string) {
+export interface BlogArticleSeo {
+  headline: string;
+  author: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  image?: string;
+}
+
+export function pageSchema(path: string, title: string, description: string, article?: BlogArticleSeo) {
   const url = `${site}${path}`;
   const name = title.replace(/\s+[|\-]\s+Enablement\.ch$/, "");
   const nodes: Record<string, unknown>[] = [
@@ -21,7 +29,7 @@ export function pageSchema(path: string, title: string, description: string) {
       url: `${site}/`, inLanguage: "en", publisher: { "@id": organizationId },
     },
     {
-      "@type": path === "/customer-results" ? "CollectionPage" : "WebPage",
+      "@type": ["/customer-results", "/blog"].includes(path) ? "CollectionPage" : "WebPage",
       "@id": `${url}#webpage`, url, name, description, inLanguage: "en",
       isPartOf: { "@id": `${site}/#website` }, about: { "@id": organizationId },
       ...(serviceNames[path] ? { mainEntity: { "@id": `${url}#service` } } : {}),
@@ -32,11 +40,25 @@ export function pageSchema(path: string, title: string, description: string) {
     if (path.startsWith("/customer-results/") || path.startsWith("/legacy-case-studies/")) {
       ancestors.push({ name: "Customer Results", item: `${site}/customer-results` });
     }
+    if (path.startsWith("/blog/")) {
+      ancestors.push({ name: "Blog", item: `${site}/blog` });
+    }
     ancestors.push({ name, item: url });
     nodes.push({ "@type": "BreadcrumbList", "@id": `${url}#breadcrumb`, itemListElement: ancestors.map((item, index) => ({ "@type": "ListItem", position: index + 1, ...item })) });
   }
   if (serviceNames[path]) {
     nodes.push({ "@type": "Service", "@id": `${url}#service`, name: serviceNames[path], serviceType: serviceNames[path], description, url, provider: { "@id": organizationId } });
+  }
+  if (article) {
+    nodes.push({
+      "@type": "BlogPosting", "@id": `${url}#article`, mainEntityOfPage: { "@id": `${url}#webpage` },
+      headline: article.headline, description, url, inLanguage: "en",
+      datePublished: article.publishedAt.toISOString(),
+      dateModified: (article.updatedAt ?? article.publishedAt).toISOString(),
+      author: { "@type": "Person", name: article.author },
+      publisher: { "@id": organizationId },
+      ...(article.image ? { image: new URL(article.image, site).href } : {}),
+    });
   }
   return { "@context": "https://schema.org", "@graph": nodes };
 }

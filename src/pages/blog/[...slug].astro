@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog"))
+    .filter((entry) => !entry.data.draft)
+    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      related: posts.filter((entry) => entry.id !== post.id && entry.data.category === post.data.category).slice(0, 3),
+    },
+  }));
+}
+
+const { post, related } = Astro.props;
+---
+
+<BlogLayout post={post} related={related} />
