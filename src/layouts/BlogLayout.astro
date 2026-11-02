@@ -16,6 +16,7 @@ const dateFormat = new Intl.DateTimeFormat("en-GB", {
 });
 const published = dateFormat.format(post.data.publishedAt);
 const updated = post.data.updatedAt ? dateFormat.format(post.data.updatedAt) : null;
+const linkedinArticle = post.data.category === "LinkedIn thought leadership";
 ---
 
 <BaseLayout
@@ -73,11 +74,11 @@ const updated = post.data.updatedAt ? dateFormat.format(post.data.updatedAt) : n
 
         <section class="blog-end-cta" aria-labelledby="blog-end-cta-title">
           <span class="blog-eyebrow">Put it into practice</span>
-          <h2 id="blog-end-cta-title">Find the signals worth acting on.</h2>
-          <p>We can look at your market, where interest appears today, and what it would take to turn that into qualified sales conversations.</p>
+          <h2 id="blog-end-cta-title">{linkedinArticle ? "Turn content attention into sales conversations." : "Find the signals worth acting on."}</h2>
+          <p>{linkedinArticle ? "We can look at who your content reaches, how you identify useful engagement, and where conversations stall before sales." : "We can look at your market, where interest appears today, and what it would take to turn that into qualified sales conversations."}</p>
           <div class="blog-end-actions">
             <a class="btn btn-accent btn-md" href="/book">Book a GTM session</a>
-            <a class="blog-text-link" href="/signal-based-outbound">Explore signal-based outbound <span aria-hidden="true">→</span></a>
+            <a class="blog-text-link" href={linkedinArticle ? "/linkedin-thoughtleadership" : "/signal-based-outbound"}>{linkedinArticle ? "Explore LinkedIn thought leadership" : "Explore signal-based outbound"} <span aria-hidden="true">→</span></a>
           </div>
         </section>
 
