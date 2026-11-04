@@ -37,7 +37,7 @@ export function pageSchema(path: string, title: string, description: string, art
   ];
   if (path !== "/") {
     const ancestors = [{ name: "Home", item: `${site}/` }];
-    if (path.startsWith("/customer-results/") || path.startsWith("/legacy-case-studies/")) {
+    if (path.startsWith("/customer-results/")) {
       ancestors.push({ name: "Customer Results", item: `${site}/customer-results` });
     }
     if (path.startsWith("/blog/")) {
