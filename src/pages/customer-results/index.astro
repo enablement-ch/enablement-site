@@ -14,78 +14,70 @@ const testimonials = [
     name: "Jascha Goerres",
     role: "Founder",
     company: "WE:Marq",
-    initials: "JG",
+    avatar: "/testimonial-portraits/jascha-goerres.png",
   },
   {
     quote: "The meetings we booked were with our core ICP. They were high-quality meetings, and I had good discussions with those people. The quality was significantly better.",
     name: "Jan-Niklas Frantz",
     role: "Head of Buyer Enablement",
     company: "Emlen",
-    initials: "JF",
+    avatar: "/testimonial-portraits/jan-niklas-frantz.png",
   },
   {
     quote: "We hired Gilbert to support CXECO's sales growth plan and build a robust multichannel outbound channel. His extensive knowledge, commitment and willingness to go the extra mile have been invaluable to our team's sales outreach initiative.",
     name: "Benjamin Reimann",
     role: "Founder",
     company: "CXECO",
-    initials: "BR",
-    avatar: { src: "/reviews/benjamin-reimann-cxeco.png", x: 8, y: 28 },
+    avatar: "/testimonial-portraits/benjamin-reimann.png",
   },
   {
     quote: "Every week someone calls us to offer sales support. With Gilbert it was different. I picked up the phone myself after his message made me curious. He doesn't just present the AI and automation tools, he shows how they work.",
     name: "Martin Benderoth",
     role: "Managing Director",
     company: "we-are-two",
-    initials: "MB",
-    avatar: { src: "/reviews/martin-benderoth-we-are-two.png", x: 20, y: 39 },
+    avatar: "/testimonial-portraits/martin-benderoth.png",
   },
   {
     quote: "Lanny helped us audit our sales process and implement a repeatable go-to-market strategy. We now have repeatable processes to find and contact high-quality prospects. He also has the interpersonal skills to move projects forward and get everyone on board.",
     name: "Daniel Matyas",
     role: "CEO",
     company: "Scale Systems",
-    initials: "DM",
-    avatar: { src: "/reviews/daniel-matyas-scale-systems.png", x: 22, y: 24 },
+    avatar: "/testimonial-portraits/daniel-matyas.png",
   },
   {
     quote: "We worked intensely with Gilbert on our outbound strategy for three months. His knowledge of strategy, content and the technical work impressed us. After three months, our outbound funnel was running and we had our first appointments with potential clients.",
     name: "Martin Bredl",
     role: "Managing Director",
     company: "takeoff",
-    initials: "MB",
-    avatar: { src: "/reviews/martin-bredl-takeoff.png", x: 8, y: 21 },
+    avatar: "/testimonial-portraits/martin-bredl.png",
   },
   {
     quote: "The onboarding was very structured, and the team really took the time to understand our business. Communication was always direct, fast and helpful.",
     name: "Jan Dedersen",
     role: "Co-Founder",
     company: "Prosupo",
-    initials: "JD",
-    avatar: { src: "/reviews/jan-dedersen-prosupo.png", x: 21, y: 20 },
+    avatar: "/testimonial-portraits/jan-dedersen.png",
   },
   {
     quote: "Gilbert's structured, goal-oriented approach helped our lead pipeline enormously. We especially valued his ability to adapt to our needs and deliver tailored solutions. His professionalism and commitment made him a valuable partner.",
     name: "Markus Mayr",
     role: "Sales Manager",
     company: "fruitcore robotics",
-    initials: "MM",
-    avatar: { src: "/reviews/markus-mayr-fruitcore.png", x: 11, y: 19 },
+    avatar: "/testimonial-portraits/markus-mayr.png",
   },
   {
     quote: "With Gilbert's support, we significantly increased both the quality and the number of our outbound leads. His analytical and systematic approach helped us build solid processes to scale outbound sales further.",
     name: "Ben Klein",
     role: "CEO",
     company: "BEE Digital Growth",
-    initials: "BK",
-    avatar: { src: "/reviews/ben-klein-bee-digital-growth.png", x: 15, y: 23 },
+    avatar: "/testimonial-portraits/ben-klein.png",
   },
   {
     quote: "Our expectations for both the quality and quantity of sales-qualified leads were met. The collaboration was marked by transparency, reliability and enjoyment in the work.",
     name: "Bülent Paradiso",
     role: "BDR",
     company: "BEE Digital Growth",
-    initials: "BP",
-    avatar: { src: "/reviews/buelent-paradiso-bee-digital-growth.png", x: 27, y: 17 },
+    avatar: "/testimonial-portraits/buelent-paradiso.png",
   },
   {
     // Source: Scrypt case study deck in Drive, slide 12 (Daniel Matyas).
@@ -93,8 +85,7 @@ const testimonials = [
     name: "Daniel Matyas",
     role: "Founding Partner",
     company: "Scrypt",
-    initials: "DM",
-    avatar: { src: "/reviews/daniel-matyas-scale-systems.png", x: 22, y: 24 },
+    avatar: "/testimonial-portraits/daniel-matyas.png",
   },
 ];
 ---
@@ -140,11 +131,7 @@ const testimonials = [
           <figure class="testimonial-card">
             <blockquote>{review.quote}</blockquote>
             <figcaption>
-              <span class="avatar" aria-hidden="true">
-                {review.avatar
-                  ? <img src={review.avatar.src} alt="" loading="lazy" style={`left: -${review.avatar.x}px; top: -${review.avatar.y}px;`} />
-                  : review.initials}
-              </span>
+              <span class="avatar" aria-hidden="true"><img src={review.avatar} alt="" loading="lazy" /></span>
               <span class="review-person"><strong>{review.name}</strong><span>{review.role} · {review.company}</span></span>
             </figcaption>
           </figure>
@@ -164,8 +151,8 @@ const testimonials = [
   .testimonial-card blockquote::before { content: "“"; color: var(--color-accent); }
   .testimonial-card blockquote::after { content: "”"; color: var(--color-accent); }
   .testimonial-card figcaption { display: flex; gap: 12px; align-items: center; margin-top: auto; }
-  .avatar { position: relative; display: grid; place-items: center; overflow: hidden; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid var(--color-border-strong); border-radius: 50%; color: var(--color-heading); font: 500 .75rem var(--font-mono); }
-  .avatar img { position: absolute; max-width: none; }
+  .avatar { position: relative; display: block; overflow: hidden; flex: 0 0 60px; width: 60px; height: 60px; border: 3px solid var(--color-accent); border-radius: 50%; background: var(--color-surface-raised); }
+  .avatar img { position: absolute; top: 50%; left: 50%; width: 200%; height: auto; max-width: none; transform: translate(-50%, -50%); }
   .review-person { display: grid; gap: 2px; min-width: 0; }
   .review-person strong { color: var(--color-heading); font-size: .95rem; }
   .review-person span { color: var(--color-muted); font-size: .8rem; line-height: 1.45; }
