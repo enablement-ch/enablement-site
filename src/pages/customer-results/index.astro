@@ -7,16 +7,14 @@ import { getCollection } from "astro:content";
 const studies = (await getCollection("caseStudies"))
   .filter((cs) => cs.data.live)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
-const earlierStudies = (await getCollection("caseStudies")).filter((cs) => cs.data.legacy);
 
-const interviewTestimonials = [
+const testimonials = [
   {
     quote: "I especially appreciated the personal support over Slack. Whenever I had a question for Lanny, Gilbert or Pablo, I could reach out by Loom or message. The answers came very quickly, and the team often went beyond the question to help. We now build all our campaigns internally because we have the knowledge to do it.",
     name: "Jascha Goerres",
     role: "Founder",
     company: "WE:Marq",
     initials: "JG",
-    note: "Translated from German and edited from a customer interview",
   },
   {
     quote: "The meetings we booked were with our core ICP. They were high-quality meetings, and I had good discussions with those people. The quality was significantly better.",
@@ -24,19 +22,14 @@ const interviewTestimonials = [
     role: "Head of Buyer Enablement",
     company: "Emlen",
     initials: "JF",
-    note: "Edited from a customer interview",
   },
-];
-
-const linkedinTestimonials = [
   {
     quote: "We hired Gilbert to support CXECO's sales growth plan and build a robust multichannel outbound channel. His extensive knowledge, commitment and willingness to go the extra mile have been invaluable to our team's sales outreach initiative.",
     name: "Benjamin Reimann",
     role: "Founder",
     company: "CXECO",
     initials: "BR",
-    date: "Nov 2023",
-    source: "/reviews/benjamin-reimann-cxeco.png",
+    avatar: { src: "/reviews/benjamin-reimann-cxeco.png", x: 8, y: 28 },
   },
   {
     quote: "Every week someone calls us to offer sales support. With Gilbert it was different. I picked up the phone myself after his message made me curious. He doesn't just present the AI and automation tools, he shows how they work.",
@@ -44,9 +37,7 @@ const linkedinTestimonials = [
     role: "Managing Director",
     company: "we-are-two",
     initials: "MB",
-    date: "Feb 2024",
-    source: "/reviews/martin-benderoth-we-are-two.png",
-    note: "Translated from German",
+    avatar: { src: "/reviews/martin-benderoth-we-are-two.png", x: 20, y: 39 },
   },
   {
     quote: "Lanny helped us audit our sales process and implement a repeatable go-to-market strategy. We now have repeatable processes to find and contact high-quality prospects. He also has the interpersonal skills to move projects forward and get everyone on board.",
@@ -54,9 +45,7 @@ const linkedinTestimonials = [
     role: "CEO",
     company: "Scale Systems",
     initials: "DM",
-    date: "Feb 2023",
-    source: "/reviews/daniel-matyas-scale-systems.png",
-    note: "Review of earlier work with Lanny",
+    avatar: { src: "/reviews/daniel-matyas-scale-systems.png", x: 22, y: 24 },
   },
   {
     quote: "We worked intensely with Gilbert on our outbound strategy for three months. His knowledge of strategy, content and the technical work impressed us. After three months, our outbound funnel was running and we had our first appointments with potential clients.",
@@ -64,8 +53,7 @@ const linkedinTestimonials = [
     role: "Managing Director",
     company: "takeoff",
     initials: "MB",
-    date: "Aug 2022",
-    source: "/reviews/martin-bredl-takeoff.png",
+    avatar: { src: "/reviews/martin-bredl-takeoff.png", x: 8, y: 21 },
   },
   {
     quote: "The onboarding was very structured, and the team really took the time to understand our business. Communication was always direct, fast and helpful.",
@@ -73,19 +61,15 @@ const linkedinTestimonials = [
     role: "Co-Founder",
     company: "Prosupo",
     initials: "JD",
-    date: "Apr 2024",
-    source: "/reviews/jan-dedersen-prosupo.png",
-    note: "Translated from German; review of earlier work with Gilbert at CloseContact",
+    avatar: { src: "/reviews/jan-dedersen-prosupo.png", x: 21, y: 20 },
   },
   {
     quote: "Gilbert's structured, goal-oriented approach helped our lead pipeline enormously. We especially valued his ability to adapt to our needs and deliver tailored solutions. His professionalism and commitment made him a valuable partner.",
     name: "Markus Mayr",
-    role: "Sales Manager at the time of the review",
+    role: "Sales Manager",
     company: "fruitcore robotics",
     initials: "MM",
-    date: "Jun 2024",
-    source: "/reviews/markus-mayr-fruitcore.png",
-    note: "Translated from German",
+    avatar: { src: "/reviews/markus-mayr-fruitcore.png", x: 11, y: 19 },
   },
   {
     quote: "With Gilbert's support, we significantly increased both the quality and the number of our outbound leads. His analytical and systematic approach helped us build solid processes to scale outbound sales further.",
@@ -93,19 +77,24 @@ const linkedinTestimonials = [
     role: "CEO",
     company: "BEE Digital Growth",
     initials: "BK",
-    date: "Jul 2022",
-    source: "/reviews/ben-klein-bee-digital-growth.png",
-    note: "Translated from German",
+    avatar: { src: "/reviews/ben-klein-bee-digital-growth.png", x: 15, y: 23 },
   },
   {
     quote: "Our expectations for both the quality and quantity of sales-qualified leads were met. The collaboration was marked by transparency, reliability and enjoyment in the work.",
     name: "Bülent Paradiso",
-    role: "BDR at the time of the review",
+    role: "BDR",
     company: "BEE Digital Growth",
     initials: "BP",
-    date: "Jul 2022",
-    source: "/reviews/buelent-paradiso-bee-digital-growth.png",
-    note: "Translated from German",
+    avatar: { src: "/reviews/buelent-paradiso-bee-digital-growth.png", x: 27, y: 17 },
+  },
+  {
+    // Source: Scrypt case study deck in Drive, slide 12 (Daniel Matyas).
+    quote: "We knew that our sales process was not efficient and depended too much on the founders. The Enablement Program showed us how to position ourselves clearly and build a sales system that would work without the founders. Within two weeks of the first campaign, we already had 11 highly qualified appointments booked in our calendar. Shortly after, we were able to onboard the first clients.",
+    name: "Daniel Matyas",
+    role: "Founding Partner",
+    company: "Scrypt",
+    initials: "DM",
+    avatar: { src: "/reviews/daniel-matyas-scale-systems.png", x: 22, y: 24 },
   },
 ];
 ---
@@ -136,11 +125,6 @@ const linkedinTestimonials = [
       <div class="case-grid">
         {studies.map((cs) => <CaseStudyCard cs={cs} />)}
       </div>
-      <aside class="earlier-stories" aria-label="Earlier customer stories">
-        <h2>More customer stories</h2>
-        <p>Explore earlier work on outbound, deliverability, and GTM automation.</p>
-        <ul>{earlierStudies.map((cs) => <li><a href={`/legacy-case-studies/${cs.id}`}>{cs.data.company}: {cs.data.result}</a></li>)}</ul>
-      </aside>
     </div>
   </section>
 
@@ -149,40 +133,20 @@ const linkedinTestimonials = [
       <div class="voices-heading">
         <span class="eyebrow">In their words</span>
         <h2 id="customer-voices-title">What clients say about the <span class="italic-accent">work.</span></h2>
-        <p>Results matter. So does the experience of building a system together.</p>
       </div>
 
-      <div class="testimonial-grid interview-grid">
-        {interviewTestimonials.map((review) => (
-          <figure class="testimonial-card interview-card">
-            <span class="review-type">Customer interview</span>
-            <blockquote>{review.quote}</blockquote>
-            <figcaption>
-              <span class="avatar" aria-hidden="true">{review.initials}</span>
-              <span class="review-person"><strong>{review.name}</strong><span>{review.role} · {review.company}</span></span>
-            </figcaption>
-            <p class="review-note">{review.note}</p>
-          </figure>
-        ))}
-      </div>
-
-      <div class="linkedin-heading">
-        <h3>More client feedback on LinkedIn</h3>
-        <p>Public recommendations about working with our founders, including earlier engagements.</p>
-      </div>
-      <div class="testimonial-grid linkedin-grid">
-        {linkedinTestimonials.map((review) => (
+      <div class="testimonial-grid">
+        {testimonials.map((review) => (
           <figure class="testimonial-card">
-            <span class="review-type">LinkedIn recommendation · {review.date}</span>
             <blockquote>{review.quote}</blockquote>
             <figcaption>
-              <span class="avatar" aria-hidden="true">{review.initials}</span>
+              <span class="avatar" aria-hidden="true">
+                {review.avatar
+                  ? <img src={review.avatar.src} alt="" loading="lazy" style={`left: -${review.avatar.x}px; top: -${review.avatar.y}px;`} />
+                  : review.initials}
+              </span>
               <span class="review-person"><strong>{review.name}</strong><span>{review.role} · {review.company}</span></span>
             </figcaption>
-            <div class="review-footer">
-              {review.note && <span class="review-note">{review.note}</span>}
-              <a href={review.source} target="_blank" rel="noopener noreferrer" aria-label={`View original LinkedIn recommendation from ${review.name}`}>View original review <span aria-hidden="true">↗</span></a>
-            </div>
           </figure>
         ))}
       </div>
@@ -191,35 +155,20 @@ const linkedinTestimonials = [
 </BaseLayout>
 
 <style>
-  .earlier-stories { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--color-border); }
-  .earlier-stories h2 { font-size: var(--font-size-h4); margin-bottom: 12px; }
-  .earlier-stories ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; padding: 0; list-style: none; }
-  .earlier-stories a { color: var(--color-body); text-decoration: underline; text-underline-offset: 3px; }
-  .earlier-stories a:hover { color: var(--color-heading); }
-  @media (max-width: 650px) { .earlier-stories ul { grid-template-columns: 1fr; } }
   .customer-voices { background: var(--color-canvas); }
   .voices-heading { max-width: 720px; margin-bottom: 32px; }
   .voices-heading h2 { margin: 12px 0; }
-  .voices-heading p, .linkedin-heading p { color: var(--color-body); line-height: 1.55; }
-  .testimonial-grid { display: grid; gap: 16px; }
-  .interview-grid, .linkedin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .testimonial-card { display: flex; flex-direction: column; min-width: 0; margin: 0; padding: 28px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; }
-  .interview-card { border-top: 2px solid var(--color-accent); }
-  .review-type { font: 500 var(--font-size-eyebrow) var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--color-muted); }
-  .testimonial-card blockquote { margin: 24px 0 28px; color: var(--color-heading); font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; }
+  .testimonial-grid { columns: 3 300px; column-gap: 16px; }
+  .testimonial-card { display: inline-flex; flex-direction: column; width: 100%; break-inside: avoid; margin: 0 0 16px; padding: 28px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; }
+  .testimonial-card blockquote { margin: 0 0 28px; color: var(--color-heading); font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; }
   .testimonial-card blockquote::before { content: "“"; color: var(--color-accent); }
   .testimonial-card blockquote::after { content: "”"; color: var(--color-accent); }
   .testimonial-card figcaption { display: flex; gap: 12px; align-items: center; margin-top: auto; }
-  .avatar { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border: 1px solid var(--color-border-strong); border-radius: 50%; color: var(--color-heading); font: 500 .75rem var(--font-mono); }
+  .avatar { position: relative; display: grid; place-items: center; overflow: hidden; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid var(--color-border-strong); border-radius: 50%; color: var(--color-heading); font: 500 .75rem var(--font-mono); }
+  .avatar img { position: absolute; max-width: none; }
   .review-person { display: grid; gap: 2px; min-width: 0; }
   .review-person strong { color: var(--color-heading); font-size: .95rem; }
-  .review-person span, .review-note { color: var(--color-muted); font-size: .8rem; line-height: 1.45; }
-  .interview-card > .review-note { margin: 16px 0 0; }
-  .linkedin-heading { margin: 56px 0 24px; }
-  .linkedin-heading h3 { margin-bottom: 8px; font-size: var(--font-size-h4); }
-  .review-footer { display: flex; gap: 8px 16px; flex-wrap: wrap; justify-content: space-between; align-items: baseline; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--color-border); }
-  .review-footer a { margin-left: auto; color: var(--color-heading); font-size: .8rem; text-decoration: underline; text-underline-offset: 3px; }
-  .review-footer a:hover { color: var(--color-accent); }
-  .review-footer a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
-  @media (max-width: 760px) { .interview-grid, .linkedin-grid { grid-template-columns: 1fr; } .testimonial-card { padding: 24px; } .linkedin-heading { margin-top: 44px; } }
+  .review-person span { color: var(--color-muted); font-size: .8rem; line-height: 1.45; }
+  @media (max-width: 760px) { .testimonial-grid { columns: 2 270px; } .testimonial-card { padding: 24px; } }
+  @media (max-width: 580px) { .testimonial-grid { columns: 1; } }
 </style>
