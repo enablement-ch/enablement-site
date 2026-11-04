@@ -69,6 +69,11 @@
       "permanent": true
     },
     {
+      "source": "/case-study-variants/:path*",
+      "destination": "/customer-results/condenzero",
+      "permanent": true
+    },
+    {
       "source": "/case-studies/:path*",
       "destination": "/customer-results/:path*",
       "permanent": true
